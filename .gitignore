@@ -1,0 +1,14 @@
+# ambiente e caches
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+
+# gerado localmente (banco, arquivos brutos, importações, backtests; site público é publicado pelo Actions)
+data/
+site/
+
+# USO PESSOAL (Macrodados): nunca no repositório público (D13, D23)
+privado/
+docs/DIARIO.md

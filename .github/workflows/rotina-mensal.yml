@@ -1,0 +1,89 @@
+# Rotina mensal do EconAtlas (D23): só dados abertos. A importação da Macrodados é manual e fica fora daqui.
+# O histórico de commits de registro/ é a prova pública de que nenhuma previsão foi alterada:
+# cada execução só acrescenta linhas, e `registro-verificar` falha se uma linha antiga mudar.
+name: Rotina mensal
+
+on:
+  schedule:
+    - cron: "0 12 12 * *"   # dia 12, 9h de Brasília: depois do IPCA (divulgado por volta do dia 10)
+    - cron: "0 12 20 * *"   # dia 20: segunda passada (PIM-PF ou atrasos); repetir não duplica nada
+  workflow_dispatch: {}      # rodar à mão pela aba Actions
+
+permissions:
+  contents: write            # commit do registro
+  pages: write
+  id-token: write
+
+concurrency:
+  group: rotina-mensal
+  cancel-in-progress: false
+
+jobs:
+  rotina:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"   # mesma versão do Mac (cálculos idênticos); 3.12 também funciona
+          cache: pip
+
+      - name: Dependências
+        run: pip install -r requirements.txt
+
+      - name: Testes
+        run: python -m pytest -q
+
+      - name: Carregar o registro público (banco novo a cada execução)
+        run: python -m econatlas registro-importar
+
+      - name: Baixar dados abertos (BCB, IBGE, Focus)
+        run: python -m econatlas atualizar
+
+      - name: Previsões do mês (IPCA e setor elétrico, IBGE 3.27)
+        run: |
+          python -m econatlas prever
+          python -m econatlas prever-setor
+
+      - name: Backtest do IPCA e calibração das faixas setoriais
+        run: |
+          python -m econatlas backtest
+          python -m econatlas calibrar-setorial
+
+      - name: Acrescentar ao registro e verificar que nada antigo mudou
+        run: |
+          python -m econatlas registro-exportar
+          python -m econatlas registro-verificar --contra HEAD
+
+      - name: Site público
+        run: python -m econatlas publicar
+
+      - name: Commit do registro
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add registro/
+          if git diff --cached --quiet; then
+            echo "Nenhuma previsão nova neste mês."
+          else
+            git commit -m "Registro: rotina mensal de $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  site:
+    needs: rotina
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
