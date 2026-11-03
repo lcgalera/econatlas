@@ -94,3 +94,9 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 - No Mac, `prever-setor --pessoal` registra só CNI/ABIMAQ.
 - Para ver as previsões oficiais no Mac, rodar `git pull` e `econatlas registro-importar`.
 - O `prever` local continua possível, mas um registro feito antes do Actions aparece como divergência em `registro-verificar`.
+
+### D24 · 03/11/2026 · Página do setor elétrico em linguagem simples, com todo número calculado dos dados
+**Motivo:** a página pública é a porta de entrada e muda todo mês. Frases fixas envelheceriam ou contradiriam os dados. Por isso a conclusão, as margens, os ciclos de alta da Selic (do primeiro aumento ao último antes de um corte), o resultado do teste e a lista do que "não ajudou" são todos calculados na hora, a partir das séries abertas, da análise pública e do registro.
+- **Linguagem:** sem jargão no corpo do texto. Os termos técnicos (RMSE, Clark-West, Holm) ficam numa seção recolhível "Para quem quer o método".
+- **Ressalvas na própria página:** associação preditiva não é causalidade, não é recomendação financeira, e a margem de 80% vem acompanhada da cobertura real quando ela fica abaixo de 75%.
+- **Gráficos:** dois gráficos com o tempo sincronizado, em vez de eixo duplo (D5).

@@ -121,7 +121,10 @@ window.addEventListener("resize", () => state.charts.forEach((c) => c.resize()))
  * series: [{name, data:[[x,y]], color:'--var', dashed?, width?}]
  * band:   {lo:[[x,y]], hi:[[x,y]], name}  (intervalo sombreado)
  */
-function drawChart(el, { series, band = null, unit = "", per = "mensal", xType = "time", group = null, xLabel = null }) {
+/**
+ * areas: [{from, to, label}] = períodos sombreados com rótulo curto (ex.: ciclos de alta da Selic)
+ */
+function drawChart(el, { series, band = null, unit = "", per = "mensal", xType = "time", group = null, xLabel = null, areas = null }) {
   const chart = echarts.init(el, null, { renderer: "svg" });
   const ink = css("--ink"), ink2 = css("--ink-2"), ink3 = css("--ink-3"), grid = css("--grid"), rule = css("--rule");
   const allY = series.flatMap((s) => s.data.map((p) => p[1])).filter((v) => v != null);
@@ -134,10 +137,18 @@ function drawChart(el, { series, band = null, unit = "", per = "mensal", xType =
       lineStyle: { opacity: 0 }, areaStyle: { color: css("--band") }, silent: true, z: 1, tooltip: { show: false } });
   }
   series.forEach((s) => eSeries.push({
-    name: s.name, type: "line", data: s.data, showSymbol: xType === "category", symbolSize: 7, symbol: "circle",
+    name: s.name, type: "line", data: s.data, showSymbol: xType === "category" || !!s.symbols, symbolSize: s.symbols ? 8 : 7, symbol: "circle",
     lineStyle: { width: s.width || 2, color: css(s.color), type: s.dashed ? [5, 4] : "solid" },
     itemStyle: { color: css(s.color), borderColor: css("--bg"), borderWidth: 2 }, z: 3,
   }));
+  if (areas && areas.length) {
+    const first = eSeries.find((s) => s.name);  // a primeira série com dados carrega os sombreados
+    first.markArea = {
+      silent: true, itemStyle: { color: css("--tint") },
+      label: { show: true, position: "insideTop", color: css("--ink-3"), fontSize: 10, fontFamily: "IBM Plex Sans" },
+      data: areas.map((a) => [{ xAxis: a.from, name: a.label }, { xAxis: a.to }]),
+    };
+  }
   if (hasNeg && xType === "time") {
     eSeries.push({ type: "line", data: [], markLine: { silent: true, symbol: "none", label: { show: false }, lineStyle: { color: ink3, type: "solid", width: 1 }, data: [{ yAxis: 0 }] } });
   }
@@ -207,6 +218,12 @@ function lede(kicker, title, standfirst, dateline = "") {
   return `<header class="lede"><p class="kicker">${kicker}</p><h1>${title}</h1><p class="standfirst">${standfirst}</p>${dateline ? `<div class="dateline">${dateline}</div>` : ""}</header>`;
 }
 
+const destaqueSetor = () => `
+    <a class="destaque" href="#/setor-eletrico">
+      <span class="kicker" style="margin:0">Leitura do mês</span>
+      <span class="destaque-t">Setor elétrico: o que os juros indicam para os próximos 3 a 6 meses →</span>
+    </a>`;
+
 function pageHome() {
   const by = Object.fromEntries(state.catalog.map((s) => [s.id, s]));
   const snap = [["ipca_12m", "IPCA em 12 meses"], ["selic_meta", "Meta Selic"], ["desocupacao", "Desocupação"], ["cambio_usd", "Dólar, média mensal"]]
@@ -218,6 +235,7 @@ function pageHome() {
   $app.innerHTML = `
     ${lede("Inteligência econômica", "Dados econômicos com origem, data e método à vista",
       "Cada número mostra de onde veio, quando foi coletado e que cálculo foi aplicado. Módulos ainda sem dados aparecem como em preparação; nada aqui é simulado.")}
+    ${destaqueSetor()}
     <div class="snapshot">${snap}</div>
     <section class="sec">
       <div class="sec-head"><h2>Módulos</h2></div>
@@ -257,7 +275,7 @@ function pagePlanned(id) {
   const imported = state.catalog.filter((s) => s.modulo === MOD_KEY[id]);
   $app.innerHTML = `
     ${lede(`Módulo ${m.num}`, m.nome, m.desc)}
-    ${id === "setorial" ? `<div id="prev-setorial"></div><div id="analise"></div>` : ""}
+    ${id === "setorial" ? `${destaqueSetor()}<div id="prev-setorial"></div><div id="analise"></div>` : ""}
     ${importedSection(imported)}
     <section class="sec prose">
       <p><span class="flag muted">Em preparação</span>. ${imported.length
@@ -443,6 +461,182 @@ async function sectorAnalysis() {
   };
   renderOne(list[0]);
   onTabs("alvo", (v) => renderOne(list.find((a) => a.setor === v)));
+}
+
+/* ---------- Setor elétrico em linguagem simples (só dados abertos) ---------- */
+const REPO_URL = "https://github.com/lcgalera/econatlas";
+const addMonths = (iso, k) => { const [y, m] = iso.split("-").map(Number); const d = new Date(Date.UTC(y, m - 1 + k, 1)); return d.toISOString().slice(0, 10); };
+const NOMES_SIMPLES = {  // candidatos da análise, em português corrente
+  "ibcbr_sa|100·ln(x(t)/x(t−12))": "a atividade econômica geral (IBC-Br)",
+  "cambio_usd|100·ln(x(t)/x(t−12))": "o câmbio",
+  "concessoes_pj_real|100·ln(x(t)/x(t−12))": "o volume de novos empréstimos às empresas",
+  "credito_pj_saldo_real|100·ln(x(t)/x(t−12))": "o estoque de crédito das empresas",
+  "juro_real_exante|nível": "o nível do juro real",
+};
+
+async function pageSetorEletrico() {
+  const SETOR = "eletrico_pim";
+  const [prod, meta, selic12, analises, prev] = await Promise.all([
+    api("/api/series/pim_eletricos?transform=nivel"),
+    api("/api/series/selic_meta?transform=nivel"),
+    api("/api/series/selic_mensal?transform=diff_anual"),
+    api("/api/analises/setores"),
+    api("/api/previsoes/setoriais"),
+  ]);
+  // produção: variação em 12 meses (100·ln), a mesma medida do modelo
+  const lv = Object.fromEntries(prod.dados);
+  const yoy = prod.dados.map(([d, v]) => [d, lv[addMonths(d, -12)]]).filter(([, b]) => b)
+    .map(([d, b]) => [d, 100 * Math.log(lv[d] / b)]);
+  const [dObs, vObs] = yoy[yoy.length - 1];
+  // meta Selic no fim de cada mês e ciclos de alta (do primeiro aumento ao último antes de um corte)
+  const metaM = {};
+  meta.dados.forEach(([d, v]) => { metaM[d.slice(0, 7)] = v; });
+  const meses = Object.keys(metaM).sort();
+  const ciclos = [];
+  let cur = null;
+  meses.forEach((m, i) => {
+    if (!i) return;
+    const delta = metaM[m] - metaM[meses[i - 1]];
+    if (delta > 0) { cur = cur || { inicio: m, de: metaM[meses[i - 1]] }; cur.fim = m; cur.ate = metaM[m]; }
+    if (delta < 0 && cur) { ciclos.push(cur); cur = null; }
+  });
+  if (cur) ciclos.push({ ...cur, emCurso: true });
+  const ciclosVis = ciclos.filter((c) => c.fim >= "2008-01");
+  // previsões registradas mais recentes (modelo com juros e base), 3 e 6 meses
+  const regs = prev.registro.filter((r) => r.setor === SETOR);
+  const origem = regs.filter((r) => r.horizonte > 0).map((r) => r.origem).sort().pop();
+  // a Selic do texto é a do mês da origem, a mesma que o modelo usou (o mês corrente do SGS 4189 ainda é parcial)
+  const [dSel, vSel] = selic12.dados.filter(([d]) => !origem || d <= origem).pop() || selic12.dados[selic12.dados.length - 1];
+  const get = (h, m) => regs.find((r) => r.origem === origem && r.horizonte === h && r.modelo === m);
+  const j3 = get(3, "juros"), j6 = get(6, "juros"), b3 = get(3, "base"), b6 = get(6, "base");
+  // resultado da análise (só candidatos de séries públicas)
+  const a = analises.find((x) => x.setor === SETOR);
+  const publica = (id) => state.catalog.some((s) => s.id === id && s.uso === "publico");
+  const cands = (a?.candidatos || []).filter((c) => c.fora_da_amostra && (c.series_base || [c.id]).every(publica));
+  const ok = (o) => o && o.p_holm < 0.05 && o.razao_rmse < 1 && o.razao_rmse_sem_pandemia < 1;
+  const selic = cands.find((c) => c.id === "selic_mensal" && c.rodada === 1);
+  const s3 = selic?.fora_da_amostra["3"], s6 = selic?.fora_da_amostra["6"];
+  const naoAjudou = cands.filter((c) => !["3", "6"].some((h) => ok(c.fora_da_amostra[h])))
+    .map((c) => NOMES_SIMPLES[`${c.id}|${c.transformacao}`]).filter(Boolean);
+  const avaliadas = regs.filter((r) => r.realizado != null).length;
+  const cal = prev.calibracao?.setores?.[SETOR];
+  const covs = cal ? ["juros_h3", "juros_h6"].map((k) => cal[k]?.cobertura80).filter((x) => x != null) : [];
+
+  // frases
+  const pct = (v) => `${fmtNum(Math.abs(v), 1)}%`;
+  const menos = (r) => `${fmtNum(Math.abs(r - 1) * 100, 0)}%`;
+  const tend = (v) => (v >= 1 ? `crescer cerca de ${pct(v)}` : v <= -1 ? `cair cerca de ${pct(v)}` : "ficar perto da estabilidade");
+  const selicTxt = Math.abs(vSel) < 0.25 ? "Com a Selic praticamente no mesmo nível de um ano atrás"
+    : `Com a Selic ${fmtNum(Math.abs(vSel), 2)} ponto${Math.abs(vSel) >= 2 ? "s" : ""} percentua${Math.abs(vSel) >= 2 ? "is" : "l"} ${vSel < 0 ? "abaixo" : "acima"} de um ano atrás`;
+  const conclusao = j3 && j6
+    ? `${selicTxt}, a tendência para a produção de máquinas e materiais elétricos é ${tend(j3.valor)} em ${fmtDate(j3.alvo, "mensal")} e ${tend(j6.valor)} em ${fmtDate(j6.alvo, "mensal")}, na comparação com o mesmo mês do ano anterior.`
+    : "Ainda não há previsão registrada para este setor.";
+  const faixa = (r) => (r?.lo80 != null ? `entre ${r.lo80 < 0 ? "−" : "+"}${pct(r.lo80)} e ${r.hi80 < 0 ? "−" : "+"}${pct(r.hi80)}` : "");
+
+  $app.innerHTML = `
+    ${lede(`<a href="#/setorial">Radar Setorial</a> · leitura do mês`, "Setor elétrico: o que os juros indicam", esc(conclusao),
+      `Produção: IBGE, dados até ${fmtDate(dObs, "mensal")} · Selic: Banco Central, até ${fmtDate(dSel, "mensal")} · previsão registrada em ${j3 ? fmtTs(j3.registrado_em) : "–"}`)}
+
+    <section class="sec prose">
+      <div class="sec-head"><h2>Em poucas palavras</h2></div>
+      <p>Em ${fmtDate(dObs, "mensal")}, a produção de máquinas, aparelhos e materiais elétricos no Brasil estava
+        <b>${vObs >= 0 ? pct(vObs) + " acima" : pct(vObs) + " abaixo"}</b> do mesmo mês do ano anterior.
+        ${selicTxt.replace("Com a Selic", "A taxa Selic está")}.</p>
+      ${j3 && j6 ? `<p>Para os próximos meses, o modelo aponta:</p>
+      <ul>
+        <li><b>${fmtDate(j3.alvo, "mensal")}</b>: ${tend(j3.valor)}. A margem provável é ${faixa(j3)}.</li>
+        <li><b>${fmtDate(j6.alvo, "mensal")}</b>: ${tend(j6.valor)}. A margem provável é ${faixa(j6)}.</li>
+      </ul>
+      ${covs.length && Math.min(...covs) < 0.75 ? `<p>Um alerta sobre essa margem: no passado, o resultado real caiu fora dela mais vezes do que deveria
+        (ficou dentro em ${covs.map((c) => fmtNum(c * 100, 0) + "%").join(" e ")} dos casos, quando o esperado eram 80%). Trate a margem como o mínimo de incerteza, não o máximo.</p>` : ""}
+      <p>Sem levar os juros em conta, as projeções seriam ${b3.valor < 0 ? "−" : "+"}${pct(b3.valor)} e ${b6.valor < 0 ? "−" : "+"}${pct(b6.valor)}.
+        A diferença é pequena e a margem é larga, porque a produção do setor oscila muito de um ano para outro:
+        os juros indicam a direção mais provável, não um número exato.</p>` : ""}
+      <p>A ideia por trás: quando os juros sobem, empréstimos ficam mais caros e empresas adiam investimentos em equipamentos e obras.
+        O efeito costuma aparecer na produção do setor alguns meses depois. Quando os juros caem, acontece o contrário.
+        Essa é uma explicação provável, não algo que os dados provem sozinhos.</p>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><h2>Produção do setor e ciclos de alta dos juros</h2></div>
+      <figure class="fig">
+        <p class="fig-title">Produção de máquinas, aparelhos e materiais elétricos</p>
+        <p class="fig-sub">variação em relação ao mesmo mês do ano anterior, % · faixas cinza: períodos em que o Banco Central subia a Selic</p>
+        ${legendHtml([{ name: "Produção observada", color: "--ink-2" }, { name: "Previsão com juros (pontos: 3 e 6 meses à frente)", color: "--series-1", dashed: true }, { name: "Margem provável (80%)", color: "--band" }])}
+        <div id="se-prod" class="chart"></div>
+      </figure>
+      <figure class="fig">
+        <p class="fig-title">Taxa Selic definida pelo Banco Central</p>
+        <p class="fig-sub">% ao ano, fim de cada mês</p>
+        <div id="se-selic" class="chart sm"></div>
+        <p class="source">Fontes: IBGE, Produção Física Industrial (SIDRA 8888, seção 3.27); Banco Central, meta Selic (SGS 432).
+        Ciclos de alta sombreados: ${ciclosVis.map((c) => `${fmtDate(c.inicio + "-01", "mensal")} a ${fmtDate(c.fim + "-01", "mensal")} (${fmtNum(c.de, 2)}% → ${fmtNum(c.ate, 2)}%${c.emCurso ? ", sem corte desde então" : ""})`).join("; ")}.</p>
+      </figure>
+    </section>
+
+    <section class="sec prose">
+      <div class="sec-head"><h2>O resultado principal</h2></div>
+      ${s3 && s6 ? `<p>Testamos a ideia do jeito mais exigente que conseguimos: refizemos as previsões mês a mês desde 2016,
+        cada uma usando só os dados que existiam naquela data, e comparamos duas versões, uma que olha só o histórico do setor
+        e outra que também olha quanto a Selic mudou em 12 meses.</p>
+      <p>A versão com os juros <b>errou ${menos(s3.razao_rmse)} menos</b> nas previsões para 3 meses à frente e
+        <b>${menos(s6.razao_rmse)} menos</b> nas previsões para 6 meses.
+        Tirando o período da pandemia, que distorce tudo, a melhora fica em ${menos(s3.razao_rmse_sem_pandemia)} e ${menos(s6.razao_rmse_sem_pandemia)}.
+        ${ok(s3) && ok(s6) ? "Nos dois casos a melhora passou nos testes estatísticos." : "A melhora não passou em todos os testes estatísticos, por isso deve ser lida com cautela."}</p>` : ""}
+      ${naoAjudou.length ? `<p>Também testamos ${naoAjudou.join(", ").replace(/, ([^,]*)$/, " e $1")}. Nenhum deles ajudou a antecipar a produção do setor.</p>` : ""}
+      <p>Cada previsão publicada aqui fica gravada num registro público que só aceita acréscimos: ninguém consegue mudar uma previsão depois.
+        Até agora são ${regs.length} previsões registradas, ${avaliadas ? `${avaliadas} já conferidas com o dado real` : "nenhuma ainda conferida com o dado real (a primeira será em " + fmtDate(regs.map((r) => r.alvo).sort()[0], "mensal") + ")"}.
+        <a href="${REPO_URL}/blob/main/registro/previsoes_setoriais.csv" target="_blank" rel="noopener">Ver o registro</a>.</p>
+      <p class="aside"><b>Atenção.</b> O fato de os juros ajudarem a prever a produção não prova que eles a causam: outras coisas podem mover as duas juntas.
+        Este conteúdo é uma análise estatística com fins informativos e <b>não é recomendação financeira, de investimento ou de compra de qualquer ativo</b>.</p>
+    </section>
+
+    <section class="sec">
+      <details class="metodo">
+        <summary><h2 style="display:inline">Para quem quer o método</h2></summary>
+        <div class="prose" style="margin-top:12px">
+          <p><b>Variável prevista.</b> Variação em 12 meses da produção física de máquinas, aparelhos e materiais elétricos
+            (IBGE, PIM-PF, SIDRA tabela 8888, variável 12606, seção CNAE 3.27), medida como 100·ln(x(t)/x(t−12)), que é praticamente igual à variação percentual para valores pequenos.</p>
+          <p><b>Modelos</b> (especificação <code>${esc(prev.especificacao?.id || "")}</code>, fixada antes da primeira previsão; mudanças viram uma especificação nova):</p>
+          <ul>
+            <li>base: <code>${esc(prev.modelos.base)}</code></li>
+            <li>com juros: <code>${esc(prev.modelos.juros)}</code>, em que ΔSelic12m é a variação em 12 meses da Selic acumulada no mês, anualizada (SGS 4189).</li>
+          </ul>
+          <p><b>Tempo real.</b> A origem t é o último mês publicado pelo IBGE mais 2 meses (defasagem de divulgação assumida). Cada previsão usa só dados publicados até a origem;
+            os modelos são reestimados por mínimos quadrados a cada origem, em janela expansiva.</p>
+          ${s3 && s6 ? `<p><b>Avaliação fora da amostra</b> (origens de ${a.inicio_avaliacao.slice(0, 7)} em diante): RMSE do modelo com juros ÷ RMSE do base =
+            ${fmtNum(s3.razao_rmse, 3)} a 3 meses e ${fmtNum(s6.razao_rmse, 3)} a 6 meses (${fmtNum(s3.razao_rmse_sem_pandemia, 3)} e ${fmtNum(s6.razao_rmse_sem_pandemia, 3)} excluindo mar/2020–dez/2021).
+            Teste de Clark-West para modelos aninhados, erro-padrão Newey-West, p-valores ajustados por Holm dentro da família de ${a.n_testes} testes:
+            ${fmtNum(s3.p_holm, 3)} e ${fmtNum(s6.p_holm, 3)}. Um indicador só conta como ganho com p ajustado &lt; 0,05 e erro menor no total e sem a pandemia.</p>` : ""}
+          <p><b>Faixa de 80%.</b> Percentis 10 e 90 dos erros fora da amostra já conhecidos em cada origem.
+            ${covs.length ? `No backtest, conteve o valor realizado em ${covs.map((c) => fmtNum(c * 100, 0) + "%").join(" e ")} das vezes (3 e 6 meses).` : ""}</p>
+          <p><b>Ciclos de alta da Selic.</b> Do primeiro aumento da meta (SGS 432, fim de mês) até o último aumento antes do primeiro corte.</p>
+          <p><b>Limitações.</b> Uma única série-alvo; associação preditiva, não causalidade; usa a versão atual dos dados (revisões passadas não são reproduzidas);
+            defasagens de divulgação são premissas. Esta versão pública usa apenas dados abertos.</p>
+          <p>Código, dados e registro: <a href="${REPO_URL}" target="_blank" rel="noopener">${REPO_URL.replace("https://", "")}</a>.</p>
+        </div>
+      </details>
+    </section>`;
+
+  // gráficos: produção (com ciclos e previsão) e Selic, com o eixo do tempo sincronizado
+  const inicio = "2008-01-01";
+  const obs = yoy.filter(([d]) => d >= inicio);
+  const ult = obs[obs.length - 1];
+  const fj = [j3, j6].filter(Boolean);
+  const areas = ciclosVis.map((c) => ({ from: (c.inicio < "2008-01" ? "2008-01" : c.inicio) + "-01", to: addMonths(c.fim + "-01", 1), label: "Selic sobe" }));
+  drawChart(document.getElementById("se-prod"), {
+    unit: "%", group: "setor-eletrico", areas,
+    series: [
+      { name: "Produção (variação em 12 meses)", data: obs, color: "--ink-2", width: 1.25 },
+      ...(fj.length ? [{ name: "Previsão com juros", data: [ult, ...fj.map((r) => [r.alvo, r.valor])], color: "--series-1", dashed: true, width: 2.5, symbols: true }] : []),
+    ],
+    band: fj.length && fj.every((r) => r.lo80 != null) ? { name: "Margem provável (80%)", lo: fj.map((r) => [r.alvo, r.lo80]), hi: fj.map((r) => [r.alvo, r.hi80]) } : null,
+  });
+  const fimX = fj.length ? fj[fj.length - 1].alvo : ult[0];
+  drawChart(document.getElementById("se-selic"), {
+    unit: "% a.a.", group: "setor-eletrico", areas,
+    series: [{ name: "Meta Selic", data: [...meses.filter((m) => m >= "2008-01").map((m) => [m + "-01", metaM[m]]), [fimX, null]], color: "--series-2", width: 1.5 }],
+  });
 }
 
 /* ---------- Radar Brasil ---------- */
@@ -856,7 +1050,7 @@ async function route() {
   disposeCharts();
   const [, page, arg] = (location.hash || "#/").split("/");
   const serieMod = page === "serie" && state.catalog ? state.catalog.find((s) => s.id === decodeURIComponent(arg))?.modulo : null;
-  const active = page === "serie" ? (MOD_ROUTE[serieMod] || "radar") : page;
+  const active = page === "serie" ? (MOD_ROUTE[serieMod] || "radar") : page === "setor-eletrico" ? "setorial" : page;
   document.querySelectorAll("[data-mod]").forEach((a) => a.classList.toggle("active", a.dataset.mod === active));
   try {
     if (!state.catalog) {
@@ -868,6 +1062,7 @@ async function route() {
     else if (page === "serie") await pageSerie(decodeURIComponent(arg));
     else if (page === "forecast") await pageForecast();
     else if (page === "qualidade") await pageQualidade();
+    else if (page === "setor-eletrico") await pageSetorEletrico();
     else if (page === "setorial") { pagePlanned(page); await Promise.all([sectorForecasts(), sectorAnalysis()]); }
     else if (page === "mundo") pagePlanned(page);
     else pageHome();

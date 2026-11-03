@@ -17,6 +17,7 @@
   --series-3: #1baf7a;
   --series-4: #eda100;
   --band: rgba(42, 120, 214, .12);
+  --tint: rgba(20, 20, 19, .06);
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -40,6 +41,7 @@
     --series-3: #199e70;
     --series-4: #c98500;
     --band: rgba(57, 135, 229, .18);
+    --tint: rgba(238, 237, 233, .07);
   }
 }
 :root[data-theme="dark"] {
@@ -60,6 +62,7 @@
   --series-3: #199e70;
   --series-4: #c98500;
   --band: rgba(57, 135, 229, .18);
+  --tint: rgba(238, 237, 233, .07);
 }
 
 * { box-sizing: border-box; }
@@ -207,6 +210,15 @@ dl.meta-list { display: grid; grid-template-columns: 200px 1fr; margin: 0; font-
 dl.meta-list dt { color: var(--ink-3); padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); }
 dl.meta-list dd { margin: 0; padding: 8px 0; border-bottom: 1px solid var(--rule); }
 .cols { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; }
+
+/* ---------- destaque e método ---------- */
+.destaque { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.destaque-t { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--ink); }
+.destaque:hover .destaque-t { color: var(--accent); }
+details.metodo > summary { cursor: pointer; list-style: none; }
+details.metodo > summary::-webkit-details-marker { display: none; }
+details.metodo > summary::after { content: " +"; font-family: var(--serif); font-size: 22px; color: var(--ink-3); }
+details.metodo[open] > summary::after { content: " −"; }
 
 /* ---------- início ---------- */
 .snapshot { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
