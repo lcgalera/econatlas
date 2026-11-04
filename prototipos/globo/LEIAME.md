@@ -4,8 +4,11 @@ Abra `index.html` no navegador (precisa de internet para as bibliotecas e de Web
 
 **O que funciona:** globo que gira sozinho; arrastar para girar e rolar para aproximar; passar o mouse mostra o nome; clicar num país (ou buscar pelo nome)
 dá zoom nele e abre o painel. Fecha com "Voltar ao mundo", com o × ou com Esc. Cada país tem link direto (`index.html#China`).
-No computador, o painel fica à direita e a câmera mira ao lado, para o país aparecer na área livre; no celular, o painel vira uma gaveta embaixo.
-Brasil em verde, os 20 países do protótipo em âmbar e o resto em azul.
+A tela é dividida: o globo à esquerda e, à direita, um resumo fixo (comércio do Brasil no ano, 5 maiores parceiros clicáveis, manchetes em alta
+no mundo). Ao clicar num país, o painel dele abre por cima do resumo e o globo encolhe para a área livre; no celular, o resumo e o painel
+viram gavetas embaixo e o globo fica em cima. Começa com o Brasil de frente, gira devagar, e "Voltar ao mundo" volta para o Brasil.
+O planeta usa a imagem de satélite Blue Marble (NASA, domínio público) com mapa de relevo, servidas pelo pacote `three-globe@2.45.6` (MIT);
+os países são camadas translúcidas por cima: Brasil em verde, os 20 países do protótipo em azul-acinzentado, o selecionado em branco.
 
 **O que não é real ainda:** nenhum número, manchete ou texto do painel. Os blocos mostram só de onde cada coisa vai vir:
 Comex Stat (relação comercial com o Brasil), Banco Mundial e FMI (economia), GDELT e feeds RSS (manchetes, só título + veículo + link)
@@ -16,6 +19,7 @@ Singapura ficou de fora porque não aparece no mapa nesta escala.
 
 **Bibliotecas** (fixadas por versão, via jsDelivr): `globe.gl@2.46.2` (MIT), `topojson-client@3.1.0` (ISC) e
 `world-atlas@2.0.2` (ISC; contornos do Natural Earth 1:110m, domínio público).
+Texturas: `three-globe@2.45.6/example/img/earth-blue-marble.jpg` e `earth-topology.png`.
 
 **Testado** em Chromium sem tela (WebGL por software), em 1280×800 e 390×844: carrega o globo, abre por busca e por clique,
 troca as abas, fecha com Esc e não tem rolagem horizontal no celular.
