@@ -10,7 +10,7 @@ from typing import Dict, List, Optional
 
 from .. import config
 from . import bancomundial, comex, conflitos, gdelt, omc, onu
-from .paises import PAISES
+from .paises import MENCOES, PAISES, citados
 
 SAIDA = config.ROOT / "prototipos" / "globo" / "dados"
 BRUTOS = config.DATA_DIR / "fontes" / "mundo"
@@ -227,17 +227,19 @@ def noticias(saida: Path = SAIDA, log=print, dias: int = 7, por_lote: int = 7, u
         out["paises"][p["iso_num"]] = gdelt.juntar(antes.get("paises", {}).get(p["iso_num"], []), novas[p["iso_num"]], desde)
         log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}")
     globais = [m for m in itens if m["categorias"] and ("afeta_o_mundo" in m["categorias"] or "geopolitica" in m["categorias"])]
-    out["mundo"] = gdelt.juntar(antes.get("mundo", []), globais, (agora - timedelta(days=2)).strftime("%Y%m%d"))
+    out["mundo"] = gdelt.juntar(antes.get("mundo", []), globais, (agora - timedelta(days=2)).strftime("%Y%m%d"), maximo=100)
     _recategorizar(out)
     _gravar(saida, "noticias", out)
     return out
 
 
 def _recategorizar(n: dict) -> None:
-    """A regra de categorias pode mudar: aplica a atual a todas as manchetes guardadas, não só às novas."""
+    """A regra de categorias (e a de países citados, D44) pode mudar: aplica a atual a todas as manchetes guardadas."""
     for lista in list(n.get("paises", {}).values()) + [n.get("mundo", [])]:
         for m in lista:
             m["categorias"] = gdelt.categorias(m.get("titulo", ""))
+            m["paises"] = citados(m.get("titulo", ""))
+    n["nomes"] = {p["iso_num"]: p["nome"] for p in PAISES + MENCOES}  # para o mapa nomear quem a manchete cita
     n["mundo"] = [m for m in n.get("mundo", []) if {"afeta_o_mundo", "geopolitica"} & set(m["categorias"])]
 
 

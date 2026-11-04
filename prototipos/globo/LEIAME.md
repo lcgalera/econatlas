@@ -49,3 +49,4 @@ o que funciona também abrindo o arquivo direto no computador.
 - As manchetes são classificadas por palavras-chave no título (`rotzx/mundo/gdelt.py`), e isso pode errar.
 - O workflow `.github/workflows/globo.yml` atualiza as manchetes todo dia e o comércio, os votos na ONU, as disputas na OMC e os conflitos armados todo dia 15.
 - Não há nota de relação "boa" ou "ruim": o painel mostra sinais medidos, cada um com a fonte (D42).
+- Manchetes (D44): em cima, os assuntos cobertos por mais veículos (agrupados pelas palavras do título); embaixo, o resto por dia, com a hora de Brasília. Cada manchete é marcada com os países que o título cita, e o globo pinta os países por número de manchetes (camada "Notícias"). Tudo automático, pode errar, e a página avisa.

@@ -16,6 +16,10 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -24,7 +28,11 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076",
+     "840"
+    ]
    },
    {
     "titulo": "Derrota de Trump pode enfraquecer o tarifaço? Entenda os impactos para Brasil e outros países",
@@ -34,6 +42,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -44,6 +55,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -54,6 +68,10 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -62,7 +80,10 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
@@ -72,6 +93,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -82,6 +106,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -92,6 +119,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -100,7 +130,10 @@
     "veiculo": "g1 Economia",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Brasil segue na liderança do ranking de juros reais após manutenção da Selic",
@@ -110,6 +143,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -118,7 +154,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261104",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "M&As no Brasil crescem 31% em valor, mas caem na mesma proporção em número de operações",
@@ -126,7 +165,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261104",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Brasil registra pior setembro na criação de empregos formais desde o início da série histórica, diz Caged",
@@ -136,6 +178,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -146,6 +191,11 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "156",
+     "840"
     ]
    },
    {
@@ -154,7 +204,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261104",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Brasil cria 121,3 mil postos de trabalho em setembro, aponta Caged",
@@ -162,7 +215,10 @@
     "veiculo": "Agência Brasil Economia",
     "data": "20261104",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Felipe Sousa-Lazaballet se torna o primeiro brasileiro eleito para o Legislativo da Flórida",
@@ -170,7 +226,10 @@
     "veiculo": "RFI Brasil",
     "data": "20261104",
     "dominio": "www.rfi.fr",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Tarifaço: Brasil deve receber proposta dos EUA entre esta semana e a próxima, diz ministro",
@@ -181,6 +240,10 @@
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -189,7 +252,10 @@
     "veiculo": "g1 Economia",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Veja motivos que fazem conta de luz no Brasil ser mais cara do que a de outros países com o mesmo perfil de geração de energia",
@@ -197,7 +263,10 @@
     "veiculo": "g1 Economia",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Democrata se torna primeiro brasileiro eleito deputado estadual na Flórida",
@@ -205,7 +274,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Justiça proíbe Meta de usar reportagens para treinar IA no Brasil",
@@ -215,6 +287,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -226,6 +301,10 @@
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -236,6 +315,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -246,6 +328,10 @@
     "dominio": "www.dw.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -256,6 +342,9 @@
     "dominio": "www.dw.com",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -264,7 +353,10 @@
     "veiculo": "Agência Brasil Economia",
     "data": "20261103",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Site e aplicativo do Banco do Brasil apresentam instabilidade",
@@ -272,7 +364,10 @@
     "veiculo": "Agência Brasil Economia",
     "data": "20261103",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Midterms nos EUA: eleições podem mudar planos de Trump e mexer com dólar e juros no Brasil",
@@ -283,6 +378,10 @@
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    }
   ],
@@ -295,6 +394,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "156"
     ]
    },
    {
@@ -305,6 +407,10 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "156",
+     "840"
     ]
    },
    {
@@ -315,6 +421,11 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "156",
+     "840"
     ]
    },
    {
@@ -323,7 +434,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261104",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156"
+    ]
    },
    {
     "titulo": "Crescimento de serviços da China desacelera para mínima em três meses",
@@ -331,7 +445,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261104",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156"
+    ]
    },
    {
     "titulo": "Toyota, GM, VW e mais fábricas pedem banimento permanente de carros chineses nos Estados Unidos",
@@ -339,7 +456,11 @@
     "veiculo": "g1 Economia",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156",
+     "840"
+    ]
    },
    {
     "titulo": "Honda City 2027 muda pouco e não baixa preços para enfrentar os chineses; veja o teste",
@@ -349,6 +470,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "156"
     ]
    },
    {
@@ -357,7 +481,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156"
+    ]
    },
    {
     "titulo": "Compras agrícolas da China nos EUA vão ao menor nível em 7 anos apesar de acordo comercial",
@@ -365,7 +492,11 @@
     "veiculo": "g1 Economia",
     "data": "20261102",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156",
+     "840"
+    ]
    }
   ],
   "840": [
@@ -375,7 +506,10 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
    },
    {
     "titulo": "Filha de comerciantes eleita deputada nos EUA cresceu vendo caminhonete do pai virar palanque em MT",
@@ -383,7 +517,10 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
    },
    {
     "titulo": "Vitória dos democratas no Congresso dos EUA vai colocar fim à Doutrina Donroe?",
@@ -393,6 +530,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -403,6 +543,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -413,6 +556,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -423,6 +569,10 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -433,6 +583,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -443,6 +596,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -453,6 +609,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -461,7 +620,11 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076",
+     "840"
+    ]
    },
    {
     "titulo": "Eleições nos EUA: tsunami democrata derrota domínio republicano e apoio milionário de Musk em estados conservadores",
@@ -471,6 +634,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -481,6 +647,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -492,6 +661,10 @@
     "categorias": [
      "economia",
      "geopolitica"
+    ],
+    "paises": [
+     "840",
+     "364"
     ]
    },
    {
@@ -502,6 +675,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -512,6 +688,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -522,6 +701,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -532,6 +714,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -540,7 +725,10 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
    },
    {
     "titulo": "Eleições nos EUA 2026: acompanhe os resultados para o Senado",
@@ -550,6 +738,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -560,6 +751,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -570,6 +764,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -580,6 +777,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -590,6 +790,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -600,6 +803,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -610,6 +816,10 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -620,6 +830,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -630,6 +843,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -640,6 +856,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -650,6 +869,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -660,6 +882,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    }
   ],
@@ -672,6 +897,10 @@
     "dominio": "www.rfi.fr",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "032",
+     "724"
     ]
    },
    {
@@ -682,6 +911,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "032"
     ]
    },
    {
@@ -690,7 +922,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "032"
+    ]
    },
    {
     "titulo": "'Lulazo' é aula para derrotar Milei em 2027, diz oposição na Argentina",
@@ -700,6 +935,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "032"
     ]
    },
    {
@@ -708,7 +946,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261031",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "032"
+    ]
    }
   ],
   "528": [],
@@ -721,6 +962,10 @@
     "dominio": "www.rfi.fr",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "032",
+     "724"
     ]
    },
    {
@@ -731,6 +976,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "724"
     ]
    },
    {
@@ -741,6 +989,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "724"
     ]
    },
    {
@@ -751,6 +1002,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "724"
     ]
    },
    {
@@ -761,6 +1015,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "724"
     ]
    },
    {
@@ -769,7 +1026,10 @@
     "veiculo": "BBC News Brasil",
     "data": "20261103",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "724"
+    ]
    },
    {
     "titulo": "Espanha identifica 12 estrangeiros entre mortos em acidente de trens; 2 são latinos",
@@ -777,7 +1037,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261101",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "724"
+    ]
    }
   ],
   "276": [
@@ -787,7 +1050,11 @@
     "veiculo": "RFI Brasil",
     "data": "20261104",
     "dominio": "www.rfi.fr",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276",
+     "804"
+    ]
    },
    {
     "titulo": "Alemanha e Romênia relatam ataques hackers a supermercados; sobe para 11 o número de países atingidos",
@@ -797,6 +1064,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -805,7 +1075,10 @@
     "veiculo": "DW Brasil",
     "data": "20261103",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Merz defende que Alemanha tenha primeira presidente mulher",
@@ -815,6 +1088,9 @@
     "dominio": "www.dw.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -825,6 +1101,9 @@
     "dominio": "www.dw.com",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -833,7 +1112,10 @@
     "veiculo": "DW Brasil",
     "data": "20261102",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Por que os alemães não pagam rodadas de cerveja para a mesa toda",
@@ -841,7 +1123,10 @@
     "veiculo": "BBC News Brasil",
     "data": "20261101",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Cão salsichinha: um símbolo alemão que virou ícone cultural",
@@ -849,7 +1134,10 @@
     "veiculo": "DW Brasil",
     "data": "20261101",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Manifestação da Geração Z agita a Alemanha: “Só queremos que nos ouçam”",
@@ -857,7 +1145,10 @@
     "veiculo": "DW Brasil",
     "data": "20261101",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Governo alemão aposta em economia high tech para conter avanço da ultradireita na Alemanha",
@@ -868,6 +1159,9 @@
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -878,6 +1172,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -886,7 +1183,10 @@
     "veiculo": "DW Brasil",
     "data": "20261030",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    }
   ],
   "484": [
@@ -896,7 +1196,10 @@
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "484"
+    ]
    },
    {
     "titulo": "Quem é Gina Hinojosa, democrata de ascendência mexicana que será 1ª latina a governar o Texas",
@@ -904,7 +1207,10 @@
     "veiculo": "BBC News Brasil",
     "data": "20261104",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "484"
+    ]
    }
   ],
   "152": [
@@ -916,6 +1222,10 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "152",
+     "826"
     ]
    }
   ],
@@ -926,7 +1236,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "392"
+    ]
    }
   ],
   "356": [
@@ -936,7 +1249,10 @@
     "veiculo": "Folha Mercado",
     "data": "20261104",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "356"
+    ]
    },
    {
     "titulo": "Acidente com dois helicópteros no Everest mata turista indiano no Nepal",
@@ -944,7 +1260,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "356"
+    ]
    }
   ],
   "380": [
@@ -956,6 +1275,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "380"
     ]
    }
   ],
@@ -967,7 +1289,11 @@
     "veiculo": "g1 Mundo",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "124",
+     "376"
+    ]
    },
    {
     "titulo": "A luta para salvar cidade canadense ameaçada pelas tarifas de Trump",
@@ -977,6 +1303,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "124"
     ]
    }
   ],
@@ -987,7 +1316,11 @@
     "veiculo": "RFI Brasil",
     "data": "20261104",
     "dominio": "www.rfi.fr",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840",
+     "250"
+    ]
    },
    {
     "titulo": "França investiga ataque cibernético contra câmaras frias de banco de sangue",
@@ -997,6 +1330,9 @@
     "dominio": "www.rfi.fr",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "250"
     ]
    },
    {
@@ -1007,6 +1343,9 @@
     "dominio": "www.rfi.fr",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "250"
     ]
    },
    {
@@ -1018,6 +1357,9 @@
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "250"
     ]
    }
   ],
@@ -1030,6 +1372,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1040,6 +1385,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1050,6 +1398,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1058,7 +1409,10 @@
     "veiculo": "BBC News Brasil",
     "data": "20261104",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "600"
+    ]
    },
    {
     "titulo": "Presidente do BC paraguaio renuncia após crise financeira no Ueno Bank",
@@ -1068,6 +1422,9 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1078,6 +1435,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1086,7 +1446,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261101",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "600"
+    ]
    }
   ],
   "643": [
@@ -1098,6 +1461,11 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840",
+     "643",
+     "804"
     ]
    },
    {
@@ -1108,6 +1476,10 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "643",
+     "804"
     ]
    },
    {
@@ -1116,7 +1488,12 @@
     "veiculo": "g1 Mundo",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840",
+     "643",
+     "804"
+    ]
    },
    {
     "titulo": "Ataque russo contra escola na Ucrânia deixa 31 mortos; Zelensky acusa Rússia de bombardeio duplo",
@@ -1126,6 +1503,10 @@
     "dominio": "g1.globo.com",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "643",
+     "804"
     ]
    },
    {
@@ -1134,7 +1515,11 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "643",
+     "804"
+    ]
    },
    {
     "titulo": "Em livro de memórias, Merkel revela bastidores da relação com Putin, Trump e Obama",
@@ -1142,7 +1527,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261102",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "643"
+    ]
    }
   ],
   "682": [],
@@ -1153,7 +1541,10 @@
     "veiculo": "g1 Mundo",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "826"
+    ]
    },
    {
     "titulo": "Rei Charles 3º diz sentir 'horror' da escravidão durante discurso em ex-colônia britânica",
@@ -1161,7 +1552,10 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "826"
+    ]
    },
    {
     "titulo": "Ataques cibernéticos com IA devem se tornar rotina até 2028, diz agência britânica",
@@ -1171,6 +1565,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "826"
     ]
    },
    {
@@ -1181,6 +1578,10 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "152",
+     "826"
     ]
    }
   ],
@@ -1191,7 +1592,10 @@
     "veiculo": "Agência Brasil Internacional",
     "data": "20261103",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "170"
+    ]
    }
   ],
   "858": []
@@ -1213,6 +1617,9 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1223,6 +1630,9 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1234,6 +1644,9 @@
    "categorias": [
     "politica",
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1244,7 +1657,8 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "De guerra no Irã a regras para IA: o que a vitória democrata pode mudar na economia dos EUA",
@@ -1255,6 +1669,10 @@
    "categorias": [
     "economia",
     "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "364"
    ]
   },
   {
@@ -1265,6 +1683,9 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "afeta_o_mundo"
+   ],
+   "paises": [
+    "076"
    ]
   },
   {
@@ -1275,6 +1696,9 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1286,6 +1710,9 @@
    "categorias": [
     "politica",
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1297,6 +1724,10 @@
    "categorias": [
     "politica",
     "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "364"
    ]
   },
   {
@@ -1307,7 +1738,8 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "Vitória democrata nos EUA pode favorecer mercados emergentes, mas efeito depende de cenário fiscal",
@@ -1318,6 +1750,9 @@
    "categorias": [
     "economia",
     "afeta_o_mundo"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1328,7 +1763,8 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "afeta_o_mundo"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "O que é o zeptoverso descoberto por cientistas, mundo 100 bilhões de vezes menor que um átomo",
@@ -1338,7 +1774,8 @@
    "dominio": "www.bbc.com",
    "categorias": [
     "afeta_o_mundo"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "Trump admite que guerra no Irã contribuiu para derrota republicana",
@@ -1348,6 +1785,9 @@
    "dominio": "www.dw.com",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1359,6 +1799,9 @@
    "categorias": [
     "economia",
     "geopolitica"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1369,6 +1812,9 @@
    "dominio": "www.rfi.fr",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1379,7 +1825,8 @@
    "dominio": "www.rfi.fr",
    "categorias": [
     "afeta_o_mundo"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "Aos 80 anos, Unesco enfrenta guerras que transformam patrimônio cultural em alvo estratégico",
@@ -1389,7 +1836,8 @@
    "dominio": "www.rfi.fr",
    "categorias": [
     "geopolitica"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "França investiga ataque cibernético contra câmaras frias de banco de sangue",
@@ -1399,6 +1847,9 @@
    "dominio": "www.rfi.fr",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "250"
    ]
   },
   {
@@ -1409,6 +1860,10 @@
    "dominio": "www.rfi.fr",
    "categorias": [
     "afeta_o_mundo"
+   ],
+   "paises": [
+    "032",
+    "724"
    ]
   },
   {
@@ -1419,6 +1874,9 @@
    "dominio": "www.rfi.fr",
    "categorias": [
     "afeta_o_mundo"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1430,7 +1888,8 @@
    "categorias": [
     "economia",
     "afeta_o_mundo"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "Vance se distancia de Trump, atribui derrota nas midterms à guerra no Irã e admite perda de eleitores",
@@ -1440,6 +1899,9 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1450,6 +1912,10 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "643",
+    "804"
    ]
   },
   {
@@ -1461,6 +1927,10 @@
    "categorias": [
     "economia",
     "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "364"
    ]
   },
   {
@@ -1471,6 +1941,9 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1481,6 +1954,10 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "643",
+    "804"
    ]
   },
   {
@@ -1492,6 +1969,11 @@
    "categorias": [
     "politica",
     "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "376",
+    "275"
    ]
   },
   {
@@ -1504,6 +1986,9 @@
     "economia",
     "politica",
     "afeta_o_mundo"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1514,7 +1999,67 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "826"
    ]
   }
- ]
+ ],
+ "nomes": {
+  "076": "Brasil",
+  "156": "China",
+  "840": "Estados Unidos",
+  "032": "Argentina",
+  "528": "Países Baixos",
+  "724": "Espanha",
+  "276": "Alemanha",
+  "484": "México",
+  "152": "Chile",
+  "392": "Japão",
+  "356": "Índia",
+  "380": "Itália",
+  "410": "Coreia do Sul",
+  "124": "Canadá",
+  "250": "França",
+  "600": "Paraguai",
+  "643": "Rússia",
+  "682": "Arábia Saudita",
+  "826": "Reino Unido",
+  "170": "Colômbia",
+  "858": "Uruguai",
+  "364": "Irã",
+  "376": "Israel",
+  "804": "Ucrânia",
+  "275": "Palestina",
+  "862": "Venezuela",
+  "422": "Líbano",
+  "760": "Síria",
+  "408": "Coreia do Norte",
+  "158": "Taiwan",
+  "792": "Turquia",
+  "586": "Paquistão",
+  "004": "Afeganistão",
+  "192": "Cuba",
+  "068": "Bolívia",
+  "604": "Peru",
+  "218": "Equador",
+  "818": "Egito",
+  "729": "Sudão",
+  "566": "Nigéria",
+  "710": "África do Sul",
+  "620": "Portugal",
+  "616": "Polônia",
+  "368": "Iraque",
+  "887": "Iêmen",
+  "036": "Austrália",
+  "360": "Indonésia",
+  "304": "Groenlândia",
+  "208": "Dinamarca",
+  "332": "Haiti",
+  "591": "Panamá",
+  "104": "Mianmar",
+  "180": "Rep. Dem. do Congo",
+  "231": "Etiópia",
+  "706": "Somália"
+ }
 }

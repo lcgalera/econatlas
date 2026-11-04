@@ -72,6 +72,7 @@
   .zoom button + button { border-top: 1px solid var(--rule-2); }
   .zoom button:hover { color: var(--ink); background: rgba(255,255,255,.05); }
   .legenda { position: absolute; left: 26px; bottom: 22px; z-index: 3; display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+  .legenda > span { display: block; }
   .legenda i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 7px; vertical-align: -1px; }
 
   /* lista de países (alternativa ao globo) */
@@ -115,6 +116,38 @@
   .nada p { margin: 0 0 20px; color: var(--ink-2); max-width: 46ch; }
   .botao { padding: 10px 16px; border-radius: 6px; border: 1px solid var(--accent-2); background: rgba(95,174,142,.12); cursor: pointer; font-size: 14px; }
   .botao:hover { background: rgba(95,174,142,.2); }
+  /* organização das manchetes (D44): onde, assuntos mais cobertos, linha do tempo */
+  .onde { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 14px 36px 0; font-size: 12.5px; color: var(--muted); }
+  .onde button { padding: 4px 10px; border-radius: 4px; border: 1px solid var(--rule); background: transparent; cursor: pointer; font-size: 13px; color: var(--ink-2); }
+  .onde button small { color: var(--muted); margin-left: 5px; }
+  .onde button[aria-pressed="true"] { border-color: var(--accent-2); color: var(--ink); background: rgba(95,174,142,.14); }
+  .assuntos { display: grid; gap: 12px; margin: 6px 0 8px; }
+  .assunto { border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; background: rgba(255,255,255,.015); }
+  .assunto .meta { font: 500 11px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .assunto .meta span { color: var(--muted); }
+  .assunto > a { display: block; margin: 8px 0 4px; text-decoration: none; font: 500 20px/1.3 "Source Serif 4", Georgia, serif; }
+  .assunto > a:hover { color: var(--accent); }
+  .assunto .por { font-size: 12.5px; color: var(--muted); }
+  .assunto ul { list-style: none; margin: 10px 0 0; padding: 10px 0 0; border-top: 1px solid var(--rule); display: grid; gap: 6px; }
+  .assunto li { font-size: 13.5px; color: var(--ink-2); }
+  .assunto li a { text-decoration: none; } .assunto li a:hover { color: var(--accent); }
+  .assunto li b { font-weight: 500; color: var(--muted); }
+  .assunto details summary { cursor: pointer; margin-top: 8px; font-size: 12.5px; color: var(--muted); list-style: none; }
+  .assunto details summary::-webkit-details-marker { display: none; }
+  .assunto details summary:hover { color: var(--ink); }
+  .dia { margin: 22px 0 0; padding-bottom: 6px; border-bottom: 1px solid var(--rule-2); }
+  .tempo { list-style: none; margin: 0; padding: 0; }
+  .tempo li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
+  .tempo a, .assunto a { overflow-wrap: anywhere; }
+  .tempo time { font: 500 12px/1.9 "IBM Plex Mono", monospace; color: var(--muted); }
+  .tempo a { text-decoration: none; font: 500 16.5px/1.35 "Source Serif 4", Georgia, serif; }
+  .tempo a:hover { color: var(--accent); }
+  .tempo span { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
+  .camadas { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--rule-2); border-radius: 6px; background: rgba(9,13,18,.6); margin-bottom: 8px; width: max-content; }
+  .camadas button { border: 0; background: transparent; padding: 4px 9px; border-radius: 4px; font-size: 12px; color: var(--muted); cursor: pointer; }
+  .camadas button[aria-pressed="true"] { background: rgba(255,255,255,.08); color: var(--ink); }
+  .escala-calor { width: 150px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, rgba(170,215,240,.15), rgba(170,215,240,.85)); }
+  .legenda .calor { display: none; } body.calor .legenda .calor { display: grid; gap: 4px; } body.calor .legenda .dados { display: none; }
   .rodape { display: flex; align-items: center; gap: 9px; padding: 22px 36px 30px; font-size: 12.5px; color: var(--muted); }
 
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
@@ -190,7 +223,7 @@
     .marca span { display: none; }
     .estado { order: 3; width: 100%; }
     .busca input { width: 170px; }
-    .quadro { margin: 12px 16px 24px; grid-template-columns: 1fr; height: auto; }
+    .quadro { margin: 12px 16px 24px; grid-template-columns: minmax(0, 1fr); height: auto; }
     .lado-globo { height: 56vh; min-height: 360px; border-right: 0; border-bottom: 1px solid var(--rule); }
     .lado-texto { overflow: visible; }
     .pane-topo { padding: 14px 14px; }
@@ -205,6 +238,9 @@
     .abas-topo { gap: 20px; overflow-x: auto; }
     .abas-topo button { white-space: nowrap; }
     .corpo { padding: 6px 18px; } .rodape { padding: 18px 18px 24px; }
+    .onde { margin-left: 18px; margin-right: 18px; }
+    .tempo li { grid-template-columns: 40px minmax(0, 1fr); gap: 10px; }
+    .assunto { padding: 14px; } .assunto > a { font-size: 18px; }
     .painel header { position: relative; padding: 22px 18px 14px; } .painel h2 { font-size: 30px; }
     .fechar { top: 20px; right: 16px; }
     .bloco { padding: 20px 18px; } .nota { padding: 16px 18px 24px; }
@@ -237,9 +273,14 @@
         <button type="button" data-modo="lista" aria-pressed="false">Lista<span class="longo"> de países</span></button>
       </div>
     </div>
-    <div class="legenda" aria-hidden="true">
-      <span><i style="background:var(--base-solid)"></i>Brasil</span>
-      <span><i style="background:var(--focus-solid)"></i>Com dados (20 países)</span>
+    <div class="legenda">
+      <div class="camadas" role="group" aria-label="O que o globo destaca">
+        <button type="button" data-camada="noticias" aria-pressed="true">Notícias</button>
+        <button type="button" data-camada="dados" aria-pressed="false">Países com dados</button>
+      </div>
+      <span class="dados"><span><i style="background:var(--base-solid)"></i>Brasil</span></span>
+      <span class="dados"><span><i style="background:var(--focus-solid)"></i>Com dados (20 países)</span></span>
+      <span class="calor"><span>Manchetes que citam o país, na aba aberta</span><span class="escala-calor"></span><span>menos → mais</span></span>
     </div>
     <div class="zoom"><button type="button" id="mais" aria-label="Aproximar">+</button><button type="button" id="menos" aria-label="Afastar">−</button></div>
     <div class="erro" id="erro"><div><b>Não foi possível carregar o globo.</b><br>Seu navegador precisa de WebGL. Use a lista de países ou tente outro navegador.</div></div>
@@ -289,10 +330,21 @@ const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $painel = document.getElementById("painel"), $voltar = document.getElementById("voltar");
 
 let globo, paises = [], selecionado = null, sobre = null;
-const nomeDe = (f) => FOCO[f.id]?.nome || f.properties.name;  // fora do protótipo: nome em inglês do mapa
+const nomeDe = (f) => FOCO[f.id]?.nome || N?.nomes?.[f.id] || f.properties.name;  // fora do protótipo: nome em inglês do mapa
 
+// Mapa de calor das manchetes (D44): quantas manchetes da aba aberta citam cada país (por iso_num do mapa).
+let calor = null, camada = "noticias";
+function corCalor(n) {
+  const max = Math.max(...Object.values(calor));
+  return `rgba(170,215,240,${(0.16 + 0.66 * Math.sqrt(n / max)).toFixed(3)})`;
+}
 function cor(f) {
   if (f === selecionado) return css("--sel");
+  if (camada === "noticias" && calor && Object.keys(calor).length) {
+    const n = calor[f.id] || 0;
+    if (f === sobre) return n ? "rgba(205,232,248,.92)" : css("--land-hover");
+    return n ? corCalor(n) : "rgba(10,16,28,.22)";
+  }
   const foco = FOCO[f.id];
   if (f === sobre) return foco ? (foco.base ? css("--base-hover") : css("--focus-hover")) : css("--land-hover");
   return foco ? (foco.base ? css("--base") : css("--focus")) : css("--land");
@@ -497,8 +549,13 @@ function painelPais(f) {
       ${rodape}`;
   }
   if (!foco) {
+    // sem dados de comércio, mas com as manchetes já coletadas que citam o país no título (D44)
+    const vistas = new Set(), cit = [];
+    [N?.mundo || [], ...Object.values(N?.paises || {})].flat().forEach((m) => { if ((m.paises || []).includes(f.id) && !vistas.has(m.url)) { vistas.add(m.url); cit.push(m); } });
+    cit.sort((a, b) => quandoM(b).localeCompare(quandoM(a)));
     return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Fora do protótipo</div><h2>${esc(nome)}</h2>
-      <p class="sub">Este país entra depois dos 20 do protótipo.</p></header><div class="bloco">${vazio("Sem dados no protótipo.")}</div>${rodape}`;
+      <p class="sub">Sem dados de comércio e economia por enquanto${cit.length ? "; abaixo, as manchetes coletadas que citam o país" : ""}.</p></header>
+      ${cit.length ? blocoManchetes(cit, "Manchetes", "manchetes em português que citam o país no título, entre as já coletadas") : `<div class="bloco">${vazio("Nenhuma manchete coletada cita este país.")}</div>`}${rodape}`;
   }
   return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Visto do Brasil</div><h2>${esc(nome)}</h2>
     <p class="sub">Relação com o Brasil, economia e o que está acontecendo.</p></header>
@@ -534,20 +591,92 @@ const FILTROS = [["todas", "Todas"], ...Object.entries(NOMES_CAT)];
 
 function listaDaAba() { return aba === "brasil" ? (N?.paises?.["076"] || []) : (N?.mundo || []); }
 
+// ---- Organização das manchetes (D44) ----
+// Assuntos: manchetes que dividem palavras do título (e países citados) viram um grupo. É automático e pode errar;
+// o grupo mostra as palavras em comum para dar para conferir. Nada é resumido nem reescrito: só título, veículo e link.
+const PARADAS = new Set(("para pelo pela pelos pelas como mais menos sobre após apos entre contra diz dizem será serão está estão foram "
+  + "isso essa esse esta este qual quais quando onde porque porquê pode podem deve devem também ainda depois antes desde até "
+  + "seus suas novo nova novos novas anos dias hoje ontem veja entenda saiba após sendo tem têm teve fazer faz feito vai vão "
+  + "muito muita muitos muitas outro outra outros outras mesmo mesma cada todo toda todos todas grande grandes primeiro primeira "
+  + "governo presidente país países mundo brasil brasileiro brasileira").split(" "));
+function palavras(m) {
+  const t = (m.titulo || "").toLowerCase().normalize("NFC").split(/[^a-zà-ÿ0-9]+/).filter((w) => w.length >= 4 && !PARADAS.has(w));
+  return new Set([...t, ...(m.paises || []).filter((p) => p !== "076").map((p) => "#" + p)]);
+}
+function agrupar(lista) {
+  const grupos = [];
+  for (const m of lista) {
+    const w = palavras(m);
+    let melhor = null, nota = 0;
+    for (const g of grupos) {
+      const iguais = [...w].filter((x) => g.base.has(x));
+      const s = iguais.length / Math.min(w.size, g.base.size || 1);
+      // pelo menos 2 palavras em comum além dos países citados: "EUA" + "guerra" sozinhos juntavam assuntos diferentes
+      if (iguais.filter((x) => !x.startsWith("#")).length >= 2 && s >= 0.3 && s > nota) { melhor = g; nota = s; }
+    }
+    if (melhor) { melhor.itens.push(m); if (melhor.itens.length <= 3) w.forEach((x) => melhor.base.add(x)); }
+    else grupos.push({ itens: [m], base: new Set(w) });
+  }
+  for (const g of grupos) {
+    const conta = {};
+    g.itens.forEach((m) => palavras(m).forEach((x) => (conta[x] = (conta[x] || 0) + 1)));
+    g.comuns = Object.entries(conta).filter(([, n]) => n >= Math.max(2, Math.ceil(g.itens.length / 2))).sort((a, b) => b[1] - a[1])
+      .map(([x]) => (x.startsWith("#") ? (N?.nomes?.[x.slice(1)] || "") : x)).filter(Boolean).slice(0, 4);
+    g.veiculos = new Set(g.itens.map((m) => m.veiculo)).size;
+  }
+  return grupos;
+}
+
+let paisFiltro = null;
+const quandoM = (m) => (m.data || "") + (m.hora || "");
+function nomeIso(id) { return FOCO[id]?.nome || N?.nomes?.[id] || id; }
+
 function corpoManchetes() {
-  const todas = [...listaDaAba()].sort((a, b) => (b.data || "").localeCompare(a.data || ""));
-  const l = filtro === "todas" ? todas : todas.filter((m) => m.categorias.includes(filtro));
+  const todas = [...listaDaAba()].sort((a, b) => quandoM(b).localeCompare(quandoM(a)));
+  const porCat = filtro === "todas" ? todas : todas.filter((m) => m.categorias.includes(filtro));
   const conta = (k) => (k === "todas" ? todas.length : todas.filter((m) => m.categorias.includes(k)).length);
+  // onde: países citados nas manchetes da categoria escolhida (o Brasil fica de fora na aba "No Brasil", em que todas o citam)
+  calor = {};
+  porCat.forEach((m) => (m.paises || []).forEach((p) => { if (!(aba === "brasil" && p === "076")) calor[p] = (calor[p] || 0) + 1; }));
+  if (paisFiltro && !calor[paisFiltro]) paisFiltro = null;
+  const l = paisFiltro ? porCat.filter((m) => (m.paises || []).includes(paisFiltro)) : porCat;
+  const onde = Object.entries(calor).sort((a, b) => b[1] - a[1]).slice(0, 8);
   const janela = aba === "brasil" ? "7 dias" : "2 dias";
-  const corpo = l.length
-    ? `<ul class="manchetes">${l.slice(0, 15).map((m) => `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a>
-        <span>${esc(m.veiculo)} · ${dataBR(m.data)}${m.categorias.length ? " · " + m.categorias.map((c) => NOMES_CAT[c]).join(", ") : ""}</span></li>`).join("")}</ul>`
-    : `<div class="nada"><h3>Nada nesta seleção</h3>
-        <p>Nenhuma manchete${filtro === "todas" ? "" : " de " + NOMES_CAT[filtro].toLowerCase()} nos últimos ${janela}. Isso não quer dizer que nada aconteceu:
-        a coleta lê só os títulos de nove veículos em português.</p>${filtro === "todas" ? "" : `<button class="botao" type="button" data-limpar>Ver todas</button>`}</div>`;
+
+  let corpo;
+  if (!l.length) {
+    corpo = `<div class="nada"><h3>Nada nesta seleção</h3>
+      <p>Nenhuma manchete${filtro === "todas" ? "" : " de " + NOMES_CAT[filtro].toLowerCase()} nos últimos ${janela}. Isso não quer dizer que nada aconteceu:
+      a coleta lê só os títulos de nove veículos em português.</p>${filtro === "todas" ? "" : `<button class="botao" type="button" data-limpar>Ver todas</button>`}</div>`;
+  } else {
+    // 1 + 2: os assuntos cobertos por mais veículos diferentes vão para o topo (critério: número de veículos, não opinião)
+    const grupos = agrupar(l);
+    const topo = grupos.filter((g) => g.veiculos >= 2).sort((a, b) => b.veiculos - a.veiculos || b.itens.length - a.itens.length
+      || quandoM(b.itens[0]).localeCompare(quandoM(a.itens[0]))).slice(0, 4);
+    const noTopo = new Set(topo.flatMap((g) => g.itens));
+    const linha = (m) => `<li><b>${esc(m.veiculo)}</b> · <a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a></li>`;
+    const assuntos = topo.length ? `<div class="kicker" style="margin:18px 0 10px">Assuntos mais cobertos</div><div class="assuntos">${topo.map((g) => {
+      const [p, ...resto] = g.itens;
+      return `<article class="assunto"><div class="meta">${g.veiculos} veículos · ${g.itens.length} manchetes${g.comuns.length ? ` <span>· em comum: ${g.comuns.map(esc).join(", ")}</span>` : ""}</div>
+        <a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.titulo)}</a><div class="por">${esc(p.veiculo)} · ${dataBR(p.data)}${p.hora ? " · " + esc(p.hora) : ""}</div>
+        ${resto.length ? `<ul>${resto.slice(0, 2).map(linha).join("")}</ul>` : ""}
+        ${resto.length > 2 ? `<details><summary>+ ${resto.length - 2} manchete${resto.length - 2 > 1 ? "s" : ""} sobre o assunto</summary><ul>${resto.slice(2).map(linha).join("")}</ul></details>` : ""}</article>`;
+    }).join("")}</div>` : "";
+    // 3: o resto em linha do tempo, por dia
+    const hoje = new Date(), d8 = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+    const ontem = new Date(hoje); ontem.setDate(hoje.getDate() - 1);
+    const rotuloDia = (d) => (d === d8(hoje) ? "Hoje" : d === d8(ontem) ? "Ontem" : "") + (d ? (d === d8(hoje) || d === d8(ontem) ? " · " : "") + `${d.slice(6, 8)}/${d.slice(4, 6)}` : "Sem data");
+    const dias = {};
+    l.filter((m) => !noTopo.has(m)).forEach((m) => (dias[m.data || ""] = dias[m.data || ""] || []).push(m));
+    const tempo = Object.keys(dias).sort().reverse().map((d) => `<div class="kicker dia">${rotuloDia(d)}</div><ul class="tempo">${dias[d].slice(0, 20).map((m) => `<li>
+        <time>${esc(m.hora || "")}</time><div><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a>
+        <span>${esc(m.veiculo)}${m.categorias.length ? " · " + m.categorias.map((c) => NOMES_CAT[c]).join(", ") : ""}${(m.paises || []).length ? " · " + m.paises.filter((x) => !(aba === "brasil" && x === "076")).map(nomeIso).map(esc).join(", ") : ""}</span></div></li>`).join("")}</ul>`).join("");
+    corpo = assuntos + (tempo ? `<div class="kicker" style="margin:22px 0 0">${topo.length ? "Outras manchetes" : "Linha do tempo"}</div>${tempo}` : "");
+  }
   return `<div class="filtros" role="group" aria-label="Categorias">${FILTROS.map(([k, r]) => `<button type="button" data-filtro="${k}" aria-pressed="${k === filtro}">${esc(r)}<small>${conta(k)}</small></button>`).join("")}</div>
-    <p class="regra">Mais recentes primeiro, sem ranking de importância. ${aba === "brasil" ? "Manchetes que citam o Brasil no título." : "Geopolítica e temas que afetam o mundo."}
-      Categorias por palavras-chave no título; podem errar.</p>
+    ${onde.length ? `<div class="onde" role="group" aria-label="Países citados"><span>Onde:</span>${onde.map(([id, n]) => `<button type="button" data-onde="${id}" aria-pressed="${id === paisFiltro}">${esc(nomeIso(id))}<small>${n}</small></button>`).join("")}</div>` : ""}
+    <p class="regra">${aba === "brasil" ? "Manchetes que citam o Brasil no título." : "Geopolítica e temas que afetam o mundo."} Em cima, os assuntos cobertos por mais veículos;
+      embaixo, o resto por dia, mais recentes primeiro. Assuntos, categorias e países são marcados automaticamente pelas palavras do título e podem errar.</p>
     <div class="corpo">${corpo}</div>`;
 }
 
@@ -584,9 +713,12 @@ function renderResumo() {
   $r.innerHTML = `<div class="cab"><div class="kicker">Seu ponto de partida</div><h2>Mundo agora</h2>
       <p class="sub">O que está acontecendo e como chega ao Brasil. Clique num país para ver a relação dele com o Brasil.</p></div>
     <div class="abas-topo" role="tablist">${ABAS_RESUMO.map(([k, r]) => `<button type="button" role="tab" data-aba="${k}" aria-selected="${k === aba}">${esc(r)}</button>`).join("")}</div>
-    ${aba === "comercio" ? corpoComercio() : aba === "conflitos" ? corpoConflitos() : corpoManchetes()}
+    ${aba === "comercio" ? (calor = null, corpoComercio()) : aba === "conflitos" ? (calor = null, corpoConflitos()) : corpoManchetes()}
     <div class="rodape"><i class="ponto${N ? "" : " aviso"}"></i>${N ? `Última coleta de manchetes: ${hora(N.gerado_em)}` : "Nenhuma coleta de manchetes carregada"} · imagem do planeta: Blue Marble (NASA)</div>`;
-  $r.querySelectorAll("[data-aba]").forEach((b) => (b.onclick = () => { aba = b.dataset.aba; filtro = "todas"; renderResumo(); }));
+  $r.querySelectorAll("[data-aba]").forEach((b) => (b.onclick = () => { aba = b.dataset.aba; filtro = "todas"; paisFiltro = null; renderResumo(); }));
+  $r.querySelectorAll("[data-onde]").forEach((b) => (b.onclick = () => { paisFiltro = paisFiltro === b.dataset.onde ? null : b.dataset.onde; renderResumo(); }));
+  document.body.classList.toggle("calor", camada === "noticias" && !!calor && Object.keys(calor).length > 0);
+  if (globo) globo.polygonCapColor(cor);
   $r.querySelectorAll("[data-filtro]").forEach((b) => (b.onclick = () => { filtro = b.dataset.filtro; renderResumo(); }));
   $r.querySelectorAll("[data-limpar]").forEach((b) => (b.onclick = () => { filtro = "todas"; renderResumo(); }));
   $r.querySelectorAll(".parceiros button[data-id]").forEach((bt) => (bt.onclick = () => {
@@ -632,7 +764,8 @@ function abrir(f) {
 function renderPainel(f) {
   $painel.innerHTML = painelPais(f);
   $painel.querySelector(".fechar").onclick = mundo;
-  const lista = FOCO[f.id]?.base ? (N?.mundo || []) : (N?.paises?.[f.id] || []);
+  const lista = FOCO[f.id]?.base ? (N?.mundo || []) : FOCO[f.id] ? (N?.paises?.[f.id] || [])
+    : [...new Map([N?.mundo || [], ...Object.values(N?.paises || {})].flat().filter((m) => (m.paises || []).includes(f.id)).map((m) => [m.url, m])).values()];
   $painel.querySelectorAll(".abas button").forEach((b) => (b.onclick = () => {
     $painel.querySelectorAll(".abas button").forEach((x) => x.setAttribute("aria-selected", x === b));
     b.closest(".bloco").querySelector(".aba-corpo").innerHTML = listaManchetes(lista, b.dataset.aba);
@@ -705,7 +838,8 @@ function iniciar(atlas) {
     .polygonStrokeColor(() => css("--stroke"))
     .polygonAltitude(0.006)
     .polygonsTransitionDuration(reduzir ? 0 : 300)
-    .polygonLabel((f) => `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${FOCO[f.id] ? "clique para abrir" : "fora do protótipo"}</span></div>`)
+    .polygonLabel((f) => `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${camada === "noticias" && calor
+      ? `${calor[f.id] || 0} manchete${calor[f.id] === 1 ? "" : "s"} na aba aberta · ` : ""}${FOCO[f.id] ? "clique para abrir" : "fora do protótipo"}</span></div>`)
     .onPolygonHover((f) => { sobre = f; globo.polygonCapColor(cor); el.style.cursor = f ? "pointer" : "grab"; })
     .onPolygonClick((f) => abrir(f));
   tingir();
@@ -715,6 +849,7 @@ function iniciar(atlas) {
   addEventListener("resize", ajustar);
   if (window.ResizeObserver) new ResizeObserver(ajustar).observe(el);
   ajustar();
+  globo.polygonCapColor(cor);
 }
 
 function ligar() {
@@ -729,6 +864,11 @@ function ligar() {
   });
   $voltar.onclick = mundo;
   document.querySelectorAll(".modos button").forEach((b) => (b.onclick = () => modo(b.dataset.modo)));
+  document.querySelectorAll(".camadas button").forEach((b) => (b.onclick = () => {
+    camada = b.dataset.camada;
+    document.querySelectorAll(".camadas button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    renderResumo();
+  }));
   document.getElementById("mais").onclick = () => zoom(0.75);
   document.getElementById("menos").onclick = () => zoom(1.33);
   addEventListener("keydown", (e) => { if (e.key === "Escape" && selecionado) mundo(); });

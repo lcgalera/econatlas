@@ -9,6 +9,7 @@ import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from typing import Dict, List, Tuple
 
@@ -27,18 +28,32 @@ FEEDS = [  # conferidos pela coleta de 04/11/2026 no GitHub Actions (o da CNN Br
     ("RFI Brasil", "https://www.rfi.fr/br/rss"),
 ]
 _ATOM = "{http://www.w3.org/2005/Atom}"
+BRASILIA = timezone(timedelta(hours=-3), "BRT")  # sem horário de verão desde 2019
+
+
+def _quando(txt: str) -> Tuple[str, str]:
+    """(AAAAMMDD, HH:MM) no horário de Brasília, a partir de RFC 822 (RSS) ou ISO 8601 (Atom); vazios se não der para ler.
+    Sem fuso na origem, a hora fica vazia (não dá para saber de onde ela é)."""
+    txt = (txt or "").strip()
+    if not txt:
+        return "", ""
+    dt = None
+    try:
+        dt = parsedate_to_datetime(txt)
+    except (TypeError, ValueError, IndexError):
+        try:
+            dt = datetime.fromisoformat(txt.replace("Z", "+00:00"))
+        except ValueError:
+            m = re.match(r"(\d{4})-(\d{2})-(\d{2})", txt)
+            return ("".join(m.groups()) if m else ""), ""
+    if dt.tzinfo is None:
+        return dt.strftime("%Y%m%d"), ""
+    dt = dt.astimezone(BRASILIA)
+    return dt.strftime("%Y%m%d"), dt.strftime("%H:%M")
 
 
 def _data(txt: str) -> str:
-    """AAAAMMDD a partir de RFC 822 (RSS) ou ISO 8601 (Atom); vazio se não der para ler."""
-    txt = (txt or "").strip()
-    if not txt:
-        return ""
-    try:
-        return parsedate_to_datetime(txt).strftime("%Y%m%d")
-    except (TypeError, ValueError, IndexError):
-        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", txt)
-        return "".join(m.groups()) if m else ""
+    return _quando(txt)[0]
 
 
 def ler(xml: bytes, veiculo: str) -> List[dict]:
@@ -52,10 +67,10 @@ def ler(xml: bytes, veiculo: str) -> List[dict]:
         if not link:
             a = it.find(f"{_ATOM}link")
             link = a.get("href", "") if a is not None else ""
-        data = _data(it.findtext("pubDate") or it.findtext(f"{_ATOM}updated") or it.findtext(f"{_ATOM}published") or "")
+        data, hora = _quando(it.findtext("pubDate") or it.findtext(f"{_ATOM}updated") or it.findtext(f"{_ATOM}published") or "")
         titulo = re.sub(r"\s+", " ", titulo)
         if titulo and link.startswith(("http://", "https://")):
-            out.append({"titulo": titulo, "url": link, "veiculo": veiculo, "data": data,
+            out.append({"titulo": titulo, "url": link, "veiculo": veiculo, "data": data, "hora": hora,
                         "dominio": urllib.parse.urlparse(link).netloc, "categorias": categorias(titulo)})
     return out
 

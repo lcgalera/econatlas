@@ -322,3 +322,40 @@ def test_ucdp_conflitos_por_pais_papel_e_panorama():
     assert r["paises"]["CHN"]["conflitos"][0]["anos_pais"] == [2023, 2025]
     assert r["paises"]["COL"]["conflitos"][0]["ultimo_ano"] == 2024 and r["paises"]["CHL"]["conflitos"] == []
     assert r["mundo"]["total"] == 2 and r["mundo"]["guerras"] == 1 and r["mundo"]["ativos"][0]["id"] == "1"   # guerra primeiro
+
+
+# ---- D44: hora de Brasília e países citados em cada manchete ----
+
+def test_rss_hora_em_brasilia_e_sem_fuso_fica_sem_hora():
+    from rotzx.mundo import rss
+    assert rss._quando("Wed, 04 Nov 2026 01:30:00 GMT") == ("20261103", "22:30")   # vira o dia em Brasília
+    assert rss._quando("2026-11-04T10:00:00-03:00") == ("20261104", "10:00")
+    assert rss._quando("2026-11-04T10:00:00") == ("20261104", "")                 # sem fuso: não inventa a hora
+    assert rss._quando("") == ("", "")
+    xml = ('<rss><channel><item><title>Irã e Israel</title><link>https://x.com/a</link>'
+           '<pubDate>Wed, 04 Nov 2026 15:00:00 +0000</pubDate></item></channel></rss>').encode("utf-8")
+    assert rss.ler(xml, "Teste")[0]["hora"] == "12:00"
+
+
+def test_paises_citados_no_titulo_com_extras_e_sem_falsos_positivos():
+    from rotzx.mundo.paises import MENCOES, PAISES, citados
+    assert len({p["iso_num"] for p in PAISES + MENCOES}) == len(PAISES) + len(MENCOES)   # sem código repetido
+    assert citados("Israel ataca Gaza e o Líbano; EUA pedem trégua") == ["840", "376", "275", "422"]
+    assert citados("Hospital Sírio-Libanês inaugura ala") == []
+    assert citados("Preço do peru dispara no Natal") == []
+    assert citados("Trump diz que guerra contra o Irã contribuiu") == ["364"]
+
+
+def test_recategorizar_marca_paises_e_publica_os_nomes():
+    n = {"paises": {"076": [{"titulo": "Brasil e China fecham acordo", "data": "20261104"}]},
+         "mundo": [{"titulo": "Ucrânia e Rússia negociam cessar-fogo", "data": "20261104"}]}
+    build._recategorizar(n)
+    assert n["paises"]["076"][0]["paises"] == ["076", "156"]
+    assert n["mundo"][0]["paises"] == ["643", "804"] and "geopolitica" in n["mundo"][0]["categorias"]
+    assert n["nomes"]["804"] == "Ucrânia" and n["nomes"]["076"] == "Brasil"
+
+
+def test_juntar_ordena_por_data_e_hora():
+    a = [{"titulo": "A", "data": "20261104", "hora": "08:00"}, {"titulo": "B", "data": "20261104", "hora": "21:00"},
+         {"titulo": "C", "data": "20261103", "hora": "23:59"}]
+    assert [m["titulo"] for m in gdelt.juntar(a, [], "20261101")] == ["B", "A", "C"]
