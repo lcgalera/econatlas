@@ -94,3 +94,20 @@ O nível de evidência ("confirmado" ou "inferência técnica") é mostrado à p
 - Leilões ainda não assinados.
 - Previsão da transmissora (Relatório de Monitoramento mensal).
 - Interface de oportunidades no site: fica para depois dos pilotos (D29).
+
+## 7. Histórico e mudanças (Fase 2)
+
+```bash
+.venv/bin/python -m econatlas siget-atualizar            # baixa só o que o portal atualizou; registra versões e eventos
+.venv/bin/python -m econatlas siget-historico-exportar   # acrescenta a historico/*.csv
+```
+
+- **Coleta seletiva:** só os 7 arquivos que o motor usa (~30 MB, em vez de 175 MB). Um arquivo só é baixado de novo se a data de modificação declarada pelo portal mudou,
+  e o conteúdo é nomeado pelo SHA-256 (o mesmo conteúdo nunca é gravado duas vezes). Na segunda rodada do mesmo dia, levou 5 s e não baixou nada.
+- **Versões:** uma por empreendimento a cada coleta que trouxe arquivos diferentes, com os campos acompanhados (situação, datas do ato legal, operação efetiva,
+  concessionária, contrato, obras, obras em andamento, equipamentos, ato e nome) e o hash da linha. Coleta com os mesmos arquivos não grava nada.
+- **Eventos:** `novo` (apareceu na fonte), `saiu_da_fonte` e `mudou` (campo, antes, depois). Os gatilhos do SQLite recusam UPDATE e DELETE.
+- **Persistência:** `historico/*.csv` no git, carregados num banco novo a cada execução do GitHub Actions (como o registro de previsões, D23).
+- **No relatório:** seção "O que mudou desde a última coleta" e selo no card de cada empreendimento que mudou.
+- **Situação em 04/11/2026:** só a linha de base (coleta 1, 2.861 empreendimentos). **Ainda não houve nenhuma mudança real para mostrar.**
+  A primeira comparação acontece na próxima coleta em que a ANEEL atualizar os arquivos (o dicionário diz que a atualização é diária).

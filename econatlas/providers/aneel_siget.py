@@ -155,7 +155,11 @@ def empreendimentos(t: Dict[str, pd.DataFrame]) -> pd.DataFrame:
         "IdeCcd": "id_contrato", "DscRazaoSocial": "concessionaria", "NumCNPJ": "cnpj", "NumCnaCcd": "contrato"})
     out["cnpj"] = out.cnpj.map(formatar_cnpj)
     out.attrs["fontes"] = {k: v.attrs.get("arquivo") for k, v in t.items()}
-    return out.fillna("").sort_values("id_aneel", key=lambda s: pd.to_numeric(s, errors="coerce")).reset_index(drop=True)
+    out.attrs["gerado_em"] = str(eom.DatGeracaoConjuntoDados.iloc[0]) if "DatGeracaoConjuntoDados" in eom and len(eom) else None
+    attrs = dict(out.attrs)
+    out = out.fillna("").sort_values("id_aneel", key=lambda s: pd.to_numeric(s, errors="coerce")).reset_index(drop=True)
+    out.attrs.update(attrs)
+    return out
 
 
 def amostra(emp: pd.DataFrame, n: int = 20, hoje: Optional[pd.Timestamp] = None) -> pd.DataFrame:
@@ -261,3 +265,34 @@ def planilha_avaliacao(a: pd.DataFrame, caminho: Path) -> Path:
         crit.to_excel(w, index=False, sheet_name="Como avaliar")
         w.sheets["Como avaliar"].column_dimensions["A"].width = 115
     return caminho
+
+
+def baixar(pasta: Optional[Path] = None, portal: str = "aneel", max_mb: float = 100) -> Dict[str, dict]:
+    """Baixa só os arquivos que o radar usa (ARQUIVOS), pulando os que o portal não atualizou desde a última vez.
+
+    Usa a data de modificação declarada pelo CKAN (`last_modified`) e guarda um índice em brutos/indice.json.
+    Os arquivos são nomeados pelo SHA-256 do conteúdo (ckan.baixar): o mesmo conteúdo nunca é gravado duas vezes.
+    """
+    import json
+    pasta = Path(pasta or pasta_padrao())
+    pasta.mkdir(parents=True, exist_ok=True)
+    idx_path = pasta / "indice.json"
+    idx = json.loads(idx_path.read_text()) if idx_path.exists() else {}
+    meta = ckan.conjunto(portal, CONJUNTO)
+    por_nome = {Path(r["url"] or "").name: r for r in meta["recursos"]}
+    out = {}
+    for chave, nome in ARQUIVOS.items():
+        r = por_nome.get(nome)
+        if r is None:
+            out[chave] = {"status": "ausente_no_portal", "arquivo": nome}
+            continue
+        anterior = idx.get(nome)
+        if anterior and anterior.get("modificado") == r.get("modificado") and (pasta / anterior["arquivo"]).exists():
+            out[chave] = {"status": "sem_atualizacao", **anterior}
+            continue
+        caminho, sha, nbytes = ckan.baixar(r["url"], pasta, max_mb=max_mb)
+        caminho.touch()  # o mais recente vence em carregar(), mesmo se o conteúdo já existia
+        idx[nome] = {"arquivo": caminho.name, "sha256": sha, "bytes": nbytes, "modificado": r.get("modificado"), "url": r["url"]}
+        out[chave] = {"status": "baixado" if not anterior or anterior.get("sha256") != sha else "mesmo_conteudo", **idx[nome]}
+    idx_path.write_text(json.dumps(idx, ensure_ascii=False, indent=1))
+    return out

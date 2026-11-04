@@ -72,8 +72,31 @@ def _tabela_contagem(s: pd.Series, titulo: str, n: int = 10) -> str:
     return f"<div class='box'><div class='kicker'>{E(titulo)}</div><table>{linhas}</table></div>"
 
 
+def _secao_mudancas(eventos: Optional[pd.DataFrame], op: pd.DataFrame) -> str:
+    """'O que mudou': eventos da última coleta para os empreendimentos do relatório (e os novos)."""
+    if eventos is None or eventos.attrs.get("coleta_id") is None:
+        return ("<p class='small'>O histórico ainda não foi iniciado. Rode <code>econatlas siget-atualizar</code> a cada coleta "
+                "para ver aqui o que mudou de uma vez para a outra.</p>")
+    quando = (eventos.attrs.get("coletado_em") or "")[:10]
+    if not eventos.attrs.get("anterior_em"):
+        return (f"<p class='small'>Primeira coleta registrada em {E(quando)}: é a linha de base. A partir da próxima coleta, "
+                f"esta seção mostra empreendimentos novos e mudanças de situação, datas, obras e equipamentos.</p>")
+    ev = eventos[eventos.id_aneel.isin(op.id_aneel)]
+    antes = (eventos.attrs.get("anterior_em") or "")[:10]
+    if ev.empty:
+        return f"<p class='small'>Nenhuma mudança nos empreendimentos deste relatório entre {E(antes)} e {E(quando)}.</p>"
+    nomes = op.set_index("id_aneel").nome
+    linhas = "".join(
+        f"<tr><td>{E(r.id_ons)}</td><td>{E(nomes.get(r.id_aneel, ''))}</td><td>"
+        + ("<span class='tag ok'>novo</span>" if r.tipo == "novo" else E(r.rotulo))
+        + f"</td><td>{E(r.antes)}</td><td>{E(r.depois)}</td></tr>" for r in ev.itertuples())
+    return (f"<p class='small'>Coleta de {E(quando)} comparada com a de {E(antes)}: {ev.id_aneel.nunique()} empreendimentos com mudança.</p>"
+            f"<div style='overflow-x:auto'><table><tr><th>Id ONS</th><th>Empreendimento</th><th>O que mudou</th><th>Antes</th><th>Depois</th></tr>{linhas}</table></div>")
+
+
 def gerar(op: pd.DataFrame, ev: pd.DataFrame, cats: dict, perfil: dict, pasta: Path, top: int = 30,
-          hoje: Optional[pd.Timestamp] = None, fontes: Optional[dict] = None) -> dict:
+          hoje: Optional[pd.Timestamp] = None, fontes: Optional[dict] = None,
+          eventos: Optional[pd.DataFrame] = None) -> dict:
     """Grava oportunidades.csv, evidencias.csv e relatorio.html na pasta. Devolve os caminhos."""
     hoje = hoje or pd.Timestamp.today().normalize()
     pasta.mkdir(parents=True, exist_ok=True)
@@ -92,6 +115,10 @@ def gerar(op: pd.DataFrame, ev: pd.DataFrame, cats: dict, perfil: dict, pasta: P
     gerado = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
     fontes_txt = ", ".join(f"{E(v)}" for v in (fontes or {}).values() if v)
 
+    mudou = {}
+    if eventos is not None and eventos.attrs.get("anterior_em"):
+        for r in eventos.itertuples():
+            mudou.setdefault(r.id_aneel, set()).add("novo" if r.tipo == "novo" else r.rotulo)
     cards = []
     for r in op.head(top).itertuples():
         evs = ev_op[ev_op.id_aneel == r.id_aneel]
@@ -103,7 +130,7 @@ def gerar(op: pd.DataFrame, ev: pd.DataFrame, cats: dict, perfil: dict, pasta: P
         ato = (f" · Ato: <a href='{E(r.ato_link)}'>{E(r.ato)}</a>" if r.ato else "")
         cards.append(f"""
 <div class="card"><div class="score"><b>{r.score}</b><span class="small">score</span></div>
-<span class="tag {'ok' if r.nivel_evidencia == 'confirmado' else 'inf'}">{E(r.nivel_evidencia)}</span><span class="small">{E(r.id_ons)}</span>
+<span class="tag {'ok' if r.nivel_evidencia == 'confirmado' else 'inf'}">{E(r.nivel_evidencia)}</span>{''.join(f"<span class='tag inf'>{E(m)}</span>" for m in sorted(mudou.get(r.id_aneel, [])))}<span class="small">{E(r.id_ons)}</span>
 <h3>{E(r.nome)}</h3>
 <div class="meta">{E(r.concessionaria)} (CNPJ {E(r.cnpj)}, contrato {E(r.contrato)}) · UF {E(r.ufs or '–')} ·
 operação pelo ato legal em <b>{E(r.operacao_ato_legal)}</b> ({r.meses_ate_operacao:g} meses) · {E(r.origem)}{ato}</div>
@@ -139,6 +166,9 @@ não a previsão da transmissora. O <b>score</b> (0–100) só ordena o que olha
 {_tabela_contagem(op.ufs.str.split(',').explode().replace('', '–'), 'UF das subestações')}
 {_tabela_contagem(ano, 'Ano de operação (ato legal)')}
 </div>
+
+<h2>O que mudou desde a última coleta</h2>
+{_secao_mudancas(eventos, op)}
 
 <h2>As {min(top, len(op))} primeiras, com evidências</h2>
 {''.join(cards)}

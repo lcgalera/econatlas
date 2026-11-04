@@ -220,6 +220,10 @@ def main(argv=None):
     sa.add_argument("--aleatoria", action="store_true", help="sorteio entre os elegíveis (sem os da amostra.csv) + planilha de avaliação")
     sa.add_argument("--semente", type=int, default=20261104, help="semente do sorteio (padrão: 20261104)")
 
+    sub.add_parser("siget-atualizar", help="Fase 2: baixa os arquivos do SIGET que mudaram e registra versões e eventos no histórico")
+    sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
+    sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
+
     op = sub.add_parser("oportunidades", help="Fase 3: oportunidades do SIGET para um perfil (relatório HTML + CSV)")
     op.add_argument("--perfil", default=None, help="JSON do perfil (padrão: catalog/perfil_demo.json)")
     op.add_argument("--top", type=int, default=30, help="quantas oportunidades detalhar no relatório")
@@ -304,6 +308,24 @@ def main(argv=None):
         print(f"{len(emp)} empreendimentos ({(emp.situacao == sg.EM_ANDAMENTO).sum()} em andamento) -> {pasta / 'empreendimentos.csv'}")
         print(f"amostra de {len(am)} para avaliação manual -> {pasta / 'amostra.csv'}")
         print(sg.ATRIBUICAO)
+    elif args.cmd == "siget-atualizar":
+        from .intelligence import historico
+        from .providers import aneel_siget as sg
+        for k, v in sg.baixar().items():
+            print(f"  {k:12} {v['status']:18} {v.get('arquivo', '')}")
+        emp = sg.empreendimentos(sg.carregar())
+        r = historico.registrar(storage.connect(), emp)
+        print(f"histórico: {r['status']} (coleta {r['coleta_id']}), {r['eventos']} eventos")
+        if r["eventos"]:
+            ev = historico.eventos(storage.connect(), r["coleta_id"])
+            print("  " + ", ".join(f"{k}: {v}" for k, v in ev.assign(k=ev.tipo + " " + ev.rotulo).k.str.strip().value_counts().items()))
+        print(sg.ATRIBUICAO)
+    elif args.cmd == "siget-historico-exportar":
+        from .intelligence import historico
+        print("historico/:", historico.exportar(storage.connect()))
+    elif args.cmd == "siget-historico-importar":
+        from .intelligence import historico
+        print("historico/:", historico.importar(storage.connect()))
     elif args.cmd == "oportunidades":
         import pandas as pd
         from . import intelligence as it
@@ -318,7 +340,9 @@ def main(argv=None):
         ev = evidencia.evidencias(t, cats)
         ops = scoring.oportunidades(emp, ev, cats, perfil, hoje=hoje, data_fonte=data_fonte)
         pasta = Path(args.saida) if args.saida else config.DATA_DIR / "relatorios" / f"{perfil['id']}_{hoje:%Y-%m-%d}"
-        out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"))
+        from .intelligence import historico
+        mudancas = historico.eventos(storage.connect())
+        out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"), eventos=mudancas)
         print(f"{len(ops)} oportunidades para {perfil['nome']}")
         for k, v in out.items():
             print(f"  {k}: {v}")

@@ -1,0 +1,65 @@
+# Radar de oportunidades do rotzx (D33): coleta semanal do SIGET (ANEEL, licença ODbL), histórico de mudanças e relatório.
+# O histórico fica em historico/*.csv, que só recebe acréscimos (como o registro de previsões, D23);
+# o relatório do perfil de demonstração vai como artefato da execução (não é publicado no site).
+name: Radar SIGET
+
+on:
+  schedule:
+    - cron: "23 11 * * 1"    # segunda-feira, 8h23 de Brasília
+  workflow_dispatch: {}      # rodar à mão pela aba Actions
+
+permissions:
+  contents: write            # commit do histórico
+
+concurrency:
+  group: radar-siget
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"   # mesma versão do Mac
+          cache: pip
+
+      - name: Dependências
+        run: pip install -r requirements.txt
+
+      - name: Testes
+        run: python -m pytest -q
+
+      - name: Carregar o histórico (banco novo a cada execução)
+        run: python -m econatlas siget-historico-importar
+
+      - name: Baixar o SIGET e registrar o que mudou
+        run: python -m econatlas siget-atualizar
+
+      - name: Acrescentar ao histórico (falha se uma linha antiga mudou)
+        run: python -m econatlas siget-historico-exportar
+
+      - name: Relatório de oportunidades (perfil de demonstração)
+        run: python -m econatlas oportunidades --saida relatorio-radar
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-radar
+          path: relatorio-radar/
+          retention-days: 90
+
+      - name: Commit do histórico
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add historico/
+          if git diff --cached --quiet; then
+            echo "O SIGET não mudou desde a última coleta."
+          else
+            git commit -m "Histórico SIGET: coleta de $(date -u +%Y-%m-%d)"
+            git pull --rebase
+            git push
+          fi

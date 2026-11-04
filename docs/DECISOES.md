@@ -148,3 +148,11 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Limite reconhecido:** com perfil amplo, o score satura (mediana 92). Ele separa o confirmado do inferido e o que está perto da janela, não os bons casos entre si.
 **Verificação:** concordância de 39/40 com as avaliações humanas, que porém inspiraram as regras. A precisão fora da amostra ainda precisa de uma amostra nova.
 **Sem IA:** nada aqui depende de modelo de linguagem.
+
+### D33 · 04/11/2026 · Histórico do SIGET em CSV no git, com coleta semanal pelo GitHub Actions
+**Motivo:** o valor recorrente do radar é dizer o que mudou (empreendimento novo, data adiada, obra nova). Isso exige histórico, e o histórico precisa sobreviver a containers temporários e a máquinas diferentes.
+**Como:** `intelligence/historico.py` grava uma versão por empreendimento a cada coleta que trouxe arquivos diferentes e os eventos de mudança (só acréscimos, com gatilhos). `historico/*.csv` guarda coletas e eventos (só acréscimos, com verificação na exportação) e o estado da última coleta. O workflow `radar-siget.yml` roda toda segunda-feira: importa, coleta, exporta, gera o relatório como artefato e faz o commit de `historico/`.
+**Coleta seletiva:** só os 7 arquivos usados, e só quando a data de modificação declarada pelo portal mudou.
+**Licença:** dados da ANEEL sob ODbL, com atribuição em `historico/LEIAME.md`; a base derivada fica sob a mesma licença.
+**Limite:** em 04/11/2026 só existe a linha de base; a detecção de mudanças ainda não foi exercitada com dados reais.
+**Revisar quando:** o tamanho de `historico/` passar de alguns MB (o estado tem ~0,7 MB) ou houver clientes com perfis próprios, que precisarão de relatórios privados, fora do Actions público.
