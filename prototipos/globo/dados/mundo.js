@@ -27,6 +27,12 @@ window.MUNDO = {
    "nome": "Disputas na OMC (lista oficial do site da OMC)",
    "url": "https://www.wto.org/english/tratop_e/dispu_e/dispu_by_country_e.htm",
    "nota": "número, título oficial (em inglês), partes, data e situação de cada disputa"
+  },
+  "ucdp": {
+   "nome": "UCDP/PRIO Armed Conflict Dataset (Uppsala Conflict Data Program)",
+   "url": "https://ucdp.uu.se/downloads/",
+   "licenca": "CC BY 4.0",
+   "nota": "conflitos armados com um governo de um dos lados e 25 ou mais mortes em combate no ano"
   }
  },
  "paises": {
@@ -343,7 +349,238 @@ window.MUNDO = {
       "JPN": 1,
       "TUR": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 38
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "15283",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "MPC"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Benin",
+       "Government of Bhutan",
+       "Government of Brazil",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Guinea",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Nigeria",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Sweden",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Logone",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2023
+      ],
+      "ultimo_ano": 2023,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-02-10",
+      "url": "https://ucdp.uu.se/conflict/15283",
+      "anos_pais": [
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 39
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "840": {
@@ -975,7 +1212,630 @@ window.MUNDO = {
       "CAN": 3,
       "ARG": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "16099",
+      "local": "United Kingdom, United States of America, Yemen (North Yemen)",
+      "lado_a": [
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "lado_b": [
+       "Government of Yemen (North Yemen)"
+      ],
+      "apoio_a": [
+       "Government of Australia",
+       "Government of Bahrain",
+       "Government of Canada",
+       "Government of Netherlands",
+       "Government of New Zealand",
+       "Government of Norway",
+       "Government of Singapore",
+       "Government of Sri Lanka"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Red Sea, Bab al Mandab and Gulf of Aden",
+      "tipo": "entre Estados",
+      "anos": [
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2023-12-31",
+      "url": "https://ucdp.uu.se/conflict/16099",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "14609",
+      "local": "Iran, Israel",
+      "lado_a": [
+       "Government of Iran"
+      ],
+      "lado_b": [
+       "Government of Israel"
+      ],
+      "apoio_a": [],
+      "apoio_b": [
+       "Government of United States of America"
+      ],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "entre Estados",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2017-03-19",
+      "url": "https://ucdp.uu.se/conflict/14609",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Israel"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "13641",
+      "local": "Nigeria",
+      "lado_a": [
+       "Government of Nigeria"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Cameroon",
+       "Government of Niger",
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2015-03-15",
+      "url": "https://ucdp.uu.se/conflict/13641",
+      "anos_pais": [
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Nigeria"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "337",
+      "local": "Somalia",
+      "lado_a": [
+       "Government of Somalia"
+      ],
+      "lado_b": [
+       "Al-Shabaab"
+      ],
+      "apoio_a": [
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of Ethiopia",
+       "Government of Ghana",
+       "Government of Kenya",
+       "Government of Nigeria",
+       "Government of Sierra Leone",
+       "Government of Uganda",
+       "Government of United States of America",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "1982-01-18",
+      "url": "https://ucdp.uu.se/conflict/337",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Somalia"
+      ],
+      "apoiadores_no_lado": 10
+     },
+     {
+      "id": "259",
+      "local": "Iraq",
+      "lado_a": [
+       "Government of Iraq"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of France",
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1958-07-14",
+      "url": "https://ucdp.uu.se/conflict/259",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Iraq"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "14197",
+      "local": "Somalia",
+      "lado_a": [
+       "Government of Somalia"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2018-02-08",
+      "url": "https://ucdp.uu.se/conflict/14197",
+      "anos_pais": [
+       2021,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Somalia"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "13604",
+      "local": "Syria",
+      "lado_a": [
+       "Government of Syria"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2013-03-26",
+      "url": "https://ucdp.uu.se/conflict/13604",
+      "anos_pais": [
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Syria"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 57
+     },
+     {
+      "id": "430",
+      "local": "Niger",
+      "lado_a": [
+       "Government of Niger"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1991-10-25",
+      "url": "https://ucdp.uu.se/conflict/430",
+      "anos_pais": [
+       2021,
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Niger"
+      ],
+      "apoiadores_no_lado": 5
+     },
+     {
+      "id": "13639",
+      "local": "Niger",
+      "lado_a": [
+       "Government of Niger"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Mali",
+       "Government of Nigeria"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-03-26",
+      "url": "https://ucdp.uu.se/conflict/13639",
+      "anos_pais": [
+       2021,
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Niger"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "333",
+      "local": "Afghanistan",
+      "lado_a": [
+       "Government of Afghanistan"
+      ],
+      "lado_b": [
+       "NRF"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1975-07-02",
+      "url": "https://ucdp.uu.se/conflict/333",
+      "anos_pais": [
+       2021
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Afghanistan"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "13637",
+      "local": "Afghanistan",
+      "lado_a": [
+       "Government of Afghanistan"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-02-09",
+      "url": "https://ucdp.uu.se/conflict/13637",
+      "anos_pais": [
+       2021
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Afghanistan"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "13646",
+      "local": "Kenya",
+      "lado_a": [
+       "Government of Kenya"
+      ],
+      "lado_b": [
+       "Al-Shabaab"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Northeastern Province and Coast",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-03-13",
+      "url": "https://ucdp.uu.se/conflict/13646",
+      "anos_pais": [
+       2021
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Kenya"
+      ],
+      "apoiadores_no_lado": 1
+     }
+    ]
    }
   },
   "032": {
@@ -1210,7 +2070,86 @@ window.MUNDO = {
       "PER": 1,
       "USA": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2022,
+       2024
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 40
+     }
+    ]
    }
   },
   "528": {
@@ -1762,7 +2701,133 @@ window.MUNDO = {
       "GBR": 1,
       "CHT": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "16099",
+      "local": "United Kingdom, United States of America, Yemen (North Yemen)",
+      "lado_a": [
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "lado_b": [
+       "Government of Yemen (North Yemen)"
+      ],
+      "apoio_a": [
+       "Government of Australia",
+       "Government of Bahrain",
+       "Government of Canada",
+       "Government of Netherlands",
+       "Government of New Zealand",
+       "Government of Norway",
+       "Government of Singapore",
+       "Government of Sri Lanka"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Red Sea, Bab al Mandab and Gulf of Aden",
+      "tipo": "entre Estados",
+      "anos": [
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2023-12-31",
+      "url": "https://ucdp.uu.se/conflict/16099",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "apoiadores_no_lado": 8
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "724": {
@@ -2314,7 +3379,240 @@ window.MUNDO = {
       "GBR": 1,
       "CHT": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 38
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "15283",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "MPC"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Benin",
+       "Government of Bhutan",
+       "Government of Brazil",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Guinea",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Nigeria",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Sweden",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Logone",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2023
+      ],
+      "ultimo_ano": 2023,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-02-10",
+      "url": "https://ucdp.uu.se/conflict/15283",
+      "anos_pais": [
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 39
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "276": {
@@ -2866,7 +4164,89 @@ window.MUNDO = {
       "GBR": 1,
       "CHT": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "484": {
@@ -3021,7 +4401,165 @@ window.MUNDO = {
      "recentes": [],
      "recentes_total": 0,
      "contrapartes": {}
-    }
+    },
+    "conflitos": [
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 57
+     }
+    ]
    }
   },
   "152": {
@@ -3156,7 +4694,8 @@ window.MUNDO = {
      "recentes": [],
      "recentes_total": 0,
      "contrapartes": {}
-    }
+    },
+    "conflitos": []
    }
   },
   "392": {
@@ -3352,7 +4891,8 @@ window.MUNDO = {
      "contrapartes": {
       "CHN": 1
      }
-    }
+    },
+    "conflitos": []
    }
   },
   "356": {
@@ -3567,7 +5107,133 @@ window.MUNDO = {
      "contrapartes": {
       "CHN": 2
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "227",
+      "local": "India",
+      "lado_a": [
+       "Government of India"
+      ],
+      "lado_b": [
+       "CPI-Maoist"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1948-05-01",
+      "url": "https://ucdp.uu.se/conflict/227",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "364",
+      "local": "India",
+      "lado_a": [
+       "Government of India"
+      ],
+      "lado_b": [
+       "Kashmir insurgents"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Kashmir",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1984-02-06",
+      "url": "https://ucdp.uu.se/conflict/364",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "13653",
+      "local": "India",
+      "lado_a": [
+       "Government of India"
+      ],
+      "lado_b": [
+       "UNLFW"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Western South East Asia",
+      "tipo": "interno",
+      "anos": [
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-04-19",
+      "url": "https://ucdp.uu.se/conflict/13653",
+      "anos_pais": [
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "218",
+      "local": "India, Pakistan",
+      "lado_a": [
+       "Government of India"
+      ],
+      "lado_b": [
+       "Government of Pakistan"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Kashmir",
+      "tipo": "entre Estados",
+      "anos": [
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1948-12-31",
+      "url": "https://ucdp.uu.se/conflict/218",
+      "anos_pais": [
+       2025
+      ],
+      "papel": "lado principal"
+     }
+    ]
    }
   },
   "380": {
@@ -4119,7 +5785,89 @@ window.MUNDO = {
       "GBR": 1,
       "CHT": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "410": {
@@ -4254,7 +6002,8 @@ window.MUNDO = {
      "recentes": [],
      "recentes_total": 0,
      "contrapartes": {}
-    }
+    },
+    "conflitos": []
    }
   },
   "124": {
@@ -4623,7 +6372,133 @@ window.MUNDO = {
       "USA": 3,
       "CHT": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "16099",
+      "local": "United Kingdom, United States of America, Yemen (North Yemen)",
+      "lado_a": [
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "lado_b": [
+       "Government of Yemen (North Yemen)"
+      ],
+      "apoio_a": [
+       "Government of Australia",
+       "Government of Bahrain",
+       "Government of Canada",
+       "Government of Netherlands",
+       "Government of New Zealand",
+       "Government of Norway",
+       "Government of Singapore",
+       "Government of Sri Lanka"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Red Sea, Bab al Mandab and Gulf of Aden",
+      "tipo": "entre Estados",
+      "anos": [
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2023-12-31",
+      "url": "https://ucdp.uu.se/conflict/16099",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "apoiadores_no_lado": 8
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "250": {
@@ -5175,7 +7050,364 @@ window.MUNDO = {
       "GBR": 1,
       "CHT": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2021,
+       2022,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 38
+     },
+     {
+      "id": "259",
+      "local": "Iraq",
+      "lado_a": [
+       "Government of Iraq"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of France",
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1958-07-14",
+      "url": "https://ucdp.uu.se/conflict/259",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Iraq"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "13639",
+      "local": "Niger",
+      "lado_a": [
+       "Government of Niger"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Mali",
+       "Government of Nigeria"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-03-26",
+      "url": "https://ucdp.uu.se/conflict/13639",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Niger"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "360",
+      "local": "Burkina Faso",
+      "lado_a": [
+       "Government of Burkina Faso"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Niger"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "1987-10-15",
+      "url": "https://ucdp.uu.se/conflict/360",
+      "anos_pais": [
+       2021,
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Burkina Faso"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "13840",
+      "local": "Burkina Faso",
+      "lado_a": [
+       "Government of Burkina Faso"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Mali",
+       "Government of Niger"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-10-23",
+      "url": "https://ucdp.uu.se/conflict/13840",
+      "anos_pais": [
+       2021,
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Burkina Faso"
+      ],
+      "apoiadores_no_lado": 2
+     },
+     {
+      "id": "430",
+      "local": "Niger",
+      "lado_a": [
+       "Government of Niger"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1991-10-25",
+      "url": "https://ucdp.uu.se/conflict/430",
+      "anos_pais": [
+       2021,
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Niger"
+      ],
+      "apoiadores_no_lado": 5
+     }
+    ]
    }
   },
   "600": {
@@ -5310,7 +7542,85 @@ window.MUNDO = {
      "recentes": [],
      "recentes_total": 0,
      "contrapartes": {}
-    }
+    },
+    "conflitos": [
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 57
+     }
+    ]
    }
   },
   "643": {
@@ -5520,7 +7830,405 @@ window.MUNDO = {
       "LVA": 1,
       "LTU": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "13243",
+      "local": "Russia (Soviet Union), Ukraine",
+      "lado_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "lado_b": [
+       "Government of Ukraine"
+      ],
+      "apoio_a": [
+       "Government of North Korea"
+      ],
+      "apoio_b": [],
+      "disputa": "território e governo",
+      "territorio": "Crimea",
+      "tipo": "entre Estados",
+      "anos": [
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2014-03-18",
+      "url": "https://ucdp.uu.se/conflict/13243",
+      "anos_pais": [
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2022,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 38
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "16038",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "FLA"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território e governo",
+      "territorio": "Azawad",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2023-08-04",
+      "url": "https://ucdp.uu.se/conflict/16038",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 1
+     },
+     {
+      "id": "399",
+      "local": "Russia (Soviet Union)",
+      "lado_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "lado_b": [
+       "LSR"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2023,
+       2024
+      ],
+      "ultimo_ano": 2024,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1991-08-20",
+      "url": "https://ucdp.uu.se/conflict/399",
+      "anos_pais": [
+       2023,
+       2024
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "13588",
+      "local": "Russia (Soviet Union)",
+      "lado_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno",
+      "anos": [
+       2024
+      ],
+      "ultimo_ano": 2024,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-03-21",
+      "url": "https://ucdp.uu.se/conflict/13588",
+      "anos_pais": [
+       2024
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "299",
+      "local": "Syria",
+      "lado_a": [
+       "Government of Syria"
+      ],
+      "lado_b": [
+       "Military Council for the Liberation of Syria"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1966-02-23",
+      "url": "https://ucdp.uu.se/conflict/299",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Syria"
+      ],
+      "apoiadores_no_lado": 2
+     },
+     {
+      "id": "13604",
+      "local": "Syria",
+      "lado_a": [
+       "Government of Syria"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2013-03-26",
+      "url": "https://ucdp.uu.se/conflict/13604",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Syria"
+      ],
+      "apoiadores_no_lado": 2
+     },
+     {
+      "id": "13306",
+      "local": "Ukraine",
+      "lado_a": [
+       "Government of Ukraine"
+      ],
+      "lado_b": [
+       "DPR"
+      ],
+      "apoio_a": [],
+      "apoio_b": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "disputa": "território",
+      "territorio": "Novorossiya",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022
+      ],
+      "ultimo_ano": 2022,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2014-09-16",
+      "url": "https://ucdp.uu.se/conflict/13306",
+      "anos_pais": [
+       2021,
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "DPR"
+      ],
+      "apoiadores_no_lado": 1
+     }
+    ]
    }
   },
   "682": {
@@ -5677,7 +8385,52 @@ window.MUNDO = {
      "contrapartes": {
       "EEC": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "230",
+      "local": "Yemen (North Yemen)",
+      "lado_a": [
+       "Government of Yemen (North Yemen)"
+      ],
+      "lado_b": [
+       "Forces of the Presidential Leadership Council"
+      ],
+      "apoio_a": [],
+      "apoio_b": [
+       "Government of Bahrain",
+       "Government of Saudi Arabia",
+       "Government of United Arab Emirates"
+      ],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1948-03-15",
+      "url": "https://ucdp.uu.se/conflict/230",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Forces of the Presidential Leadership Council"
+      ],
+      "apoiadores_no_lado": 3
+     }
+    ]
    }
   },
   "826": {
@@ -5834,7 +8587,171 @@ window.MUNDO = {
      "contrapartes": {
       "EEC": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "16099",
+      "local": "United Kingdom, United States of America, Yemen (North Yemen)",
+      "lado_a": [
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "lado_b": [
+       "Government of Yemen (North Yemen)"
+      ],
+      "apoio_a": [
+       "Government of Australia",
+       "Government of Bahrain",
+       "Government of Canada",
+       "Government of Netherlands",
+       "Government of New Zealand",
+       "Government of Norway",
+       "Government of Singapore",
+       "Government of Sri Lanka"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Red Sea, Bab al Mandab and Gulf of Aden",
+      "tipo": "entre Estados",
+      "anos": [
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2023-12-31",
+      "url": "https://ucdp.uu.se/conflict/16099",
+      "anos_pais": [
+       2024,
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "259",
+      "local": "Iraq",
+      "lado_a": [
+       "Government of Iraq"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of France",
+       "Government of United Kingdom",
+       "Government of United States of America"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1958-07-14",
+      "url": "https://ucdp.uu.se/conflict/259",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Iraq"
+      ],
+      "apoiadores_no_lado": 3
+     },
+     {
+      "id": "11347",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "JNIM"
+      ],
+      "apoio_a": [
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": true,
+      "intensidade": "1.000 ou mais mortes em combate no ano",
+      "inicio": "2009-06-10",
+      "url": "https://ucdp.uu.se/conflict/11347",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     },
+     {
+      "id": "14113",
+      "local": "Mali",
+      "lado_a": [
+       "Government of Mali"
+      ],
+      "lado_b": [
+       "IS"
+      ],
+      "apoio_a": [
+       "Government of Burkina Faso",
+       "Government of Niger",
+       "Government of Russia (Soviet Union)"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Islamic State",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2017-02-04",
+      "url": "https://ucdp.uu.se/conflict/14113",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Mali"
+      ],
+      "apoiadores_no_lado": 54
+     }
+    ]
    }
   },
   "170": {
@@ -5969,7 +8886,122 @@ window.MUNDO = {
      "recentes": [],
      "recentes_total": 0,
      "contrapartes": {}
-    }
+    },
+    "conflitos": [
+     {
+      "id": "289",
+      "local": "Colombia",
+      "lado_a": [
+       "Government of Colombia"
+      ],
+      "lado_b": [
+       "ELN",
+       "EMBF",
+       "FARC-EMC"
+      ],
+      "apoio_a": [],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "1964-12-31",
+      "url": "https://ucdp.uu.se/conflict/289",
+      "anos_pais": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "papel": "lado principal"
+     },
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2022
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 57
+     }
+    ]
    }
   },
   "858": {
@@ -6104,7 +9136,8 @@ window.MUNDO = {
      "recentes": [],
      "recentes_total": 0,
      "contrapartes": {}
-    }
+    },
+    "conflitos": []
    }
   },
   "076": {
@@ -6296,7 +9329,158 @@ window.MUNDO = {
       "USA": 2,
       "EEC": 1
      }
-    }
+    },
+    "conflitos": [
+     {
+      "id": "416",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "CMSPR",
+       "CPC",
+       "CPC-F"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Bhutan",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of France",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Mongolia",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Russia (Soviet Union)",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Vietnam (North Vietnam)",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "governo",
+      "territorio": "",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2021,
+       2022,
+       2023,
+       2024,
+       2025
+      ],
+      "ultimo_ano": 2025,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2001-05-27",
+      "url": "https://ucdp.uu.se/conflict/416",
+      "anos_pais": [
+       2021,
+       2022,
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 39
+     },
+     {
+      "id": "15283",
+      "local": "Central African Republic",
+      "lado_a": [
+       "Government of Central African Republic"
+      ],
+      "lado_b": [
+       "MPC"
+      ],
+      "apoio_a": [
+       "Government of Bangladesh",
+       "Government of Benin",
+       "Government of Bhutan",
+       "Government of Brazil",
+       "Government of Burkina Faso",
+       "Government of Burundi",
+       "Government of Cambodia (Kampuchea)",
+       "Government of Cameroon",
+       "Government of China",
+       "Government of Congo",
+       "Government of Djibouti",
+       "Government of Egypt",
+       "Government of Gambia",
+       "Government of Ghana",
+       "Government of Guinea",
+       "Government of Indonesia",
+       "Government of Ivory Coast",
+       "Government of Jordan",
+       "Government of Mali",
+       "Government of Mauritania",
+       "Government of Morocco",
+       "Government of Nepal",
+       "Government of Niger",
+       "Government of Nigeria",
+       "Government of Pakistan",
+       "Government of Peru",
+       "Government of Portugal",
+       "Government of Romania",
+       "Government of Rwanda",
+       "Government of Senegal",
+       "Government of Serbia (Yugoslavia)",
+       "Government of Spain",
+       "Government of Sri Lanka",
+       "Government of Sweden",
+       "Government of Tanzania",
+       "Government of Togo",
+       "Government of Tunisia",
+       "Government of Turkey",
+       "Government of Zambia"
+      ],
+      "apoio_b": [],
+      "disputa": "território",
+      "territorio": "Logone",
+      "tipo": "interno, com tropas estrangeiras",
+      "anos": [
+       2023
+      ],
+      "ultimo_ano": 2023,
+      "guerra_no_ultimo_ano": false,
+      "intensidade": "25 a 999 mortes em combate no ano",
+      "inicio": "2015-02-10",
+      "url": "https://ucdp.uu.se/conflict/15283",
+      "anos_pais": [
+       2023
+      ],
+      "papel": "apoio com tropas",
+      "apoia": [
+       "Government of Central African Republic"
+      ],
+      "apoiadores_no_lado": 39
+     }
+    ]
    }
   }
  },
@@ -6307,5 +9491,1856 @@ window.MUNDO = {
   "versao_dados": 39,
   "publicado": "2026-07-30"
  },
- "relacoes_em": "2026-11-04T22:28:48+00:00"
+ "relacoes_em": "2026-11-04T23:13:44+00:00",
+ "conflitos": {
+  "ultimo_ano": 2025,
+  "desde": 2021,
+  "versao": "261",
+  "mundo": {
+   "ativos": [
+    {
+     "id": "360",
+     "local": "Burkina Faso",
+     "lado_a": [
+      "Government of Burkina Faso"
+     ],
+     "lado_b": [
+      "JNIM"
+     ],
+     "apoio_a": [
+      "Government of Niger"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1987-10-15",
+     "url": "https://ucdp.uu.se/conflict/360"
+    },
+    {
+     "id": "283",
+     "local": "DR Congo (Zaire)",
+     "lado_a": [
+      "Government of DR Congo (Zaire)"
+     ],
+     "lado_b": [
+      "AFC",
+      "CRP"
+     ],
+     "apoio_a": [
+      "Government of Burundi",
+      "Government of Indonesia",
+      "Government of Kenya",
+      "Government of Malawi",
+      "Government of Nepal",
+      "Government of South Africa",
+      "Government of Tanzania"
+     ],
+     "apoio_b": [
+      "Government of Rwanda"
+     ],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1964-01-03",
+     "url": "https://ucdp.uu.se/conflict/283"
+    },
+    {
+     "id": "16069",
+     "local": "Ethiopia",
+     "lado_a": [
+      "Government of Ethiopia"
+     ],
+     "lado_b": [
+      "Fano"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território e governo",
+     "territorio": "Amhara",
+     "tipo": "interno",
+     "anos": [
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "2023-05-25",
+     "url": "https://ucdp.uu.se/conflict/16069"
+    },
+    {
+     "id": "381",
+     "local": "Haiti",
+     "lado_a": [
+      "Government of Haiti"
+     ],
+     "lado_b": [
+      "Viv Ansanm"
+     ],
+     "apoio_a": [
+      "Government of Bahamas",
+      "Government of Belize",
+      "Government of El Salvador",
+      "Government of Guatemala",
+      "Government of Jamaica",
+      "Government of Kenya"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1989-04-03",
+     "url": "https://ucdp.uu.se/conflict/381"
+    },
+    {
+     "id": "14609",
+     "local": "Iran, Israel",
+     "lado_a": [
+      "Government of Iran"
+     ],
+     "lado_b": [
+      "Government of Israel"
+     ],
+     "apoio_a": [],
+     "apoio_b": [
+      "Government of United States of America"
+     ],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "entre Estados",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "2017-03-19",
+     "url": "https://ucdp.uu.se/conflict/14609"
+    },
+    {
+     "id": "234",
+     "local": "Israel",
+     "lado_a": [
+      "Government of Israel"
+     ],
+     "lado_b": [
+      "Hamas",
+      "Palestinian Mujahideen Movement",
+      "PIJ",
+      "PRC"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Palestine",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1948-05-15",
+     "url": "https://ucdp.uu.se/conflict/234"
+    },
+    {
+     "id": "11347",
+     "local": "Mali",
+     "lado_a": [
+      "Government of Mali"
+     ],
+     "lado_b": [
+      "JNIM"
+     ],
+     "apoio_a": [
+      "Government of Russia (Soviet Union)"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "2009-06-10",
+     "url": "https://ucdp.uu.se/conflict/11347"
+    },
+    {
+     "id": "222",
+     "local": "Myanmar (Burma)",
+     "lado_a": [
+      "Government of Myanmar (Burma)"
+     ],
+     "lado_b": [
+      "NUG",
+      "PSLF"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1948-02-29",
+     "url": "https://ucdp.uu.se/conflict/222"
+    },
+    {
+     "id": "13641",
+     "local": "Nigeria",
+     "lado_a": [
+      "Government of Nigeria"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Cameroon",
+      "Government of Niger",
+      "Government of United States of America"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "2015-03-15",
+     "url": "https://ucdp.uu.se/conflict/13641"
+    },
+    {
+     "id": "404",
+     "local": "Pakistan",
+     "lado_a": [
+      "Government of Pakistan"
+     ],
+     "lado_b": [
+      "HGB",
+      "IMP",
+      "TTP"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1990-02-11",
+     "url": "https://ucdp.uu.se/conflict/404"
+    },
+    {
+     "id": "13243",
+     "local": "Russia (Soviet Union), Ukraine",
+     "lado_a": [
+      "Government of Russia (Soviet Union)"
+     ],
+     "lado_b": [
+      "Government of Ukraine"
+     ],
+     "apoio_a": [
+      "Government of North Korea"
+     ],
+     "apoio_b": [],
+     "disputa": "território e governo",
+     "territorio": "Crimea",
+     "tipo": "entre Estados",
+     "anos": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "2014-03-18",
+     "url": "https://ucdp.uu.se/conflict/13243"
+    },
+    {
+     "id": "337",
+     "local": "Somalia",
+     "lado_a": [
+      "Government of Somalia"
+     ],
+     "lado_b": [
+      "Al-Shabaab"
+     ],
+     "apoio_a": [
+      "Government of Djibouti",
+      "Government of Egypt",
+      "Government of Ethiopia",
+      "Government of Ghana",
+      "Government of Kenya",
+      "Government of Nigeria",
+      "Government of Sierra Leone",
+      "Government of Uganda",
+      "Government of United States of America",
+      "Government of Zambia"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1982-01-18",
+     "url": "https://ucdp.uu.se/conflict/337"
+    },
+    {
+     "id": "309",
+     "local": "Sudan",
+     "lado_a": [
+      "Government of Sudan"
+     ],
+     "lado_b": [
+      "RSF",
+      "SFA",
+      "SPLM/A-North"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": true,
+     "intensidade": "1.000 ou mais mortes em combate no ano",
+     "inicio": "1971-07-22",
+     "url": "https://ucdp.uu.se/conflict/309"
+    },
+    {
+     "id": "333",
+     "local": "Afghanistan",
+     "lado_a": [
+      "Government of Afghanistan"
+     ],
+     "lado_b": [
+      "NRF"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1975-07-02",
+     "url": "https://ucdp.uu.se/conflict/333"
+    },
+    {
+     "id": "13637",
+     "local": "Afghanistan",
+     "lado_a": [
+      "Government of Afghanistan"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2015-02-09",
+     "url": "https://ucdp.uu.se/conflict/13637"
+    },
+    {
+     "id": "11639",
+     "local": "Afghanistan, Pakistan",
+     "lado_a": [
+      "Government of Afghanistan"
+     ],
+     "lado_b": [
+      "Government of Pakistan"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Durand line",
+     "tipo": "entre Estados",
+     "anos": [
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2005-01-03",
+     "url": "https://ucdp.uu.se/conflict/11639"
+    },
+    {
+     "id": "387",
+     "local": "Angola",
+     "lado_a": [
+      "Government of Angola"
+     ],
+     "lado_b": [
+      "FLEC-FAC-TN"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Cabinda",
+     "tipo": "interno",
+     "anos": [
+      2022,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1989-08-04",
+     "url": "https://ucdp.uu.se/conflict/387"
+    },
+    {
+     "id": "15256",
+     "local": "Benin",
+     "lado_a": [
+      "Government of Benin"
+     ],
+     "lado_b": [
+      "JNIM"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2020-02-09",
+     "url": "https://ucdp.uu.se/conflict/15256"
+    },
+    {
+     "id": "13840",
+     "local": "Burkina Faso",
+     "lado_a": [
+      "Government of Burkina Faso"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Mali",
+      "Government of Niger"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2017-10-23",
+     "url": "https://ucdp.uu.se/conflict/13840"
+    },
+    {
+     "id": "294",
+     "local": "Cambodia (Kampuchea), Thailand",
+     "lado_a": [
+      "Government of Cambodia (Kampuchea)"
+     ],
+     "lado_b": [
+      "Government of Thailand"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Common Border",
+     "tipo": "entre Estados",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1975-12-15",
+     "url": "https://ucdp.uu.se/conflict/294"
+    },
+    {
+     "id": "353",
+     "local": "Cameroon",
+     "lado_a": [
+      "Government of Cameroon"
+     ],
+     "lado_b": [
+      "JAS"
+     ],
+     "apoio_a": [
+      "Government of Chad"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1960-01-31",
+     "url": "https://ucdp.uu.se/conflict/353"
+    },
+    {
+     "id": "13638",
+     "local": "Cameroon",
+     "lado_a": [
+      "Government of Cameroon"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Nigeria"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2023,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2015-03-19",
+     "url": "https://ucdp.uu.se/conflict/13638"
+    },
+    {
+     "id": "14129",
+     "local": "Cameroon",
+     "lado_a": [
+      "Government of Cameroon"
+     ],
+     "lado_b": [
+      "Ambazonia insurgents"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Ambazonia",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2017-09-16",
+     "url": "https://ucdp.uu.se/conflict/14129"
+    },
+    {
+     "id": "416",
+     "local": "Central African Republic",
+     "lado_a": [
+      "Government of Central African Republic"
+     ],
+     "lado_b": [
+      "CMSPR",
+      "CPC",
+      "CPC-F"
+     ],
+     "apoio_a": [
+      "Government of Bangladesh",
+      "Government of Bhutan",
+      "Government of Burkina Faso",
+      "Government of Burundi",
+      "Government of Cambodia (Kampuchea)",
+      "Government of Cameroon",
+      "Government of China",
+      "Government of Congo",
+      "Government of Djibouti",
+      "Government of Egypt",
+      "Government of France",
+      "Government of Gambia",
+      "Government of Ghana",
+      "Government of Indonesia",
+      "Government of Ivory Coast",
+      "Government of Jordan",
+      "Government of Mali",
+      "Government of Mauritania",
+      "Government of Mongolia",
+      "Government of Morocco",
+      "Government of Nepal",
+      "Government of Niger",
+      "Government of Pakistan",
+      "Government of Peru",
+      "Government of Portugal",
+      "Government of Romania",
+      "Government of Russia (Soviet Union)",
+      "Government of Rwanda",
+      "Government of Senegal",
+      "Government of Serbia (Yugoslavia)",
+      "Government of Spain",
+      "Government of Sri Lanka",
+      "Government of Tanzania",
+      "Government of Togo",
+      "Government of Tunisia",
+      "Government of Turkey",
+      "Government of Vietnam (North Vietnam)",
+      "Government of Zambia"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2001-05-27",
+     "url": "https://ucdp.uu.se/conflict/416"
+    },
+    {
+     "id": "289",
+     "local": "Colombia",
+     "lado_a": [
+      "Government of Colombia"
+     ],
+     "lado_b": [
+      "ELN",
+      "EMBF",
+      "FARC-EMC"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1964-12-31",
+     "url": "https://ucdp.uu.se/conflict/289"
+    },
+    {
+     "id": "14692",
+     "local": "DR Congo (Zaire)",
+     "lado_a": [
+      "Government of DR Congo (Zaire)"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Indonesia",
+      "Government of Kenya",
+      "Government of Nepal",
+      "Government of South Africa",
+      "Government of Tanzania",
+      "Government of Uganda"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2017-11-22",
+     "url": "https://ucdp.uu.se/conflict/14692"
+    },
+    {
+     "id": "413",
+     "local": "Ethiopia",
+     "lado_a": [
+      "Government of Ethiopia"
+     ],
+     "lado_b": [
+      "OLA"
+     ],
+     "apoio_a": [
+      "Government of Kenya"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Oromiya",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1974-08-31",
+     "url": "https://ucdp.uu.se/conflict/413"
+    },
+    {
+     "id": "227",
+     "local": "India",
+     "lado_a": [
+      "Government of India"
+     ],
+     "lado_b": [
+      "CPI-Maoist"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1948-05-01",
+     "url": "https://ucdp.uu.se/conflict/227"
+    },
+    {
+     "id": "364",
+     "local": "India",
+     "lado_a": [
+      "Government of India"
+     ],
+     "lado_b": [
+      "Kashmir insurgents"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Kashmir",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1984-02-06",
+     "url": "https://ucdp.uu.se/conflict/364"
+    },
+    {
+     "id": "13653",
+     "local": "India",
+     "lado_a": [
+      "Government of India"
+     ],
+     "lado_b": [
+      "UNLFW"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Western South East Asia",
+     "tipo": "interno",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2015-04-19",
+     "url": "https://ucdp.uu.se/conflict/13653"
+    },
+    {
+     "id": "218",
+     "local": "India, Pakistan",
+     "lado_a": [
+      "Government of India"
+     ],
+     "lado_b": [
+      "Government of Pakistan"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Kashmir",
+     "tipo": "entre Estados",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1948-12-31",
+     "url": "https://ucdp.uu.se/conflict/218"
+    },
+    {
+     "id": "291",
+     "local": "Indonesia",
+     "lado_a": [
+      "Government of Indonesia"
+     ],
+     "lado_b": [
+      "OPM"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "West Papua",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1965-07-28",
+     "url": "https://ucdp.uu.se/conflict/291"
+    },
+    {
+     "id": "338",
+     "local": "Iran",
+     "lado_a": [
+      "Government of Iran"
+     ],
+     "lado_b": [
+      "Jaish al-Adl"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1972-08-13",
+     "url": "https://ucdp.uu.se/conflict/338"
+    },
+    {
+     "id": "259",
+     "local": "Iraq",
+     "lado_a": [
+      "Government of Iraq"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of France",
+      "Government of United Kingdom",
+      "Government of United States of America"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1958-07-14",
+     "url": "https://ucdp.uu.se/conflict/259"
+    },
+    {
+     "id": "426",
+     "local": "Israel",
+     "lado_a": [
+      "Government of Israel"
+     ],
+     "lado_b": [
+      "Hezbollah"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Southern Lebanon",
+     "tipo": "interno",
+     "anos": [
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1986-09-30",
+     "url": "https://ucdp.uu.se/conflict/426"
+    },
+    {
+     "id": "302",
+     "local": "Israel, Syria",
+     "lado_a": [
+      "Government of Israel"
+     ],
+     "lado_b": [
+      "Government of Syria"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Golan Heights",
+     "tipo": "entre Estados",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1967-06-05",
+     "url": "https://ucdp.uu.se/conflict/302"
+    },
+    {
+     "id": "16470",
+     "local": "Israel, Yemen (North Yemen)",
+     "lado_a": [
+      "Government of Israel"
+     ],
+     "lado_b": [
+      "Government of Yemen (North Yemen)"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "entre Estados",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2024-12-26",
+     "url": "https://ucdp.uu.se/conflict/16470"
+    },
+    {
+     "id": "13646",
+     "local": "Kenya",
+     "lado_a": [
+      "Government of Kenya"
+     ],
+     "lado_b": [
+      "Al-Shabaab"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Northeastern Province and Coast",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2015-03-13",
+     "url": "https://ucdp.uu.se/conflict/13646"
+    },
+    {
+     "id": "14113",
+     "local": "Mali",
+     "lado_a": [
+      "Government of Mali"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Burkina Faso",
+      "Government of Niger",
+      "Government of Russia (Soviet Union)"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2017-02-04",
+     "url": "https://ucdp.uu.se/conflict/14113"
+    },
+    {
+     "id": "16038",
+     "local": "Mali",
+     "lado_a": [
+      "Government of Mali"
+     ],
+     "lado_b": [
+      "FLA"
+     ],
+     "apoio_a": [
+      "Government of Russia (Soviet Union)"
+     ],
+     "apoio_b": [],
+     "disputa": "território e governo",
+     "territorio": "Azawad",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2023-08-04",
+     "url": "https://ucdp.uu.se/conflict/16038"
+    },
+    {
+     "id": "332",
+     "local": "Mozambique",
+     "lado_a": [
+      "Government of Mozambique"
+     ],
+     "lado_b": [
+      "Naparama"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1977-12-31",
+     "url": "https://ucdp.uu.se/conflict/332"
+    },
+    {
+     "id": "14845",
+     "local": "Mozambique",
+     "lado_a": [
+      "Government of Mozambique"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Rwanda",
+      "Government of Tanzania"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2019-06-04",
+     "url": "https://ucdp.uu.se/conflict/14845"
+    },
+    {
+     "id": "221",
+     "local": "Myanmar (Burma)",
+     "lado_a": [
+      "Government of Myanmar (Burma)"
+     ],
+     "lado_b": [
+      "KNU"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Karen",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1948-12-31",
+     "url": "https://ucdp.uu.se/conflict/221"
+    },
+    {
+     "id": "223",
+     "local": "Myanmar (Burma)",
+     "lado_a": [
+      "Government of Myanmar (Burma)"
+     ],
+     "lado_b": [
+      "ULA"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Arakan",
+     "tipo": "interno",
+     "anos": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1948-01-31",
+     "url": "https://ucdp.uu.se/conflict/223"
+    },
+    {
+     "id": "231",
+     "local": "Myanmar (Burma)",
+     "lado_a": [
+      "Government of Myanmar (Burma)"
+     ],
+     "lado_b": [
+      "KIO"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Kachin",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1949-12-31",
+     "url": "https://ucdp.uu.se/conflict/231"
+    },
+    {
+     "id": "253",
+     "local": "Myanmar (Burma)",
+     "lado_a": [
+      "Government of Myanmar (Burma)"
+     ],
+     "lado_b": [
+      "KNPP"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Karenni",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1957-12-31",
+     "url": "https://ucdp.uu.se/conflict/253"
+    },
+    {
+     "id": "430",
+     "local": "Niger",
+     "lado_a": [
+      "Government of Niger"
+     ],
+     "lado_b": [
+      "JNIM"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1991-10-25",
+     "url": "https://ucdp.uu.se/conflict/430"
+    },
+    {
+     "id": "13639",
+     "local": "Niger",
+     "lado_a": [
+      "Government of Niger"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of Burkina Faso",
+      "Government of Mali",
+      "Government of Nigeria"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2015-03-26",
+     "url": "https://ucdp.uu.se/conflict/13639"
+    },
+    {
+     "id": "297",
+     "local": "Nigeria",
+     "lado_a": [
+      "Government of Nigeria"
+     ],
+     "lado_b": [
+      "JAS"
+     ],
+     "apoio_a": [
+      "Government of Chad",
+      "Government of Niger"
+     ],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1966-01-15",
+     "url": "https://ucdp.uu.se/conflict/297"
+    },
+    {
+     "id": "303",
+     "local": "Nigeria",
+     "lado_a": [
+      "Government of Nigeria"
+     ],
+     "lado_b": [
+      "IPOB"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Biafra",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1967-07-06",
+     "url": "https://ucdp.uu.se/conflict/303"
+    },
+    {
+     "id": "325",
+     "local": "Pakistan",
+     "lado_a": [
+      "Government of Pakistan"
+     ],
+     "lado_b": [
+      "BRAS"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Balochistan",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1973-05-18",
+     "url": "https://ucdp.uu.se/conflict/325"
+    },
+    {
+     "id": "13936",
+     "local": "Pakistan",
+     "lado_a": [
+      "Government of Pakistan"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2016-02-12",
+     "url": "https://ucdp.uu.se/conflict/13936"
+    },
+    {
+     "id": "209",
+     "local": "Philippines",
+     "lado_a": [
+      "Government of Philippines"
+     ],
+     "lado_b": [
+      "CPP"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1946-07-31",
+     "url": "https://ucdp.uu.se/conflict/209"
+    },
+    {
+     "id": "374",
+     "local": "Rwanda",
+     "lado_a": [
+      "Government of Rwanda"
+     ],
+     "lado_b": [
+      "FDLR-FOCA"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1990-10-01",
+     "url": "https://ucdp.uu.se/conflict/374"
+    },
+    {
+     "id": "14197",
+     "local": "Somalia",
+     "lado_a": [
+      "Government of Somalia"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of United States of America"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2018-02-08",
+     "url": "https://ucdp.uu.se/conflict/14197"
+    },
+    {
+     "id": "11345",
+     "local": "South Sudan",
+     "lado_a": [
+      "Government of South Sudan"
+     ],
+     "lado_b": [
+      "SPLM/A - IO"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2011-08-20",
+     "url": "https://ucdp.uu.se/conflict/11345"
+    },
+    {
+     "id": "299",
+     "local": "Syria",
+     "lado_a": [
+      "Government of Syria"
+     ],
+     "lado_b": [
+      "Military Council for the Liberation of Syria"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1966-02-23",
+     "url": "https://ucdp.uu.se/conflict/299"
+    },
+    {
+     "id": "13604",
+     "local": "Syria",
+     "lado_a": [
+      "Government of Syria"
+     ],
+     "lado_b": [
+      "IS"
+     ],
+     "apoio_a": [
+      "Government of United States of America"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Islamic State",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2013-03-26",
+     "url": "https://ucdp.uu.se/conflict/13604"
+    },
+    {
+     "id": "13809",
+     "local": "Syria",
+     "lado_a": [
+      "Government of Syria"
+     ],
+     "lado_b": [
+      "SDF"
+     ],
+     "apoio_a": [
+      "Government of Turkey"
+     ],
+     "apoio_b": [],
+     "disputa": "território e governo",
+     "territorio": "Rojava Kurdistan",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2015-12-06",
+     "url": "https://ucdp.uu.se/conflict/13809"
+    },
+    {
+     "id": "423",
+     "local": "Thailand",
+     "lado_a": [
+      "Government of Thailand"
+     ],
+     "lado_b": [
+      "Patani insurgents"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Patani",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1965-12-31",
+     "url": "https://ucdp.uu.se/conflict/423"
+    },
+    {
+     "id": "358",
+     "local": "Togo",
+     "lado_a": [
+      "Government of Togo"
+     ],
+     "lado_b": [
+      "JNIM"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno",
+     "anos": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1986-09-23",
+     "url": "https://ucdp.uu.se/conflict/358"
+    },
+    {
+     "id": "354",
+     "local": "Turkey",
+     "lado_a": [
+      "Government of Turkey"
+     ],
+     "lado_b": [
+      "PKK"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Kurdistan",
+     "tipo": "interno",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1983-05-01",
+     "url": "https://ucdp.uu.se/conflict/354"
+    },
+    {
+     "id": "16099",
+     "local": "United Kingdom, United States of America, Yemen (North Yemen)",
+     "lado_a": [
+      "Government of United Kingdom",
+      "Government of United States of America"
+     ],
+     "lado_b": [
+      "Government of Yemen (North Yemen)"
+     ],
+     "apoio_a": [
+      "Government of Australia",
+      "Government of Bahrain",
+      "Government of Canada",
+      "Government of Netherlands",
+      "Government of New Zealand",
+      "Government of Norway",
+      "Government of Singapore",
+      "Government of Sri Lanka"
+     ],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "Red Sea, Bab al Mandab and Gulf of Aden",
+     "tipo": "entre Estados",
+     "anos": [
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "2023-12-31",
+     "url": "https://ucdp.uu.se/conflict/16099"
+    },
+    {
+     "id": "230",
+     "local": "Yemen (North Yemen)",
+     "lado_a": [
+      "Government of Yemen (North Yemen)"
+     ],
+     "lado_b": [
+      "Forces of the Presidential Leadership Council"
+     ],
+     "apoio_a": [],
+     "apoio_b": [
+      "Government of Bahrain",
+      "Government of Saudi Arabia",
+      "Government of United Arab Emirates"
+     ],
+     "disputa": "governo",
+     "territorio": "",
+     "tipo": "interno, com tropas estrangeiras",
+     "anos": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1948-03-15",
+     "url": "https://ucdp.uu.se/conflict/230"
+    },
+    {
+     "id": "402",
+     "local": "Yemen (North Yemen)",
+     "lado_a": [
+      "Government of Yemen (North Yemen)"
+     ],
+     "lado_b": [
+      "STC"
+     ],
+     "apoio_a": [],
+     "apoio_b": [],
+     "disputa": "território",
+     "territorio": "South Yemen",
+     "tipo": "interno",
+     "anos": [
+      2025
+     ],
+     "ultimo_ano": 2025,
+     "guerra_no_ultimo_ano": false,
+     "intensidade": "25 a 999 mortes em combate no ano",
+     "inicio": "1994-02-21",
+     "url": "https://ucdp.uu.se/conflict/402"
+    }
+   ],
+   "total": 65,
+   "guerras": 13
+  }
+ }
 };

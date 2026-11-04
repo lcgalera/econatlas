@@ -28,3 +28,49 @@ PAISES = [
     {"iso_num": "858", "iso3": "URY", "comex": "845", "nome": "Uruguai", "artigo": "o", "termos": ["uruguai", "uruguaio", "uruguaia", "montevidéu"]},
 ]
 POR_ISO_NUM = {p["iso_num"]: p for p in PAISES}
+
+# Países que aparecem muito no noticiário e entram só para marcar manchetes no mapa (D44): sem dados de comércio nem painel próprio.
+# Mesmas regras dos termos acima: minúsculas, COM acento, palavra inteira. Ficaram de fora termos ambíguos: "peru" (a ave),
+# "sírio" e "libanês" (Hospital Sírio-Libanês), "maduro" (adjetivo), "português"/"portuguesa" (a língua), "turco".
+MENCOES = [
+    {"iso_num": "364", "nome": "Irã", "termos": ["irã", "iraniano", "iraniana", "iranianos", "teerã"]},
+    {"iso_num": "376", "nome": "Israel", "termos": ["israel", "israelense", "israelenses", "netanyahu"]},
+    {"iso_num": "804", "nome": "Ucrânia", "termos": ["ucrânia", "ucraniano", "ucraniana", "ucranianos", "kiev", "zelensky", "zelenski"]},
+    {"iso_num": "275", "nome": "Palestina", "termos": ["palestina", "palestino", "palestinos", "palestinas", "gaza", "cisjordânia"]},
+    {"iso_num": "862", "nome": "Venezuela", "termos": ["venezuela", "venezuelano", "venezuelana", "venezuelanos", "caracas"]},
+    {"iso_num": "422", "nome": "Líbano", "termos": ["líbano", "hezbollah"]},  # sem "libanês": casaria com o Hospital Sírio-Libanês
+    {"iso_num": "760", "nome": "Síria", "termos": ["síria", "damasco"]},
+    {"iso_num": "408", "nome": "Coreia do Norte", "termos": ["coreia do norte", "norte-coreano", "norte-coreana", "pyongyang", "kim jong-un"]},
+    {"iso_num": "158", "nome": "Taiwan", "termos": ["taiwan", "taiwanês", "taiwanesa", "taipé"]},
+    {"iso_num": "792", "nome": "Turquia", "termos": ["turquia", "erdogan", "ancara"]},
+    {"iso_num": "586", "nome": "Paquistão", "termos": ["paquistão", "paquistanês", "paquistanesa", "islamabad"]},
+    {"iso_num": "004", "nome": "Afeganistão", "termos": ["afeganistão", "afegão", "afegã", "talibã", "cabul"]},
+    {"iso_num": "192", "nome": "Cuba", "termos": ["cuba", "cubano", "cubana", "cubanos", "havana"]},
+    {"iso_num": "068", "nome": "Bolívia", "termos": ["bolívia", "boliviano", "boliviana", "bolivianos"]},
+    {"iso_num": "604", "nome": "Peru", "termos": ["peruano", "peruana", "peruanos"]},
+    {"iso_num": "218", "nome": "Equador", "termos": ["equador", "equatoriano", "equatoriana", "quito"]},
+    {"iso_num": "818", "nome": "Egito", "termos": ["egito", "egípcio", "egípcia", "cairo"]},
+    {"iso_num": "729", "nome": "Sudão", "termos": ["sudão", "sudanês", "sudanesa", "cartum"]},
+    {"iso_num": "566", "nome": "Nigéria", "termos": ["nigéria", "nigeriano", "nigeriana"]},
+    {"iso_num": "710", "nome": "África do Sul", "termos": ["áfrica do sul", "sul-africano", "sul-africana", "pretória", "joanesburgo"]},
+    {"iso_num": "620", "nome": "Portugal", "termos": ["portugal", "lisboa"]},
+    {"iso_num": "616", "nome": "Polônia", "termos": ["polônia", "polonês", "polonesa", "varsóvia"]},
+    {"iso_num": "368", "nome": "Iraque", "termos": ["iraque", "iraquiano", "iraquiana", "bagdá"]},
+    {"iso_num": "887", "nome": "Iêmen", "termos": ["iêmen", "iemenita", "houthis", "houthi"]},
+    {"iso_num": "036", "nome": "Austrália", "termos": ["austrália", "australiano", "australiana"]},
+    {"iso_num": "360", "nome": "Indonésia", "termos": ["indonésia", "indonésio", "jacarta"]},
+    {"iso_num": "304", "nome": "Groenlândia", "termos": ["groenlândia"]},
+    {"iso_num": "208", "nome": "Dinamarca", "termos": ["dinamarca", "dinamarquês", "dinamarquesa", "copenhague"]},
+    {"iso_num": "332", "nome": "Haiti", "termos": ["haiti", "haitiano", "haitiana"]},
+    {"iso_num": "591", "nome": "Panamá", "termos": ["panamá", "panamenho"]},
+    {"iso_num": "104", "nome": "Mianmar", "termos": ["mianmar", "birmânia"]},
+    {"iso_num": "180", "nome": "Rep. Dem. do Congo", "termos": ["república democrática do congo", "rdc", "kinshasa"]},
+    {"iso_num": "231", "nome": "Etiópia", "termos": ["etiópia", "etíope"]},
+    {"iso_num": "706", "nome": "Somália", "termos": ["somália"]},
+]
+
+
+def citados(titulo: str) -> list:
+    """Códigos (iso_num do mapa) de todos os países que o título cita, entre os do protótipo e os de MENCOES."""
+    from .gdelt import menciona
+    return [p["iso_num"] for p in PAISES + MENCOES if menciona(titulo, p["termos"])]

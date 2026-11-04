@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-04T22:30:52+00:00",
+ "gerado_em": "2026-11-04T23:29:18+00:00",
  "fonte": {
   "nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, RFI) e GDELT",
   "url": "https://www.gdeltproject.org",
@@ -9,107 +9,32 @@
  "paises": {
   "076": [
    {
-    "titulo": "Eleições nos EUA: brasileira eleita deputada começou no país como babá",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-brasileira-eleita-deputada-comecou-no-pais-como-baba.ghtml",
-    "veiculo": "g1 Mundo",
+    "titulo": "Aumento do consumo de energia de Itaipu pelo Paraguai deve pressionar preços no Brasil, diz Itaú BBA",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/aumento-do-consumo-de-energia-de-itaipu-pelo-paraguai-deve-pressionar-precos-no-brasil-diz-itau-bba.shtml",
+    "veiculo": "Folha Mercado",
     "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "EUA: James Talarico brinca com gíria brasileira em post antigo e viraliza com logo de ONG: 'Não vou roubar sua garota'",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eua-talarico-pt-texas.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": []
-   },
-   {
-    "titulo": "Derrota de Trump pode enfraquecer o tarifaço? Entenda os impactos para Brasil e outros países",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/vitoria-democrata-impactos-tarifaco-trump.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
+    "hora": "20:18",
+    "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "600"
     ]
-   },
-   {
-    "titulo": "'Estão orgulhosos de nós?': americanos agradecem ao Brasil nas redes após onda democrata nas eleições",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/americanos-agradecem-brasil-redes-onda-democrata-eleicoes.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Midterms nos EUA: vitória democrata ameaça planos de Trump e pode afetar dólar e juros no Brasil",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/midterms-nos-eua-vitoria-democrata-ameaca-planos-de-trump-e-pode-afetar-dolar-e-juros-no-brasil.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "economia"
-    ]
-   },
-   {
-    "titulo": "Brasileiro de Duque de Caxias (RJ) é eleito deputado estadual na Flórida",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/brasileiro-de-duque-de-caxias-e-eleito-deputado-estadual-na-florida.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": []
-   },
-   {
-    "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/ranking-juro-real-novembro.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "afeta_o_mundo"
-    ]
-   },
-   {
-    "titulo": "Brasil cria 121 mil empregos formais em setembro, pior resultado para o mês desde 2020",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/brasil-cria-1213-mil-empregos-formais-em-setembro-queda-de-43percent-na-comparacao-com-mesmo-mes-de-2025.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "economia"
-    ]
-   },
-   {
-    "titulo": "Carro voador da Embraer: Eve fecha acordo para vender até 12 aeronaves para empresa que vai operar no Sul do Brasil",
-    "url": "https://g1.globo.com/sp/vale-do-paraiba-regiao/noticia/2026/11/04/carro-voador-da-embraer-eve-fecha-acordo-para-vender-ate-12-aeronaves-para-empresa-que-vai-operar-no-sul-do-brasil.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "economia"
-    ]
-   },
-   {
-    "titulo": "RAM 2500 tem recall no Brasil por falha que pode afetar freios e controles de estabilidade e tração",
-    "url": "https://g1.globo.com/carros/noticia/2026/11/04/ram-2500-tem-recall-no-brasil-por-falha-que-pode-afetar-os-freios-e-os-controles-de-estabilidade-e-tracao.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": []
    },
    {
     "titulo": "Brasil segue na liderança do ranking de juros reais após manutenção da Selic",
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/brasil-segue-na-lideranca-do-ranking-de-juros-reais-apos-manutencao-da-selic.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "18:32",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -117,25 +42,49 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/fluxo-cambial-do-brasil-registra-entrada-de-us-1815-bilhoes-em-outubro-maior-valor-do-ano.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "17:49",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "M&As no Brasil crescem 31% em valor, mas caem na mesma proporção em número de operações",
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/colunas/painelsa/2026/11/mas-no-brasil-crescem-31-em-valor-mas-caem-na-mesma-proporcao-em-numero-de-operacoes.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "17:12",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Brasil cria 121,3 mil postos de trabalho em setembro, aponta Caged",
+    "url": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/brasil-cria-1213-mil-postos-de-trabalho-em-setembro-aponta-caged",
+    "veiculo": "Agência Brasil Economia",
+    "data": "20261104",
+    "hora": "16:33",
+    "dominio": "agenciabrasil.ebc.com.br",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Brasil registra pior setembro na criação de empregos formais desde o início da série histórica, diz Caged",
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/brasil-registra-pior-setembro-na-criacao-de-empregos-formais-desde-o-inicio-da-serie-historica-diz-caged.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "15:01",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -143,9 +92,27 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/rivalidade-entre-eua-e-china-impulsiona-investimentos-em-mineracao-no-brasil.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "12:55",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "156",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Felipe Sousa-Lazaballet se torna o primeiro brasileiro eleito para o Legislativo da Flórida",
+    "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-felipe-sousa-lazaballet-se-torna-o-primeiro-brasileiro-eleito-para-o-legislativo-da-fl%C3%B3rida",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "05:45",
+    "dominio": "www.rfi.fr",
+    "categorias": [],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -153,68 +120,174 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/hyundai-creta-e-o-carro-mais-procurado-no-move-brasil-aponta-levantamento-veja-ranking.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "04:00",
     "dominio": "redir.folha.com.br",
-    "categorias": []
-   },
-   {
-    "titulo": "Brasil cria 121,3 mil postos de trabalho em setembro, aponta Caged",
-    "url": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/brasil-cria-1213-mil-postos-de-trabalho-em-setembro-aponta-caged",
-    "veiculo": "Agência Brasil Economia",
-    "data": "20261104",
-    "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
-   },
-   {
-    "titulo": "Felipe Sousa-Lazaballet se torna o primeiro brasileiro eleito para o Legislativo da Flórida",
-    "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-felipe-sousa-lazaballet-se-torna-o-primeiro-brasileiro-eleito-para-o-legislativo-da-fl%C3%B3rida",
-    "veiculo": "RFI Brasil",
-    "data": "20261104",
-    "dominio": "www.rfi.fr",
-    "categorias": []
-   },
-   {
-    "titulo": "Tarifaço: Brasil deve receber proposta dos EUA entre esta semana e a próxima, diz ministro",
-    "url": "https://g1.globo.com/politica/noticia/2026/11/03/tarifaco-brasil-deve-receber-proposta-dos-eua-entre-esta-semana-e-a-proxima-diz-ministro.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "economia",
-     "politica"
+    "categorias": [],
+    "paises": [
+     "076"
     ]
    },
    {
-    "titulo": "Ford do Brasil faz recall de F-150 por falha na fixação dos bancos",
-    "url": "https://g1.globo.com/carros/noticia/2026/11/03/recall-ford-f-150-bancos.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261103",
+    "titulo": "Eleições nos EUA: brasileira eleita deputada começou no país como babá",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-brasileira-eleita-deputada-comecou-no-pais-como-baba.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
+    ]
    },
    {
-    "titulo": "Veja motivos que fazem conta de luz no Brasil ser mais cara do que a de outros países com o mesmo perfil de geração de energia",
-    "url": "https://g1.globo.com/jornal-nacional/noticia/2026/11/02/veja-motivos-que-fazem-conta-de-luz-no-brasil-ser-mais-cara-do-que-a-de-outros-paises-com-o-mesmo-perfil-de-geracao-de-energia.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261103",
+    "titulo": "EUA: James Talarico brinca com gíria brasileira em post antigo e viraliza com logo de ONG: 'Não vou roubar sua garota'",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eua-talarico-pt-texas.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Derrota de Trump pode enfraquecer o tarifaço? Entenda os impactos para Brasil e outros países",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/vitoria-democrata-impactos-tarifaco-trump.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "'Estão orgulhosos de nós?': americanos agradecem ao Brasil nas redes após onda democrata nas eleições",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/americanos-agradecem-brasil-redes-onda-democrata-eleicoes.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Midterms nos EUA: vitória democrata ameaça planos de Trump e pode afetar dólar e juros no Brasil",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/midterms-nos-eua-vitoria-democrata-ameaca-planos-de-trump-e-pode-afetar-dolar-e-juros-no-brasil.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "076",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Brasileiro de Duque de Caxias (RJ) é eleito deputado estadual na Flórida",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/brasileiro-de-duque-de-caxias-e-eleito-deputado-estadual-na-florida.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/ranking-juro-real-novembro.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "afeta_o_mundo"
+    ],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Brasil cria 121 mil empregos formais em setembro, pior resultado para o mês desde 2020",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/brasil-cria-1213-mil-empregos-formais-em-setembro-queda-de-43percent-na-comparacao-com-mesmo-mes-de-2025.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Carro voador da Embraer: Eve fecha acordo para vender até 12 aeronaves para empresa que vai operar no Sul do Brasil",
+    "url": "https://g1.globo.com/sp/vale-do-paraiba-regiao/noticia/2026/11/04/carro-voador-da-embraer-eve-fecha-acordo-para-vender-ate-12-aeronaves-para-empresa-que-vai-operar-no-sul-do-brasil.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "RAM 2500 tem recall no Brasil por falha que pode afetar freios e controles de estabilidade e tração",
+    "url": "https://g1.globo.com/carros/noticia/2026/11/04/ram-2500-tem-recall-no-brasil-por-falha-que-pode-afetar-os-freios-e-os-controles-de-estabilidade-e-tracao.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Democrata se torna primeiro brasileiro eleito deputado estadual na Flórida",
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/democrata-se-torna-primeiro-brasileiro-eleito-deputado-estadual-na-florida.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "23:50",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Justiça proíbe Meta de usar reportagens para treinar IA no Brasil",
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/negocios/2026/11/justica-proibe-meta-de-usar-reportagens-para-treinar-ia-no-brasil.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261103",
+    "hora": "21:06",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -222,10 +295,15 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/brasil-espera-proposta-dos-eua-sobre-tarifas-ate-semana-que-vem-diz-ministro.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261103",
+    "hora": "18:00",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -233,9 +311,13 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/economista-americano-citado-por-lara-resende-diz-que-brasileiro-testa-uma-teoria-sem-historico.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261103",
+    "hora": "17:36",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -243,9 +325,14 @@
     "url": "https://www.dw.com/pt-br/eleição-nos-eua-pode-aliviar-pressão-de-trump-sobre-o-brasil/a-79845890?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261103",
+    "hora": "16:47",
     "dominio": "www.dw.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -253,9 +340,53 @@
     "url": "https://www.dw.com/pt-br/brasil-lança-plano-de-ação-global-para-transição-energética/a-79845717?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261103",
+    "hora": "14:27",
     "dominio": "www.dw.com",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Tarifaço: Brasil deve receber proposta dos EUA entre esta semana e a próxima, diz ministro",
+    "url": "https://g1.globo.com/politica/noticia/2026/11/03/tarifaco-brasil-deve-receber-proposta-dos-eua-entre-esta-semana-e-a-proxima-diz-ministro.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "economia",
+     "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Ford do Brasil faz recall de F-150 por falha na fixação dos bancos",
+    "url": "https://g1.globo.com/carros/noticia/2026/11/03/recall-ford-f-150-bancos.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Veja motivos que fazem conta de luz no Brasil ser mais cara do que a de outros países com o mesmo perfil de geração de energia",
+    "url": "https://g1.globo.com/jornal-nacional/noticia/2026/11/02/veja-motivos-que-fazem-conta-de-luz-no-brasil-ser-mais-cara-do-que-a-de-outros-paises-com-o-mesmo-perfil-de-geracao-de-energia.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "076"
     ]
    },
    {
@@ -264,7 +395,10 @@
     "veiculo": "Agência Brasil Economia",
     "data": "20261103",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Site e aplicativo do Banco do Brasil apresentam instabilidade",
@@ -272,49 +406,134 @@
     "veiculo": "Agência Brasil Economia",
     "data": "20261103",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Eventual derrota de Trump nas midterms pode ampliar pressão sobre ele em temas ligados ao Brasil",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/eventual-derrota-de-trump-nas-midterms-pode-ampliar-pressao-sobre-ele-em-temas-ligados-ao-brasil.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261102",
+    "hora": "23:00",
+    "dominio": "redir.folha.com.br",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Brasileira de 20 anos é identificada como copilota de jato que caiu na Flórida",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/brasileira-de-20-anos-e-identificada-como-copilota-de-jato-que-caiu-na-florida.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261102",
+    "hora": "15:06",
+    "dominio": "redir.folha.com.br",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
    },
    {
     "titulo": "Midterms nos EUA: eleições podem mudar planos de Trump e mexer com dólar e juros no Brasil",
     "url": "https://g1.globo.com/economia/noticia/2026/11/02/midterms-nos-eua-eleicoes-podem-mudar-planos-de-trump-e-mexer-com-dolar-e-juros-no-brasil.ghtml",
     "veiculo": "g1 Economia",
     "data": "20261102",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Brasileiro de 22 anos morre na guerra na Ucrânia",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/brasileiro-de-22-anos-morre-na-guerra-na-ucrania.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261101",
+    "hora": "23:16",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "geopolitica"
+    ],
+    "paises": [
+     "076",
+     "804"
+    ]
+   },
+   {
+    "titulo": "Por que o Honda CR-V é um sucesso nos EUA, mas quase não vende no Brasil? O g1 testou o SUV 'invisível'",
+    "url": "https://g1.globo.com/carros/noticia/2026/11/01/teste-honda-cr-v.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261101",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "076",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Trump diz que Flávio Bolsonaro, que fugiu do Brasil, pode ficar nos EUA pelo \"tempo que quiser\"",
+    "url": "https://www.dw.com/pt-br/trump-diz-que-flávio-bolsonaro-que-fugiu-do-brasil-pode-ficar-nos-eua-pelo-tempo-que-quiser/live-78393402?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261031",
+    "hora": "16:07",
+    "dominio": "www.dw.com",
+    "categorias": [],
+    "paises": [
+     "076",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Janones: de cobrador de ônibus a estrategista digital número 1 da esquerda brasileira",
+    "url": "https://www.bbc.com/portuguese/watch/cw1l325g5lyqo?at_medium=RSS&at_campaign=rss",
+    "veiculo": "BBC News Brasil",
+    "data": "20261029",
+    "hora": "19:44",
+    "dominio": "www.bbc.com",
+    "categorias": [],
+    "paises": [
+     "076"
+    ]
+   },
+   {
+    "titulo": "Como editoras brasileiras vendem a literatura do Brasil para o mundo",
+    "url": "https://www.dw.com/pt-br/como-editoras-brasileiras-vendem-a-literatura-do-brasil-para-o-mundo/a-79795264?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261029",
+    "hora": "11:21",
+    "dominio": "www.dw.com",
+    "categorias": [
+     "afeta_o_mundo"
+    ],
+    "paises": [
+     "076"
     ]
    }
   ],
   "156": [
    {
-    "titulo": "Hacker chinês usa IA para espionar governos na América Latina, diz relatório",
-    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/hacker-chines-usa-ia-para-espionar-governos-na-america-latina-diz-relatorio.shtml",
-    "veiculo": "Folha Mundo",
-    "data": "20261104",
-    "dominio": "redir.folha.com.br",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "China diz estar disposta a seguir trabalhando com EUA após vitória democrata nas eleições de meio de mandato",
-    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/china-diz-estar-disposta-a-seguir-trabalhando-com-eua-apos-vitoria-democrata-nas-eleicoes-de-meio-de-mandato.shtml",
-    "veiculo": "Folha Mundo",
-    "data": "20261104",
-    "dominio": "redir.folha.com.br",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
     "titulo": "Rivalidade entre EUA e China impulsiona investimentos em mineração no Brasil",
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/rivalidade-entre-eua-e-china-impulsiona-investimentos-em-mineracao-no-brasil.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "12:55",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "156",
+     "840"
     ]
    },
    {
@@ -322,33 +541,79 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/ia/2026/11/com-atraso-apple-inicia-testes-em-recursos-de-ia-na-china.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "12:48",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156"
+    ]
+   },
+   {
+    "titulo": "Hacker chinês usa IA para espionar governos na América Latina, diz relatório",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/hacker-chines-usa-ia-para-espionar-governos-na-america-latina-diz-relatorio.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "12:35",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "156"
+    ]
+   },
+   {
+    "titulo": "China diz estar disposta a seguir trabalhando com EUA após vitória democrata nas eleições de meio de mandato",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/china-diz-estar-disposta-a-seguir-trabalhando-com-eua-apos-vitoria-democrata-nas-eleicoes-de-meio-de-mandato.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "09:44",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "156",
+     "840"
+    ]
    },
    {
     "titulo": "Crescimento de serviços da China desacelera para mínima em três meses",
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://aovivo.folha.uol.com.br/mercado/2026/10/25/6568-dolar-empresas-e-bolsas-acompanhe-ao-vivo-o-mercado.shtml#post468018",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "09:11",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156"
+    ]
    },
    {
     "titulo": "Toyota, GM, VW e mais fábricas pedem banimento permanente de carros chineses nos Estados Unidos",
     "url": "https://g1.globo.com/carros/noticia/2026/11/03/montadoras-pedem-banimento-permanente-de-carros-chineses-nos-estados-unidos.ghtml",
     "veiculo": "g1 Economia",
     "data": "20261103",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156",
+     "840"
+    ]
    },
    {
     "titulo": "Honda City 2027 muda pouco e não baixa preços para enfrentar os chineses; veja o teste",
     "url": "https://g1.globo.com/carros/noticia/2026/11/03/honda-city-2027-muda-pouco-e-nao-baixa-precos-para-enfrentar-os-chineses-veja-o-teste.ghtml",
     "veiculo": "g1 Economia",
     "data": "20261103",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "156"
     ]
    },
    {
@@ -357,42 +622,551 @@
     "veiculo": "Folha Mercado",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156"
+    ]
    },
    {
     "titulo": "Compras agrícolas da China nos EUA vão ao menor nível em 7 anos apesar de acordo comercial",
     "url": "https://g1.globo.com/economia/agronegocios/noticia/2026/11/02/compras-agricolas-china-eua.ghtml",
     "veiculo": "g1 Economia",
     "data": "20261102",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "156",
+     "840"
+    ]
    }
   ],
   "840": [
+   {
+    "titulo": "Dólar cai a R$ 5,45 após eleições nos EUA e antes do Copom",
+    "url": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/dolar-cai-r-545-apos-eleicoes-nos-eua-e-antes-do-copom",
+    "veiculo": "Agência Brasil Economia",
+    "data": "20261104",
+    "hora": "20:17",
+    "dominio": "agenciabrasil.ebc.com.br",
+    "categorias": [
+     "economia",
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Eleição nos EUA com revés de Trump tem celebração de lulistas e crítica de Nikolas a Janja",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/poder/2026/11/eleicao-nos-eua-com-reves-de-trump-tem-celebracao-de-lulistas-e-critica-de-nikolas-a-janja.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "20:05",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Sete brasileiros são eleitos para assembleias estaduais nos EUA",
+    "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/sete-brasileiros-sao-eleitos-para-assembleias-estaduais-nos-eua",
+    "veiculo": "Agência Brasil Internacional",
+    "data": "20261104",
+    "hora": "19:30",
+    "dominio": "agenciabrasil.ebc.com.br",
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Vitória democrata nos EUA pode favorecer mercados emergentes, mas efeito depende de cenário fiscal",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/vitoria-democrata-nos-eua-pode-favorecer-mercados-emergentes-mas-efeito-depende-de-cenario-fiscal.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "hora": "18:37",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "economia",
+     "afeta_o_mundo"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Trump agrava custo de vida nos EUA e impulsiona vitória democrata",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/trump-agrava-custo-de-vida-nos-eua-e-impulsiona-vitoria-democrata.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "hora": "18:32",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Veja as principais reações aos resultados das eleições de meio de mandato dos EUA",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/veja-as-principais-reacoes-aos-resultados-das-eleicoes-de-meio-de-mandato-dos-eua.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "17:52",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Eleições nos EUA têm vitórias históricas de minorias sub-representadas",
+    "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/eleicoes-nos-eua-tem-vitorias-historicas-de-minorias-sub-representadas",
+    "veiculo": "Agência Brasil Internacional",
+    "data": "20261104",
+    "hora": "17:23",
+    "dominio": "agenciabrasil.ebc.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Os fatos que explicam a \"onda azul\" no Congresso dos EUA",
+    "url": "https://www.dw.com/pt-br/os-fatos-que-explicam-a-onda-azul-no-congresso-dos-eua/a-79854460?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261104",
+    "hora": "17:02",
+    "dominio": "www.dw.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Quem são os brasileiros eleitos deputados estaduais nos EUA",
+    "url": "https://www.dw.com/pt-br/quem-são-os-brasileiros-eleitos-deputados-estaduais-nos-eua/a-79858639?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261104",
+    "hora": "17:00",
+    "dominio": "www.dw.com",
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "O que a vitória democrata significa para a economia dos EUA sob Trump",
+    "url": "https://www.dw.com/pt-br/o-que-a-vitória-democrata-significa-para-a-economia-dos-eua-sob-trump/a-79857491?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261104",
+    "hora": "15:32",
+    "dominio": "www.dw.com",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Sete brasileiros são eleitos nos EUA; veja quem são",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/sete-brasileiros-sao-eleitos-nos-eua-veja-quem-sao.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "14:24",
+    "dominio": "redir.folha.com.br",
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "5 razões para o desastre do partido de Trump nas eleições nos EUA",
+    "url": "https://www.bbc.com/portuguese/articles/cmd7q98x7944o?at_medium=RSS&at_campaign=rss",
+    "veiculo": "BBC News Brasil",
+    "data": "20261104",
+    "hora": "13:48",
+    "dominio": "www.bbc.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Rivalidade entre EUA e China impulsiona investimentos em mineração no Brasil",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/rivalidade-entre-eua-e-china-impulsiona-investimentos-em-mineracao-no-brasil.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "hora": "12:55",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "076",
+     "156",
+     "840"
+    ]
+   },
+   {
+    "titulo": "O silêncio incomum de líderes da extrema direita francesa após a derrota de Trump nos EUA",
+    "url": "https://www.rfi.fr/br/fran%C3%A7a/20261104-o-sil%C3%AAncio-incomum-de-l%C3%ADderes-da-extrema-direita-francesa-ap%C3%B3s-a-derrota-massiva-de-trump-nos-eua",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "12:52",
+    "dominio": "www.rfi.fr",
+    "categorias": [],
+    "paises": [
+     "840",
+     "250"
+    ]
+   },
+   {
+    "titulo": "Vitória dos democratas nos EUA amplia pressão política da oposição sobre Netanyahu em Israel",
+    "url": "https://www.rfi.fr/br/mundo/20261104-vit%C3%B3ria-dos-democratas-nos-eua-amplia-press%C3%A3o-pol%C3%ADtica-da-oposi%C3%A7%C3%A3o-sobre-netanyahu-em-israel",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "11:56",
+    "dominio": "www.rfi.fr",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840",
+     "376"
+    ]
+   },
+   {
+    "titulo": "Guerra, economia, IA e casos de corrupção derrotam Trump nos EUA",
+    "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/guerra-economia-ia-e-casos-de-corrupcao-derrotam-trump-nos-eua",
+    "veiculo": "Agência Brasil Internacional",
+    "data": "20261104",
+    "hora": "11:31",
+    "dominio": "agenciabrasil.ebc.com.br",
+    "categorias": [
+     "economia",
+     "geopolitica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Democratas vencem eleições nos EUA com promessa de barrar data centers",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://c-level.folha.uol.com.br/ia/2026/11/democratas-vencem-eleicoes-nos-eua-com-promessa-de-barrar-data-centers.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "11:16",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Eleições de meio de mandato de 2026: as vitórias históricas e os marcos inéditos nos EUA",
+    "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-elei%C3%A7%C3%B5es-de-meio-de-mandato-de-2026-as-vit%C3%B3rias-hist%C3%B3ricas-e-marcos-in%C3%A9ditos-do-pleito",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "11:08",
+    "dominio": "www.rfi.fr",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Bolsa sobe após seis pregões de queda e dólar recua a R$ 5,45 com vitória democrata nos EUA",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/dolar-abre-em-queda-com-vitoria-democrata-nos-eua-juros-futuros-ficam-de-lado-a-espera-do-copom.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "hora": "09:56",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "economia"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Em 'efeito Mamdani', EUA terão número recorde de socialistas no Congresso",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/em-efeito-mamdani-eua-terao-numero-recorde-de-socialistas-no-congresso.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "09:47",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "China diz estar disposta a seguir trabalhando com EUA após vitória democrata nas eleições de meio de mandato",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/china-diz-estar-disposta-a-seguir-trabalhando-com-eua-apos-vitoria-democrata-nas-eleicoes-de-meio-de-mandato.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "09:44",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "156",
+     "840"
+    ]
+   },
+   {
+    "titulo": "Elon Musk faz piada sobre derrota republicana nas eleições dos EUA após gastar R$ 2 bilhões com o partido",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/elon-musk-faz-piada-sobre-derrota-republicana-nas-eleicoes-dos-eua-apos-gastar-r-2-bilhoes-com-o-partido.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "09:28",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Rússia teme impacto da eleição nos EUA em negociação sobre Ucrânia",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/russia-teme-impacto-da-eleicao-nos-eua-em-negociacao-sobre-ucrania.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "09:15",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840",
+     "643",
+     "804"
+    ]
+   },
+   {
+    "titulo": "Deb Haaland é eleita primeira mulher indígena governadora nos EUA",
+    "url": "https://www.bbc.com/portuguese/articles/c8vgxypwnpezo?at_medium=RSS&at_campaign=rss",
+    "veiculo": "BBC News Brasil",
+    "data": "20261104",
+    "hora": "09:04",
+    "dominio": "www.bbc.com",
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Irã diz que os EUA votaram 'não à guerra' após vitória esmagadora dos democratas em eleições para o Congresso",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/ira-diz-que-os-eua-votaram-nao-a-guerra-apos-vitoria-esmagadora-dos-democratas-em-eleicoes-para-o-congresso.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "08:32",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica",
+     "geopolitica"
+    ],
+    "paises": [
+     "840",
+     "364"
+    ]
+   },
+   {
+    "titulo": "Dólar se desvaloriza e Bolsas e títulos dos EUA sobem após derrota de Trump nas eleições",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/dolar-desvaloriza-e-bolsas-e-titulos-dos-eua-sobem-apos-derrota-de-trump-nas-eleicoes.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "hora": "08:03",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "economia",
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "'A onda ultraconservadora está desmoronando': após derrota republicana nos EUA, esquerda vê nova maré progressista global",
+    "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-a-onda-ultraconservadora-est%C3%A1-desmoronando-ap%C3%B3s-derrota-republicana-nos-eua-esquerda-v%C3%AA-nova-mar%C3%A9-progressista-global",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "07:20",
+    "dominio": "www.rfi.fr",
+    "categorias": [
+     "afeta_o_mundo"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Onda azul histórica nos EUA: números ilustram a vitória esmagadora dos democratas",
+    "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-onda-azul-hist%C3%B3rica-nos-eua-os-primeiros-n%C3%BAmeros-que-ilustram-a-vit%C3%B3ria-esmagadora-dos-democratas",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "07:06",
+    "dominio": "www.rfi.fr",
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Quem é Abdul El-Sayed, primeiro muçulmano eleito senador nos EUA",
+    "url": "https://www.bbc.com/portuguese/articles/c933xk7el2ggo?at_medium=RSS&at_campaign=rss",
+    "veiculo": "BBC News Brasil",
+    "data": "20261104",
+    "hora": "07:02",
+    "dominio": "www.bbc.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "EUA terão primeiro senador muçulmano com eleição de Abdul El-Sayed no Michigan",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/abdul-el-sayed-e-o-primeiro-muculmano-eleito-para-o-senado-dos-eua.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "05:12",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Democratas conquistam Senado e Câmara e impõem derrota histórica a Trump nos EUA",
+    "url": "https://www.rfi.fr/br/podcasts/linha-direta/20261104-democratas-conquistam-senado-e-c%C3%A2mara-e-imp%C3%B5em-derrota-hist%C3%B3rica-a-trump-nos-eua",
+    "veiculo": "RFI Brasil",
+    "data": "20261104",
+    "hora": "05:08",
+    "dominio": "www.rfi.fr",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Eleições nos EUA consagram líderes inéditos e levam minorias ao poder",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/eleicoes-nos-eua-consagram-lideres-ineditos-e-levam-minorias-ao-poder.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "04:39",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Em derrota para Trump, 'onda azul' nas eleições dos EUA é maior que o esperado em projeções",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/em-derrota-para-trump-onda-azul-surpreende-nas-eleicoes-dos-eua.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "00:59",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Geórgia elege 1ª mulher negra a governar um estado dos EUA",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/georgia-elege-1a-mulher-negra-a-governar-um-estado-dos-eua.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261104",
+    "hora": "00:26",
+    "dominio": "redir.folha.com.br",
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
+   },
+   {
+    "titulo": "Presidente da Câmara dos EUA decide renunciar após derrota republicana",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/presidente-da-camara-dos-representantes-decide-renunciar-apos-derrota-republicana.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
    {
     "titulo": "De casa sem janela em Duque de Caxias à Assembleia da Flórida: a trajetória do carioca eleito deputado nos EUA",
     "url": "https://g1.globo.com/rj/rio-de-janeiro/noticia/2026/11/04/duque-de-caxias-assembleia-da-florida-trajetoria-do-carioca-eleito-deputado-nos-eua.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
    },
    {
-    "titulo": "Filha de comerciantes eleita deputada nos EUA cresceu vendo caminhonete do pai virar palanque em MT",
+    "titulo": "Filha de comerciantes eleita deputada nos EUA cresceu vendo caminhão do pai virar palanque em MT",
     "url": "https://g1.globo.com/mt/mato-grosso/noticia/2026/11/04/filha-de-comerciantes-eleita-deputada-nos-eua-cresceu-vendo-caminhonete-do-pai-virar-palanque-em-mt.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840"
+    ]
    },
    {
     "titulo": "Vitória dos democratas no Congresso dos EUA vai colocar fim à Doutrina Donroe?",
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/vitoria-dos-democratas-no-congresso-dos-eua-pora-fim-a-doutrina-donroe.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -400,9 +1174,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-mineira-reeleita-deputada-chegou-ao-pais-ainda-crianca-e-advoga-pelos-imigrantes.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -410,9 +1188,13 @@
     "url": "https://g1.globo.com/mundo/ao-vivo/eleicoes-nos-eua-2026-acompanhe-as-ultimas-noticias-sobre-as-midterms.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -420,9 +1202,14 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-brasileira-eleita-deputada-comecou-no-pais-como-baba.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -430,9 +1217,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/latinos-guerra-votacao-antecipada-o-que-explica-a-onda-azul-que-deu-ao-partido-democrata-uma-vitoria-historica-nos-eua.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -440,9 +1231,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-videos-mostram-comemoracao-no-texas-apos-vitorias-democratas.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -450,9 +1245,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-eua-motivacoes-eleitores-pesquisa-ap.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -460,17 +1259,26 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eua-talarico-pt-texas.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "076",
+     "840"
+    ]
    },
    {
     "titulo": "Eleições nos EUA: tsunami democrata derrota domínio republicano e apoio milionário de Musk em estados conservadores",
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eua-midterms-vencedores-perdedores-elon-musk-talarico.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -478,9 +1286,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/obama-comemora-resultado-das-eleicoes-de-meio-de-mandato-nos-eua.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -488,10 +1300,15 @@
     "url": "https://g1.globo.com/economia/noticia/2026/11/04/vitoria-democrata-nos-eua-ameaca-planos-de-trump-para-economia-e-ia-entenda.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "economia",
      "geopolitica"
+    ],
+    "paises": [
+     "840",
+     "364"
     ]
    },
    {
@@ -499,9 +1316,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-seis-brasileiros-sao-eleitos-deputados-estaduais.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -509,9 +1330,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-resultados-para-governador.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -519,9 +1344,13 @@
     "url": "https://g1.globo.com/politica/noticia/2026/11/04/eleicoes-nos-eua-politicos-brasileiros-repercutem-resultado-que-deu-aos-democratas-maioria-no-congresso.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -529,27 +1358,27 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/constituicao-dos-eua-proibe-trump-de-ser-eleito-presidente-novamente-em-2028.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
-   },
-   {
-    "titulo": "Deb Haaland é eleita primeira mulher indígena governadora nos EUA",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/deb-haaland-e-eleita-primeira-mulher-indigena-governadora-nos-eua.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": []
    },
    {
     "titulo": "Eleições nos EUA 2026: acompanhe os resultados para o Senado",
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-2026-acompanhe-os-resultados-para-o-senado.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -557,9 +1386,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-2026-acompanhe-os-resultados-para-a-camara.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -567,9 +1400,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/quando-serao-as-eleicoes-para-presidente-nos-eua.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -577,9 +1414,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicao-nos-eua-1a-governadora-negra-1o-senador-gay-e-1a-senadora-indigena-veja-alguns-resultados-historicos-da-votacao-americana.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -587,9 +1428,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-veja-as-viradas-dos-democratas-no-senado.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -597,9 +1442,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/apos-vitoria-democratas-podem-agir-contra-flavio-bolsonaro-nos-eua.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "840"
     ]
    },
    {
@@ -607,9 +1456,14 @@
     "url": "https://g1.globo.com/economia/noticia/2026/11/04/midterms-nos-eua-vitoria-democrata-ameaca-planos-de-trump-e-pode-afetar-dolar-e-juros-no-brasil.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "076",
+     "840"
     ]
    },
    {
@@ -617,49 +1471,13 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-eua-mississippi-tem-disputa-acirrada-senado.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
-    ]
-   },
-   {
-    "titulo": "Quem é Abdul El-Sayed, que se tornou o 1º senador muçulmano da história dos EUA",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/quem-e-abdul-el-sayed-1o-senador-muculmano-da-historia-dos-eua.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Michigan elege democrata para o Senado dos EUA após 32 anos; El-Sayed é 1º senador muçulmano da história",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/democrata-vence-disputa-pelo-senado-em-michigan-apos-racha-no-partido-e-apoio-de-deputada-a-rival-republicano.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Eleições nos EUA: democratas conquistam maioria da Câmara e do Senado, impõem derrota a Trump e assumem controle do Congresso",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-democratas-conquistam-maioria-da-camara-e-no-senado-impoem-derrota-a-trump-e-assumem-controle-do-congresso.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Eleições nos EUA: democrata vence disputa no Senado pelo Maine",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-democrata-vence-disputa-no-senado-pelo-maine.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
+    ],
+    "paises": [
+     "840"
     ]
    }
   ],
@@ -669,9 +1487,14 @@
     "url": "https://www.rfi.fr/br/europa/20261104-c%C3%BApula-ibero-americana-come%C3%A7a-em-madri-sob-tens%C3%A3o-entre-milei-e-s%C3%A1nchez",
     "veiculo": "RFI Brasil",
     "data": "20261104",
+    "hora": "11:51",
     "dominio": "www.rfi.fr",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "032",
+     "724"
     ]
    },
    {
@@ -679,9 +1502,13 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/prostitutas-da-argentina-fazem-paralisacao-em-protesto-contra-feminicidios.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "20:05",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "032"
     ]
    },
    {
@@ -689,17 +1516,25 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/milei-compartilha-publicacoes-sobre-interferencia-estrangeira-apos-visita-de-janones-a-argentina.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "17:58",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "032"
+    ]
    },
    {
     "titulo": "'Lulazo' é aula para derrotar Milei em 2027, diz oposição na Argentina",
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/lulazo-e-aula-para-derrotar-milei-em-2027-diz-oposicao-na-argentina.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261101",
+    "hora": "16:10",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "032"
     ]
    },
    {
@@ -707,8 +1542,12 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/10/santos-populares-e-igreja-se-misturam-na-argentina-as-vesperas-da-visita-do-papa.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261031",
+    "hora": "23:00",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "032"
+    ]
    }
   ],
   "528": [],
@@ -718,29 +1557,14 @@
     "url": "https://www.rfi.fr/br/europa/20261104-c%C3%BApula-ibero-americana-come%C3%A7a-em-madri-sob-tens%C3%A3o-entre-milei-e-s%C3%A1nchez",
     "veiculo": "RFI Brasil",
     "data": "20261104",
+    "hora": "11:51",
     "dominio": "www.rfi.fr",
     "categorias": [
      "afeta_o_mundo"
-    ]
-   },
-   {
-    "titulo": "Após dois acidentes ferroviários que deixaram 115 mortos, ministro dos Transportes da Espanha renuncia",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/apos-dois-acidentes-ferroviarios-que-deixaram-115-mortos-ministro-dos-transportes-da-espanha-renuncia.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Polícia espanhola desmonta acampamento de protesto por direito à moradia em Madri",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/policia-espanhola-desmantela-acampamento-pelo-direito-a-moradia-em-madri.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
+    ],
+    "paises": [
+     "032",
+     "724"
     ]
    },
    {
@@ -748,19 +1572,13 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/ministro-dos-transportes-da-espanha-renuncia-apos-colisao-de-trens-matar-69.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "20:29",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
-    ]
-   },
-   {
-    "titulo": "Polícia desmonta acampamento por moradia em Madri a menos de um mês das eleições",
-    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/policia-desmonta-acampamento-por-moradia-em-madri-a-menos-de-um-mes-das-eleicoes.shtml",
-    "veiculo": "Folha Mundo",
-    "data": "20261103",
-    "dominio": "redir.folha.com.br",
-    "categorias": [
-     "politica"
+    ],
+    "paises": [
+     "724"
     ]
    },
    {
@@ -768,16 +1586,66 @@
     "url": "https://www.bbc.com/portuguese/articles/cv1j3177ren3o?at_medium=RSS&at_campaign=rss",
     "veiculo": "BBC News Brasil",
     "data": "20261103",
+    "hora": "11:39",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "724"
+    ]
+   },
+   {
+    "titulo": "Polícia desmonta acampamento por moradia em Madri a menos de um mês das eleições",
+    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/policia-desmonta-acampamento-por-moradia-em-madri-a-menos-de-um-mes-das-eleicoes.shtml",
+    "veiculo": "Folha Mundo",
+    "data": "20261103",
+    "hora": "09:02",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "724"
+    ]
+   },
+   {
+    "titulo": "Após dois acidentes ferroviários que deixaram 115 mortos, ministro dos Transportes da Espanha renuncia",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/apos-dois-acidentes-ferroviarios-que-deixaram-115-mortos-ministro-dos-transportes-da-espanha-renuncia.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "724"
+    ]
+   },
+   {
+    "titulo": "Polícia espanhola desmonta acampamento de protesto por direito à moradia em Madri",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/policia-espanhola-desmantela-acampamento-pelo-direito-a-moradia-em-madri.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "724"
+    ]
    },
    {
     "titulo": "Espanha identifica 12 estrangeiros entre mortos em acidente de trens; 2 são latinos",
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/espanha-identifica-12-estrangeiros-entre-mortos-em-acidente-de-trens-2-sao-latinos.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261101",
+    "hora": "23:38",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "724"
+    ]
    }
   ],
   "276": [
@@ -786,8 +1654,25 @@
     "url": "https://www.rfi.fr/br/europa/20261104-alemanha-anuncia-pacote-de-inverno-de-ajuda-%C3%A0-ucr%C3%A2nia-avaliado-em-%E2%82%AC-200-milh%C3%B5es",
     "veiculo": "RFI Brasil",
     "data": "20261104",
+    "hora": "07:02",
     "dominio": "www.rfi.fr",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276",
+     "804"
+    ]
+   },
+   {
+    "titulo": "Cresce pressão na Alemanha para reconhecimento pleno de genocídio na Namíbia",
+    "url": "https://www.dw.com/pt-br/cresce-pressão-na-alemanha-para-reconhecimento-pleno-de-genocídio-na-namíbia/a-79844930?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261103",
+    "hora": "13:48",
+    "dominio": "www.dw.com",
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Alemanha e Romênia relatam ataques hackers a supermercados; sobe para 11 o número de países atingidos",
@@ -797,15 +1682,36 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
-    "titulo": "Cresce pressão na Alemanha para reconhecimento pleno de genocídio na Namíbia",
-    "url": "https://www.dw.com/pt-br/cresce-pressão-na-alemanha-para-reconhecimento-pleno-de-genocídio-na-namíbia/a-79844930?maca=bra-rss-br-all-1030-xml-mrss",
+    "titulo": "Alemanha pena para achar um depósito definitivo para seu lixo nuclear",
+    "url": "https://www.dw.com/pt-br/alemanha-pena-para-achar-um-depósito-definitivo-para-seu-lixo-nuclear/a-79832894?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
-    "data": "20261103",
+    "data": "20261102",
+    "hora": "16:09",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [
+     "geopolitica"
+    ],
+    "paises": [
+     "276"
+    ]
+   },
+   {
+    "titulo": "Sem dedicação exclusiva, prefeitos voluntários administram milhares de cidades e vilarejos na Alemanha",
+    "url": "https://www.dw.com/pt-br/sem-dedicação-exclusiva-prefeitos-voluntários-administram-milhares-de-cidades-e-vilarejos-na-alemanha/a-79806521?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261102",
+    "hora": "16:01",
+    "dominio": "www.dw.com",
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Merz defende que Alemanha tenha primeira presidente mulher",
@@ -815,59 +1721,60 @@
     "dominio": "www.dw.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "276"
     ]
-   },
-   {
-    "titulo": "Alemanha pena para achar um depósito definitivo para seu lixo nuclear",
-    "url": "https://www.dw.com/pt-br/alemanha-pena-para-achar-um-depósito-definitivo-para-seu-lixo-nuclear/a-79832894?maca=bra-rss-br-all-1030-xml-mrss",
-    "veiculo": "DW Brasil",
-    "data": "20261102",
-    "dominio": "www.dw.com",
-    "categorias": [
-     "geopolitica"
-    ]
-   },
-   {
-    "titulo": "Sem dedicação exclusiva, prefeitos voluntários administram milhares de cidades e vilarejos na Alemanha",
-    "url": "https://www.dw.com/pt-br/sem-dedicação-exclusiva-prefeitos-voluntários-administram-milhares-de-cidades-e-vilarejos-na-alemanha/a-79806521?maca=bra-rss-br-all-1030-xml-mrss",
-    "veiculo": "DW Brasil",
-    "data": "20261102",
-    "dominio": "www.dw.com",
-    "categorias": []
-   },
-   {
-    "titulo": "Por que os alemães não pagam rodadas de cerveja para a mesa toda",
-    "url": "https://www.bbc.com/portuguese/articles/cwj34gnv7d2do?at_medium=RSS&at_campaign=rss",
-    "veiculo": "BBC News Brasil",
-    "data": "20261101",
-    "dominio": "www.bbc.com",
-    "categorias": []
    },
    {
     "titulo": "Cão salsichinha: um símbolo alemão que virou ícone cultural",
     "url": "https://www.dw.com/pt-br/cão-salsichinha-um-símbolo-alemão-que-virou-ícone-cultural/a-79824817?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261101",
+    "hora": "19:34",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Manifestação da Geração Z agita a Alemanha: “Só queremos que nos ouçam”",
     "url": "https://www.dw.com/pt-br/manifestação-da-geração-z-agita-a-alemanha-só-queremos-que-nos-ouçam/a-79823403?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261101",
+    "hora": "13:30",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
+   },
+   {
+    "titulo": "Por que os alemães não pagam rodadas de cerveja para a mesa toda",
+    "url": "https://www.bbc.com/portuguese/articles/cwj34gnv7d2do?at_medium=RSS&at_campaign=rss",
+    "veiculo": "BBC News Brasil",
+    "data": "20261101",
+    "hora": "09:43",
+    "dominio": "www.bbc.com",
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    },
    {
     "titulo": "Governo alemão aposta em economia high tech para conter avanço da ultradireita na Alemanha",
     "url": "https://www.dw.com/pt-br/governo-alemão-aposta-em-economia-high-tech-para-conter-avanço-da-ultradireita-na-alemanha/a-79778231?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261101",
+    "hora": "09:06",
     "dominio": "www.dw.com",
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -878,6 +1785,9 @@
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "276"
     ]
    },
    {
@@ -885,26 +1795,38 @@
     "url": "https://www.dw.com/pt-br/trabalhadores-trazidos-para-reconstruir-alemanha-vivem-hoje-na-pobreza/a-79805477?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261030",
+    "hora": "09:41",
     "dominio": "www.dw.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "276"
+    ]
    }
   ],
   "484": [
-   {
-    "titulo": "Quem é Gina Hinojosa, democrata de ascendência mexicana que será primeira latina a governar o conservador Texas",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/quem-e-gina-hinojosa-democrata-de-ascendencia-mexicana-que-sera-primeira-latina-a-governar-o-conservador-texas.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": []
-   },
    {
     "titulo": "Quem é Gina Hinojosa, democrata de ascendência mexicana que será 1ª latina a governar o Texas",
     "url": "https://www.bbc.com/portuguese/articles/ckm23qjvm888o?at_medium=RSS&at_campaign=rss",
     "veiculo": "BBC News Brasil",
     "data": "20261104",
+    "hora": "08:35",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "484"
+    ]
+   },
+   {
+    "titulo": "Quem é Gina Hinojosa, democrata de ascendência mexicana que será primeira latina a governar o conservador Texas",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/quem-e-gina-hinojosa-democrata-de-ascendencia-mexicana-que-sera-primeira-latina-a-governar-o-conservador-texas.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "484"
+    ]
    }
   ],
   "152": [
@@ -913,9 +1835,14 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/britanico-que-saiu-a-pe-do-chile-em-1998-esta-prestes-a-concluir-volta-ao-mundo.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261102",
+    "hora": "06:00",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "152",
+     "826"
     ]
    }
   ],
@@ -925,8 +1852,12 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/relogio-de-r-16-mi-roubado-no-japao-e-devolvido-com-pedido-de-desculpas.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "12:36",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "392"
+    ]
    }
   ],
   "356": [
@@ -935,16 +1866,24 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/negocios/2026/11/embraer-negocia-com-maior-aerea-da-india-a-venda-de-100-avioes-diz-agencia.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "06:58",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "356"
+    ]
    },
    {
     "titulo": "Acidente com dois helicópteros no Everest mata turista indiano no Nepal",
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/acidente-com-dois-helicopteros-no-everest-mata-turista-indiano-no-nepal.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "06:02",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "356"
+    ]
    }
   ],
   "380": [
@@ -953,9 +1892,13 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/plano-de-imposto-de-saida-da-italia-assusta-expatriados-ricos.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261103",
+    "hora": "18:31",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "380"
     ]
    }
   ],
@@ -966,17 +1909,26 @@
     "url": "https://g1.globo.com/mundo/noticia/2026/11/03/trump-apoio-israel.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261103",
+    "hora": "",
     "dominio": "g1.globo.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "124",
+     "376"
+    ]
    },
    {
     "titulo": "A luta para salvar cidade canadense ameaçada pelas tarifas de Trump",
     "url": "https://g1.globo.com/economia/noticia/2026/10/31/a-luta-para-salvar-cidade-canadense-ameacada-pelas-tarifas-de-trump.ghtml",
     "veiculo": "g1 Economia",
     "data": "20261031",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "economia"
+    ],
+    "paises": [
+     "124"
     ]
    }
   ],
@@ -986,17 +1938,26 @@
     "url": "https://www.rfi.fr/br/fran%C3%A7a/20261104-o-sil%C3%AAncio-incomum-de-l%C3%ADderes-da-extrema-direita-francesa-ap%C3%B3s-a-derrota-massiva-de-trump-nos-eua",
     "veiculo": "RFI Brasil",
     "data": "20261104",
+    "hora": "12:52",
     "dominio": "www.rfi.fr",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "840",
+     "250"
+    ]
    },
    {
     "titulo": "França investiga ataque cibernético contra câmaras frias de banco de sangue",
     "url": "https://www.rfi.fr/br/fran%C3%A7a/20261104-fran%C3%A7a-investiga-ataque-cibern%C3%A9tico-contra-c%C3%A2maras-frias-de-banco-de-sangue",
     "veiculo": "RFI Brasil",
     "data": "20261104",
+    "hora": "11:47",
     "dominio": "www.rfi.fr",
     "categorias": [
      "geopolitica"
+    ],
+    "paises": [
+     "250"
     ]
    },
    {
@@ -1004,9 +1965,13 @@
     "url": "https://www.rfi.fr/br/fran%C3%A7a/20261103-n%C3%A3o-nos-impedir%C3%A3o-de-protestar-estudantes-desafiam-governo-e-mant%C3%AAm-mobiliza%C3%A7%C3%A3o-na-fran%C3%A7a",
     "veiculo": "RFI Brasil",
     "data": "20261103",
+    "hora": "15:12",
     "dominio": "www.rfi.fr",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "250"
     ]
    },
    {
@@ -1014,32 +1979,31 @@
     "url": "https://www.dw.com/pt-br/a-explosiva-combinação-de-protestos-e-alta-dívida-pública-na-frança/a-79830816?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
     "data": "20261102",
+    "hora": "17:43",
     "dominio": "www.dw.com",
     "categorias": [
      "economia",
      "politica"
+    ],
+    "paises": [
+     "250"
     ]
    }
   ],
   "600": [
    {
-    "titulo": "Presidente do Paraguai anuncia ressarcimento de clientes de banco e indica novo chefe para o BC",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/presidente-paraguai-anuncia-medidas-crise-bancaria.ghtml",
-    "veiculo": "g1 Mundo",
+    "titulo": "Aumento do consumo de energia de Itaipu pelo Paraguai deve pressionar preços no Brasil, diz Itaú BBA",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/aumento-do-consumo-de-energia-de-itaipu-pelo-paraguai-deve-pressionar-precos-no-brasil-diz-itau-bba.shtml",
+    "veiculo": "Folha Mercado",
     "data": "20261104",
-    "dominio": "g1.globo.com",
+    "hora": "20:18",
+    "dominio": "redir.folha.com.br",
     "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Paraguai: entenda a crise que colocou banco sob suspeita e levou à renúncia do presidente do BC",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/paraguai-crise-banco-renuncia-presidente-do-bc.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
+     "economia"
+    ],
+    "paises": [
+     "076",
+     "600"
     ]
    },
    {
@@ -1047,9 +2011,13 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/negocios/2026/11/escandalo-em-banco-do-paraguai-tem-oito-presos-protestos-e-pedido-de-impeachment-do-presidente.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261104",
+    "hora": "14:15",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1057,17 +2025,39 @@
     "url": "https://www.bbc.com/portuguese/articles/cjy56zrrnn25o?at_medium=RSS&at_campaign=rss",
     "veiculo": "BBC News Brasil",
     "data": "20261104",
+    "hora": "11:49",
     "dominio": "www.bbc.com",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "600"
+    ]
    },
    {
-    "titulo": "Presidente do BC paraguaio renuncia após crise financeira no Ueno Bank",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/03/paraguai-crise-banco-renuncia-presidente-do-bc.ghtml",
+    "titulo": "Presidente do Paraguai anuncia ressarcimento de clientes de banco e indica novo chefe para o BC",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/presidente-paraguai-anuncia-medidas-crise-bancaria.ghtml",
     "veiculo": "g1 Mundo",
-    "data": "20261103",
+    "data": "20261104",
+    "hora": "",
     "dominio": "g1.globo.com",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
+    ]
+   },
+   {
+    "titulo": "Paraguai: entenda a crise que colocou banco sob suspeita e levou à renúncia do presidente do BC",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/paraguai-crise-banco-renuncia-presidente-do-bc.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1075,9 +2065,27 @@
     "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/negocios/2026/11/paraguai-intervem-no-ueno-bank-e-presidente-do-banco-central-renuncia.shtml",
     "veiculo": "Folha Mercado",
     "data": "20261103",
+    "hora": "16:58",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
+    ],
+    "paises": [
+     "600"
+    ]
+   },
+   {
+    "titulo": "Presidente do BC paraguaio renuncia após crise financeira no Ueno Bank",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/03/paraguai-crise-banco-renuncia-presidente-do-bc.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "600"
     ]
    },
    {
@@ -1085,8 +2093,12 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/destino-procurado-por-bolsonaristas-paraguai-abre-mutirao-de-migracao-nesta-segunda.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261101",
+    "hora": "04:00",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "600"
+    ]
    }
   ],
   "643": [
@@ -1095,37 +2107,15 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/russia-teme-impacto-da-eleicao-nos-eua-em-negociacao-sobre-ucrania.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261104",
+    "hora": "09:15",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "politica"
-    ]
-   },
-   {
-    "titulo": "Rússia lança ataque com centenas de drones e mísseis contra rede elétrica da Ucrânia às vésperas de negociações de paz",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/russia-lanca-ataque-com-centenas-de-drones-e-misseis-contra-rede-eletrica-da-ucrania-as-vesperas-de-negociacoes-de-paz.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "geopolitica"
-    ]
-   },
-   {
-    "titulo": "Melania Trump vai receber representantes da Rússia e Ucrânia juntos, diz Casa Branca",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/melania-trump-russia-ucrania-casa-branca.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": []
-   },
-   {
-    "titulo": "Ataque russo contra escola na Ucrânia deixa 31 mortos; Zelensky acusa Rússia de bombardeio duplo",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/bombardeio-russo-escola-ucrania-mortos.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "geopolitica"
+    ],
+    "paises": [
+     "840",
+     "643",
+     "804"
     ]
    },
    {
@@ -1133,44 +2123,109 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/russia-deixa-ucrania-no-escuro-bombas-planadoras-matam-31.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "09:45",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "643",
+     "804"
+    ]
+   },
+   {
+    "titulo": "Rússia lança ataque com centenas de drones e mísseis contra rede elétrica da Ucrânia às vésperas de negociações de paz",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/russia-lanca-ataque-com-centenas-de-drones-e-misseis-contra-rede-eletrica-da-ucrania-as-vesperas-de-negociacoes-de-paz.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "geopolitica"
+    ],
+    "paises": [
+     "643",
+     "804"
+    ]
+   },
+   {
+    "titulo": "Melania Trump vai receber representantes da Rússia e Ucrânia juntos, diz Casa Branca",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/melania-trump-russia-ucrania-casa-branca.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "840",
+     "643",
+     "804"
+    ]
+   },
+   {
+    "titulo": "Ataque russo contra escola na Ucrânia deixa 31 mortos; Zelensky acusa Rússia de bombardeio duplo",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/bombardeio-russo-escola-ucrania-mortos.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261103",
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "geopolitica"
+    ],
+    "paises": [
+     "643",
+     "804"
+    ]
    },
    {
     "titulo": "Em livro de memórias, Merkel revela bastidores da relação com Putin, Trump e Obama",
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/em-livro-de-memorias-merkel-revela-bastidores-da-relacao-com-putin-trump-e-obama.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261102",
+    "hora": "23:00",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "643"
+    ]
    }
   ],
   "682": [],
   "826": [
    {
-    "titulo": "Recomendações do Reino Unido sobre estoque de comida são alvo de desinformação nas redes sociais",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/recomendacoes-do-reino-unido-sobre-estoque-de-comida-sao-alvo-de-desinformacao-nas-redes-sociais.ghtml",
-    "veiculo": "g1 Mundo",
+    "titulo": "Ataques cibernéticos com IA devem se tornar rotina até 2028, diz agência britânica",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/ia/2026/11/ataques-ciberneticos-com-ia-devem-se-tornar-rotina-ate-2028-diz-agencia-britanica.shtml",
+    "veiculo": "Folha Mercado",
     "data": "20261103",
-    "dominio": "g1.globo.com",
-    "categorias": []
+    "hora": "18:46",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "geopolitica"
+    ],
+    "paises": [
+     "826"
+    ]
    },
    {
     "titulo": "Rei Charles 3º diz sentir 'horror' da escravidão durante discurso em ex-colônia britânica",
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/rei-charles-3o-diz-sentir-horror-da-escravidao-durante-discurso-em-ex-colonia-britanica.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261103",
+    "hora": "13:31",
     "dominio": "redir.folha.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "826"
+    ]
    },
    {
-    "titulo": "Ataques cibernéticos com IA devem se tornar rotina até 2028, diz agência britânica",
-    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/ia/2026/11/ataques-ciberneticos-com-ia-devem-se-tornar-rotina-ate-2028-diz-agencia-britanica.shtml",
-    "veiculo": "Folha Mercado",
+    "titulo": "Recomendações do Reino Unido sobre estoque de comida são alvo de desinformação nas redes sociais",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/recomendacoes-do-reino-unido-sobre-estoque-de-comida-sao-alvo-de-desinformacao-nas-redes-sociais.ghtml",
+    "veiculo": "g1 Mundo",
     "data": "20261103",
-    "dominio": "redir.folha.com.br",
-    "categorias": [
-     "geopolitica"
+    "hora": "",
+    "dominio": "g1.globo.com",
+    "categorias": [],
+    "paises": [
+     "826"
     ]
    },
    {
@@ -1178,9 +2233,14 @@
     "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/britanico-que-saiu-a-pe-do-chile-em-1998-esta-prestes-a-concluir-volta-ao-mundo.shtml",
     "veiculo": "Folha Mundo",
     "data": "20261102",
+    "hora": "06:00",
     "dominio": "redir.folha.com.br",
     "categorias": [
      "afeta_o_mundo"
+    ],
+    "paises": [
+     "152",
+     "826"
     ]
    }
   ],
@@ -1190,154 +2250,51 @@
     "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/terremoto-de-magnitude-56-atinge-colombia",
     "veiculo": "Agência Brasil Internacional",
     "data": "20261103",
+    "hora": "10:31",
     "dominio": "agenciabrasil.ebc.com.br",
-    "categorias": []
+    "categorias": [],
+    "paises": [
+     "170"
+    ]
    }
   ],
   "858": []
  },
  "falhas": {
-  "gdelt_lote_3": "HTTPError: HTTP Error 429: Too Many Requests"
+  "gdelt_lote_1": "HTTPError: HTTP Error 429: Too Many Requests",
+  "gdelt_lote_2": "HTTPError: HTTP Error 429: Too Many Requests"
  },
  "diagnostico": {
-  "rss_itens": 535,
-  "gdelt_lote_1": 0,
-  "gdelt_lote_2": 0
+  "rss_itens": 534,
+  "gdelt_lote_3": 0
  },
  "mundo": [
   {
-   "titulo": "Trump admite que guerra contra o Irã contribuiu para derrota republicana, mas diz que ‘faria de novo’",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/trump-sobre-onda-azul-nas-eleicoes-provavelmente-me-darei-bem-com-os-democratas.ghtml",
-   "veiculo": "g1 Mundo",
+   "titulo": "Mercado Bitcoin afirma ter bloqueado US$ 15 milhões em criptomoedas após ataque hacker",
+   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/financas/2026/11/mercado-bitcoin-afirma-ter-bloqueado-us-15-milhoes-em-criptomoedas-apos-ataque-hacker.shtml",
+   "veiculo": "Folha Mercado",
    "data": "20261104",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Latinos, guerra, voto antecipado: os fatores da 'onda azul', que deu aos democratas uma vitória histórica nos EUA",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/latinos-guerra-votacao-antecipada-o-que-explica-a-onda-azul-que-deu-ao-partido-democrata-uma-vitoria-historica-nos-eua.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261104",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Vice de Trump culpa guerra no Irã por derrota republicana no Congresso: 'O próprio presidente disse isso'",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/o-motivo-pelo-qual-perdemos-foi-a-guerra-diz-vice-de-trump.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261104",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "politica",
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "'Golpe devastador para Trump', 'não à guerra' e 'sinal político de mudança': líderes mundiais reagem à vitória dos democratas",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-repercussao-lideres-internacionais.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261104",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "De guerra no Irã a regras para IA: o que a vitória democrata pode mudar na economia dos EUA",
-   "url": "https://g1.globo.com/economia/noticia/2026/11/04/vitoria-democrata-nos-eua-ameaca-planos-de-trump-para-economia-e-ia-entenda.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261104",
-   "dominio": "g1.globo.com",
+   "hora": "19:43",
+   "dominio": "redir.folha.com.br",
    "categorias": [
     "economia",
     "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
-   "url": "https://g1.globo.com/economia/noticia/2026/11/04/ranking-juro-real-novembro.ghtml",
-   "veiculo": "g1 Economia",
-   "data": "20261104",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "afeta_o_mundo"
-   ]
-  },
-  {
-   "titulo": "Vance se afasta de Trump e atribui derrota nas midterms à guerra no Irã",
-   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/vance-se-distancia-de-trump-atribui-derrota-nas-midterms-a-guerra-no-ira-e-admite-perda-de-eleitores.shtml",
-   "veiculo": "Folha Mundo",
-   "data": "20261104",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Trump diz que guerra contra Irã contribuiu para derrota republicana nas eleições de meio de mandato",
-   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/trump-diz-que-guerra-contra-ira-contribuiu-para-derrota-republicana-nas-eleicoes-de-meio-de-mandato.shtml",
-   "veiculo": "Folha Mundo",
-   "data": "20261104",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "politica",
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Irã diz que os EUA votaram 'não à guerra' após vitória esmagadora dos democratas em eleições para o Congresso",
-   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/ira-diz-que-os-eua-votaram-nao-a-guerra-apos-vitoria-esmagadora-dos-democratas-em-eleicoes-para-o-congresso.shtml",
-   "veiculo": "Folha Mundo",
-   "data": "20261104",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "politica",
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Derrota dá 2 meses para Trump decidir futuro de suas guerras",
-   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/derrota-da-2-meses-para-trump-decidir-futuro-de-suas-guerras.shtml",
-   "veiculo": "Folha Mundo",
-   "data": "20261104",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "geopolitica"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "Vitória democrata nos EUA pode favorecer mercados emergentes, mas efeito depende de cenário fiscal",
    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/vitoria-democrata-nos-eua-pode-favorecer-mercados-emergentes-mas-efeito-depende-de-cenario-fiscal.shtml",
    "veiculo": "Folha Mercado",
    "data": "20261104",
+   "hora": "18:37",
    "dominio": "redir.folha.com.br",
    "categorias": [
     "economia",
     "afeta_o_mundo"
-   ]
-  },
-  {
-   "titulo": "Uber planeja colocar 2.000 carros autônomos em operação no mundo até o fim de 2027",
-   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/negocios/2026/11/uber-planeja-colocar-2000-carros-autonomos-em-operacao-ate-o-fim-de-2027.shtml",
-   "veiculo": "Folha Mercado",
-   "data": "20261104",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "afeta_o_mundo"
-   ]
-  },
-  {
-   "titulo": "O que é o zeptoverso descoberto por cientistas, mundo 100 bilhões de vezes menor que um átomo",
-   "url": "https://www.bbc.com/portuguese/articles/c6lye81l3ezro?at_medium=RSS&at_campaign=rss",
-   "veiculo": "BBC News Brasil",
-   "data": "20261104",
-   "dominio": "www.bbc.com",
-   "categorias": [
-    "afeta_o_mundo"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
@@ -1345,20 +2302,13 @@
    "url": "https://www.dw.com/pt-br/trump-admite-que-guerra-no-irã-contribuiu-para-derrota-republicana/live-79849879?maca=bra-rss-br-all-1030-xml-mrss",
    "veiculo": "DW Brasil",
    "data": "20261104",
+   "hora": "17:20",
    "dominio": "www.dw.com",
    "categorias": [
     "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Guerra, economia, IA e casos de corrupção derrotam Trump nos EUA",
-   "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/guerra-economia-ia-e-casos-de-corrupcao-derrotam-trump-nos-eua",
-   "veiculo": "Agência Brasil Internacional",
-   "data": "20261104",
-   "dominio": "agenciabrasil.ebc.com.br",
-   "categorias": [
-    "economia",
-    "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1366,9 +2316,27 @@
    "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-poss%C3%ADvel-candidato-em-2028-vice-de-trump-atribui-derrota-republicana-nas-urnas-%C3%A0-guerra-contra-ir%C3%A3",
    "veiculo": "RFI Brasil",
    "data": "20261104",
+   "hora": "16:20",
    "dominio": "www.rfi.fr",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "364"
+   ]
+  },
+  {
+   "titulo": "Vance se afasta de Trump e atribui derrota nas midterms à guerra no Irã",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/vance-se-distancia-de-trump-atribui-derrota-nas-midterms-a-guerra-no-ira-e-admite-perda-de-eleitores.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261104",
+   "hora": "15:56",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1376,19 +2344,50 @@
    "url": "https://www.rfi.fr/br/mundo/20261104-financiamento-para-adapta%C3%A7%C3%A3o-clim%C3%A1tica-segue-muito-abaixo-das-necessidades-aponta-onu-antes-da-cop31",
    "veiculo": "RFI Brasil",
    "data": "20261104",
+   "hora": "15:10",
    "dominio": "www.rfi.fr",
    "categorias": [
     "afeta_o_mundo"
-   ]
+   ],
+   "paises": []
   },
   {
    "titulo": "Aos 80 anos, Unesco enfrenta guerras que transformam patrimônio cultural em alvo estratégico",
    "url": "https://www.rfi.fr/br/mundo/20261104-aos-80-anos-unesco-enfrenta-guerras-que-transformam-patrim%C3%B4nio-cultural-em-alvo-estrat%C3%A9gico",
    "veiculo": "RFI Brasil",
    "data": "20261104",
+   "hora": "15:05",
    "dominio": "www.rfi.fr",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Uber planeja colocar 2.000 carros autônomos em operação no mundo até o fim de 2027",
+   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/negocios/2026/11/uber-planeja-colocar-2000-carros-autonomos-em-operacao-ate-o-fim-de-2027.shtml",
+   "veiculo": "Folha Mercado",
+   "data": "20261104",
+   "hora": "14:59",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Cúpula Ibero-Americana começa em Madri sob tensão entre Milei e Sánchez",
+   "url": "https://www.rfi.fr/br/europa/20261104-c%C3%BApula-ibero-americana-come%C3%A7a-em-madri-sob-tens%C3%A3o-entre-milei-e-s%C3%A1nchez",
+   "veiculo": "RFI Brasil",
+   "data": "20261104",
+   "hora": "11:51",
+   "dominio": "www.rfi.fr",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": [
+    "032",
+    "724"
    ]
   },
   {
@@ -1396,40 +2395,195 @@
    "url": "https://www.rfi.fr/br/fran%C3%A7a/20261104-fran%C3%A7a-investiga-ataque-cibern%C3%A9tico-contra-c%C3%A2maras-frias-de-banco-de-sangue",
    "veiculo": "RFI Brasil",
    "data": "20261104",
+   "hora": "11:47",
    "dominio": "www.rfi.fr",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "250"
    ]
   },
   {
-   "titulo": "Cúpula Ibero-Americana começa em Madri sob tensão entre Milei e Sánchez",
-   "url": "https://www.rfi.fr/br/europa/20261104-c%C3%BApula-ibero-americana-come%C3%A7a-em-madri-sob-tens%C3%A3o-entre-milei-e-s%C3%A1nchez",
-   "veiculo": "RFI Brasil",
+   "titulo": "Guerra, economia, IA e casos de corrupção derrotam Trump nos EUA",
+   "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/guerra-economia-ia-e-casos-de-corrupcao-derrotam-trump-nos-eua",
+   "veiculo": "Agência Brasil Internacional",
    "data": "20261104",
-   "dominio": "www.rfi.fr",
+   "hora": "11:31",
+   "dominio": "agenciabrasil.ebc.com.br",
    "categorias": [
-    "afeta_o_mundo"
+    "economia",
+    "geopolitica"
+   ],
+   "paises": [
+    "840"
    ]
   },
   {
-   "titulo": "'A onda ultraconservadora está desmoronando': após derrota republicana nos EUA, esquerda vê nova maré progressista global",
-   "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-a-onda-ultraconservadora-est%C3%A1-desmoronando-ap%C3%B3s-derrota-republicana-nos-eua-esquerda-v%C3%AA-nova-mar%C3%A9-progressista-global",
-   "veiculo": "RFI Brasil",
+   "titulo": "Trump diz que guerra contra Irã contribuiu para derrota republicana nas eleições de meio de mandato",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/trump-diz-que-guerra-contra-ira-contribuiu-para-derrota-republicana-nas-eleicoes-de-meio-de-mandato.shtml",
+   "veiculo": "Folha Mundo",
    "data": "20261104",
-   "dominio": "www.rfi.fr",
+   "hora": "09:14",
+   "dominio": "redir.folha.com.br",
    "categorias": [
-    "afeta_o_mundo"
+    "politica",
+    "geopolitica"
+   ],
+   "paises": [
+    "364"
    ]
+  },
+  {
+   "titulo": "Irã diz que os EUA votaram 'não à guerra' após vitória esmagadora dos democratas em eleições para o Congresso",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/ira-diz-que-os-eua-votaram-nao-a-guerra-apos-vitoria-esmagadora-dos-democratas-em-eleicoes-para-o-congresso.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261104",
+   "hora": "08:32",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "politica",
+    "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "364"
+   ]
+  },
+  {
+   "titulo": "Derrota dá 2 meses para Trump decidir futuro de suas guerras",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/derrota-da-2-meses-para-trump-decidir-futuro-de-suas-guerras.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261104",
+   "hora": "08:24",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": []
   },
   {
    "titulo": "Preço do hambúrguer: termômetro de uma economia mundial sob tensão",
    "url": "https://www.rfi.fr/br/podcasts/radar-econ%C3%B4mico/20261104-pre%C3%A7o-do-hamb%C3%BArguer-term%C3%B4metro-de-uma-economia-mundial-sob-tens%C3%A3o",
    "veiculo": "RFI Brasil",
    "data": "20261104",
+   "hora": "08:24",
    "dominio": "www.rfi.fr",
    "categorias": [
     "economia",
     "afeta_o_mundo"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "'A onda ultraconservadora está desmoronando': após derrota republicana nos EUA, esquerda vê nova maré progressista global",
+   "url": "https://www.rfi.fr/br/am%C3%A9ricas/20261104-a-onda-ultraconservadora-est%C3%A1-desmoronando-ap%C3%B3s-derrota-republicana-nos-eua-esquerda-v%C3%AA-nova-mar%C3%A9-progressista-global",
+   "veiculo": "RFI Brasil",
+   "data": "20261104",
+   "hora": "07:20",
+   "dominio": "www.rfi.fr",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": [
+    "840"
+   ]
+  },
+  {
+   "titulo": "O que é o zeptoverso descoberto por cientistas, mundo 100 bilhões de vezes menor que um átomo",
+   "url": "https://www.bbc.com/portuguese/articles/c6lye81l3ezro?at_medium=RSS&at_campaign=rss",
+   "veiculo": "BBC News Brasil",
+   "data": "20261104",
+   "hora": "06:30",
+   "dominio": "www.bbc.com",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Trump admite que guerra contra o Irã contribuiu para derrota republicana, mas diz que ‘faria de novo’",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/trump-sobre-onda-azul-nas-eleicoes-provavelmente-me-darei-bem-com-os-democratas.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261104",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "364"
+   ]
+  },
+  {
+   "titulo": "Latinos, guerra, voto antecipado: os fatores da 'onda azul', que deu aos democratas uma vitória histórica nos EUA",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/latinos-guerra-votacao-antecipada-o-que-explica-a-onda-azul-que-deu-ao-partido-democrata-uma-vitoria-historica-nos-eua.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261104",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "840"
+   ]
+  },
+  {
+   "titulo": "Vice de Trump culpa guerra no Irã por derrota republicana no Congresso: 'O próprio presidente disse isso'",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/o-motivo-pelo-qual-perdemos-foi-a-guerra-diz-vice-de-trump.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261104",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "politica",
+    "geopolitica"
+   ],
+   "paises": [
+    "364"
+   ]
+  },
+  {
+   "titulo": "'Golpe devastador para Trump', 'não à guerra' e 'sinal político de mudança': líderes mundiais reagem à vitória dos democratas",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-repercussao-lideres-internacionais.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261104",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "De guerra no Irã a regras para IA: o que a vitória democrata pode mudar na economia dos EUA",
+   "url": "https://g1.globo.com/economia/noticia/2026/11/04/vitoria-democrata-nos-eua-ameaca-planos-de-trump-para-economia-e-ia-entenda.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261104",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "economia",
+    "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "364"
+   ]
+  },
+  {
+   "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
+   "url": "https://g1.globo.com/economia/noticia/2026/11/04/ranking-juro-real-novembro.ghtml",
+   "veiculo": "g1 Economia",
+   "data": "20261104",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": [
+    "076"
    ]
   },
   {
@@ -1440,70 +2594,9 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Rússia lança ataque com centenas de drones e mísseis contra rede elétrica da Ucrânia às vésperas de negociações de paz",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/russia-lanca-ataque-com-centenas-de-drones-e-misseis-contra-rede-eletrica-da-ucrania-as-vesperas-de-negociacoes-de-paz.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261103",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Custo de vida, 'fator Trump' e guerra no Irã: as 9 preocupações dos eleitores dos EUA nas midterms",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/nove-preocupacoes-que-estao-na-cabeca-dos-eleitores-dos-eua-antes-das-eleicoes-de-meio-de-mandato.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261103",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "economia",
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Cheque de US$ 5 mil, ataques às urnas e EUA 'queimando': veja as polêmicas de Trump na campanha para as midterms",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/polemicas-trump-midterms-eua.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261103",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Ataque russo contra escola na Ucrânia deixa 31 mortos; Zelensky acusa Rússia de bombardeio duplo",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/bombardeio-russo-escola-ucrania-mortos.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261103",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Eleições nos EUA: como apoio a Israel e guerra em Gaza afetam disputa ao Senado",
-   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/eleicoes-nos-eua-como-apoio-a-israel-e-guerra-em-gaza-afetam-disputa-ao-senado.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261103",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "politica",
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Mercados de previsão enfrentam teste nas eleições dos EUA",
-   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/mercados-de-previsao-enfrentam-teste-nas-eleicoes-dos-eua.shtml",
-   "veiculo": "Folha Mundo",
-   "data": "20261103",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "economia",
-    "politica",
-    "afeta_o_mundo"
+   ],
+   "paises": [
+    "364"
    ]
   },
   {
@@ -1511,10 +2604,282 @@
    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/ia/2026/11/ataques-ciberneticos-com-ia-devem-se-tornar-rotina-ate-2028-diz-agencia-britanica.shtml",
    "veiculo": "Folha Mercado",
    "data": "20261103",
+   "hora": "18:46",
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
+   ],
+   "paises": [
+    "826"
    ]
+  },
+  {
+   "titulo": "Brasil lança plano de ação global para transição energética",
+   "url": "https://www.dw.com/pt-br/brasil-lança-plano-de-ação-global-para-transição-energética/a-79845717?maca=bra-rss-br-all-1030-xml-mrss",
+   "veiculo": "DW Brasil",
+   "data": "20261103",
+   "hora": "14:27",
+   "dominio": "www.dw.com",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": [
+    "076"
+   ]
+  },
+  {
+   "titulo": "Mercados de previsão enfrentam teste nas eleições dos EUA",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/mercados-de-previsao-enfrentam-teste-nas-eleicoes-dos-eua.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261103",
+   "hora": "10:51",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "economia",
+    "politica",
+    "afeta_o_mundo"
+   ],
+   "paises": [
+    "840"
+   ]
+  },
+  {
+   "titulo": "Eleições nos EUA: como apoio a Israel e guerra em Gaza afetam disputa ao Senado",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/eleicoes-nos-eua-como-apoio-a-israel-e-guerra-em-gaza-afetam-disputa-ao-senado.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261103",
+   "hora": "10:50",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "politica",
+    "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "376",
+    "275"
+   ]
+  },
+  {
+   "titulo": "Rússia lança ataque com centenas de drones e mísseis contra rede elétrica da Ucrânia às vésperas de negociações de paz",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/russia-lanca-ataque-com-centenas-de-drones-e-misseis-contra-rede-eletrica-da-ucrania-as-vesperas-de-negociacoes-de-paz.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261103",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "643",
+    "804"
+   ]
+  },
+  {
+   "titulo": "Custo de vida, 'fator Trump' e guerra no Irã: as 9 preocupações dos eleitores dos EUA nas midterms",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/nove-preocupacoes-que-estao-na-cabeca-dos-eleitores-dos-eua-antes-das-eleicoes-de-meio-de-mandato.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261103",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "economia",
+    "geopolitica"
+   ],
+   "paises": [
+    "840",
+    "364"
+   ]
+  },
+  {
+   "titulo": "Cheque de US$ 5 mil, ataques às urnas e EUA 'queimando': veja as polêmicas de Trump na campanha para as midterms",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/polemicas-trump-midterms-eua.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261103",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "840"
+   ]
+  },
+  {
+   "titulo": "Ataque russo contra escola na Ucrânia deixa 31 mortos; Zelensky acusa Rússia de bombardeio duplo",
+   "url": "https://g1.globo.com/mundo/noticia/2026/11/03/bombardeio-russo-escola-ucrania-mortos.ghtml",
+   "veiculo": "g1 Mundo",
+   "data": "20261103",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "643",
+    "804"
+   ]
+  },
+  {
+   "titulo": "Alemanha pena para achar um depósito definitivo para seu lixo nuclear",
+   "url": "https://www.dw.com/pt-br/alemanha-pena-para-achar-um-depósito-definitivo-para-seu-lixo-nuclear/a-79832894?maca=bra-rss-br-all-1030-xml-mrss",
+   "veiculo": "DW Brasil",
+   "data": "20261102",
+   "hora": "16:09",
+   "dominio": "www.dw.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": [
+    "276"
+   ]
+  },
+  {
+   "titulo": "O que se sabe sobre nova onda de ataques hacker a supermercados na Europa",
+   "url": "https://www.dw.com/pt-br/o-que-se-sabe-sobre-nova-onda-de-ataques-hacker-a-supermercados-na-europa/a-79833140?maca=bra-rss-br-all-1030-xml-mrss",
+   "veiculo": "DW Brasil",
+   "data": "20261102",
+   "hora": "15:21",
+   "dominio": "www.dw.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "ONU ressalta importância de proteger jornalistas e acesso à informação",
+   "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/onu-ressalta-importancia-de-proteger-jornalistas-e-acesso-informacao",
+   "veiculo": "Agência Brasil Internacional",
+   "data": "20261102",
+   "hora": "15:21",
+   "dominio": "agenciabrasil.ebc.com.br",
+   "categorias": [
+    "economia",
+    "afeta_o_mundo"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Aventureiro completa volta ao mundo a pé após 28 anos e ganha documentário",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/ilustrada/2026/11/aventureiro-completa-volta-ao-mundo-a-pe-apos-28-anos-e-ganha-documentario.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261102",
+   "hora": "11:38",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Britânico que saiu a pé do Chile conclui volta ao mundo e volta para a casa da mãe depois de 28 anos",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/britanico-que-saiu-a-pe-do-chile-em-1998-esta-prestes-a-concluir-volta-ao-mundo.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261102",
+   "hora": "06:00",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "afeta_o_mundo"
+   ],
+   "paises": [
+    "152",
+    "826"
+   ]
+  },
+  {
+   "titulo": "Trump impulsiona campanha com ataques pessoais e difamações em disputa pelo Senado",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/trump-impulsiona-campanha-com-ataques-pessoais-e-difamacoes-em-disputa-pelo-senado.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261102",
+   "hora": "04:00",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "politica",
+    "geopolitica"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Mercado Bitcoin sofre ataque e suspende saques dias após roubo bilionário na Binance",
+   "url": "https://g1.globo.com/tecnologia/ciberseguranca/noticia/2026/11/02/mercado-bitcoin-incidente-seguranca.ghtml",
+   "veiculo": "g1 Economia",
+   "data": "20261102",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "economia",
+    "geopolitica"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Investidores retiram US$ 3,6 bilhões da Binance após ataque hacker",
+   "url": "https://g1.globo.com/tecnologia/ciberseguranca/noticia/2026/11/02/investidores-retiram-us-36-bilhoes-da-binance-apos-ataque-hacker.ghtml",
+   "veiculo": "g1 Economia",
+   "data": "20261102",
+   "hora": "",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "geopolitica"
+   ],
+   "paises": []
   }
- ]
+ ],
+ "nomes": {
+  "076": "Brasil",
+  "156": "China",
+  "840": "Estados Unidos",
+  "032": "Argentina",
+  "528": "Países Baixos",
+  "724": "Espanha",
+  "276": "Alemanha",
+  "484": "México",
+  "152": "Chile",
+  "392": "Japão",
+  "356": "Índia",
+  "380": "Itália",
+  "410": "Coreia do Sul",
+  "124": "Canadá",
+  "250": "França",
+  "600": "Paraguai",
+  "643": "Rússia",
+  "682": "Arábia Saudita",
+  "826": "Reino Unido",
+  "170": "Colômbia",
+  "858": "Uruguai",
+  "364": "Irã",
+  "376": "Israel",
+  "804": "Ucrânia",
+  "275": "Palestina",
+  "862": "Venezuela",
+  "422": "Líbano",
+  "760": "Síria",
+  "408": "Coreia do Norte",
+  "158": "Taiwan",
+  "792": "Turquia",
+  "586": "Paquistão",
+  "004": "Afeganistão",
+  "192": "Cuba",
+  "068": "Bolívia",
+  "604": "Peru",
+  "218": "Equador",
+  "818": "Egito",
+  "729": "Sudão",
+  "566": "Nigéria",
+  "710": "África do Sul",
+  "620": "Portugal",
+  "616": "Polônia",
+  "368": "Iraque",
+  "887": "Iêmen",
+  "036": "Austrália",
+  "360": "Indonésia",
+  "304": "Groenlândia",
+  "208": "Dinamarca",
+  "332": "Haiti",
+  "591": "Panamá",
+  "104": "Mianmar",
+  "180": "Rep. Dem. do Congo",
+  "231": "Etiópia",
+  "706": "Somália"
+ }
 }

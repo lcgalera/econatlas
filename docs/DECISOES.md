@@ -216,3 +216,33 @@ comércio (superávit ou déficit, Comex Stat), votos na ONU e disputas na OMC.
 - Blocos e alianças pelo Wikidata: a consulta trouxe o México como membro do Mercosul e deixou de fora a Holanda, na OTAN e na UE.
 - Conflitos armados (UCDP, Uppsala): a API agora exige chave de acesso e o site de downloads continuou bloqueado na rede do ambiente.
 **Operação:** `rotzx mundo-atualizar --so-relacoes`; a coleta mensal do workflow Globo já inclui as duas fontes. Se uma falhar, a falha fica em `falhas` e a outra segue.
+
+### D43 · 04/11/2026 · Conflitos armados pela base de Uppsala (UCDP/PRIO)
+**Fonte:** UCDP/PRIO Armed Conflict Dataset (Uppsala Conflict Data Program, CC BY 4.0), versão mais recente da página de downloads
+(26.1, que cobre até 2025). A API da UCDP agora pede chave; o arquivo de download não pede.
+**O que a base mede:** conflitos armados em que um dos lados é um governo e que deixaram 25 ou mais mortes em combate no ano. Para cada
+um, informa os lados, quem apoia com tropas, o que está em disputa (território, governo ou os dois), o tipo (entre Estados, interno,
+interno com tropas estrangeiras) e a intensidade (25 a 999, ou 1.000 ou mais mortes em combate no ano). Protestos, crises diplomáticas e
+violência abaixo desse limite não entram, e o painel avisa isso.
+**Como aparece:**
+- No painel de cada país, os conflitos dos últimos 5 anos em que o país foi lado principal, apoiou com tropas ou que ocorreram no território
+  dele, com os anos de participação do país.
+- No "Mundo agora", a aba "Conflitos" lista os do último ano, os mais intensos primeiro.
+**Cuidado de leitura:** a base registra como "apoio com tropas" também os países que mandam tropas para missões multinacionais, como as de paz
+da ONU (o Brasil aparece assim na República Centro-Africana, ao lado de outros 38 países). Quando há mais de 5 países do mesmo lado, o painel
+mostra quantos são e explica isso. Os nomes ficam como na base, em inglês.
+**Códigos:** os países do protótipo foram ligados aos códigos Gleditsch & Ward da UCDP e conferidos contra os nomes "Government of …" da própria base.
+
+### D44 · 04/11/2026 · Manchetes organizadas por assunto, dia e lugar
+**Pedido:** as quatro formas sugeridas de organizar as notícias: por assunto, destaques no topo, linha do tempo e pelo mapa.
+**Como:**
+- **Assuntos mais cobertos (topo):** manchetes que dividem pelo menos duas palavras do título (fora as vazias e os nomes de países) viram um
+  grupo. Os grupos cobertos por mais veículos diferentes sobem, até 4. O critério é o número de veículos, não uma opinião sobre importância.
+  O grupo mostra as palavras em comum, para dar para conferir, e nada é resumido nem reescrito.
+- **Linha do tempo:** o resto, por dia (Hoje, Ontem, data), com a hora de Brasília quando o feed informa o fuso. Sem fuso, a hora fica em branco.
+- **Pelo mapa:** cada manchete é marcada com os países que o título cita, os 21 do protótipo e mais 34 frequentes no noticiário (`MENCOES`
+  em `paises.py`, com os mesmos cuidados: acento e palavra inteira, sem termos ambíguos como "peru", "sírio" ou "libanês"). O globo pinta
+  os países pelo número de manchetes da aba aberta (camada "Notícias"; a outra, "Países com dados", volta às cores de antes). Os botões
+  "Onde" filtram a lista por país. Os países de `MENCOES` abrem um painel só com as manchetes que os citam.
+- **Coleta:** a marcação roda junto com a de categorias, sobre todas as manchetes guardadas. Cada coleta guarda até 60 manchetes por país e
+  100 em "Em alta no mundo" (antes, 30).

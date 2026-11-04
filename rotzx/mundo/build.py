@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from .. import config
-from . import bancomundial, comex, gdelt, omc, onu
-from .paises import PAISES
+from . import bancomundial, comex, conflitos, gdelt, omc, onu
+from .paises import MENCOES, PAISES, citados
 
 SAIDA = config.ROOT / "prototipos" / "globo" / "dados"
 BRUTOS = config.DATA_DIR / "fontes" / "mundo"
@@ -25,6 +25,9 @@ FONTES = {
     "omc": {"nome": "Disputas na OMC (lista oficial do site da OMC)",
             "url": "https://www.wto.org/english/tratop_e/dispu_e/dispu_by_country_e.htm",
             "nota": "número, título oficial (em inglês), partes, data e situação de cada disputa"},
+    "ucdp": {"nome": "UCDP/PRIO Armed Conflict Dataset (Uppsala Conflict Data Program)", "url": "https://ucdp.uu.se/downloads/",
+             "licenca": "CC BY 4.0",
+             "nota": "conflitos armados com um governo de um dos lados e 25 ou mais mortes em combate no ano"},
     "noticias": {"nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, RFI) e GDELT",
                  "url": "https://www.gdeltproject.org",
                  "nota": "só título, veículo, data e link para a matéria original; categorias por palavras-chave no título"},
@@ -140,11 +143,13 @@ def montar(ano: Optional[str] = None, saida: Path = SAIDA, com_noticias: bool = 
 
 
 def _relacoes(m: dict, log=print) -> None:
-    """Votos na ONU e disputas na OMC por país (D42). Falha de uma fonte fica em m["falhas"] e não derruba a outra."""
+    """Votos na ONU, disputas na OMC (D42) e conflitos armados (D43) por país. Falha de uma fonte fica em m["falhas"]
+    e não derruba as outras."""
     iso3 = [p["iso3"] for p in PAISES]
     por_iso3 = {p["iso3"]: p["iso_num"] for p in PAISES}
     falhas = m.setdefault("falhas", {})
-    for chave, coletar in (("onu", lambda: onu.alinhamento(iso3, BRUTOS / "onu")), ("omc", lambda: omc.disputas(iso3))):
+    for chave, coletar in (("onu", lambda: onu.alinhamento(iso3, BRUTOS / "onu")), ("omc", lambda: omc.disputas(iso3)),
+                           ("conflitos", lambda: conflitos.coletar(iso3, BRUTOS / "ucdp"))):
         log(f"{chave.upper()}: coletando")
         try:
             r = coletar()
@@ -153,13 +158,15 @@ def _relacoes(m: dict, log=print) -> None:
             log(f"  falhou: {falhas[chave]}")
             continue
         falhas.pop(chave, None)
-        dados = r["paises"] if chave == "onu" else r
+        dados = r if chave == "omc" else r["paises"]
         for k, v in dados.items():
             if k in por_iso3:
-                m["paises"].setdefault(por_iso3[k], {}).setdefault("relacoes", {})[chave] = v
+                m["paises"].setdefault(por_iso3[k], {}).setdefault("relacoes", {})[chave] = v["conflitos"] if chave == "conflitos" else v
         if chave == "onu":
             m["onu"] = {k: r[k] for k in ("ano", "mediana", "versao_dados", "publicado")}
-    m["fontes"] = {**m.get("fontes", {}), "onu": FONTES["onu"], "omc": FONTES["omc"]}
+        if chave == "conflitos":
+            m["conflitos"] = {k: r[k] for k in ("ultimo_ano", "desde", "versao", "mundo")}
+    m["fontes"] = {**m.get("fontes", {}), "onu": FONTES["onu"], "omc": FONTES["omc"], "ucdp": FONTES["ucdp"]}
     m["relacoes_em"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
@@ -220,17 +227,19 @@ def noticias(saida: Path = SAIDA, log=print, dias: int = 7, por_lote: int = 7, u
         out["paises"][p["iso_num"]] = gdelt.juntar(antes.get("paises", {}).get(p["iso_num"], []), novas[p["iso_num"]], desde)
         log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}")
     globais = [m for m in itens if m["categorias"] and ("afeta_o_mundo" in m["categorias"] or "geopolitica" in m["categorias"])]
-    out["mundo"] = gdelt.juntar(antes.get("mundo", []), globais, (agora - timedelta(days=2)).strftime("%Y%m%d"))
+    out["mundo"] = gdelt.juntar(antes.get("mundo", []), globais, (agora - timedelta(days=2)).strftime("%Y%m%d"), maximo=100)
     _recategorizar(out)
     _gravar(saida, "noticias", out)
     return out
 
 
 def _recategorizar(n: dict) -> None:
-    """A regra de categorias pode mudar: aplica a atual a todas as manchetes guardadas, não só às novas."""
+    """A regra de categorias (e a de países citados, D44) pode mudar: aplica a atual a todas as manchetes guardadas."""
     for lista in list(n.get("paises", {}).values()) + [n.get("mundo", [])]:
         for m in lista:
             m["categorias"] = gdelt.categorias(m.get("titulo", ""))
+            m["paises"] = citados(m.get("titulo", ""))
+    n["nomes"] = {p["iso_num"]: p["nome"] for p in PAISES + MENCOES}  # para o mapa nomear quem a manchete cita
     n["mundo"] = [m for m in n.get("mundo", []) if {"afeta_o_mundo", "geopolitica"} & set(m["categorias"])]
 
 

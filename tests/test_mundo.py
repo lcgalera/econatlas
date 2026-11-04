@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from rotzx.mundo import bancomundial, build, comex, gdelt, omc, onu
+from rotzx.mundo import bancomundial, build, comex, conflitos, gdelt, omc, onu
 from rotzx.mundo.paises import PAISES, POR_ISO_NUM
 
 
@@ -269,6 +269,93 @@ def test_relacoes_falha_de_uma_fonte_nao_derruba_a_outra(monkeypatch):
     m = {"paises": {"840": {"nome": "Estados Unidos"}}, "fontes": {}}
     monkeypatch.setattr(onu, "alinhamento", lambda *a, **k: (_ for _ in ()).throw(OSError("bloqueado")))
     monkeypatch.setattr(omc, "disputas", lambda iso3: {"USA": {"total": 1}, "XXX": {"total": 9}})
+    monkeypatch.setattr(conflitos, "coletar", lambda iso3, pasta=None: {
+        "ultimo_ano": 2025, "desde": 2021, "versao": "261", "mundo": {"ativos": [], "total": 0, "guerras": 0},
+        "paises": {"USA": {"conflitos": [{"id": "9"}]}}})
     build._relacoes(m, log=lambda *_: None)
-    assert m["falhas"]["onu"].startswith("OSError") and "omc" not in m["falhas"]
-    assert m["paises"]["840"]["relacoes"] == {"omc": {"total": 1}} and "onu" in m["fontes"]
+    assert m["falhas"]["onu"].startswith("OSError") and "omc" not in m["falhas"] and "conflitos" not in m["falhas"]
+    assert m["paises"]["840"]["relacoes"] == {"omc": {"total": 1}, "conflitos": [{"id": "9"}]}
+    assert m["conflitos"]["versao"] == "261" and {"onu", "ucdp"} <= set(m["fontes"])
+
+
+# ---- D43: conflitos armados (UCDP/PRIO), fixture sintética no formato real ----
+
+UCDP_CAB = ("conflict_id,location,side_a,side_a_id,side_a_2nd,side_b,side_b_id,side_b_2nd,incompatibility,territory_name,year,"
+            "intensity_level,cumulative_intensity,type_of_conflict,start_date,start_prec,start_date2,start_prec2,ep_end,ep_end_date,"
+            "ep_end_prec,gwno_a,gwno_a_2nd,gwno_b,gwno_b_2nd,gwno_loc,region,version")
+
+
+def _ucdp(*linhas):
+    import io as _io, zipfile as _zf
+    buf = _io.BytesIO()
+    with _zf.ZipFile(buf, "w") as z:
+        z.writestr("UcdpPrioConflict_v26_1.csv", "\n".join((UCDP_CAB,) + linhas) + "\n")
+    return buf.getvalue()
+
+
+def test_ucdp_escolhe_a_versao_mais_recente_da_pagina():
+    html = ('<a href="https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-251-csv.zip">'
+            '<a href="https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-261-csv.zip">'
+            '<a href="https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-261-xlsx.zip">')
+    assert conflitos.link_mais_recente(html).endswith("acd-261-csv.zip")
+    with pytest.raises(ValueError):
+        conflitos.link_mais_recente("<html></html>")
+
+
+def test_ucdp_conflitos_por_pais_papel_e_panorama():
+    linhas = conflitos.ler(_ucdp(
+        '1,"Russia (Soviet Union), Ukraine",Government of Russia (Soviet Union),57,"",Government of Ukraine,169,"",3,Crimea,2025,2,1,2,2022-02-24,1,,,0,,,365,"",369,"","365, 369",1,26.1',
+        '2,Colombia,Government of Colombia,1,"",ELN,2,"",2,"",2024,1,1,3,1964-01-01,1,,,0,,,100,"","","",100,5,26.1',
+        # missão multinacional: 7 países apoiando o governo; o Brasil está entre eles em 2023, não em 2025
+        '3,Central African Republic,Government of Central African Republic,3,"Government of Brazil, Government of China, Government of A, Government of B, Government of C, Government of D, Government of E",CPC,4,"",2,"",2023,1,1,4,2020-12-01,1,,,0,,,482,"140, 710, 1, 3, 4, 5, 6","","",482,4,26.1',
+        '3,Central African Republic,Government of Central African Republic,3,"Government of China",CPC,4,"",2,"",2025,1,1,4,2020-12-01,1,,,0,,,482,"710","","",482,4,26.1',
+        '4,Peru,Government of Peru,5,"",Sendero Luminoso,6,"",2,"",2019,1,1,3,1980-01-01,1,,,0,,,135,"","","",135,5,26.1',  # fora da janela
+    ))
+    r = conflitos.resumir(linhas, ["RUS", "BRA", "CHN", "COL", "CHL"])
+    assert r["ultimo_ano"] == 2025 and r["desde"] == 2021
+    rus = r["paises"]["RUS"]["conflitos"][0]
+    assert rus["papel"] == "lado principal" and rus["tipo"] == "entre Estados" and rus["disputa"] == "território e governo"
+    assert rus["guerra_no_ultimo_ano"] and rus["url"].endswith("/conflict/1")
+    bra = r["paises"]["BRA"]["conflitos"]
+    assert len(bra) == 1 and bra[0]["papel"] == "apoio com tropas" and bra[0]["anos_pais"] == [2023]   # vale o ano em que participou
+    assert bra[0]["apoiadores_no_lado"] == 7 and bra[0]["apoia"] == ["Government of Central African Republic"]
+    assert r["paises"]["CHN"]["conflitos"][0]["anos_pais"] == [2023, 2025]
+    assert r["paises"]["COL"]["conflitos"][0]["ultimo_ano"] == 2024 and r["paises"]["CHL"]["conflitos"] == []
+    assert r["mundo"]["total"] == 2 and r["mundo"]["guerras"] == 1 and r["mundo"]["ativos"][0]["id"] == "1"   # guerra primeiro
+
+
+# ---- D44: hora de Brasília e países citados em cada manchete ----
+
+def test_rss_hora_em_brasilia_e_sem_fuso_fica_sem_hora():
+    from rotzx.mundo import rss
+    assert rss._quando("Wed, 04 Nov 2026 01:30:00 GMT") == ("20261103", "22:30")   # vira o dia em Brasília
+    assert rss._quando("2026-11-04T10:00:00-03:00") == ("20261104", "10:00")
+    assert rss._quando("2026-11-04T10:00:00") == ("20261104", "")                 # sem fuso: não inventa a hora
+    assert rss._quando("") == ("", "")
+    xml = ('<rss><channel><item><title>Irã e Israel</title><link>https://x.com/a</link>'
+           '<pubDate>Wed, 04 Nov 2026 15:00:00 +0000</pubDate></item></channel></rss>').encode("utf-8")
+    assert rss.ler(xml, "Teste")[0]["hora"] == "12:00"
+
+
+def test_paises_citados_no_titulo_com_extras_e_sem_falsos_positivos():
+    from rotzx.mundo.paises import MENCOES, PAISES, citados
+    assert len({p["iso_num"] for p in PAISES + MENCOES}) == len(PAISES) + len(MENCOES)   # sem código repetido
+    assert citados("Israel ataca Gaza e o Líbano; EUA pedem trégua") == ["840", "376", "275", "422"]
+    assert citados("Hospital Sírio-Libanês inaugura ala") == []
+    assert citados("Preço do peru dispara no Natal") == []
+    assert citados("Trump diz que guerra contra o Irã contribuiu") == ["364"]
+
+
+def test_recategorizar_marca_paises_e_publica_os_nomes():
+    n = {"paises": {"076": [{"titulo": "Brasil e China fecham acordo", "data": "20261104"}]},
+         "mundo": [{"titulo": "Ucrânia e Rússia negociam cessar-fogo", "data": "20261104"}]}
+    build._recategorizar(n)
+    assert n["paises"]["076"][0]["paises"] == ["076", "156"]
+    assert n["mundo"][0]["paises"] == ["643", "804"] and "geopolitica" in n["mundo"][0]["categorias"]
+    assert n["nomes"]["804"] == "Ucrânia" and n["nomes"]["076"] == "Brasil"
+
+
+def test_juntar_ordena_por_data_e_hora():
+    a = [{"titulo": "A", "data": "20261104", "hora": "08:00"}, {"titulo": "B", "data": "20261104", "hora": "21:00"},
+         {"titulo": "C", "data": "20261103", "hora": "23:59"}]
+    assert [m["titulo"] for m in gdelt.juntar(a, [], "20261101")] == ["B", "A", "C"]

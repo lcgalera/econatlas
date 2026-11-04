@@ -68,8 +68,15 @@ def menciona(titulo: str, termos: List[str]) -> bool:
 
 
 def _limpa(a: dict) -> dict:
+    from datetime import datetime, timedelta, timezone
+    data, hora = (a.get("seendate") or "")[:8], ""
+    try:  # seendate vem em UTC, como 20261104T143000Z: passa para o horário de Brasília
+        dt = datetime.strptime(a.get("seendate", ""), "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=-3)))
+        data, hora = dt.strftime("%Y%m%d"), dt.strftime("%H:%M")
+    except ValueError:
+        pass
     return {"titulo": re.sub(r"\s+", " ", a.get("title", "")).strip(), "url": a.get("url"), "veiculo": a.get("domain"),
-            "data": (a.get("seendate") or "")[:8], "pais_do_veiculo": a.get("sourcecountry"), "categorias": categorias(a.get("title", ""))}
+            "data": data, "hora": hora, "pais_do_veiculo": a.get("sourcecountry"), "categorias": categorias(a.get("title", ""))}
 
 
 def manchetes(termos: List[str], dias: int = 7, maximo: int = 75, exigir_no_titulo: bool = True,
@@ -113,10 +120,10 @@ def lote(paises: List[dict], dias: int = 1) -> Dict[str, List[dict]]:
     return out
 
 
-def juntar(antigas: List[dict], novas: List[dict], desde: str, maximo: int = 30) -> List[dict]:
+def juntar(antigas: List[dict], novas: List[dict], desde: str, maximo: int = 60) -> List[dict]:
     """Acumula manchetes entre coletas: sem repetir título, só as de `desde` (AAAAMMDD) em diante, as mais recentes primeiro."""
     vistos, out = set(), []
-    for m in sorted(novas + antigas, key=lambda x: x.get("data", ""), reverse=True):
+    for m in sorted(novas + antigas, key=lambda x: (x.get("data", ""), x.get("hora", "")), reverse=True):
         k = _chave(m.get("titulo"))
         if k and k not in vistos and m.get("data", "") >= desde:
             vistos.add(k)
