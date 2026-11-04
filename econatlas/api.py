@@ -1,4 +1,4 @@
-"""API HTTP do EconAtlas (FastAPI). Também serve a interface em web/.
+"""API HTTP do rotzx (FastAPI). Também serve a interface em web/.
 
 Toda resposta com números inclui: série, fonte, versão (vintage), data de coleta
 e transformação aplicada, para que qualquer valor exibido seja rastreável.
@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from . import catalog as cat
 from . import cli, config, payloads, storage
 
-app = FastAPI(title="EconAtlas", version="0.1.0")
+app = FastAPI(title="rotzx", version="0.1.0")
 
 
 def _catalog():

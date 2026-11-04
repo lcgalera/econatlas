@@ -1,4 +1,4 @@
-"""Linha de comando do EconAtlas.
+"""Linha de comando do rotzx.
 
 Exemplos:
   python -m econatlas atualizar                  # baixa todas as séries públicas
@@ -209,6 +209,27 @@ def main(argv=None):
     sub.add_parser("backtest", help="refaz o backtest do IPCA e salva o resultado (~1–2 min)")
     sub.add_parser("calibrar-setorial", help="mede a cobertura das faixas das previsões setoriais (~5 min)")
 
+    fe = sub.add_parser("fonte-explorar", help="Fase 1: busca um conjunto no portal CKAN (ANEEL) e gera o perfil dos campos")
+    fe.add_argument("busca", help="termo de busca (ex.: siget) ou, com --conjunto, ignorado")
+    fe.add_argument("--portal", default="aneel", help="aneel ou a URL de outro portal CKAN")
+    fe.add_argument("--conjunto", default=None, help="nome do conjunto: baixa os recursos e gera data/fontes/.../relatorio.md")
+    fe.add_argument("--max-mb", type=float, default=300, help="tamanho máximo por arquivo baixado")
+
+    sa = sub.add_parser("siget-amostra", help="Fase 1: visão por empreendimento do SIGET e amostra para avaliação manual")
+    sa.add_argument("--n", type=int, default=20, help="tamanho da amostra (padrão: 20)")
+    sa.add_argument("--aleatoria", action="store_true", help="sorteio entre os elegíveis (sem os da amostra.csv) + planilha de avaliação")
+    sa.add_argument("--semente", type=int, default=20261104, help="semente do sorteio (padrão: 20261104)")
+
+    sub.add_parser("siget-atualizar", help="Fase 2: baixa os arquivos do SIGET que mudaram e registra versões e eventos no histórico")
+    sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
+    sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
+    sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
+
+    op = sub.add_parser("oportunidades", help="Fase 3: oportunidades do SIGET para um perfil (relatório HTML + CSV)")
+    op.add_argument("--perfil", default=None, help="JSON do perfil (padrão: catalog/perfil_demo.json)")
+    op.add_argument("--top", type=int, default=30, help="quantas oportunidades detalhar no relatório")
+    op.add_argument("--saida", default=None, help="pasta de saída (padrão: data/relatorios/<perfil>_<data>)")
+
     s = sub.add_parser("servir", help="inicia a interface web local")
     s.add_argument("--porta", type=int, default=8000)
 
@@ -259,6 +280,85 @@ def main(argv=None):
     elif args.cmd == "backtest":
         r = save_backtest()
         print(f"backtest salvo: origens {r['origens'][0]} a {r['origens'][1]}")
+    elif args.cmd == "fonte-explorar":
+        from .providers import ckan
+        if args.conjunto:
+            print("relatório:", ckan.explorar(args.portal, args.conjunto, max_mb=args.max_mb))
+        else:
+            for c in ckan.buscar(args.portal, args.busca):
+                print(f"{c['nome']}  |  {c['titulo']}  |  licença: {c['licenca'] or 'não declarada'}  |  {c['modificado']}")
+                for r in c["recursos"]:
+                    print(f"    [{r['formato'] or '?'}] {r['nome']}  {r['url']}")
+    elif args.cmd == "siget-amostra":
+        from .providers import aneel_siget as sg
+        emp = sg.empreendimentos(sg.carregar())
+        pasta = sg.pasta_padrao().parent
+        if args.aleatoria:
+            import pandas as pd
+            anterior = pasta / "amostra.csv"
+            ja = set(pd.read_csv(anterior, dtype=str).id_aneel) if anterior.exists() else set()
+            al = sg.amostra_aleatoria(emp, n=args.n, semente=args.semente, excluir=ja)
+            al.to_csv(pasta / "amostra-aleatoria.csv", index=False)
+            xl = sg.planilha_avaliacao(al, pasta / "amostra-aleatoria-avaliacao.xlsx")
+            print(f"sorteio de {len(al)} entre {al.attrs['universo']} elegíveis (semente {args.semente}, {len(ja)} já avaliados excluídos) -> {xl}")
+            print(sg.ATRIBUICAO)
+            return
+        am = sg.amostra(emp, n=args.n)
+        emp.to_csv(pasta / "empreendimentos.csv", index=False)
+        am.to_csv(pasta / "amostra.csv", index=False)
+        print(f"{len(emp)} empreendimentos ({(emp.situacao == sg.EM_ANDAMENTO).sum()} em andamento) -> {pasta / 'empreendimentos.csv'}")
+        print(f"amostra de {len(am)} para avaliação manual -> {pasta / 'amostra.csv'}")
+        print(sg.ATRIBUICAO)
+    elif args.cmd == "siget-atualizar":
+        from .intelligence import historico
+        from .providers import aneel_siget as sg
+        for k, v in sg.baixar().items():
+            print(f"  {k:12} {v['status']:18} {v.get('arquivo', '')}")
+        emp = sg.empreendimentos(sg.carregar())
+        r = historico.registrar(storage.connect(), emp)
+        print(f"histórico: {r['status']} (coleta {r['coleta_id']}), {r['eventos']} eventos")
+        if r["eventos"]:
+            ev = historico.eventos(storage.connect(), r["coleta_id"])
+            print("  " + ", ".join(f"{k}: {v}" for k, v in ev.assign(k=ev.tipo + " " + ev.rotulo).k.str.strip().value_counts().items()))
+        print(sg.ATRIBUICAO)
+    elif args.cmd == "contexto-atualizar":
+        from .intelligence import contexto as ctxm
+        update(ctxm.series_usadas())
+    elif args.cmd == "siget-historico-exportar":
+        from .intelligence import historico
+        print("historico/:", historico.exportar(storage.connect()))
+    elif args.cmd == "siget-historico-importar":
+        from .intelligence import historico
+        print("historico/:", historico.importar(storage.connect()))
+    elif args.cmd == "oportunidades":
+        import pandas as pd
+        from . import intelligence as it
+        from .intelligence import evidencia, relatorio, scoring
+        from .providers import aneel_siget as sg
+        t = sg.carregar()
+        cats = it.carregar_categorias()
+        perfil = it.carregar_perfil(Path(args.perfil)) if args.perfil else it.carregar_perfil()
+        hoje = pd.Timestamp.today().normalize()
+        data_fonte = pd.to_datetime(t["eom"].DatGeracaoConjuntoDados.iloc[0], errors="coerce")
+        emp = sg.empreendimentos(t)
+        ev = evidencia.evidencias(t, cats)
+        ops = scoring.oportunidades(emp, ev, cats, perfil, hoje=hoje, data_fonte=data_fonte)
+        pasta = Path(args.saida) if args.saida else config.DATA_DIR / "relatorios" / f"{perfil['id']}_{hoje:%Y-%m-%d}"
+        from .intelligence import historico
+        mudancas = historico.eventos(storage.connect())
+        from .intelligence import contexto as ctxm
+        conn = storage.connect()
+        ctx = {"pipeline": ctxm.pipeline(t, emp, hoje), "indicadores": ctxm.indicadores(conn, cat.load_catalog()),
+               "previsao": ctxm.previsao_setorial()}
+        faltam = [i["id"] for i in ctx["indicadores"] if "erro" in i]
+        if faltam:
+            print(f"  aviso: sem dados para {', '.join(faltam)} (rode `econatlas atualizar`)")
+        out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"),
+                              eventos=mudancas, contexto=ctx)
+        print(f"{len(ops)} oportunidades para {perfil['nome']}")
+        for k, v in out.items():
+            print(f"  {k}: {v}")
+        print(sg.ATRIBUICAO)
     elif args.cmd == "servir":
         import uvicorn
         uvicorn.run("econatlas.api:app", host="127.0.0.1", port=args.porta)

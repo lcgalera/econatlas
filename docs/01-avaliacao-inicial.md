@@ -1,4 +1,4 @@
-# EconAtlas — Avaliação inicial (Fase 1)
+# rotzx — Avaliação inicial (Fase 1)
 
 *Data: 02/11/2026 · Autor: Claude (assistente de desenvolvimento) para Lucas Faria Galera*
 

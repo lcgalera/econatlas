@@ -10,7 +10,7 @@ DB_FILE = DATA_DIR / "econatlas.sqlite"
 WEB_DIR = ROOT / "web"
 BACKTEST_FILE = DATA_DIR / "backtests" / "ipca_mensal.json"
 
-USER_AGENT = "EconAtlas/0.1 (pesquisa pessoal)"
+USER_AGENT = "rotzx/0.1 (pesquisa pessoal)"
 MACRODADOS_MANIFEST = ROOT / "privado" / "macrodados_cesta.json"  # local, fora do git
 ANALYSES_DIR = DATA_DIR / "analyses"  # <setor>_antecedentes.json
 PUBLIC_SITE_DIR = ROOT / "site"  # saída do build público (econatlas publicar)

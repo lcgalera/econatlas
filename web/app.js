@@ -1,4 +1,4 @@
-/* EconAtlas — interface (sem build; ECharts via CDN). */
+/* rotzx — interface (sem build; ECharts via CDN). */
 "use strict";
 
 const $app = document.getElementById("app");
@@ -208,10 +208,10 @@ function sourceLine(resp) {
 const MODULOS = [
   { id: "radar", num: "I", nome: "Radar Brasil", ativo: true, desc: "Observatório da economia brasileira: inflação, juros, câmbio, atividade, renda e crédito, com fonte e data em cada número." },
   { id: "forecast", num: "II", nome: "MacroForecast", ativo: true, desc: "Previsões do IPCA registradas antes da divulgação, comparadas ao Focus. Os erros ficam no registro." },
-  { id: "setorial", num: "III", nome: "Radar Setorial", ativo: false, desc: "Indústria, materiais elétricos, construção e energia: atividade, emprego, custos e indicadores antecedentes.",
-    itens: ["Produção, emprego e custos por setor", "Indicadores antecedentes, sem presumir causalidade", "Alertas com regras documentadas", "Vendas da empresa × indicadores econômicos"] },
-  { id: "mundo", num: "IV", nome: "Brasil x Mundo", ativo: false, desc: "Estudos comparativos com indicadores comparáveis: PPC, preços constantes, produtividade e investimento.",
-    itens: ["PIB per capita PPC (Banco Mundial)", "Investimento e produtividade", "Convergência de renda", "Estudos históricos pontuais"] },
+  { id: "setorial", num: "III", nome: "Radar Setorial", ativo: true, desc: "Indústria de máquinas e materiais elétricos: indicadores antecedentes testados fora da amostra e previsões registradas a 3 e 6 meses.",
+    itens: ["Emprego e custos por setor", "Indicadores mais próximos dos mercados atendidos (transmissão, distribuição)", "Alertas com regras documentadas", "Vendas da empresa × indicadores econômicos"] },
+  { id: "mundo", num: "IV", nome: "Brasil x Mundo", ativo: false, oculto: true, desc: "Estudos comparativos com indicadores comparáveis: PPC, preços constantes, produtividade e investimento.",
+    itens: ["PIB per capita PPC (Banco Mundial)", "Investimento e produtividade", "Convergência de renda", "Estudos históricos pontuais"] },  // adiado (D6): fora do menu e da home
 ];
 
 function lede(kicker, title, standfirst, dateline = "") {
@@ -221,7 +221,7 @@ function lede(kicker, title, standfirst, dateline = "") {
 const destaqueSetor = () => `
     <a class="destaque" href="#/setor-eletrico">
       <span class="kicker" style="margin:0">Leitura do mês</span>
-      <span class="destaque-t">Setor elétrico: o que os juros indicam para os próximos 3 a 6 meses →</span>
+      <span class="destaque-t">Indústria de materiais elétricos: o que os juros indicam para os próximos 3 a 6 meses →</span>
     </a>`;
 
 function pageHome() {
@@ -233,14 +233,14 @@ function pageHome() {
       return `<a href="#/serie/${id}"><div class="label">${label}</div><div class="big">${fmtNum(s.ultimo.valor)}<small>${esc(s.unidade)}</small></div><div class="when">${fmtDate(s.ultimo.data, s.periodicidade)}</div></a>`;
     }).join("");
   $app.innerHTML = `
-    ${lede("Inteligência econômica", "Dados econômicos com origem, data e método à vista",
+    ${lede("Inteligência de mercado", "Dados públicos com origem, data e método à vista",
       "Cada número mostra de onde veio, quando foi coletado e que cálculo foi aplicado. Módulos ainda sem dados aparecem como em preparação; nada aqui é simulado.")}
     ${destaqueSetor()}
     <div class="snapshot">${snap}</div>
     <section class="sec">
       <div class="sec-head"><h2>Módulos</h2></div>
       <ol class="modules">
-        ${MODULOS.map((m) => `
+        ${MODULOS.filter((m) => !m.oculto).map((m) => `
           <li>
             <div class="num">${m.num}</div>
             <div><h3><a href="#/${m.id}">${m.nome}</a></h3><p>${m.desc}</p></div>
@@ -278,10 +278,10 @@ function pagePlanned(id) {
     ${id === "setorial" ? `${destaqueSetor()}<div id="prev-setorial"></div><div id="analise"></div>` : ""}
     ${importedSection(imported)}
     <section class="sec prose">
-      <p><span class="flag muted">Em preparação</span>. ${imported.length
-        ? "As análises do módulo (comparações, indicadores antecedentes, alertas) ainda não foram construídas; acima estão apenas os dados importados."
-        : "Este módulo não exibe números até existirem dados reais e métodos validados."}</p>
-      <h3>Escopo previsto</h3>
+      ${m.ativo ? "" : `<p><span class="flag muted">Em preparação</span>. ${imported.length
+        ? "As análises do módulo ainda não foram construídas; acima estão apenas os dados importados."
+        : "Este módulo não exibe números até existirem dados reais e métodos validados."}</p>`}
+      <h3>${m.ativo ? "Ainda não construído neste módulo" : "Escopo previsto"}</h3>
       <ul>${m.itens.map((i) => `<li>${i}</li>`).join("")}</ul>
       <p>O cronograma e a metodologia estão em <code>docs/01-avaliacao-inicial.md</code>.</p>
     </section>`;
@@ -311,7 +311,7 @@ async function sectorForecasts() {
   box.innerHTML = `
     <section class="sec">
       <div class="sec-head"><h2>Previsões setoriais registradas</h2>
-        <span class="sub">${d.registro.length} previsões · registro imutável · ${avaliadas.length} já avaliadas</span></div>
+        <span class="sub">${d.registro.length} previsões · registro só de acréscimos · ${avaliadas.length} já avaliadas</span></div>
       <p class="prose" style="margin-top:0">Variação em 12 meses prevista para cada série, pelo modelo com juros (a variação da Selic em 12 meses, a hipótese original da análise),
       com a faixa empírica de 80%. A linha tracejada é o modelo só com o histórico do setor.</p>
       <div class="multiples">${setores.map((s) => `
@@ -340,8 +340,8 @@ async function sectorForecasts() {
       <p class="sub">Especificação <code>${esc(d.especificacao?.id || "")}</code>, fixada antes da primeira previsão: ${esc(d.modelos.juros)}.
       Qualquer mudança vira uma especificação nova, com outro nome, sem apagar as anteriores.</p>
       <p class="aside">A diferença entre os dois modelos é pequena (cerca de 1 ponto), e as faixas são largas (±12 a ±20 pontos), porque esses setores oscilam muito.
-      O sinal dos juros ajusta a direção esperada; não dá precisão. Cada previsão fica registrada com a versão dos dados e não pode ser alterada:
-      a avaliação aparece aqui quando o dado do mês-alvo for publicado.</p>
+      O sinal dos juros ajusta a direção esperada; não dá precisão. Cada previsão fica registrada com a versão dos dados; o programa não aceita alterá-la, e uma mudança no arquivo
+      faria a verificação automática falhar. A avaliação aparece aqui quando o dado do mês-alvo for publicado.</p>
     </section>`;
   setores.forEach((s) => {
     const rs = latest(s), hist = d.setores[s].historico;
@@ -365,6 +365,7 @@ async function sectorAnalysis() {
   if (!box) return;
   let list;
   try { list = await api("/api/analises/setores"); } catch (e) { box.innerHTML = ""; return; }
+  if (!list?.length) { box.innerHTML = `<p class="empty">Nenhuma análise de indicadores antecedentes publicada ainda.</p>`; return; }
   const H = list[0].horizontes.map(String);
   const hLabel = (h) => (h === "0" ? "Mês corrente" : `${h} meses à frente`);
   // "ganho" exige: teste significativo (Holm dentro da rodada) E erro menor no total E sem a pandemia
@@ -463,7 +464,7 @@ async function sectorAnalysis() {
   onTabs("alvo", (v) => renderOne(list.find((a) => a.setor === v)));
 }
 
-/* ---------- Setor elétrico em linguagem simples (só dados abertos) ---------- */
+/* ---------- Indústria de materiais elétricos em linguagem simples (só dados abertos) ---------- */
 const REPO_URL = "https://github.com/lcgalera/econatlas";
 const addMonths = (iso, k) => { const [y, m] = iso.split("-").map(Number); const d = new Date(Date.UTC(y, m - 1 + k, 1)); return d.toISOString().slice(0, 10); };
 const NOMES_SIMPLES = {  // candidatos da análise, em português corrente
@@ -524,7 +525,6 @@ async function pageSetorEletrico() {
 
   // frases
   const pct = (v) => `${fmtNum(Math.abs(v), 1)}%`;
-  const menos = (r) => `${fmtNum(Math.abs(r - 1) * 100, 0)}%`;
   const tend = (v) => (v >= 1 ? `crescer cerca de ${pct(v)}` : v <= -1 ? `cair cerca de ${pct(v)}` : "ficar perto da estabilidade");
   const selicTxt = Math.abs(vSel) < 0.25 ? "Com a Selic praticamente no mesmo nível de um ano atrás"
     : `Com a Selic ${fmtNum(Math.abs(vSel), 2)} ponto${Math.abs(vSel) >= 2 ? "s" : ""} percentua${Math.abs(vSel) >= 2 ? "is" : "l"} ${vSel < 0 ? "abaixo" : "acima"} de um ano atrás`;
@@ -534,7 +534,7 @@ async function pageSetorEletrico() {
   const faixa = (r) => (r?.lo80 != null ? `entre ${r.lo80 < 0 ? "−" : "+"}${pct(r.lo80)} e ${r.hi80 < 0 ? "−" : "+"}${pct(r.hi80)}` : "");
 
   $app.innerHTML = `
-    ${lede(`<a href="#/setorial">Radar Setorial</a> · leitura do mês`, "Setor elétrico: o que os juros indicam", esc(conclusao),
+    ${lede(`<a href="#/setorial">Radar Setorial</a> · leitura do mês`, "Indústria de materiais elétricos: o que os juros indicam", esc(conclusao),
       `Produção: IBGE, dados até ${fmtDate(dObs, "mensal")} · Selic: Banco Central, até ${fmtDate(dSel, "mensal")} · previsão registrada em ${j3 ? fmtTs(j3.registrado_em) : "–"}`)}
 
     <section class="sec prose">
@@ -577,14 +577,18 @@ async function pageSetorEletrico() {
     <section class="sec prose">
       <div class="sec-head"><h2>O resultado principal</h2></div>
       ${s3 && s6 ? `<p>Testamos a ideia do jeito mais exigente que conseguimos: refizemos as previsões mês a mês desde 2016,
-        cada uma usando só os dados que existiam naquela data, e comparamos duas versões, uma que olha só o histórico do setor
-        e outra que também olha quanto a Selic mudou em 12 meses.</p>
-      <p>A versão com os juros <b>errou ${menos(s3.razao_rmse)} menos</b> nas previsões para 3 meses à frente e
-        <b>${menos(s6.razao_rmse)} menos</b> nas previsões para 6 meses.
-        Tirando o período da pandemia, que distorce tudo, a melhora fica em ${menos(s3.razao_rmse_sem_pandemia)} e ${menos(s6.razao_rmse_sem_pandemia)}.
-        ${ok(s3) && ok(s6) ? "Nos dois casos a melhora passou nos testes estatísticos." : "A melhora não passou em todos os testes estatísticos, por isso deve ser lida com cautela."}</p>` : ""}
+        cada uma usando só os dados até aquela data (na versão revisada de hoje, não na que existia na época), e comparamos duas versões,
+        uma que olha só o histórico do setor e outra que também olha quanto a Selic mudou em 12 meses.</p>
+      <p>Comparada com a versão sem juros, a versão com os juros <b>${Texto.errou(s3.razao_rmse)}</b> nas previsões para 3 meses à frente e
+        <b>${Texto.errou(s6.razao_rmse)}</b> nas previsões para 6 meses.
+        Tirando o período da pandemia, que distorce tudo, o erro fica ${Texto.erroRelativo(s3.razao_rmse_sem_pandemia)} e ${Texto.erroRelativo(s6.razao_rmse_sem_pandemia)}, respectivamente.
+        ${ok(s3) && ok(s6) ? "Nos dois casos a melhora passou nos testes estatísticos."
+          : [s3, s6].some((o) => [o.razao_rmse, o.razao_rmse_sem_pandemia].some((r) => Texto.comparaErro(r)?.direcao !== "menor"))
+            ? "Em pelo menos um horizonte o erro não diminuiu, então ali não há ganho de previsão a comemorar."
+            : "A melhora não passou em todos os testes estatísticos, por isso deve ser lida com cautela."}</p>` : ""}
       ${naoAjudou.length ? `<p>Também testamos ${naoAjudou.join(", ").replace(/, ([^,]*)$/, " e $1")}. Nenhum deles ajudou a antecipar a produção do setor.</p>` : ""}
-      <p>Cada previsão publicada aqui fica gravada num registro público que só aceita acréscimos: ninguém consegue mudar uma previsão depois.
+      <p>Cada previsão publicada aqui fica gravada num registro público que só aceita acréscimos: se uma linha antiga mudar, a verificação automática falha,
+        e o histórico público do git mostra quando cada linha entrou. Isso permite auditar; não torna impossível, para quem controla o repositório, reescrever o histórico.
         Até agora são ${regs.length} previsões registradas, ${avaliadas ? `${avaliadas} já conferidas com o dado real` : "nenhuma ainda conferida com o dado real (a primeira será em " + fmtDate(regs.map((r) => r.alvo).sort()[0], "mensal") + ")"}.
         <a href="${REPO_URL}/blob/main/registro/previsoes_setoriais.csv" target="_blank" rel="noopener">Ver o registro</a>.</p>
       <p class="aside"><b>Atenção.</b> O fato de os juros ajudarem a prever a produção não prova que eles a causam: outras coisas podem mover as duas juntas.
@@ -611,9 +615,12 @@ async function pageSetorEletrico() {
           <p><b>Faixa de 80%.</b> Percentis 10 e 90 dos erros fora da amostra já conhecidos em cada origem.
             ${covs.length ? `No backtest, conteve o valor realizado em ${covs.map((c) => fmtNum(c * 100, 0) + "%").join(" e ")} das vezes (3 e 6 meses).` : ""}</p>
           <p><b>Ciclos de alta da Selic.</b> Do primeiro aumento da meta (SGS 432, fim de mês) até o último aumento antes do primeiro corte.</p>
+          <p><b>O que a série mede.</b> A produção física da indústria de máquinas, aparelhos e materiais elétricos (CNAE 27), que vai de
+            transformadores, motores e cabos a lâmpadas e eletrodomésticos. Ela <b>não</b> mede investimentos em transmissão ou distribuição de energia
+            nem as compras das concessionárias.</p>
           <p><b>Limitações.</b> Uma única série-alvo; associação preditiva, não causalidade; usa a versão atual dos dados (revisões passadas não são reproduzidas);
             defasagens de divulgação são premissas. Esta versão pública usa apenas dados abertos.</p>
-          <p>Código, dados e registro: <a href="${REPO_URL}" target="_blank" rel="noopener">${REPO_URL.replace("https://", "")}</a>.</p>
+          <p>Código, dados e registro: <a href="${REPO_URL}" target="_blank" rel="noopener">repositório público no GitHub</a>.</p>
         </div>
       </details>
     </section>`;
@@ -903,7 +910,7 @@ async function pageForecast() {
     const s1 = btGet("sarima", 1), f1 = btGet("focus_mediana", 1), s12 = btGet("sarima", 12), f12 = btGet("focus_mediana", 12);
     insight = `
       <p>Um mês à frente, o menor erro é de <b>${esc(nome(b1.modelo))}</b> (RMSE ${fmtNum(b1.rmse, 2)} p.p.).
-      ${f1 && s1 ? `O Focus erra ${fmtNum((1 - f1.rmse / s1.rmse) * 100, 0)}% menos que o SARIMA nesse horizonte, o que é esperado: os analistas já conhecem o IPCA-15 e preços de alta frequência.` : ""}</p>
+      ${f1 && s1 ? `No backtest, o Focus ${Texto.errou(f1.rmse / s1.rmse)} que o SARIMA nesse horizonte${Texto.comparaErro(f1.rmse / s1.rmse)?.direcao === "menor" ? ", o que é esperado: os analistas já conhecem o IPCA-15 e preços de alta frequência" : ""}.` : ""}</p>
       <p>${f12 && s12 && Math.abs(s12.rmse - f12.rmse) < 0.01
         ? `Doze meses à frente, SARIMA e Focus ficam <b>praticamente empatados</b> (RMSE de ${fmtNum(s12.rmse, 2)} e ${fmtNum(f12.rmse, 2)} p.p.): a vantagem informacional dos analistas some com o horizonte.`
         : `Doze meses à frente, o menor erro é de <b>${esc(nome(b12.modelo))}</b> (RMSE ${fmtNum(b12.rmse, 2)} p.p.).`}</p>
@@ -990,7 +997,8 @@ async function pageForecast() {
         <li>As especificações foram fixadas antes do backtest, para não escolher o modelo olhando o resultado.</li>
         <li>No backtest, cada origem usa só dados até aquele mês. O Focus é tomado da última pesquisa até o dia 15 do mês seguinte, quando o IPCA da origem já é conhecido.</li>
         <li>O backtest usa a versão atual da série, não as versões da época. Para o IPCA isso quase não pesa, porque a série não é revisada.</li>
-        <li>O registro é imutável: o banco recusa alterações e exclusões. Para a mesma origem, vale a primeira previsão.</li>
+        <li>O registro só aceita acréscimos: o banco recusa alterações e exclusões, e a verificação falha se uma linha antiga do CSV mudar. Para a mesma origem, vale a primeira previsão.
+          A garantia é de auditabilidade (histórico do git, hashes dos dados), não de impossibilidade: quem controla o repositório ainda poderia reescrever o histórico.</li>
         <li>Estas são projeções estatísticas, não recomendações. Choques de preços administrados, câmbio e clima não estão nos modelos.</li>
       </ul>
     </section>`;

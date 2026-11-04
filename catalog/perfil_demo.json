@@ -1,0 +1,9 @@
+{
+  "_sobre": "Perfil de DEMONSTRAÇÃO (não é um cliente). Perfis de clientes reais são privados e nunca entram no git nem no site público (D32): ficam em privado/perfis/.",
+  "id": "demo_subestacao_at",
+  "nome": "Demonstração: fornecedor de equipamentos de subestação de alta tensão",
+  "categorias": ["transformador_potencia", "reator", "banco_capacitores", "compensador", "disjuntor", "chave_seccionadora", "para_raios", "transformador_instrumento"],
+  "ufs": [],
+  "tensao_min_kv": null,
+  "pesos": {"compatibilidade": 0.40, "estagio": 0.25, "evidencia": 0.20, "geografia": 0.15}
+}
