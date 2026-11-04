@@ -122,3 +122,9 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Como:** `econatlas fonte-explorar` usa a API padrão do CKAN do portal da ANEEL, baixa os recursos tabulares com SHA-256 para `data/fontes/` (fora do git) e gera um relatório de campos para avaliação humana. Não é coletor de produção e não interpreta nada.
 **Critério de decisão** fixado antes de ver os dados em `docs/03-fonte-siget.md` §4. Classificador, score e interface só depois dessa decisão.
 **Licença:** nenhum dado da ANEEL entra no build público até a licença do conjunto estar registrada.
+
+### D29 · 04/11/2026 · Relatório antes da interface; conversas com compradores antes do pipeline
+**Motivo:** a pesquisa de mercado (`docs/04-mercado-e-posicionamento.md`) mostra que a lista de projetos de transmissão é pública, pequena e coberta pela imprensa e por bases de obras. O valor possível está na leitura técnica (módulo → equipamento), nas mudanças e no cruzamento com o catálogo, e nada disso foi validado com comprador.
+**Decisão:** (1) começar as conversas de descoberta já (roteiro em `docs/05-validacao-com-compradores.md`, registros em `privado/`); (2) a primeira entrega comercial é um relatório gerado pelo pipeline e revisado à mão; (3) a interface de oportunidades só começa depois de piloto; (4) a distribuição entra nas conversas como nicho concorrente.
+**Navegação:** o Radar Setorial passa a ser o primeiro item do menu e aparece como ativo; Brasil x Mundo sai do menu e da home (D6), mas a rota continua existindo.
+**Revisar quando:** houver resultado das 5 conversas ou do perfil do SIGET.

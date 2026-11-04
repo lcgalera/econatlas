@@ -208,10 +208,10 @@ function sourceLine(resp) {
 const MODULOS = [
   { id: "radar", num: "I", nome: "Radar Brasil", ativo: true, desc: "Observatório da economia brasileira: inflação, juros, câmbio, atividade, renda e crédito, com fonte e data em cada número." },
   { id: "forecast", num: "II", nome: "MacroForecast", ativo: true, desc: "Previsões do IPCA registradas antes da divulgação, comparadas ao Focus. Os erros ficam no registro." },
-  { id: "setorial", num: "III", nome: "Radar Setorial", ativo: false, desc: "Indústria, materiais elétricos, construção e energia: atividade, emprego, custos e indicadores antecedentes.",
-    itens: ["Produção, emprego e custos por setor", "Indicadores antecedentes, sem presumir causalidade", "Alertas com regras documentadas", "Vendas da empresa × indicadores econômicos"] },
-  { id: "mundo", num: "IV", nome: "Brasil x Mundo", ativo: false, desc: "Estudos comparativos com indicadores comparáveis: PPC, preços constantes, produtividade e investimento.",
-    itens: ["PIB per capita PPC (Banco Mundial)", "Investimento e produtividade", "Convergência de renda", "Estudos históricos pontuais"] },
+  { id: "setorial", num: "III", nome: "Radar Setorial", ativo: true, desc: "Indústria de máquinas e materiais elétricos: indicadores antecedentes testados fora da amostra e previsões registradas a 3 e 6 meses.",
+    itens: ["Emprego e custos por setor", "Indicadores mais próximos dos mercados atendidos (transmissão, distribuição)", "Alertas com regras documentadas", "Vendas da empresa × indicadores econômicos"] },
+  { id: "mundo", num: "IV", nome: "Brasil x Mundo", ativo: false, oculto: true, desc: "Estudos comparativos com indicadores comparáveis: PPC, preços constantes, produtividade e investimento.",
+    itens: ["PIB per capita PPC (Banco Mundial)", "Investimento e produtividade", "Convergência de renda", "Estudos históricos pontuais"] },  // adiado (D6): fora do menu e da home
 ];
 
 function lede(kicker, title, standfirst, dateline = "") {
@@ -233,14 +233,14 @@ function pageHome() {
       return `<a href="#/serie/${id}"><div class="label">${label}</div><div class="big">${fmtNum(s.ultimo.valor)}<small>${esc(s.unidade)}</small></div><div class="when">${fmtDate(s.ultimo.data, s.periodicidade)}</div></a>`;
     }).join("");
   $app.innerHTML = `
-    ${lede("Inteligência econômica", "Dados econômicos com origem, data e método à vista",
+    ${lede("Inteligência de mercado", "Dados públicos com origem, data e método à vista",
       "Cada número mostra de onde veio, quando foi coletado e que cálculo foi aplicado. Módulos ainda sem dados aparecem como em preparação; nada aqui é simulado.")}
     ${destaqueSetor()}
     <div class="snapshot">${snap}</div>
     <section class="sec">
       <div class="sec-head"><h2>Módulos</h2></div>
       <ol class="modules">
-        ${MODULOS.map((m) => `
+        ${MODULOS.filter((m) => !m.oculto).map((m) => `
           <li>
             <div class="num">${m.num}</div>
             <div><h3><a href="#/${m.id}">${m.nome}</a></h3><p>${m.desc}</p></div>
@@ -278,10 +278,10 @@ function pagePlanned(id) {
     ${id === "setorial" ? `${destaqueSetor()}<div id="prev-setorial"></div><div id="analise"></div>` : ""}
     ${importedSection(imported)}
     <section class="sec prose">
-      <p><span class="flag muted">Em preparação</span>. ${imported.length
-        ? "As análises do módulo (comparações, indicadores antecedentes, alertas) ainda não foram construídas; acima estão apenas os dados importados."
-        : "Este módulo não exibe números até existirem dados reais e métodos validados."}</p>
-      <h3>Escopo previsto</h3>
+      ${m.ativo ? "" : `<p><span class="flag muted">Em preparação</span>. ${imported.length
+        ? "As análises do módulo ainda não foram construídas; acima estão apenas os dados importados."
+        : "Este módulo não exibe números até existirem dados reais e métodos validados."}</p>`}
+      <h3>${m.ativo ? "Ainda não construído neste módulo" : "Escopo previsto"}</h3>
       <ul>${m.itens.map((i) => `<li>${i}</li>`).join("")}</ul>
       <p>O cronograma e a metodologia estão em <code>docs/01-avaliacao-inicial.md</code>.</p>
     </section>`;
@@ -365,6 +365,7 @@ async function sectorAnalysis() {
   if (!box) return;
   let list;
   try { list = await api("/api/analises/setores"); } catch (e) { box.innerHTML = ""; return; }
+  if (!list?.length) { box.innerHTML = `<p class="empty">Nenhuma análise de indicadores antecedentes publicada ainda.</p>`; return; }
   const H = list[0].horizontes.map(String);
   const hLabel = (h) => (h === "0" ? "Mês corrente" : `${h} meses à frente`);
   // "ganho" exige: teste significativo (Holm dentro da rodada) E erro menor no total E sem a pandemia

@@ -110,12 +110,14 @@ econatlas/
 web/                       interface (HTML/JS + ECharts, sem build); texto.js: frases de comparação de erro, testadas
 registro/                  registro público de previsões (versionado)
 tests/                     pytest (inclui as guardas do repositório público)
-docs/01-avaliacao-inicial.md, docs/02-diagnostico-intelligence.md, docs/03-fonte-siget.md, docs/DECISOES.md
+docs/01-avaliacao-inicial.md, 02-diagnostico-intelligence.md, 03-fonte-siget.md, 04-mercado-e-posicionamento.md,
+05-validacao-com-compradores.md, DECISOES.md
 privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ```
 
 ## Pendências
 
+- **Validação com compradores (antes de construir a interface):** 5 conversas de descoberta com o roteiro de `docs/05-validacao-com-compradores.md`; resultados em `privado/validacao/`, fora do git (D29).
 - **Radar de oportunidades (Fase 1):** validar o SIGET da ANEEL com `fonte-explorar`. O ambiente de nuvem não alcança o portal; rodar no Mac ou liberar o domínio (`docs/03-fonte-siget.md`).
 - **Macrodados:** aguardar a resposta sobre uso de dados derivados e uso comercial. Até lá, nada dela em material público.
 - **Faixas da indústria de materiais elétricos estreitas:** cobriram 61–69% no backtest, para uma meta de 80%. Testar uma janela recente de erros, como a do IPCA, como especificação nova (`setorial_v2`), sem alterar a v1.

@@ -152,3 +152,30 @@ Os do item 17 do plano mestre, com três condições adicionais desta auditoria:
 | 5 | Coletor + esquema (Fase 2) | passo 4 |
 
 O que **não** fazer antes do passo 4: classificador, score, interface de oportunidades, catálogo de produtos detalhado.
+
+---
+
+## Atualização (04/11/2026, segunda rodada)
+
+**Mais três problemas de interface, corrigidos:**
+
+| # | Problema | Correção |
+|---|---|---|
+| 5 | O Radar Setorial, o foco do produto, aparecia na home como "Em preparação"/"Dados importados", e a página dele dizia que "os indicadores antecedentes ainda não foram construídos" logo acima da análise de indicadores antecedentes | Módulo marcado como ativo, com descrição do que de fato existe. A lista "ainda não construído" não repete o que já está pronto |
+| 6 | "Brasil x Mundo" ocupava espaço no menu e na home sem conteúdo (adiado desde D6) | Sai do menu e da home; a rota `#/mundo` continua funcionando. O menu começa pelo Radar Setorial |
+| 7 | Sem análises publicadas, a página do Radar Setorial quebrava inteira ("Cannot read properties of undefined") | Mensagem de ausência de dados no lugar da análise |
+
+**Revisão do plano depois da pesquisa de mercado** ([`04-mercado-e-posicionamento.md`](04-mercado-e-posicionamento.md)):
+- Antes da interface vem um **relatório exportável** (MVP concierge). A interface (Fase 4) só começa depois de pilotos.
+- As **conversas com compradores começam agora**, em paralelo ao código, com o roteiro de [`05-validacao-com-compradores.md`](05-validacao-com-compradores.md).
+- A **distribuição** entra nas conversas como nicho concorrente, não como expansão futura.
+
+| Passo | Entregável | Depende de |
+|---|---|---|
+| 1 | Liberar a rede ou rodar `fonte-explorar` no Mac | Lucas |
+| 1b | **Em paralelo:** 5 conversas de descoberta (~5 h no total) | Lucas |
+| 2 | Perfil real do SIGET e respostas às perguntas do `03-fonte-siget.md` | passo 1 |
+| 3 | Amostra de 10–20 empreendimentos avaliada à mão | passo 2 |
+| 4 | Decisão de fonte **e de nicho** (transmissão × distribuição) | passos 1b e 3 |
+| 5 | Pipeline + regras + relatório exportável | passo 4 |
+| 6 | Piloto com 1–2 empresas; interface só depois | passo 5 |
