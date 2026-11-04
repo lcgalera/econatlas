@@ -1,5 +1,5 @@
 window.NOTICIAS = {
- "gerado_em": "2026-11-04T20:16:40+00:00",
+ "gerado_em": "2026-11-04T20:28:11+00:00",
  "fonte": {
   "nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI) e GDELT",
   "url": "https://www.gdeltproject.org",
@@ -90,6 +90,14 @@ window.NOTICIAS = {
     "veiculo": "g1 Economia",
     "data": "20261104",
     "dominio": "g1.globo.com",
+    "categorias": []
+   },
+   {
+    "titulo": "M&As no Brasil crescem 31% em valor, mas caem na mesma proporção em número de operações",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/colunas/painelsa/2026/11/mas-no-brasil-crescem-31-em-valor-mas-caem-na-mesma-proporcao-em-numero-de-operacoes.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "dominio": "redir.folha.com.br",
     "categorias": []
    },
    {
@@ -272,16 +280,6 @@ window.NOTICIAS = {
     "data": "20261101",
     "dominio": "g1.globo.com",
     "categorias": []
-   },
-   {
-    "titulo": "Brasileiro de 22 anos morre na guerra na Ucrânia",
-    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/brasileiro-de-22-anos-morre-na-guerra-na-ucrania.shtml",
-    "veiculo": "Folha Mundo",
-    "data": "20261101",
-    "dominio": "redir.folha.com.br",
-    "categorias": [
-     "geopolitica"
-    ]
    }
   ],
   "156": [
@@ -367,6 +365,16 @@ window.NOTICIAS = {
    }
   ],
   "840": [
+   {
+    "titulo": "Eleições nos EUA: democratas conquistam maioria no Senado e na Câmara; SIGA",
+    "url": "https://g1.globo.com/mundo/ao-vivo/eleicoes-nos-eua-2026-acompanhe-as-ultimas-noticias-sobre-as-midterms.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ]
+   },
    {
     "titulo": "Eleições nos EUA: brasileira eleita deputada começou no país como babá",
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-brasileira-eleita-deputada-comecou-no-pais-como-baba.ghtml",
@@ -547,16 +555,6 @@ window.NOTICIAS = {
    {
     "titulo": "Como a derrota de Trump no Congresso pode afetar bolsonaristas que foram morar nos EUA",
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/apos-vitoria-democratas-podem-agir-contra-flavio-bolsonaro-nos-eua.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Eleições nos EUA: democratas conquistam maioria no Senado e na Câmara; SIGA",
-    "url": "https://g1.globo.com/mundo/ao-vivo/eleicoes-nos-eua-2026-acompanhe-as-ultimas-noticias-sobre-as-midterms.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
@@ -1199,13 +1197,12 @@ window.NOTICIAS = {
   "858": []
  },
  "falhas": {
-  "rss:CNN Brasil Internacional": "HTTPError: HTTP Error 404: Not Found",
-  "gdelt_lote_2": "HTTPError: HTTP Error 429: Too Many Requests",
+  "gdelt_lote_1": "HTTPError: HTTP Error 429: Too Many Requests",
   "gdelt_lote_3": "HTTPError: HTTP Error 429: Too Many Requests"
  },
  "diagnostico": {
   "rss_itens": 539,
-  "gdelt_lote_1": 0
+  "gdelt_lote_2": 0
  },
  "mundo": [
   {
@@ -1320,6 +1317,16 @@ window.NOTICIAS = {
    "dominio": "www.bbc.com",
    "categorias": [
     "afeta_o_mundo"
+   ]
+  },
+  {
+   "titulo": "Trump admite que guerra no Irã contribuiu para derrota republicana",
+   "url": "https://www.dw.com/pt-br/trump-admite-que-guerra-no-irã-contribuiu-para-derrota-republicana/live-79849879?maca=bra-rss-br-all-1030-xml-mrss",
+   "veiculo": "DW Brasil",
+   "data": "20261104",
+   "dominio": "www.dw.com",
+   "categorias": [
+    "geopolitica"
    ]
   },
   {
@@ -1496,6 +1503,17 @@ window.NOTICIAS = {
    "dominio": "www.dw.com",
    "categorias": [
     "afeta_o_mundo"
+   ]
+  },
+  {
+   "titulo": "Mercado Bitcoin sofre ataque e suspende saques dias após roubo bilionário na Binance",
+   "url": "https://g1.globo.com/tecnologia/ciberseguranca/noticia/2026/11/02/mercado-bitcoin-incidente-seguranca.ghtml",
+   "veiculo": "g1 Economia",
+   "data": "20261102",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "economia",
+    "geopolitica"
    ]
   }
  ]
