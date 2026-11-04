@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
 <style>
-  /* Tokens: o globo é sempre noturno; o painel segue o tema do sistema. */
+  /* Tokens: a página segue o tema do sistema; só a caixa do globo é noturna (o espaço fica dentro dela). */
   :root {
     --space: #070b14; --space-2: #0d1424; --border-line: rgba(255,255,255,.18);
     /* Países como camadas translúcidas sobre a textura do planeta: a cor indica, o relevo continua visível. */
@@ -17,36 +17,40 @@
     --focus: rgba(170,200,232,.40); --focus-hover: rgba(190,215,242,.58); --focus-solid: #9fbfe0;
     --base: rgba(110,200,150,.48); --base-hover: rgba(130,215,168,.64); --base-solid: #6ec896;
     --sel: rgba(236,244,255,.40); --stroke: rgba(235,242,255,.30);
-    --lado: 340px;   /* largura do painel à direita (resumo); com um país aberto, a do painel do país */
+    --page: #f1efea; --page-ink-2: #5b6170;
     --panel: #fbfaf7; --panel-ink: #16181d; --panel-ink-2: #4a5160; --panel-muted: #737a87; --panel-rule: #e1e3e8;
     --chip: #eef0f3; --chip-ink: #3c4250; --accent: #b4771a; --shadow: 0 10px 40px rgba(0,0,0,.35);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --panel: #151a24; --panel-ink: #eceae4; --panel-ink-2: #c3c6cc; --panel-muted: #969cab; --panel-rule: #2b3241;
-      --chip: #222a38; --chip-ink: #c9cdd6; --accent: #f0c36b;
+      --chip: #222a38; --chip-ink: #c9cdd6; --accent: #f0c36b; --page: #0d1118; --page-ink-2: #a3a9b6;
     }
   }
   :root[data-theme="dark"] {
     --panel: #151a24; --panel-ink: #eceae4; --panel-ink-2: #c3c6cc; --panel-muted: #969cab; --panel-rule: #2b3241;
-    --chip: #222a38; --chip-ink: #c9cdd6; --accent: #f0c36b;
+    --chip: #222a38; --chip-ink: #c9cdd6; --accent: #f0c36b; --page: #0d1118; --page-ink-2: #a3a9b6;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; }
-  body { background: var(--space); color: #e8ebf2; font: 15px/1.5 "IBM Plex Sans", system-ui, sans-serif; overflow: hidden; }
-  #globo { position: fixed; top: 0; left: 0; bottom: 0; right: var(--lado); }
-  body.aberto { --lado: min(440px, 92vw); }
-  .topo { position: fixed; top: 0; left: 0; right: var(--lado); display: flex; align-items: center; gap: 16px; padding: 14px 20px;
-          background: linear-gradient(var(--space), transparent); z-index: 5; pointer-events: none; }
-  .topo > * { pointer-events: auto; }
-  .marca { font: 600 20px/1 "Source Serif 4", Georgia, serif; letter-spacing: .01em; color: inherit; text-decoration: none; }
-  .marca small { display: block; font: 500 11px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: #9aa6bd; margin-top: 4px; }
+  html, body { margin: 0; }
+  body { background: var(--page); color: var(--panel-ink); font: 15px/1.5 "IBM Plex Sans", system-ui, sans-serif; }
+  /* Página de site: cabeçalho, e embaixo duas colunas — a Terra numa caixa (menor) e o conteúdo (maior). */
+  .app { max-width: 1240px; margin: 0 auto; padding: 0 28px 56px; }
+  .topo { display: flex; align-items: center; gap: 16px; padding: 26px 0 22px; }
+  .marca { font: 600 22px/1 "Source Serif 4", Georgia, serif; letter-spacing: .01em; color: inherit; text-decoration: none; }
+  .marca small { display: block; font: 500 11px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--panel-muted); margin-top: 5px; }
   .busca { margin-left: auto; position: relative; }
-  .busca input { width: 240px; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border-line); background: rgba(13,20,36,.85);
-                 color: #e8ebf2; font: inherit; outline: none; }
-  .busca input:focus { border-color: var(--focus-solid); }
-  .dica { position: fixed; left: 20px; bottom: 18px; z-index: 5; font-size: 12.5px; color: #8e9ab0; }
-  .voltar { position: fixed; top: 74px; left: 20px; z-index: 6; display: none; padding: 8px 14px; border-radius: 999px;
+  .busca input { width: 260px; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--panel-rule); background: var(--panel);
+                 color: var(--panel-ink); font: inherit; outline: none; }
+  .busca input:focus { border-color: var(--panel-muted); }
+  .grade { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+  .mapa-col { position: sticky; top: 24px; }
+  .mapa { position: relative; height: min(440px, calc(100vh - 150px)); min-height: 320px; border-radius: 18px; overflow: hidden;
+          background: radial-gradient(circle at 50% 45%, var(--space-2), var(--space) 70%); box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px rgba(10,14,22,.18); }
+  #globo { position: absolute; inset: 0; }
+  .dica { margin: 10px 4px 0; font-size: 12.5px; color: var(--page-ink-2); }
+  .conteudo { background: var(--panel); border: 1px solid var(--panel-rule); border-radius: 18px; overflow: clip; scroll-margin-top: 24px; }
+  .voltar { position: absolute; top: 14px; left: 14px; z-index: 6; display: none; padding: 8px 14px; border-radius: 999px;
             border: 1px solid var(--border-line); background: rgba(13,20,36,.85); color: #e8ebf2; font: inherit; cursor: pointer; }
   .voltar.on { display: inline-flex; }
   .voltar:hover { border-color: var(--focus-solid); }
@@ -69,12 +73,12 @@
   .disputas a { color: inherit; font-weight: 500; text-decoration: none; } .disputas a:hover { text-decoration: underline; }
   .disputas span { display: block; font-size: 12px; color: var(--panel-muted); margin-top: 2px; }
 
-  /* Resumo fixo à direita (estado inicial) */
-  .resumo-mundo { position: fixed; top: 0; right: 0; bottom: 0; width: 340px; z-index: 6; background: var(--panel); color: var(--panel-ink);
-                  overflow-y: auto; border-left: 1px solid var(--panel-rule); }
-  .resumo-mundo header { padding: 22px 20px 12px; }
-  .resumo-mundo h2 { font: 600 24px/1.15 "Source Serif 4", Georgia, serif; margin: 8px 0 6px; }
-  .resumo-mundo .bloco { padding: 14px 20px; }
+  /* Resumo (estado inicial) e painel do país dividem a mesma coluna: um ou outro */
+  body.aberto .resumo-mundo { display: none; }
+  .resumo-mundo header { padding: 26px 28px 14px; border-bottom: 1px solid var(--panel-rule); }
+  .resumo-mundo h2 { font: 600 30px/1.15 "Source Serif 4", Georgia, serif; margin: 8px 0 6px; }
+  .resumo-mundo .duas { display: grid; grid-template-columns: 1fr 1fr; }
+  .resumo-mundo .duas .bloco + .bloco { border-left: 1px solid var(--panel-rule); }
   .resumo-mundo .kpis { grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .resumo-mundo .kpi b { font-size: 15px; }
   .parceiros { list-style: none; margin: 0; padding: 0; }
@@ -88,18 +92,18 @@
   .legenda-r { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--panel-ink-2); }
   .legenda-r i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
 
-  /* Painel do país: lateral no desktop, gaveta inferior no celular */
-  .painel { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 92vw); z-index: 8; background: var(--panel); color: var(--panel-ink);
-            box-shadow: var(--shadow); transform: translateX(105%); transition: transform .45s cubic-bezier(.2,.8,.2,1); overflow-y: auto; }
-  .painel.on { transform: none; }
-  .painel header { padding: 22px 22px 14px; border-bottom: 1px solid var(--panel-rule); position: sticky; top: 0; background: var(--panel); z-index: 1; }
+  /* Painel do país: entra no lugar do resumo */
+  .painel { display: none; }
+  .painel.on { display: block; animation: entra .35s cubic-bezier(.2,.8,.2,1); }
+  @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .painel header { padding: 26px 28px 16px; border-bottom: 1px solid var(--panel-rule); position: relative; }
   .painel .kicker, .resumo-mundo .kicker { font: 500 11px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--panel-muted); }
-  .painel h2 { font: 600 28px/1.15 "Source Serif 4", Georgia, serif; margin: 8px 0 4px; }
+  .painel h2 { font: 600 32px/1.15 "Source Serif 4", Georgia, serif; margin: 8px 0 4px; }
   .painel .sub, .resumo-mundo .sub { color: var(--panel-ink-2); font-size: 14px; margin: 0; }
-  .fechar { position: absolute; top: 16px; right: 14px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--panel-rule);
+  .fechar { position: absolute; top: 20px; right: 20px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--panel-rule);
             background: transparent; color: var(--panel-ink); font-size: 18px; cursor: pointer; }
-  .bloco { padding: 16px 22px; border-bottom: 1px solid var(--panel-rule); }
-  .bloco h3 { font: 600 16px/1.3 "Source Serif 4", Georgia, serif; margin: 0 0 4px; }
+  .bloco { padding: 20px 28px; border-bottom: 1px solid var(--panel-rule); }
+  .bloco h3 { font: 600 18px/1.3 "Source Serif 4", Georgia, serif; margin: 0 0 4px; }
   .fonte { font-size: 12px; color: var(--panel-muted); margin: 0 0 10px; }
   .vazio { border: 1px dashed var(--panel-rule); border-radius: 8px; padding: 12px; color: var(--panel-muted); font-size: 13px; }
   .linhas div { height: 10px; border-radius: 4px; background: var(--chip); margin: 8px 0; }
@@ -110,7 +114,7 @@
   .abas button[aria-selected="true"] { background: var(--panel-ink); color: var(--panel); border-color: var(--panel-ink); }
   .selo { display: inline-block; font: 500 10.5px/1.6 "IBM Plex Mono", monospace; letter-spacing: .04em; padding: 0 6px; border-radius: 3px;
           background: var(--chip); color: var(--chip-ink); margin-bottom: 8px; }
-  .nota { font-size: 12.5px; color: var(--panel-muted); padding: 16px 22px 28px; }
+  .nota { font-size: 12.5px; color: var(--panel-muted); padding: 16px 28px 24px; margin: 0; }
   .fonte a, .news a { color: inherit; }
   .resumo { margin: 0 0 12px; color: var(--panel-ink); }
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
@@ -127,45 +131,56 @@
   .news { list-style: none; margin: 0; padding: 0; }
   .news li { padding: 8px 0; border-bottom: 1px solid var(--panel-rule); }
   .news li:last-child { border-bottom: 0; }
-  .news a { text-decoration: none; font-weight: 500; }
+  .news a { text-decoration: none; font-weight: 500; font-size: 15.5px; }
   .news a:hover { text-decoration: underline; }
   .news span { display: block; font-size: 12px; color: var(--panel-muted); margin-top: 2px; }
-  @media (max-width: 720px) {
-    :root, body.aberto { --lado: 0px; }
-    #globo { bottom: 36vh; }
-    body.aberto #globo { bottom: 58vh; }
-    .resumo-mundo { top: auto; left: 0; width: 100%; height: 36vh; border-left: 0; border-top: 1px solid var(--panel-rule); border-radius: 14px 14px 0 0; }
-    .resumo-mundo header { padding: 14px 16px 6px; }
-    .resumo-mundo h2 { font-size: 19px; margin: 4px 0; }
-    .resumo-mundo .bloco { padding: 10px 16px; }
-    .busca input { width: 150px; }
+  @media (max-width: 860px) {
+    .app { padding: 0 16px 40px; }
+    .topo { padding: 16px 0 14px; }
     .marca small { display: none; }
-    .painel { top: auto; left: 0; width: 100%; height: 58vh; border-radius: 16px 16px 0 0; transform: translateY(105%); }
-    .painel.on { transform: none; }
+    .busca input { width: 160px; }
+    .grade { grid-template-columns: 1fr; gap: 16px; }
+    /* no celular a caixa do globo fica presa no topo e o conteúdo rola embaixo dela */
+    .mapa-col { top: 0; z-index: 4; background: var(--page); padding-bottom: 10px; margin: 0 -16px; padding: 0 16px 10px; }
+    .mapa { height: min(42vh, 360px); min-height: 260px; border-radius: 14px; }
     .dica { display: none; }
-    .voltar { top: 64px; left: 16px; }
+    .conteudo { scroll-margin-top: calc(min(42vh, 360px) + 12px); }
+    .resumo-mundo header, .painel header { padding: 18px 18px 12px; }
+    .resumo-mundo h2 { font-size: 24px; } .painel h2 { font-size: 26px; }
+    .resumo-mundo .duas { grid-template-columns: 1fr; }
+    .resumo-mundo .duas .bloco + .bloco { border-left: 0; }
+    .bloco { padding: 16px 18px; } .nota { padding: 14px 18px 20px; }
+    .voltar { top: 10px; left: 10px; }
   }
-  @media (prefers-reduced-motion: reduce) { .painel { transition: none; } }
-  .erro { position: fixed; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: #c9d1e0; }
+  @media (prefers-reduced-motion: reduce) { .painel.on { animation: none; } }
+  .erro { position: absolute; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: #c9d1e0; }
   .erro.on { display: grid; }
 </style>
 </head>
 <body>
-<div id="globo" aria-label="Globo interativo"></div>
-
-<div class="topo">
-  <a class="marca" href="../" title="Voltar ao rotzx">rotzx<small>O mundo visto do Brasil · protótipo com dados reais</small></a>
-  <div class="busca">
-    <input id="busca" list="paises" placeholder="Buscar país…" aria-label="Buscar país" autocomplete="off">
-    <datalist id="paises"></datalist>
-  </div>
+<div class="app">
+  <header class="topo">
+    <a class="marca" href="../" title="Voltar ao rotzx">rotzx<small>O mundo visto do Brasil · protótipo com dados reais</small></a>
+    <div class="busca">
+      <input id="busca" list="paises" placeholder="Buscar país…" aria-label="Buscar país" autocomplete="off">
+      <datalist id="paises"></datalist>
+    </div>
+  </header>
+  <main class="grade">
+    <div class="mapa-col">
+      <div class="mapa">
+        <div id="globo" aria-label="Globo interativo"></div>
+        <button class="voltar" id="voltar" type="button">← Voltar ao mundo</button>
+        <div class="erro" id="erro"><div><b>Não foi possível carregar o globo.</b><br>Seu navegador precisa de WebGL. Tente outro navegador ou atualize a página.</div></div>
+      </div>
+      <div class="dica">Arraste para girar · role para aproximar · clique num país</div>
+    </div>
+    <div class="conteudo" id="conteudo">
+      <section class="resumo-mundo" id="resumo" aria-label="Resumo"></section>
+      <section class="painel" id="painel" aria-live="polite" aria-label="Detalhes do país"></section>
+    </div>
+  </main>
 </div>
-<button class="voltar" id="voltar" type="button">← Voltar ao mundo</button>
-<div class="dica">Arraste para girar · role para aproximar · clique num país</div>
-<aside class="resumo-mundo" id="resumo" aria-label="Resumo"></aside>
-
-<aside class="painel" id="painel" aria-live="polite" aria-label="Detalhes do país"></aside>
-<div class="erro" id="erro"><div><b>Não foi possível carregar o globo.</b><br>Seu navegador precisa de WebGL. Tente outro navegador ou atualize a página.</div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
@@ -214,7 +229,7 @@ function cor(f) {
   if (f === sobre) return foco ? (foco.base ? css("--base-hover") : css("--focus-hover")) : css("--land-hover");
   return foco ? (foco.base ? css("--base") : css("--focus")) : css("--land");
 }
-const BRASIL = { lat: -14, lng: -52, altitude: 2.7 };  // vista inicial: o Brasil de frente, globo um pouco afastado
+const BRASIL = { lat: -14, lng: -52, altitude: 2.5 };  // vista inicial: o Brasil de frente, a Terra inteira na caixa
 const TEXTURAS = "https://cdn.jsdelivr.net/npm/three-globe@2.45.6/example/img/";  // Blue Marble (NASA) e relevo
 
 function vazio(texto) {
@@ -405,20 +420,20 @@ function renderResumo() {
   porNome["Países Baixos (Holanda)"] = "528";
   const top = (b?.maiores_parceiros || []).slice(0, 5);
   const max = top.length ? Math.max(...top.map((x) => x.exportacao + x.importacao)) : 1;
-  const alta = (N?.mundo || []).slice(0, 4);
+  const alta = (N?.mundo || []).slice(0, 8);
   $r.innerHTML = `<header><div class="kicker">Visão geral</div><h2>O mundo visto do Brasil</h2>
       <p class="sub">Clique num país do globo para ver a relação com o Brasil, a economia e as manchetes.</p></header>
     ${t ? `<div class="bloco"><h3>Comércio do Brasil em ${esc(M.ano_comercio)}</h3>
       <div class="kpis"><div class="kpi"><span>Exportou</span><b>${bi(t.exportacao)}</b></div><div class="kpi"><span>Importou</span><b>${bi(t.importacao)}</b></div>
-      <div class="kpi"><span>Saldo</span><b>${t.saldo >= 0 ? "+" : "−"}${bi(Math.abs(t.saldo))}</b></div></div></div>
-    <div class="bloco"><h3>Maiores parceiros</h3><p class="fonte">exportação + importação · Comex Stat</p>
+      <div class="kpi"><span>Saldo</span><b>${t.saldo >= 0 ? "+" : "−"}${bi(Math.abs(t.saldo))}</b></div></div></div>` : ""}
+    <div class="duas">${t ? `<div class="bloco"><h3>Maiores parceiros</h3><p class="fonte">exportação + importação · Comex Stat</p>
       <ol class="parceiros">${top.map((x) => { const id = porNome[x.pais];
         return `<li><button type="button" ${id ? `data-id="${id}"` : "disabled"}><span class="barra" style="width:${((x.exportacao + x.importacao) / max) * 100}%"></span>
-          <span>${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></button></li>`; }).join("")}</ol></div>` : ""}
+          <span>${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></button></li>`; }).join("")}</ol>
+      <div class="legenda-r" aria-hidden="true" style="margin-top:16px"><span><i style="background:var(--base-solid)"></i>Brasil</span>
+        <span><i style="background:var(--focus-solid)"></i>No protótipo (20 países)</span><span><i style="background:#3a4558"></i>Depois</span></div></div>` : ""}
     ${alta.length ? `<div class="bloco"><h3>Em alta no mundo</h3><ul class="news">${alta.map((m) => `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a>
-      <span>${esc(m.veiculo)} · ${dataBR(m.data)}</span></li>`).join("")}</ul></div>` : ""}
-    <div class="bloco"><div class="legenda-r" aria-hidden="true"><span><i style="background:var(--base-solid)"></i>Brasil</span>
-      <span><i style="background:var(--focus-solid)"></i>No protótipo (20 países)</span><span><i style="background:#3a4558"></i>Depois</span></div></div>
+      <span>${esc(m.veiculo)} · ${dataBR(m.data)}</span></li>`).join("")}</ul></div>` : ""}</div>
     <p class="nota">${M ? `Comércio de ${esc(M.ano_comercio)}; manchetes atualizadas em ${quando(N?.gerado_em)}.` : ""} Imagem do planeta: Blue Marble (NASA).</p>`;
   $r.querySelectorAll(".parceiros button[data-id]").forEach((bt) => (bt.onclick = () => {
     const f = paises.find((x) => x.id === bt.dataset.id);
@@ -437,7 +452,7 @@ function abrir(f) {
   renderPainel(f);
   $painel.classList.add("on");
   $voltar.classList.add("on");
-  $painel.scrollTop = 0;
+  levarAoConteudo();
   history.replaceState(null, "", `#${encodeURIComponent(nomeDe(f))}`);
 }
 
@@ -460,16 +475,22 @@ function mundo() {
   globo.controls().autoRotate = !reduzir;
   $painel.classList.remove("on");
   $voltar.classList.remove("on");
+  levarAoConteudo();
   history.replaceState(null, "", location.pathname);
 }
 
-// O globo ocupa só a área livre (à esquerda do painel no desktop; acima da gaveta no celular): basta centralizar o país
-// e afastar um pouco, para ele aparecer inteiro com os vizinhos em volta.
+// O globo tem a caixa dele: basta centralizar o país e afastar um pouco, para ele aparecer inteiro com os vizinhos em volta.
 function enquadrar(v) {
-  return { lat: v.lat, lng: v.lng, altitude: v.altitude * (innerWidth <= 720 ? 1.45 : 1.25) };
+  return { lat: v.lat, lng: v.lng, altitude: v.altitude * 1.35 };
 }
 
-// Tamanho do globo = área livre: largura da tela menos o painel da direita (desktop); no celular, a parte de cima.
+// Se a página já desceu, volta ao começo do conteúdo (o painel novo começa ali); a caixa do globo fica presa no topo.
+function levarAoConteudo() {
+  const c = document.getElementById("conteudo");
+  if (c.getBoundingClientRect().top < 0) c.scrollIntoView({ behavior: reduzir ? "auto" : "smooth", block: "start" });
+}
+
+// Tamanho do globo = tamanho da caixa (muda com a janela e no celular).
 function ajustar() {
   if (!globo) return;
   const el = document.getElementById("globo");
@@ -511,6 +532,7 @@ function iniciar(atlas) {
   globo.controls().autoRotateSpeed = 0.18;  // devagar: o Brasil continua à vista por bastante tempo
   globo.pointOfView(BRASIL);
   addEventListener("resize", ajustar);
+  if (window.ResizeObserver) new ResizeObserver(ajustar).observe(el);
   ajustar();
   renderResumo();
 

@@ -4,9 +4,10 @@ Abra `index.html` no navegador (precisa de internet para as bibliotecas e de Web
 
 **O que funciona:** globo que gira sozinho; arrastar para girar e rolar para aproximar; passar o mouse mostra o nome; clicar num país (ou buscar pelo nome)
 dá zoom nele e abre o painel. Fecha com "Voltar ao mundo", com o × ou com Esc. Cada país tem link direto (`index.html#China`).
-A tela é dividida: o globo à esquerda e, à direita, um resumo fixo (comércio do Brasil no ano, 5 maiores parceiros clicáveis, manchetes em alta
-no mundo). Ao clicar num país, o painel dele abre por cima do resumo e o globo encolhe para a área livre; no celular, o resumo e o painel
-viram gavetas embaixo e o globo fica em cima. Começa com o Brasil de frente, gira devagar, e "Voltar ao mundo" volta para o Brasil.
+Página de site, não tela cheia: embaixo do cabeçalho, a Terra fica numa caixa à esquerda (o espaço escuro só dentro dela) e o conteúdo,
+maior, à direita. Antes do clique, o conteúdo é um resumo: comércio do Brasil no ano, 5 maiores parceiros clicáveis e manchetes em alta no mundo.
+Ao clicar num país, o painel dele entra no lugar do resumo. A caixa do globo acompanha a rolagem; no celular, ela fica presa no topo e o
+conteúdo rola embaixo. Começa com o Brasil de frente, gira devagar, e "Voltar ao mundo" volta para o Brasil.
 O planeta usa a imagem de satélite Blue Marble (NASA, domínio público) com mapa de relevo, servidas pelo pacote `three-globe@2.45.6` (MIT);
 os países são camadas translúcidas por cima: Brasil em verde, os 20 países do protótipo em azul-acinzentado, o selecionado em branco.
 
