@@ -77,3 +77,16 @@ def test_build_refuses_to_wipe_unrelated_folder(tmp_path, ambiente):
     with pytest.raises(RuntimeError):
         public_build.build(alheia, conn=conn, catalog=catalog)
     assert (alheia / "importante.txt").exists()
+
+
+def test_public_build_ships_every_script_the_page_loads(ambiente):
+    import re
+    conn, catalog, tmp = ambiente
+    out = tmp / "site"
+    public_build.build(out, conn=conn, catalog=catalog)
+    html = (out / "index.html").read_text()
+    locais = [s.split("?")[0] for s in re.findall(r'<script src="([^"]+)"', html) if not s.startswith("http")]
+    assert "texto.js" in locais and "app.js" in locais
+    assert locais.index("texto.js") < locais.index("app.js")  # app.js usa window.Texto
+    for nome in locais:
+        assert (out / nome).exists(), nome
