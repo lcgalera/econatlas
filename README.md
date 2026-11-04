@@ -110,6 +110,7 @@ econatlas/
   api.py, cli.py           servidor local e linha de comando
 web/                       interface (HTML/JS + ECharts, sem build); texto.js: frases de comparação de erro, testadas
 registro/                  registro público de previsões (versionado)
+avaliacoes/                avaliações humanas de relevância (conjunto de teste das regras do radar)
 tests/                     pytest (inclui as guardas do repositório público)
 docs/01-avaliacao-inicial.md, 02-diagnostico-intelligence.md, 03-fonte-siget.md, 04-mercado-e-posicionamento.md,
 05-validacao-com-compradores.md, DECISOES.md
@@ -119,7 +120,7 @@ privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ## Pendências
 
 - **Validação com compradores (antes de construir a interface):** 5 conversas de descoberta com o roteiro de `docs/05-validacao-com-compradores.md`; resultados em `privado/validacao/`, fora do git (D29).
-- **Radar de oportunidades (Fase 1):** SIGET validado (D30). Falta a avaliação manual da amostra de 20 empreendimentos (`data/fontes/aneel/…/amostra.csv`, critério em `docs/03-fonte-siget.md` §5) e uma segunda coleta para medir a frequência de mudança.
+- **Radar de oportunidades:** SIGET validado (D30); amostra aleatória com 80% de precisão, IC 58–92% (D31). Próximos: regras da Fase 3 medidas contra `avaliacoes/siget_relevancia.csv` e uma amostra nova; segunda coleta para medir a frequência de mudança.
 - **Macrodados:** aguardar a resposta sobre uso de dados derivados e uso comercial. Até lá, nada dela em material público.
 - **Faixas da indústria de materiais elétricos estreitas:** cobriram 61–69% no backtest, para uma meta de 80%. Testar uma janela recente de erros, como a do IPCA, como especificação nova (`setorial_v2`), sem alterar a v1.
 - **Defasagens de divulgação** (IBGE, CNI, FGV): são premissas do teste em tempo real; conferir nos calendários oficiais.

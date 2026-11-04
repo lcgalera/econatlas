@@ -122,7 +122,7 @@ Quem avalia é você (Lucas), não o classificador. A meta experimental do plano
   2. A janela de 6 meses provavelmente é curta para transformadores de potência, que têm prazo de fabricação longo: a janela deve variar por categoria de equipamento. Isso é hipótese a validar com compradores.
 - **Próximo:** uma amostra **aleatória** (semente fixa) dos 632 elegíveis, para estimar a precisão sem viés, e os 20 casos atuais como material de demonstração nas conversas.
 
-## 8. Amostra aleatória (avaliação 2, em andamento)
+## 8. Amostra aleatória (avaliação 2)
 
 ```bash
 .venv/bin/python -m econatlas siget-amostra --aleatoria   # semente 20261104, exclui os 20 da amostra anterior
@@ -132,3 +132,28 @@ Sorteio simples de 20 entre os **612 elegíveis** (mesma regra de elegibilidade,
 Resultado do sorteio: 17 autorizações e 3 contratos, próximo da proporção da população. Em 3 casos a operação está a menos de 6 meses (C2 = n).
 A planilha `amostra-aleatoria-avaliacao.xlsx` traz C2 (janela) e C3 (concessionária) calculadas; a pessoa julga só C1 (equipamento novo do perfil),
 e o resultado e a precisão saem por fórmula (conferidas no LibreOffice).
+
+### Resultado (04/11/2026, avaliador: Lucas)
+
+| | Casos |
+|---|---|
+| s | **16** |
+| n | 4 (3 por C2, a janela: T2024-097, T2024-002, T2023-153; 1 por C1: T2025-019, "revitalização do transformador conversor") |
+| ? | 0 |
+| **Precisão = s / (s + n)** | **16/20 = 80%**, intervalo de 95% (Wilson) de **58% a 92%** |
+
+- **Leitura honesta:** a estimativa pontual bate na meta de 80%, mas com 20 casos o intervalo é largo. O resultado é compatível com uma precisão real de 60% ou de 90%. **A meta ainda não foi demonstrada.** Para um intervalo de ±10 pontos seriam precisos ~60 casos.
+- **Onde a regra errou:** 3 dos 4 "n" são mecânicos (a operação está perto demais) e só 1 dependeu de julgamento. Só na condição de equipamento (C1), foram 19/20 (IC 76% a 99%).
+- **Nenhum "?":** as descrições das autorizações são explícitas o bastante para decidir. É um bom sinal sobre a qualidade da fonte.
+- **O avaliador continua sendo quem construiu o produto.** Isso mede se as regras leem a fonte direito, não se o comprador acha o caso útil. Isso só as conversas respondem.
+
+### Regras que saem das duas avaliações (para a Fase 3)
+
+São hipóteses tiradas de 40 casos. Vão ser testadas numa amostra **nova**, nunca nesta mesma (senão o ajuste vira sobreajuste).
+
+1. **A janela entra na elegibilidade.** Empreendimento com operação pelo ato legal a menos de *J* meses não aparece como oportunidade do equipamento principal. Nesta amostra, isso teria dado 16/17. *J* deve variar por categoria (prazo de fabricação), e o valor de cada categoria sai das conversas com compradores.
+2. **O texto manda, não o tipo de obra.** "Substituição… por", "instalação do Nº", "novo banco" e "nova unidade" na descrição contam como fornecimento novo, mesmo com a obra marcada como "Adequação" (5 casos na avaliação 1).
+3. **"Revitalização" sem verbo de troca ou instalação** não conta como equipamento novo (T2025-019).
+
+**Dados rotulados:** `avaliacoes/siget_relevancia.csv` (40 casos, as duas avaliações) guarda C1, C2, C3 e o resultado por `id_aneel`/`id_ons`.
+Serve de conjunto de teste para as regras da Fase 3. Contém identificadores derivados de dados da ANEEL (SIGET), sob a licença ODbL.

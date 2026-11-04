@@ -135,3 +135,8 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Limites que o produto precisa mostrar:** as datas são as do ato legal, não a previsão da transmissora; potência e quantidade de disjuntores têm preenchimento parcial; `DscSituacaoModulo` está com defeito na fonte; campos fora do dicionário não são usados; lotes de leilão ainda não assinados não aparecem.
 **Como:** `econatlas siget-amostra` (`providers/aneel_siget.py`) monta a visão por empreendimento só com o que a fonte afirma e uma amostra reproduzível de 20 casos, que a avaliação humana classifica com o critério de `docs/03` §5.
 **Licença:** a ODbL permite republicar com atribuição ("Contém dados da ANEEL…") e exige a mesma licença na base derivada. A amostra no `docs/03` já leva a atribuição.
+
+### D31 · 04/11/2026 · Avaliação aleatória: 80% de precisão (IC 58–92%) — regras da Fase 3 definidas, meta não demonstrada
+**Resultado:** 16 de 20 relevantes numa amostra aleatória (semente 20261104) dos 612 elegíveis; 3 das 4 falhas vieram da janela de 6 meses e 1 de "revitalização" sem equipamento novo. Com n = 20, o intervalo de 95% vai de 58% a 92%: a meta de 80% não está demonstrada.
+**Decisões:** (1) a janela passa a fazer parte da elegibilidade, com prazo por categoria a validar com compradores; (2) o classificador lê a descrição (verbos de troca e instalação) e não só o tipo de obra; (3) os 40 casos avaliados ficam em `avaliacoes/siget_relevancia.csv` como conjunto de teste, e as regras novas são medidas numa amostra nova.
+**Revisar quando:** houver 60 casos avaliados ou a primeira avaliação feita por comprador.
