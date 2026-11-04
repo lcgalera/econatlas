@@ -94,6 +94,9 @@ def _static_assets(out: Path) -> None:
                         "Versão pública: somente dados abertos (Banco Central do Brasil e IBGE), citados em cada indicador.")
     (out / "index.html").write_text(html, encoding="utf-8")
     (out / ".nojekyll").write_text("")  # GitHub Pages: servir arquivos como estão
+    globo = config.ROOT / "prototipos" / "globo"  # O mundo visto do Brasil (D41): só dados abertos (Comex Stat, Banco Mundial, manchetes)
+    if globo.exists():
+        shutil.copytree(globo, out / "globo", ignore=shutil.ignore_patterns("LEIAME.md", "__pycache__"))
 
 
 def build(out: Optional[Path] = None, conn=None, catalog: Optional[Dict] = None) -> Dict:
@@ -183,7 +186,7 @@ def verificar(out: Path, catalog: Dict, conn=None) -> None:
     problemas = []
     proibidos = _proibidos(catalog)
     texto = {p: p.read_text(encoding="utf-8", errors="ignore") for p in out.rglob("*")
-             if p.is_file() and p.suffix in (".json", ".html")}
+             if p.is_file() and p.suffix in (".json", ".html", ".js")}
     for sid, toks in proibidos.items():
         for p, t in texto.items():
             for tok in toks:

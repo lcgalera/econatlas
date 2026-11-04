@@ -71,6 +71,7 @@ jobs:
             echo "Nenhuma previsão nova neste mês."
           else
             git commit -m "Registro: rotina mensal de $(date -u +%Y-%m-%d)"
+            git pull --rebase   # o workflow Globo também grava na main (dados do globo)
             git push
           fi
 

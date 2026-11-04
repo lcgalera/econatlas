@@ -90,3 +90,12 @@ def test_public_build_ships_every_script_the_page_loads(ambiente):
     assert locais.index("texto.js") < locais.index("app.js")  # app.js usa window.Texto
     for nome in locais:
         assert (out / nome).exists(), nome
+
+
+def test_site_publico_leva_o_globo_com_os_dados(ambiente):
+    conn, catalog, tmp = ambiente
+    out = tmp / "site"
+    public_build.build(out, conn=conn, catalog=catalog)
+    assert (out / "globo" / "index.html").exists() and (out / "globo" / "dados" / "mundo.js").exists()
+    assert not (out / "globo" / "LEIAME.md").exists()
+    assert 'href="globo/"' in (out / "index.html").read_text(encoding="utf-8")  # link no menu do site

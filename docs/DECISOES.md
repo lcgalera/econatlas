@@ -180,3 +180,24 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Ligação:** sem número de contrato nem código do ONS na planilha, cada lote recente foi ligado ao contrato do SIGET por nome, UF, vencedor e data, com evidência e status (`conferido`, `provavel`, `ambiguo`) em `catalog/leiloes_contratos.json`. Lotes nunca são unidos só por nome parecido.
 **No relatório:** lotes arrematados nos últimos 24 meses sem contrato identificado, com categorias pela regra R6 (instalação nova confirma; continuidade fica como não verificado) e operação estimada (leilão + prazo). Os prazos até a assinatura (68 a 115 dias nos 19 lotes ligados) são medidos a partir do mapa.
 **Achados:** o "nenhum contrato em 2025" do SIGET é efeito do calendário (leilão em 10/2025, contratos em 02/2026); duas fontes oficiais da ANEEL divergem na receita de dois lotes do Leilão 01/2023.
+
+### D38 · 04/11/2026 · Nova direção em teste: "o mundo visto do Brasil", com globo interativo
+**Escolha do Lucas:** um site para pessoas comuns em que cada país, clicado num globo, mostra a relação com o Brasil, a economia e as manchetes (economia, política, geopolítica e o que afeta o mundo). Monetização fica para depois.
+**Por que esse recorte:** notícia internacional por país já existe em vários produtos. O diferencial possível é ligar a notícia ao efeito no Brasil com dado oficial (comércio, câmbio, juros), que é o que este projeto já sabe fazer. Começa com 20 países, não 195.
+**Regras herdadas:** manchete só com título, veículo e link (sem copiar matérias); cada número com fonte; o que for interpretação aparece marcado.
+**Estado:** protótipo de navegação em `prototipos/globo/`, sem dados reais. O radar do SIGET e os robôs continuam rodando como estão.
+
+### D39 · 04/11/2026 · Globo com dados reais: Comex Stat, Banco Mundial e GDELT; FMI fora; manchetes coletadas no GitHub Actions
+**Fontes:** comércio do Brasil com cada país (Comex Stat, último ano completo, 5 principais produtos SH4 de cada lado), indicadores do Banco Mundial (CC BY 4.0) e manchetes em português do GDELT (só título, veículo, data e link). O FMI barra acesso automatizado e ficou de fora.
+**Regras:** o resumo de cada país só descreve números do Comex Stat; os produtos ficam numa tabela com o nome oficial completo (abreviar o SH4 enganava); manchete só entra se citar o país no título, comparando com acento (sem acento, "França" casaria com Franca, SP); categorias por palavras-chave, avisadas como automáticas.
+**Operação:** o Comex Stat limita o ritmo (uma consulta a cada ~12 s; só o formato antigo de consulta por GET passou) e o GDELT bloqueou o IP compartilhado do ambiente de desenvolvimento. Por isso a coleta roda no workflow `globo.yml`: manchetes todo dia, comércio e economia todo dia 15.
+
+### D40 · 04/11/2026 · Manchetes do globo: feeds RSS como fonte principal, GDELT como complemento
+**Motivo:** o GDELT limitou o ambiente de desenvolvimento e também o GitHub Actions (429 e respostas em texto), e uma consulta em lote voltou vazia sem explicação. Uma fonte que falha assim não sustenta o produto.
+**Como:** `rotzx/mundo/rss.py` lê feeds de mundo e economia de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI); cada manchete vai para os países que o título cita. O GDELT continua em lotes, quando responde. Cada coleta acumula com a anterior (7 dias por país; 2 dias em "Em alta no mundo", que reúne geopolítica e temas globais). Toda falha fica em `falhas` e quantos itens cada fonte trouxe fica em `diagnostico`.
+**Regra mantida:** só título, veículo, data e link; o texto da matéria fica no site do veículo.
+
+### D41 · 04/11/2026 · Globo publicado no site, com dados frescos lidos do repositório
+**Como:** o build público copia `prototipos/globo/` para `site/globo/`, e o menu do site ganha o link "O mundo visto do Brasil". O globo vem com uma cópia dos dados do dia da publicação e, ao abrir, busca a versão mais nova em `raw.githubusercontent.com/lcgalera/rotzx/main/prototipos/globo/dados/`, que o workflow Globo atualiza todo dia. Se essa busca falhar, fica a cópia. Assim as manchetes ficam frescas sem republicar o site todo dia (a rotina mensal, que publica, roda nos dias 12 e 20).
+**Segurança:** a varredura anti-vazamento do build passa a ler também arquivos `.js`; os dados do globo são só de fontes abertas.
+**Operação:** a rotina mensal passa a fazer `git pull --rebase` antes do push, porque o workflow Globo também grava na `main`.

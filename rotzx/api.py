@@ -82,6 +82,7 @@ def atualizar():
 
 
 app.mount("/static", StaticFiles(directory=config.WEB_DIR), name="static")
+app.mount("/globo", StaticFiles(directory=config.ROOT / "prototipos" / "globo", html=True), name="globo")
 
 
 @app.get("/")

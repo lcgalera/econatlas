@@ -1,0 +1,2483 @@
+window.MUNDO = {
+ "gerado_em": "2026-11-04T19:21:58+00:00",
+ "ano_comercio": "2025",
+ "fontes": {
+  "comex": {
+   "nome": "Comex Stat (MDIC)",
+   "url": "https://comexstat.mdic.gov.br",
+   "nota": "valores FOB em US$, ano completo"
+  },
+  "bancomundial": {
+   "nome": "Banco Mundial (World Development Indicators)",
+   "url": "https://data.worldbank.org",
+   "licenca": "CC BY 4.0"
+  },
+  "gdelt": {
+   "nome": "The GDELT Project",
+   "url": "https://www.gdeltproject.org",
+   "nota": "manchetes em português; título, veículo e link para a matéria original; categorias por palavras-chave"
+  }
+ },
+ "paises": {
+  "156": {
+   "nome": "China",
+   "iso3": "CHN",
+   "comercio": {
+    "exportacao": {
+     "fob": 99940244710.0,
+     "participacao": 0.2869549957026125,
+     "posicao": 1
+    },
+    "importacao": {
+     "fob": 70915558414.0,
+     "participacao": 0.2530814559931813,
+     "posicao": 1
+    },
+    "saldo": 29024686296.0,
+    "produtos_exportados": [
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 34505104723.0,
+      "participacao": 0.34525735676478114
+     },
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 20045592344.0,
+      "participacao": 0.20057577807786017
+     },
+     {
+      "sh4": "2601",
+      "produto": "Minérios de ferro e seus concentrados, incluídas as pirites de ferro ustuladas (cinzas de pirites)",
+      "fob": 19581100549.0,
+      "participacao": 0.19592808288411884
+     },
+     {
+      "sh4": "0202",
+      "produto": "Carnes de animais da espécie bovina, congeladas",
+      "fob": 8842569470.0,
+      "participacao": 0.08847856532329677
+     },
+     {
+      "sh4": "4703",
+      "produto": "Pastas químicas de madeira, à soda ou ao sulfato, exceto pastas para dissolução",
+      "fob": 4129752323.0,
+      "participacao": 0.0413222154396704
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 3276742356.0,
+      "participacao": 0.04620625472439504
+     },
+     {
+      "sh4": "8905",
+      "produto": "Barcos-faróis, barcos-bombas, dragas, guindastes flutuantes e outras embarcações em que a navegação é acessória da função principal; docas flutuantes; plataformas de perfuração ou de exploração, flutuantes ou submersíveis",
+      "fob": 2661156286.0,
+      "participacao": 0.03752570445069837
+     },
+     {
+      "sh4": "3808",
+      "produto": "Insecticidas, rodenticidas, fungicidas, herbicidas, inibidores de germinação e reguladores de crescimento para plantas, desinfectantes e produtos semelhantes, apresentados em formas ou embalagens para venda a retalho ou como preparações ou ainda sob a for",
+      "fob": 2618878983.0,
+      "participacao": 0.036929540450223494
+     },
+     {
+      "sh4": "8517",
+      "produto": "Aparelhos elétricos para telefonia ou telegrafia por fios, incluídos os aparelhos telefónicos por fio combinados com auscultadores sem fio e os aparelhos de telecomunicação por corrente portadora ou de telecomunicação digital; videofones",
+      "fob": 2337819522.0,
+      "participacao": 0.03296624287087998
+     },
+     {
+      "sh4": "8541",
+      "produto": "Díodos, transístores e dispositivos semelhantes com semicondutores; dispositivos fotossensíveis semicondutores, incluídas as células fotovoltaicas, mesmo montadas em módulos ou em painéis; díodos emissores de luz; cristais piezoelétricos montados",
+      "fob": 1760092271.0,
+      "participacao": 0.024819550326667474
+     }
+    ]
+   },
+   "resumo": "Em 2025, a China foi o 1º destino das exportações brasileiras: US$ 99,9 bi, 28,7% do total. O Brasil importou US$ 70,9 bi da China (1º fornecedor, 25,3% do total). Superávit brasileiro de US$ 29,0 bi no comércio com a China.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 4.95994886240992,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 0.0595646916565402,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 19498039388042.6,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 1406585000.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "840": {
+   "nome": "Estados Unidos",
+   "iso3": "USA",
+   "comercio": {
+    "exportacao": {
+     "fob": 37682246914.0,
+     "participacao": 0.10819574269253011,
+     "posicao": 2
+    },
+    "importacao": {
+     "fob": 45141941682.0,
+     "participacao": 0.1611012954384975,
+     "posicao": 2
+    },
+    "saldo": -7459694768.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 4701513968.0,
+      "participacao": 0.12476734677552515
+     },
+     {
+      "sh4": "8802",
+      "produto": "Outros veículos aéreos (por exemplo: helicópteros, aviões); veículos espaciais (incluídos os satélites) e seus veículos de lançamento e veículos suborbitais",
+      "fob": 2731320364.0,
+      "participacao": 0.07248294854161785
+     },
+     {
+      "sh4": "7207",
+      "produto": "Produtos semimanufacturados de ferro ou aço não ligado",
+      "fob": 2597296686.0,
+      "participacao": 0.06892626896500252
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 1916636154.0,
+      "participacao": 0.05086310692603409
+     },
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 1631013545.0,
+      "participacao": 0.04328334105772321
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8411",
+      "produto": "Turborreactores, turbopropulsores e outras turbinas a gás",
+      "fob": 7423216453.0,
+      "participacao": 0.1644416744401183
+     },
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 6096891036.0,
+      "participacao": 0.13506045218897078
+     },
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 1804553470.0,
+      "participacao": 0.03997509652350236
+     },
+     {
+      "sh4": "8802",
+      "produto": "Outros veículos aéreos (por exemplo: helicópteros, aviões); veículos espaciais (incluídos os satélites) e seus veículos de lançamento e veículos suborbitais",
+      "fob": 1707577860.0,
+      "participacao": 0.037826859059430146
+     },
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 1643627537.0,
+      "participacao": 0.0364102092470895
+     }
+    ]
+   },
+   "resumo": "Em 2025, os Estados Unidos foram o 2º destino das exportações brasileiras: US$ 37,7 bi, 10,8% do total. O Brasil importou US$ 45,1 bi dos Estados Unidos (2º fornecedor, 16,1% do total). Déficit brasileiro de US$ 7,5 bi no comércio com os Estados Unidos.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 2.16138195623856,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.94952520485207,
+     "ano": "2024",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 30769700000000.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 341784857.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "os"
+  },
+  "032": {
+   "nome": "Argentina",
+   "iso3": "ARG",
+   "comercio": {
+    "exportacao": {
+     "fob": 18105303283.0,
+     "participacao": 0.051985136126526915,
+     "posicao": 3
+    },
+    "importacao": {
+     "fob": 12934607997.0,
+     "participacao": 0.0461606662598818,
+     "posicao": 4
+    },
+    "saldo": 5170695286.0,
+    "produtos_exportados": [
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 3804829499.0,
+      "participacao": 0.21015000077753737
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 1338718179.0,
+      "participacao": 0.07394066578586349
+     },
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 1132271206.0,
+      "participacao": 0.062538096617423
+     },
+     {
+      "sh4": "8701",
+      "produto": "Tractores (exceto os da posição 8709)",
+      "fob": 996214665.0,
+      "participacao": 0.05502336246062209
+     },
+     {
+      "sh4": "2716",
+      "produto": "Energia elétrica",
+      "fob": 293496580.0,
+      "participacao": 0.016210530992627946
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 3267899635.0,
+      "participacao": 0.2526477521203537
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 1726870685.0,
+      "participacao": 0.13350777119805435
+     },
+     {
+      "sh4": "1001",
+      "produto": "Trigo e mistura de trigo com centeio",
+      "fob": 1256707386.0,
+      "participacao": 0.09715852125487495
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 371338363.0,
+      "participacao": 0.028708899650157677
+     },
+     {
+      "sh4": "2711",
+      "produto": "Gás de petróleo e outros hidrocarbonetos gasosos",
+      "fob": 370878623.0,
+      "participacao": 0.0286733562459736
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Argentina foi o 3º destino das exportações brasileiras: US$ 18,1 bi, 5,2% do total. O Brasil importou US$ 12,9 bi da Argentina (4º fornecedor, 4,6% do total). Superávit brasileiro de US$ 5,2 bi no comércio com a Argentina.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 4.36733330217022,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 219.883929014578,
+     "ano": "2024",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 683097891618.597,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 45851378.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "528": {
+   "nome": "Países Baixos",
+   "iso3": "NLD",
+   "comercio": {
+    "exportacao": {
+     "fob": 11726736048.0,
+     "participacao": 0.0336705748722547,
+     "posicao": 4
+    },
+    "importacao": {
+     "fob": 2371345598.0,
+     "participacao": 0.008462791664154508,
+     "posicao": 25
+    },
+    "saldo": 9355390450.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 3199422969.0,
+      "participacao": 0.27283149854350675
+     },
+     {
+      "sh4": "2304",
+      "produto": "Tortas e outros resíduos sólidos da extração do óleo de soja",
+      "fob": 747843481.0,
+      "participacao": 0.06377251759900787
+     },
+     {
+      "sh4": "2601",
+      "produto": "Minérios de ferro e seus concentrados, incluídas as pirites de ferro ustuladas (cinzas de pirites)",
+      "fob": 719630932.0,
+      "participacao": 0.06136668626755126
+     },
+     {
+      "sh4": "7202",
+      "produto": "Ferro-ligas",
+      "fob": 660652274.0,
+      "participacao": 0.05633726821306552
+     },
+     {
+      "sh4": "4703",
+      "produto": "Pastas químicas de madeira, à soda ou ao sulfato, exceto pastas para dissolução",
+      "fob": 659545497.0,
+      "participacao": 0.05624288756055747
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 446015647.0,
+      "participacao": 0.188085468173079
+     },
+     {
+      "sh4": "3102",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, azotados",
+      "fob": 136116357.0,
+      "participacao": 0.05740047216854471
+     },
+     {
+      "sh4": "8438",
+      "produto": "Máquinas e aparelhos não especificados nem compreendidos em outras posições do presente capítulo, para preparação ou fabricação industrial de alimentos ou de bebidas, exceto as máquinas e aparelhos para extracção ou preparação de óleos ou gorduras vegeta",
+      "fob": 99120051.0,
+      "participacao": 0.04179907436672164
+     },
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 86625117.0,
+      "participacao": 0.03652994193383701
+     },
+     {
+      "sh4": "2106",
+      "produto": "Preparações alimentícias não especificadas nem compreendidas noutras posições",
+      "fob": 82898395.0,
+      "participacao": 0.03495837766958842
+     }
+    ]
+   },
+   "resumo": "Em 2025, os Países Baixos foram o 4º destino das exportações brasileiras: US$ 11,7 bi, 3,4% do total. O Brasil importou US$ 2,4 bi dos Países Baixos (25º fornecedor, 0,8% do total). Superávit brasileiro de US$ 9,4 bi no comércio com os Países Baixos.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.78463214703797,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 3.20363967869003,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 1332767651100.39,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 18087633.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "os"
+  },
+  "724": {
+   "nome": "Espanha",
+   "iso3": "ESP",
+   "comercio": {
+    "exportacao": {
+     "fob": 8783248496.0,
+     "participacao": 0.025219040054766523,
+     "posicao": 5
+    },
+    "importacao": {
+     "fob": 3820098262.0,
+     "participacao": 0.013633059540191375,
+     "posicao": 13
+    },
+    "saldo": 4963150234.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 3232522355.0,
+      "participacao": 0.36803266541668844
+     },
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 1594692750.0,
+      "participacao": 0.18156070054561735
+     },
+     {
+      "sh4": "2603",
+      "produto": "Minérios de cobre e seus concentrados",
+      "fob": 631737668.0,
+      "participacao": 0.07192528690127589
+     },
+     {
+      "sh4": "2304",
+      "produto": "Tortas e outros resíduos sólidos da extração do óleo de soja",
+      "fob": 627739833.0,
+      "participacao": 0.07147012102479856
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 476741694.0,
+      "participacao": 0.054278515997482485
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 429615692.0,
+      "participacao": 0.11246194797488694
+     },
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 397833938.0,
+      "participacao": 0.1041423310906446
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 136085655.0,
+      "participacao": 0.03562360066852123
+     },
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 112632962.0,
+      "participacao": 0.029484310160396602
+     },
+     {
+      "sh4": "8483",
+      "produto": "Veios (árvores) de transmissão [incluídas as árvores de cames (excênticos) e cambotas (virabrequins)] e manivelas; chumaceiras (mancais) e bronzes; engrenagens e rodas de fricção; eixos de esferas ou de roletes; redutores, multiplicadores, caixas de trans",
+      "fob": 109712628.0,
+      "participacao": 0.028719844484461066
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Espanha foi o 5º destino das exportações brasileiras: US$ 8,8 bi, 2,5% do total. O Brasil importou US$ 3,8 bi da Espanha (13º fornecedor, 1,4% do total). Superávit brasileiro de US$ 5,0 bi no comércio com a Espanha.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 2.82495400578509,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.67326741144651,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 1906453309985.88,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 49355143.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "276": {
+   "nome": "Alemanha",
+   "iso3": "DEU",
+   "comercio": {
+    "exportacao": {
+     "fob": 6524224630.0,
+     "participacao": 0.018732782335054668,
+     "posicao": 11
+    },
+    "importacao": {
+     "fob": 14403037092.0,
+     "participacao": 0.05140115483103268,
+     "posicao": 3
+    },
+    "saldo": -7878812462.0,
+    "produtos_exportados": [
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 2292851341.0,
+      "participacao": 0.3514366029730034
+     },
+     {
+      "sh4": "2603",
+      "produto": "Minérios de cobre e seus concentrados",
+      "fob": 879321805.0,
+      "participacao": 0.13477797820704404
+     },
+     {
+      "sh4": "2304",
+      "produto": "Tortas e outros resíduos sólidos da extração do óleo de soja",
+      "fob": 625324501.0,
+      "participacao": 0.09584656207645015
+     },
+     {
+      "sh4": "4703",
+      "produto": "Pastas químicas de madeira, à soda ou ao sulfato, exceto pastas para dissolução",
+      "fob": 188302047.0,
+      "participacao": 0.028861980952363378
+     },
+     {
+      "sh4": "2843",
+      "produto": "Metais preciosos no estado coloidal; compostos inorgânicos ou orgânicos de metais preciosos, de constituição química definida ou não; amálgamas de metais preciosos",
+      "fob": 165947267.0,
+      "participacao": 0.025435553864429097
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 1049129550.0,
+      "participacao": 0.07284085594577319
+     },
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 993301318.0,
+      "participacao": 0.06896471290431638
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 721800371.0,
+      "participacao": 0.05011445616570103
+     },
+     {
+      "sh4": "2933",
+      "produto": "Compostos heterocíclicos, exclusivamente de hetero-átomo(s) de azoto (nitrogénio)",
+      "fob": 694794349.0,
+      "participacao": 0.048239433430739095
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 618824431.0,
+      "participacao": 0.04296485713722968
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Alemanha foi o 11º destino das exportações brasileiras: US$ 6,5 bi, 1,9% do total. O Brasil importou US$ 14,4 bi da Alemanha (3º fornecedor, 5,1% do total). Déficit brasileiro de US$ 7,9 bi no comércio com a Alemanha.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 0.239578342117881,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.17178770949721,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 5050922925047.05,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 83491249.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "484": {
+   "nome": "México",
+   "iso3": "MEX",
+   "comercio": {
+    "exportacao": {
+     "fob": 7728866863.0,
+     "participacao": 0.02219163024759247,
+     "posicao": 6
+    },
+    "importacao": {
+     "fob": 6214583742.0,
+     "participacao": 0.022178432166253873,
+     "posicao": 9
+    },
+    "saldo": 1514283121.0,
+    "produtos_exportados": [
+     {
+      "sh4": "0207",
+      "produto": "Carnes e miudezas comestíveis, frescas, refrigeradas ou congeladas, das aves da posição 0105",
+      "fob": 664026752.0,
+      "participacao": 0.08591514949996881
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 562937764.0,
+      "participacao": 0.07283574345094784
+     },
+     {
+      "sh4": "0202",
+      "produto": "Carnes de animais da espécie bovina, congeladas",
+      "fob": 496212118.0,
+      "participacao": 0.064202440900553
+     },
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 485012961.0,
+      "participacao": 0.06275343715931726
+     },
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 454572122.0,
+      "participacao": 0.05881484699602594
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 903987121.0,
+      "participacao": 0.14546221573789198
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 631375252.0,
+      "participacao": 0.10159574288668424
+     },
+     {
+      "sh4": "8471",
+      "produto": "Máquinas automáticas para processamento de dados e suas unidades; leitores magnéticos ou ópticos, máquinas para registar dados em suporte sob forma codificada, e máquinas para processamento desses dados, não especificadas nem compreendidas em outras posiç",
+      "fob": 601813404.0,
+      "participacao": 0.0968388920295283
+     },
+     {
+      "sh4": "9032",
+      "produto": "Instrumentos e aparelhos para regulação ou controlo, automáticos",
+      "fob": 226305701.0,
+      "participacao": 0.036415262935562194
+     },
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 214071802.0,
+      "participacao": 0.034446683943325
+     }
+    ]
+   },
+   "resumo": "Em 2025, o México foi o 6º destino das exportações brasileiras: US$ 7,7 bi, 2,2% do total. O Brasil importou US$ 6,2 bi do México (9º fornecedor, 2,2% do total). Superávit brasileiro de US$ 1,5 bi no comércio com o México.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 0.561683456144578,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 3.80957950037393,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 1832641364775.52,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 131946900.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "152": {
+   "nome": "Chile",
+   "iso3": "CHL",
+   "comercio": {
+    "exportacao": {
+     "fob": 7176227117.0,
+     "participacao": 0.020604854705880644,
+     "posicao": 9
+    },
+    "importacao": {
+     "fob": 4627976235.0,
+     "participacao": 0.016516191792750726,
+     "posicao": 12
+    },
+    "saldo": 2548250882.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 1826739918.0,
+      "participacao": 0.25455436237136025
+     },
+     {
+      "sh4": "0201",
+      "produto": "Carnes de animais da espécie bovina, frescas ou refrigeradas",
+      "fob": 584108960.0,
+      "participacao": 0.08139499356371889
+     },
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 360415661.0,
+      "participacao": 0.050223558302133375
+     },
+     {
+      "sh4": "0203",
+      "produto": "Carnes de animais da espécie suína, frescas, refrigeradas ou congeladas",
+      "fob": 291683424.0,
+      "participacao": 0.04064579050306554
+     },
+     {
+      "sh4": "8701",
+      "produto": "Tractores (exceto os da posição 8709)",
+      "fob": 270560730.0,
+      "participacao": 0.037702364430336914
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "7403",
+      "produto": "Cobre afinado e ligas de cobre, em formas brutas",
+      "fob": 2044886605.0,
+      "participacao": 0.44185330718319904
+     },
+     {
+      "sh4": "0302",
+      "produto": "Peixes frescos ou refrigerados, exceto os filés de peixes e outra carne de peixes da posição 03.04",
+      "fob": 775466857.0,
+      "participacao": 0.16756068260147408
+     },
+     {
+      "sh4": "2613",
+      "produto": "Minérios de molibdénio e seus concentrados",
+      "fob": 256308029.0,
+      "participacao": 0.05538231312892643
+     },
+     {
+      "sh4": "2204",
+      "produto": "Vinhos de uvas frescas, incluídos os vinhos enriquecidos com álcool; mostos de uvas, excluídos os da posição 2009",
+      "fob": 213057732.0,
+      "participacao": 0.046036911423336206
+     },
+     {
+      "sh4": "2905",
+      "produto": "Álcoois acíclicos e seus derivados halogenados, sulfonados, nitrados ou nitrosados",
+      "fob": 120324907.0,
+      "participacao": 0.02599946518523987
+     }
+    ]
+   },
+   "resumo": "Em 2025, o Chile foi o 9º destino das exportações brasileiras: US$ 7,2 bi, 2,1% do total. O Brasil importou US$ 4,6 bi do Chile (12º fornecedor, 1,7% do total). Superávit brasileiro de US$ 2,5 bi no comércio com o Chile.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 2.45925474781374,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 4.21294031801535,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 357371159574.862,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 19859921.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "392": {
+   "nome": "Japão",
+   "iso3": "JPN",
+   "comercio": {
+    "exportacao": {
+     "fob": 5488854671.0,
+     "participacao": 0.015759960095149437,
+     "posicao": 12
+    },
+    "importacao": {
+     "fob": 6051415101.0,
+     "participacao": 0.021596120496427746,
+     "posicao": 10
+    },
+    "saldo": -562560430.0,
+    "produtos_exportados": [
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 1034364742.0,
+      "participacao": 0.18844819256465245
+     },
+     {
+      "sh4": "2601",
+      "produto": "Minérios de ferro e seus concentrados, incluídas as pirites de ferro ustuladas (cinzas de pirites)",
+      "fob": 955636396.0,
+      "participacao": 0.17410488221687515
+     },
+     {
+      "sh4": "0207",
+      "produto": "Carnes e miudezas comestíveis, frescas, refrigeradas ou congeladas, das aves da posição 0105",
+      "fob": 840058522.0,
+      "participacao": 0.15304805325569895
+     },
+     {
+      "sh4": "7601",
+      "produto": "Alumínio em formas brutas",
+      "fob": 433384837.0,
+      "participacao": 0.07895724390185808
+     },
+     {
+      "sh4": "0203",
+      "produto": "Carnes de animais da espécie suína, frescas, refrigeradas ou congeladas",
+      "fob": 388533406.0,
+      "participacao": 0.07078587962126061
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 1152797936.0,
+      "participacao": 0.1905005551196611
+     },
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 216237418.0,
+      "participacao": 0.035733363914213494
+     },
+     {
+      "sh4": "8542",
+      "produto": "Circuitos integrados e microconjuntos electrónicos",
+      "fob": 196379360.0,
+      "participacao": 0.03245180783707074
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 165450271.0,
+      "participacao": 0.0273407572011808
+     },
+     {
+      "sh4": "9032",
+      "produto": "Instrumentos e aparelhos para regulação ou controlo, automáticos",
+      "fob": 158507637.0,
+      "participacao": 0.026193482739897734
+     }
+    ]
+   },
+   "resumo": "Em 2025, o Japão foi o 12º destino das exportações brasileiras: US$ 5,5 bi, 1,6% do total. O Brasil importou US$ 6,1 bi do Japão (10º fornecedor, 2,2% do total). Déficit brasileiro de US$ 0,6 bi no comércio com o Japão.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.19311288444599,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 3.17253034260247,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 4435162999976.94,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 123366734.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "356": {
+   "nome": "Índia",
+   "iso3": "IND",
+   "comercio": {
+    "exportacao": {
+     "fob": 6865880767.0,
+     "participacao": 0.019713767879057407,
+     "posicao": 10
+    },
+    "importacao": {
+     "fob": 8339882501.0,
+     "participacao": 0.029763138771934858,
+     "posicao": 6
+    },
+    "saldo": -1474001734.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 1941219422.0,
+      "participacao": 0.2827342169019639
+     },
+     {
+      "sh4": "1701",
+      "produto": "Açúcares de cana ou de beterraba e sacarose quimicamente pura, no estado sólido",
+      "fob": 1076640906.0,
+      "participacao": 0.15681031211242996
+     },
+     {
+      "sh4": "1507",
+      "produto": "Óleo de soja e respectivas fracções, mesmo refinados, mas não quimicamente modificados",
+      "fob": 965374717.0,
+      "participacao": 0.14060464341879533
+     },
+     {
+      "sh4": "2601",
+      "produto": "Minérios de ferro e seus concentrados, incluídas as pirites de ferro ustuladas (cinzas de pirites)",
+      "fob": 441922136.0,
+      "participacao": 0.06436495928155986
+     },
+     {
+      "sh4": "5201",
+      "produto": "Algodão, não cardado nem penteado",
+      "fob": 413333247.0,
+      "participacao": 0.060201052279648476
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 1114285763.0,
+      "participacao": 0.13360928800452412
+     },
+     {
+      "sh4": "2933",
+      "produto": "Compostos heterocíclicos, exclusivamente de hetero-átomo(s) de azoto (nitrogénio)",
+      "fob": 736473147.0,
+      "participacao": 0.08830737686192733
+     },
+     {
+      "sh4": "3808",
+      "produto": "Insecticidas, rodenticidas, fungicidas, herbicidas, inibidores de germinação e reguladores de crescimento para plantas, desinfectantes e produtos semelhantes, apresentados em formas ou embalagens para venda a retalho ou como preparações ou ainda sob a for",
+      "fob": 543535390.0,
+      "participacao": 0.0651730273100163
+     },
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 492804648.0,
+      "participacao": 0.05909011882852185
+     },
+     {
+      "sh4": "2934",
+      "produto": "Ácidos nucleicos e seus sais, de constituição química definida ou não; outros compostos heterocíclicos",
+      "fob": 439392779.0,
+      "participacao": 0.05268572776023095
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Índia foi o 10º destino das exportações brasileiras: US$ 6,9 bi, 2,0% do total. O Brasil importou US$ 8,3 bi da Índia (6º fornecedor, 3,0% do total). Déficit brasileiro de US$ 1,5 bi no comércio com a Índia.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 7.56666179284244,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.39884954182294,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 3956067115771.63,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 1463865525.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "380": {
+   "nome": "Itália",
+   "iso3": "ITA",
+   "comercio": {
+    "exportacao": {
+     "fob": 5361690529.0,
+     "participacao": 0.015394838057205446,
+     "posicao": 14
+    },
+    "importacao": {
+     "fob": 7053577569.0,
+     "participacao": 0.025172609805903298,
+     "posicao": 8
+    },
+    "saldo": -1691887040.0,
+    "produtos_exportados": [
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 1340333934.0,
+      "participacao": 0.2499834570366342
+     },
+     {
+      "sh4": "4703",
+      "produto": "Pastas químicas de madeira, à soda ou ao sulfato, exceto pastas para dissolução",
+      "fob": 801993456.0,
+      "participacao": 0.14957846814586265
+     },
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 695786123.0,
+      "participacao": 0.1297699147753255
+     },
+     {
+      "sh4": "0202",
+      "produto": "Carnes de animais da espécie bovina, congeladas",
+      "fob": 322786793.0,
+      "participacao": 0.06020242892687103
+     },
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 249834070.0,
+      "participacao": 0.046596137663804355
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 429224353.0,
+      "participacao": 0.060852007197937714
+     },
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 413061132.0,
+      "participacao": 0.05856051456999296
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 396691231.0,
+      "participacao": 0.0562397204992019
+     },
+     {
+      "sh4": "8483",
+      "produto": "Veios (árvores) de transmissão [incluídas as árvores de cames (excênticos) e cambotas (virabrequins)] e manivelas; chumaceiras (mancais) e bronzes; engrenagens e rodas de fricção; eixos de esferas ou de roletes; redutores, multiplicadores, caixas de trans",
+      "fob": 174668012.0,
+      "participacao": 0.024763038371854618
+     },
+     {
+      "sh4": "8422",
+      "produto": "Máquinas de lavar louça; máquinas e aparelhos para limpar ou secar garrafas ou outros recipientes; máquinas e aparelhos para encher, fechar, rolhar ou rotular garrafas, caixas, latas, sacos ou outros recipientes; máquinas e aparelhos para capsular garrafa",
+      "fob": 166801808.0,
+      "participacao": 0.023647830674335072
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Itália foi o 14º destino das exportações brasileiras: US$ 5,4 bi, 1,5% do total. O Brasil importou US$ 7,1 bi da Itália (8º fornecedor, 2,5% do total). Déficit brasileiro de US$ 1,7 bi no comércio com a Itália.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 0.539583636778445,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 1.5316735709312,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 2551556954100.35,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 58915656.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "410": {
+   "nome": "Coreia do Sul",
+   "iso3": "KOR",
+   "comercio": {
+    "exportacao": {
+     "fob": 5467051548.0,
+     "participacao": 0.01569735753614107,
+     "posicao": 13
+    },
+    "importacao": {
+     "fob": 5299025023.0,
+     "participacao": 0.018911011887348925,
+     "posicao": 11
+    },
+    "saldo": 168026525.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 1783865858.0,
+      "participacao": 0.3262939524783863
+     },
+     {
+      "sh4": "2601",
+      "produto": "Minérios de ferro e seus concentrados, incluídas as pirites de ferro ustuladas (cinzas de pirites)",
+      "fob": 718730994.0,
+      "participacao": 0.131465925954719
+     },
+     {
+      "sh4": "2304",
+      "produto": "Tortas e outros resíduos sólidos da extração do óleo de soja",
+      "fob": 503434785.0,
+      "participacao": 0.09208524569046189
+     },
+     {
+      "sh4": "2207",
+      "produto": "Álcool etílico não desnaturado, com um teor alcoólico em volume igual ou superior a 80 % vol; álcool etílico e aguardentes, desnaturados, com qualquer teor alcoólico",
+      "fob": 401135111.0,
+      "participacao": 0.07337320811374944
+     },
+     {
+      "sh4": "0207",
+      "produto": "Carnes e miudezas comestíveis, frescas, refrigeradas ou congeladas, das aves da posição 0105",
+      "fob": 378564365.0,
+      "participacao": 0.06924470378160041
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8542",
+      "produto": "Circuitos integrados e microconjuntos electrónicos",
+      "fob": 1225698590.0,
+      "participacao": 0.23130643555747557
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 439812707.0,
+      "participacao": 0.08299879790924324
+     },
+     {
+      "sh4": "8407",
+      "produto": "Motores de pistão, alternativo ou rotativo, de ignição por faísca (motores de explosão)",
+      "fob": 238319963.0,
+      "participacao": 0.044974304134362646
+     },
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 195452612.0,
+      "participacao": 0.03688463654193995
+     },
+     {
+      "sh4": "7208",
+      "produto": "Produtos laminados planos, de ferro ou aço não ligado, de largura igual ou superior a 600 mm, laminados a quente, não folheados ou chapeados, nem revestidos",
+      "fob": 183693647.0,
+      "participacao": 0.03466555568292133
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Coreia do Sul foi o 13º destino das exportações brasileiras: US$ 5,5 bi, 1,6% do total. O Brasil importou US$ 5,3 bi da Coreia do Sul (11º fornecedor, 1,9% do total). Superávit brasileiro de US$ 0,2 bi no comércio com a Coreia do Sul.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.00701840291242,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.12309421458659,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 1872374961553.15,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 51684564.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "124": {
+   "nome": "Canadá",
+   "iso3": "CAN",
+   "comercio": {
+    "exportacao": {
+     "fob": 7251870870.0,
+     "participacao": 0.020822048018544932,
+     "posicao": 8
+    },
+    "importacao": {
+     "fob": 3139581087.0,
+     "participacao": 0.01120444893161488,
+     "posicao": 20
+    },
+    "saldo": 4112289783.0,
+    "produtos_exportados": [
+     {
+      "sh4": "7108",
+      "produto": "Ouro (incluído o ouro platinado), em formas brutas ou semimanufacturadas, ou em pó",
+      "fob": 3248552331.0,
+      "participacao": 0.44796058689335155
+     },
+     {
+      "sh4": "2818",
+      "produto": "Corindo artificial, quimicamente definido ou não; óxido de alumínio; hidróxido de alumínio",
+      "fob": 1505181535.0,
+      "participacao": 0.20755768573137873
+     },
+     {
+      "sh4": "1701",
+      "produto": "Açúcares de cana ou de beterraba e sacarose quimicamente pura, no estado sólido",
+      "fob": 503189553.0,
+      "participacao": 0.06938755005713443
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 336891950.0,
+      "participacao": 0.04645586718782818
+     },
+     {
+      "sh4": "8802",
+      "produto": "Outros veículos aéreos (por exemplo: helicópteros, aviões); veículos espaciais (incluídos os satélites) e seus veículos de lançamento e veículos suborbitais",
+      "fob": 222763243.0,
+      "participacao": 0.030718037730310552
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "3104",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, potássicos",
+      "fob": 1580111150.0,
+      "participacao": 0.5032872559153622
+     },
+     {
+      "sh4": "8411",
+      "produto": "Turborreactores, turbopropulsores e outras turbinas a gás",
+      "fob": 329166951.0,
+      "participacao": 0.1048442266272322
+     },
+     {
+      "sh4": "8802",
+      "produto": "Outros veículos aéreos (por exemplo: helicópteros, aviões); veículos espaciais (incluídos os satélites) e seus veículos de lançamento e veículos suborbitais",
+      "fob": 121928176.0,
+      "participacao": 0.03883581045409706
+     },
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 100847371.0,
+      "participacao": 0.032121282491341496
+     },
+     {
+      "sh4": "3901",
+      "produto": "Polímeros de etileno, em formas primárias",
+      "fob": 91445870.0,
+      "participacao": 0.02912677438994905
+     }
+    ]
+   },
+   "resumo": "Em 2025, o Canadá foi o 8º destino das exportações brasileiras: US$ 7,3 bi, 2,1% do total. O Brasil importou US$ 3,1 bi do Canadá (20º fornecedor, 1,1% do total). Superávit brasileiro de US$ 4,1 bi no comércio com o Canadá.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.74268536175708,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.07232411149103,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 2319899772425.92,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 41651653.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "250": {
+   "nome": "França",
+   "iso3": "FRA",
+   "comercio": {
+    "exportacao": {
+     "fob": 3097239055.0,
+     "participacao": 0.008892996232863524,
+     "posicao": 30
+    },
+    "importacao": {
+     "fob": 7201084581.0,
+     "participacao": 0.02569902869339518,
+     "posicao": 7
+    },
+    "saldo": -4103845526.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2304",
+      "produto": "Tortas e outros resíduos sólidos da extração do óleo de soja",
+      "fob": 635636849.0,
+      "participacao": 0.2052269255658085
+     },
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 528088375.0,
+      "participacao": 0.1705029433060665
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 366292129.0,
+      "participacao": 0.1182640805231613
+     },
+     {
+      "sh4": "4703",
+      "produto": "Pastas químicas de madeira, à soda ou ao sulfato, exceto pastas para dissolução",
+      "fob": 188005364.0,
+      "participacao": 0.06070095354651273
+     },
+     {
+      "sh4": "7207",
+      "produto": "Produtos semimanufacturados de ferro ou aço não ligado",
+      "fob": 141855776.0,
+      "participacao": 0.04580071911820833
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8411",
+      "produto": "Turborreactores, turbopropulsores e outras turbinas a gás",
+      "fob": 2089674931.0,
+      "participacao": 0.2901889163354072
+     },
+     {
+      "sh4": "8802",
+      "produto": "Outros veículos aéreos (por exemplo: helicópteros, aviões); veículos espaciais (incluídos os satélites) e seus veículos de lançamento e veículos suborbitais",
+      "fob": 305947492.0,
+      "participacao": 0.0424863072442226
+     },
+     {
+      "sh4": "3002",
+      "produto": "Sangue humano; sangue animal preparado para usos terapêuticos, profilácticos ou de diagnóstico; anti-soros, outras fracções do sangue, produtos imunológicos modificados, mesmo obtidos por via biotecnológica; vacinas, toxinas, culturas de microrganismos (e",
+      "fob": 254453351.0,
+      "participacao": 0.035335420399223334
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 252894247.0,
+      "participacao": 0.03511891079119655
+     },
+     {
+      "sh4": "3004",
+      "produto": "Medicamentos (exceto os produtos das posições 3002, 3005 ou 3006) constituídos por produtos misturados ou não misturados, preparados para fins terapêuticos ou profilácticos, apresentados em doses (incluindo os destinados a serem administrados por via sub",
+      "fob": 225397750.0,
+      "participacao": 0.03130052806138537
+     }
+    ]
+   },
+   "resumo": "Em 2025, a França foi o 30º destino das exportações brasileiras: US$ 3,1 bi, 0,9% do total. O Brasil importou US$ 7,2 bi da França (7º fornecedor, 2,6% do total). Déficit brasileiro de US$ 4,1 bi no comércio com a França.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 0.840949955479587,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 0.943824761520197,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 3366315927447.33,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 68720337.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "600": {
+   "nome": "Paraguai",
+   "iso3": "PRY",
+   "comercio": {
+    "exportacao": {
+     "fob": 4012595283.0,
+     "participacao": 0.011521227164599648,
+     "posicao": 19
+    },
+    "importacao": {
+     "fob": 3404687126.0,
+     "participacao": 0.012150551928520277,
+     "posicao": 17
+    },
+    "saldo": 607908157.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2203",
+      "produto": "Cervejas de malte",
+      "fob": 138478279.0,
+      "participacao": 0.034510901108488395
+     },
+     {
+      "sh4": "3105",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, contendo dois ou três dos seguintes elementos fertilizantes: azoto (nitrogénio), fósforo e potássio; outros adubos (fertilizantes); produtos do presente capítulo apresentados em tabletes ou formas semelhantes, ",
+      "fob": 128605101.0,
+      "participacao": 0.03205035442892933
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 125779365.0,
+      "participacao": 0.03134613788060918
+     },
+     {
+      "sh4": "8544",
+      "produto": "Fios, cabos (incluídos os cabos coaxiais) e outros condutores, isolados para usos elétricos (incluídos os envernizados ou oxidados anodicamente), mesmo com peças de conexão; cabos de fibras ópticas, constituídos de fibras embainhadas individualmente, mes",
+      "fob": 112878566.0,
+      "participacao": 0.02813106182879396
+     },
+     {
+      "sh4": "3808",
+      "produto": "Insecticidas, rodenticidas, fungicidas, herbicidas, inibidores de germinação e reguladores de crescimento para plantas, desinfectantes e produtos semelhantes, apresentados em formas ou embalagens para venda a retalho ou como preparações ou ainda sob a for",
+      "fob": 98437534.0,
+      "participacao": 0.024532136200490072
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2716",
+      "produto": "Energia elétrica",
+      "fob": 900340135.0,
+      "participacao": 0.2644413720498792
+     },
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 335546698.0,
+      "participacao": 0.09855434158328004
+     },
+     {
+      "sh4": "1005",
+      "produto": "Milho",
+      "fob": 307011628.0,
+      "participacao": 0.09017322785858826
+     },
+     {
+      "sh4": "8544",
+      "produto": "Fios, cabos (incluídos os cabos coaxiais) e outros condutores, isolados para usos elétricos (incluídos os envernizados ou oxidados anodicamente), mesmo com peças de conexão; cabos de fibras ópticas, constituídos de fibras embainhadas individualmente, mes",
+      "fob": 291878998.0,
+      "participacao": 0.08572858156952422
+     },
+     {
+      "sh4": "1006",
+      "produto": "Arroz",
+      "fob": 247101154.0,
+      "participacao": 0.07257675811471906
+     }
+    ]
+   },
+   "resumo": "Em 2025, o Paraguai foi o 19º destino das exportações brasileiras: US$ 4,0 bi, 1,2% do total. O Brasil importou US$ 3,4 bi do Paraguai (17º fornecedor, 1,2% do total). Superávit brasileiro de US$ 0,6 bi no comércio com o Paraguai.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 6.64262511156879,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 4.0380642333938,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 49278227554.3339,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 7013078.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "643": {
+   "nome": "Rússia",
+   "iso3": "RUS",
+   "comercio": {
+    "exportacao": {
+     "fob": 1522675744.0,
+     "participacao": 0.0043720066209951185,
+     "posicao": 40
+    },
+    "importacao": {
+     "fob": 9409029151.0,
+     "participacao": 0.033578679351515414,
+     "posicao": 5
+    },
+    "saldo": -7886353407.0,
+    "produtos_exportados": [
+     {
+      "sh4": "0202",
+      "produto": "Carnes de animais da espécie bovina, congeladas",
+      "fob": 472793614.0,
+      "participacao": 0.31050183590499225
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 459333630.0,
+      "participacao": 0.3016621442943272
+     },
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 99465673.0,
+      "participacao": 0.06532295099067395
+     },
+     {
+      "sh4": "1202",
+      "produto": "Amendoins não torrados nem de outro modo cozidos, mesmo descascados ou triturados",
+      "fob": 82163880.0,
+      "participacao": 0.053960194955335154
+     },
+     {
+      "sh4": "2401",
+      "produto": "Tabaco não manufacturado; desperdícios de tabaco",
+      "fob": 78638727.0,
+      "participacao": 0.051645090762015844
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 4886026985.0,
+      "participacao": 0.5192913005780951
+     },
+     {
+      "sh4": "3104",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, potássicos",
+      "fob": 1865934735.0,
+      "participacao": 0.1983132058637194
+     },
+     {
+      "sh4": "3105",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, contendo dois ou três dos seguintes elementos fertilizantes: azoto (nitrogénio), fósforo e potássio; outros adubos (fertilizantes); produtos do presente capítulo apresentados em tabletes ou formas semelhantes, ",
+      "fob": 1317631225.0,
+      "participacao": 0.14003902037650304
+     },
+     {
+      "sh4": "3102",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, azotados",
+      "fob": 819427105.0,
+      "participacao": 0.0870894426884532
+     },
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 119837387.0,
+      "participacao": 0.012736424244924735
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Rússia foi o 40º destino das exportações brasileiras: US$ 1,5 bi, 0,4% do total. O Brasil importou US$ 9,4 bi da Rússia (5º fornecedor, 3,4% do total). Déficit brasileiro de US$ 7,9 bi no comércio com a Rússia.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.00117656925738,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 8.71986939402666,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 2561310169358.74,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 143513328.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "682": {
+   "nome": "Arábia Saudita",
+   "iso3": "SAU",
+   "comercio": {
+    "exportacao": {
+     "fob": 3115976649.0,
+     "participacao": 0.008946796843631984,
+     "posicao": 29
+    },
+    "importacao": {
+     "fob": 3419420975.0,
+     "participacao": 0.012203133675610735,
+     "posicao": 16
+    },
+    "saldo": -303444326.0,
+    "produtos_exportados": [
+     {
+      "sh4": "0207",
+      "produto": "Carnes e miudezas comestíveis, frescas, refrigeradas ou congeladas, das aves da posição 0105",
+      "fob": 944929419.0,
+      "participacao": 0.303253048864552
+     },
+     {
+      "sh4": "1701",
+      "produto": "Açúcares de cana ou de beterraba e sacarose quimicamente pura, no estado sólido",
+      "fob": 763614759.0,
+      "participacao": 0.24506433937656893
+     },
+     {
+      "sh4": "1005",
+      "produto": "Milho",
+      "fob": 402399762.0,
+      "participacao": 0.12914081436686659
+     },
+     {
+      "sh4": "0202",
+      "produto": "Carnes de animais da espécie bovina, congeladas",
+      "fob": 232587191.0,
+      "participacao": 0.07464343196366488
+     },
+     {
+      "sh4": "0201",
+      "produto": "Carnes de animais da espécie bovina, frescas ou refrigeradas",
+      "fob": 94245981.0,
+      "participacao": 0.030246048547971645
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 1794359725.0,
+      "participacao": 0.524755430266962
+     },
+     {
+      "sh4": "3105",
+      "produto": "Adubos (fertilizantes) minerais ou químicos, contendo dois ou três dos seguintes elementos fertilizantes: azoto (nitrogénio), fósforo e potássio; outros adubos (fertilizantes); produtos do presente capítulo apresentados em tabletes ou formas semelhantes, ",
+      "fob": 568547568.0,
+      "participacao": 0.16627012940399946
+     },
+     {
+      "sh4": "2710",
+      "produto": "Óleos de petróleo ou de minerais betuminosos, exceto óleos brutos; preparações não especificadas nem compreendidas noutras posições, contendo, em peso, 70 % ou mais de óleos de petróleo ou de minerais betuminosos, os quais devem constituir o seu elemento",
+      "fob": 431527985.0,
+      "participacao": 0.1261991396072547
+     },
+     {
+      "sh4": "3902",
+      "produto": "Polímeros de propileno ou de outras olefinas, em formas primárias",
+      "fob": 148626653.0,
+      "participacao": 0.04346544461376242
+     },
+     {
+      "sh4": "2902",
+      "produto": "Hidrocarbonetos cíclicos",
+      "fob": 135575803.0,
+      "participacao": 0.03964876041622807
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Arábia Saudita foi o 29º destino das exportações brasileiras: US$ 3,1 bi, 0,9% do total. O Brasil importou US$ 3,4 bi da Arábia Saudita (16º fornecedor, 1,2% do total). Déficit brasileiro de US$ 0,3 bi no comércio com a Arábia Saudita.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 4.50246560191663,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 2.03559944812264,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 1276942933333.33,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 36973555.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "826": {
+   "nome": "Reino Unido",
+   "iso3": "GBR",
+   "comercio": {
+    "exportacao": {
+     "fob": 4026752113.0,
+     "participacao": 0.011561875184860161,
+     "posicao": 18
+    },
+    "importacao": {
+     "fob": 3796645012.0,
+     "participacao": 0.013549360239353603,
+     "posicao": 14
+    },
+    "saldo": 230107101.0,
+    "produtos_exportados": [
+     {
+      "sh4": "7108",
+      "produto": "Ouro (incluído o ouro platinado), em formas brutas ou semimanufacturadas, ou em pó",
+      "fob": 952369477.0,
+      "participacao": 0.23651057981080148
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 349794996.0,
+      "participacao": 0.08686777486767037
+     },
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 260415630.0,
+      "participacao": 0.06467138346044993
+     },
+     {
+      "sh4": "1602",
+      "produto": "Outras preparações e conservas de carne, miudezas ou sangue",
+      "fob": 247342531.0,
+      "participacao": 0.061424821806506866
+     },
+     {
+      "sh4": "1201",
+      "produto": "Soja, mesmo triturada",
+      "fob": 211956629.0,
+      "participacao": 0.05263711871304853
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2711",
+      "produto": "Gás de petróleo e outros hidrocarbonetos gasosos",
+      "fob": 536878028.0,
+      "participacao": 0.1414085399880941
+     },
+     {
+      "sh4": "2208",
+      "produto": "Álcool etílico não desnaturado, com um teor alcoólico em volume inferior a 80 % vol; aguardentes, licores e outras bebidas espirituosas",
+      "fob": 225903757.0,
+      "participacao": 0.059500889939930995
+     },
+     {
+      "sh4": "8307",
+      "produto": "Tubos flexíveis de metais comuns, mesmo com acessórios",
+      "fob": 195689540.0,
+      "participacao": 0.05154275403191158
+     },
+     {
+      "sh4": "2933",
+      "produto": "Compostos heterocíclicos, exclusivamente de hetero-átomo(s) de azoto (nitrogénio)",
+      "fob": 149704278.0,
+      "participacao": 0.039430675643056405
+     },
+     {
+      "sh4": "8481",
+      "produto": "Torneiras, válvulas (incluídas as redutoras de pressão e as termostáticas) e dispositivos semelhantes, para canalizações, caldeiras, reservatórios, cubas e outros recipientes",
+      "fob": 147661189.0,
+      "participacao": 0.03889254553251343
+     }
+    ]
+   },
+   "resumo": "Em 2025, o Reino Unido foi o 18º destino das exportações brasileiras: US$ 4,0 bi, 1,2% do total. O Brasil importou US$ 3,8 bi do Reino Unido (14º fornecedor, 1,4% do total). Superávit brasileiro de US$ 0,2 bi no comércio com o Reino Unido.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.38844207858726,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 3.88306881625999,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 4002587541846.01,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 69487000.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "170": {
+   "nome": "Colômbia",
+   "iso3": "COL",
+   "comercio": {
+    "exportacao": {
+     "fob": 3434103260.0,
+     "participacao": 0.009860222866925054,
+     "posicao": 25
+    },
+    "importacao": {
+     "fob": 1955221782.0,
+     "participacao": 0.006977740660087,
+     "posicao": 28
+    },
+    "saldo": 1478881478.0,
+    "produtos_exportados": [
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 595642065.0,
+      "participacao": 0.1734490840557893
+     },
+     {
+      "sh4": "0901",
+      "produto": "Café, mesmo torrado ou descafeinado; cascas e películas de café; sucedâneos do café contendo café em qualquer proporção",
+      "fob": 214127711.0,
+      "participacao": 0.062353311705600836
+     },
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 100971875.0,
+      "participacao": 0.029402690412984264
+     },
+     {
+      "sh4": "8708",
+      "produto": "Partes e acessórios dos veículos automóveis das posições 8701 a 8705",
+      "fob": 93605499.0,
+      "participacao": 0.02725762503716909
+     },
+     {
+      "sh4": "4011",
+      "produto": "Pneumáticos novos, de borracha",
+      "fob": 67425168.0,
+      "participacao": 0.019633995513576957
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "2701",
+      "produto": "Hulhas; briquetes, bolas e combustíveis sólidos semelhantes, obtidos a partir da hulha",
+      "fob": 383595162.0,
+      "participacao": 0.19619010259164554
+     },
+     {
+      "sh4": "2704",
+      "produto": "Coques e semicoques de hulha, de linhita ou de turfa, mesmo aglomerados; carvão de retorta",
+      "fob": 345092068.0,
+      "participacao": 0.1764976593330526
+     },
+     {
+      "sh4": "3904",
+      "produto": "Polímeros de cloreto de vinilo ou de outras olefinas halogenadas, em formas primárias",
+      "fob": 269405880.0,
+      "participacao": 0.13778788804430372
+     },
+     {
+      "sh4": "3808",
+      "produto": "Insecticidas, rodenticidas, fungicidas, herbicidas, inibidores de germinação e reguladores de crescimento para plantas, desinfectantes e produtos semelhantes, apresentados em formas ou embalagens para venda a retalho ou como preparações ou ainda sob a for",
+      "fob": 207966003.0,
+      "participacao": 0.10636440577460793
+     },
+     {
+      "sh4": "3902",
+      "produto": "Polímeros de propileno ou de outras olefinas, em formas primárias",
+      "fob": 185229777.0,
+      "participacao": 0.09473594182780028
+     }
+    ]
+   },
+   "resumo": "Em 2025, a Colômbia foi o 25º destino das exportações brasileiras: US$ 3,4 bi, 1,0% do total. O Brasil importou US$ 2,0 bi da Colômbia (28º fornecedor, 0,7% do total). Superávit brasileiro de US$ 1,5 bi no comércio com a Colômbia.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 2.64201548985928,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 5.14222911946201,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 457410034202.523,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 53425635.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "a"
+  },
+  "858": {
+   "nome": "Uruguai",
+   "iso3": "URY",
+   "comercio": {
+    "exportacao": {
+     "fob": 3536539767.0,
+     "participacao": 0.010154345294894599,
+     "posicao": 23
+    },
+    "importacao": {
+     "fob": 1992215917.0,
+     "participacao": 0.007109764291549514,
+     "posicao": 27
+    },
+    "saldo": 1544323850.0,
+    "produtos_exportados": [
+     {
+      "sh4": "2709",
+      "produto": "Óleos brutos de petróleo ou de minerais betuminosos",
+      "fob": 451943593.0,
+      "participacao": 0.12779259467606038
+     },
+     {
+      "sh4": "2601",
+      "produto": "Minérios de ferro e seus concentrados, incluídas as pirites de ferro ustuladas (cinzas de pirites)",
+      "fob": 264054703.0,
+      "participacao": 0.07466470629396997
+     },
+     {
+      "sh4": "8703",
+      "produto": "Automóveis de passageiros e outros veículos automóveis principalmente concebidos para o transporte de pessoas (exceto os da posição 8702), incluídos os veículos de uso misto (station wagons) e os automóveis de corrida",
+      "fob": 234223262.0,
+      "participacao": 0.06622950042456005
+     },
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 208459560.0,
+      "participacao": 0.058944497654223604
+     },
+     {
+      "sh4": "0201",
+      "produto": "Carnes de animais da espécie bovina, frescas ou refrigeradas",
+      "fob": 190231029.0,
+      "participacao": 0.053790156914132616
+     }
+    ],
+    "produtos_importados": [
+     {
+      "sh4": "8704",
+      "produto": "Veículos automóveis para transporte de mercadorias",
+      "fob": 266487628.0,
+      "participacao": 0.13376443071556887
+     },
+     {
+      "sh4": "0402",
+      "produto": "Leite e nata, concentrados ou adicionados de açúcar ou de outros edulcorantes",
+      "fob": 225425780.0,
+      "participacao": 0.11315328728999408
+     },
+     {
+      "sh4": "1107",
+      "produto": "Malte, mesmo torrado",
+      "fob": 222983227.0,
+      "participacao": 0.11192723895900888
+     },
+     {
+      "sh4": "1001",
+      "produto": "Trigo e mistura de trigo com centeio",
+      "fob": 175810400.0,
+      "participacao": 0.08824866747613683
+     },
+     {
+      "sh4": "3923",
+      "produto": "Artigos de transporte ou de embalagem, de plástico; rolhas, tampas, cápsulas e outros dispositivos destinados a fechar recipientes, de plástico",
+      "fob": 147658210.0,
+      "participacao": 0.07411757367261312
+     }
+    ]
+   },
+   "resumo": "Em 2025, o Uruguai foi o 23º destino das exportações brasileiras: US$ 3,5 bi, 1,0% do total. O Brasil importou US$ 2,0 bi do Uruguai (27º fornecedor, 0,7% do total). Superávit brasileiro de US$ 1,5 bi no comércio com o Uruguai.",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 1.78471117082752,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 4.65032720433323,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 85347696277.6859,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 3384688.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "artigo": "o"
+  },
+  "076": {
+   "nome": "Brasil",
+   "iso3": "BRA",
+   "economia": [
+    {
+     "id": "NY.GDP.MKTP.KD.ZG",
+     "rotulo": "Crescimento do PIB",
+     "unidade": "% no ano",
+     "valor": 2.2857464902475,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "FP.CPI.TOTL.ZG",
+     "rotulo": "Inflação (preços ao consumidor)",
+     "unidade": "% no ano",
+     "valor": 5.01675279604836,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "NY.GDP.MKTP.CD",
+     "rotulo": "PIB",
+     "unidade": "US$ correntes",
+     "valor": 2279920092492.13,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    },
+    {
+     "id": "SP.POP.TOTL",
+     "rotulo": "População",
+     "unidade": "pessoas",
+     "valor": 212812405.0,
+     "ano": "2025",
+     "atualizado": "2026-10-08"
+    }
+   ],
+   "comercio_total": {
+    "exportacao": 348278462500.0,
+    "importacao": 280208433825.0,
+    "saldo": 68070028675.0
+   },
+   "maiores_parceiros": [
+    {
+     "pais": "China",
+     "exportacao": 99940244710.0,
+     "importacao": 70915558414.0
+    },
+    {
+     "pais": "Estados Unidos",
+     "exportacao": 37682246914.0,
+     "importacao": 45141941682.0
+    },
+    {
+     "pais": "Argentina",
+     "exportacao": 18105303283.0,
+     "importacao": 12934607997.0
+    },
+    {
+     "pais": "Alemanha",
+     "exportacao": 6524224630.0,
+     "importacao": 14403037092.0
+    },
+    {
+     "pais": "Índia",
+     "exportacao": 6865880767.0,
+     "importacao": 8339882501.0
+    },
+    {
+     "pais": "Países Baixos (Holanda)",
+     "exportacao": 11726736048.0,
+     "importacao": 2371345598.0
+    },
+    {
+     "pais": "México",
+     "exportacao": 7728866863.0,
+     "importacao": 6214583742.0
+    },
+    {
+     "pais": "Espanha",
+     "exportacao": 8783248496.0,
+     "importacao": 3820098262.0
+    },
+    {
+     "pais": "Itália",
+     "exportacao": 5361690529.0,
+     "importacao": 7053577569.0
+    },
+    {
+     "pais": "Chile",
+     "exportacao": 7176227117.0,
+     "importacao": 4627976235.0
+    },
+    {
+     "pais": "Japão",
+     "exportacao": 5488854671.0,
+     "importacao": 6051415101.0
+    },
+    {
+     "pais": "Rússia",
+     "exportacao": 1522675744.0,
+     "importacao": 9409029151.0
+    },
+    {
+     "pais": "Coreia do Sul",
+     "exportacao": 5467051548.0,
+     "importacao": 5299025023.0
+    },
+    {
+     "pais": "Singapura",
+     "exportacao": 7353096562.0,
+     "importacao": 3302894254.0
+    },
+    {
+     "pais": "Canadá",
+     "exportacao": 7251870870.0,
+     "importacao": 3139581087.0
+    }
+   ]
+  }
+ }
+};
