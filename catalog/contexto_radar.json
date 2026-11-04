@@ -1,0 +1,42 @@
+{
+  "_sobre": "Indicadores de contexto do radar de transmissão (Fase 5, D34). Só séries públicas do catálogo. 'por_que' descreve um canal POSSÍVEL entre o indicador e o mercado do radar; 'limite' diz o que o indicador não permite concluir. Nada aqui é previsão nem relação causal medida.",
+  "versao": "contexto_v1",
+  "grupos": [
+    {"id": "capital", "nome": "Custo e oferta de capital",
+     "indicadores": [
+       {"id": "selic_meta", "metrica": "nivel_diff12", "rotulo": "Meta Selic",
+        "por_que": "Referência do custo de capital de transmissoras, EPCistas e fornecedores. Contratos de transmissão têm receita fixada em leilão ou autorização, então o custo de financiar a obra pesa na conta de quem investe.",
+        "limite": "Não indica, sozinha, mais ou menos obras: o cronograma das obras em andamento é regulado pelo ato legal."},
+       {"id": "juros_pj", "metrica": "nivel_diff12", "rotulo": "Juros médios do crédito a empresas",
+        "por_que": "Custo do capital de giro do fornecedor (estoque, produção sob encomenda) e dos seus clientes.",
+        "limite": "Média de todas as empresas e modalidades, não do setor elétrico; grandes transmissoras se financiam também por debêntures e bancos de fomento."},
+       {"id": "concessoes_pj", "metrica": "real_soma12_var", "rotulo": "Concessões de crédito a empresas (reais, 12 meses)",
+        "por_que": "Volume de crédito novo às empresas: sinal geral das condições de financiamento.",
+        "limite": "Inclui todos os setores; não separa investimento de capital de giro."},
+       {"id": "credito_pj_saldo", "metrica": "real_var12", "rotulo": "Saldo do crédito a empresas (real)",
+        "por_que": "Estoque de dívida bancária das empresas: complementa a leitura das concessões.",
+        "limite": "Mesmo limite das concessões; o saldo reage devagar."}
+     ]},
+    {"id": "custos", "nome": "Custos e reajustes",
+     "indicadores": [
+       {"id": "cambio_usd", "metrica": "nivel_var12", "rotulo": "Dólar (média mensal)",
+        "por_que": "Matérias-primas e componentes cotados em dólar (cobre, aço, componentes importados) entram no custo dos equipamentos, e o câmbio muda a competição com importados.",
+        "limite": "O radar não mede a fração importada de cada equipamento nem o repasse ao preço."},
+       {"id": "ipca_12m", "metrica": "nivel_diff12", "rotulo": "IPCA em 12 meses",
+        "por_que": "A receita (RAP) dos contratos de transmissão é reajustada por índice de preços: segundo o SIGET, 370 de 411 contratos usam o IPCA e 41 o IGP-M (campo SigIndice, 04/11/2026).",
+        "limite": "O reajuste da receita não indica compra de equipamento; é contexto da saúde financeira de quem compra."}
+     ]},
+    {"id": "industria", "nome": "Atividade da indústria fornecedora",
+     "indicadores": [
+       {"id": "pim_eletricos", "metrica": "media12_var", "rotulo": "Produção da indústria de máquinas e materiais elétricos (CNAE 27)",
+        "por_que": "Atividade da indústria que fabrica parte dos equipamentos do radar: dá contexto de capacidade e de demanda agregada do fornecedor.",
+        "limite": "Inclui eletrodomésticos, lâmpadas e outros bens; não mede investimento em transmissão nem compras de concessionárias (D27)."},
+       {"id": "pim_maquinas", "metrica": "media12_var", "rotulo": "Produção de máquinas e equipamentos (CNAE 28)",
+        "por_que": "Termômetro do investimento industrial em bens de capital.",
+        "limite": "Não inclui a maior parte dos equipamentos elétricos de subestação."},
+       {"id": "ibcbr_sa", "metrica": "media12_var", "rotulo": "IBC-Br (atividade econômica)",
+        "por_que": "Atividade econômica geral: pano de fundo para a demanda de energia e para o caixa das empresas.",
+        "limite": "A expansão da transmissão é planejada pelo MME, pela EPE e pelo ONS e responde pouco ao ciclo de curto prazo."}
+     ]}
+  ]
+}

@@ -94,9 +94,60 @@ def _secao_mudancas(eventos: Optional[pd.DataFrame], op: pd.DataFrame) -> str:
             f"<div style='overflow-x:auto'><table><tr><th>Id ONS</th><th>Empreendimento</th><th>O que mudou</th><th>Antes</th><th>Depois</th></tr>{linhas}</table></div>")
 
 
+def _contagem_anos(s: pd.Series, titulo: str, nota: str = "") -> str:
+    linhas = "".join(f"<tr><td>{E(k)}</td><td class='r'>{int(v)}</td></tr>" for k, v in s.items())
+    return f"<div class='box'><div class='kicker'>{E(titulo)}</div><table>{linhas}</table><div class='small'>{E(nota)}</div></div>"
+
+
+def _secao_contexto(ctx: Optional[dict]) -> str:
+    """Contexto de mercado: pipeline do SIGET, indicadores econômicos públicos e a previsão setorial registrada."""
+    if not ctx:
+        return "<p class='small'>Contexto econômico indisponível nesta execução.</p>"
+    from .contexto import frase
+    partes = ["""<p class="aside"><b>Como usar.</b> Nada desta seção muda a lista de oportunidades nem o score. Serve para conversar sobre o
+cenário com o comprador e pesar riscos de custo, câmbio e crédito. Cada indicador traz o canal possível com este mercado e o que ele
+<b>não</b> permite concluir. Nenhuma relação aqui foi medida como causal.</p>"""]
+    pl = ctx.get("pipeline")
+    if pl:
+        ano = pl["ano_corrente"]
+        ref = pl.get("data_referencia")
+        parcial = f"{ano} até {ref:%d/%m}" if ref is not None else f"{ano} parcial"
+        partes.append("<h3>A expansão que o radar acompanha (SIGET)</h3><div class='grid'>"
+                      + _contagem_anos(pl["em_andamento_por_ano_operacao"], "Em andamento, por ano de operação (ato legal)", "Contagem de empreendimentos, não valores.")
+                      + _contagem_anos(pl["atos_autorizativos_por_ano"], "Atos autorizativos publicados (REA/DSP)", f"Reforços e melhorias autorizados; {parcial}.")
+                      + _contagem_anos(pl["contratos_assinados_por_ano"], "Contratos de concessão assinados", f"Lotes de leilão depois da assinatura; {parcial}. Ano sem contrato aparece como 0.")
+                      + "</div>")
+    inds = ctx.get("indicadores") or []
+    if inds:
+        linhas = []
+        grupo = None
+        for i in inds:
+            if i["grupo"] != grupo:
+                grupo = i["grupo"]
+                linhas.append(f"<tr><th colspan='3' style='padding-top:14px'>{E(grupo)}</th></tr>")
+            fonte = f"{E(i.get('instituicao', ''))}, {E(i.get('provedor', ''))} {E(i.get('codigo', ''))}" + (
+                f"; coletado em {E(str(i.get('coletado_em'))[:10])}" if i.get("coletado_em") else "")
+            linhas.append(f"<tr><td style='width:34%'><b>{E(frase(i))}</b><div class='small'>{fonte}</div></td>"
+                          f"<td>{E(i.get('por_que', ''))}</td><td class='small'>{E(i.get('limite', ''))}</td></tr>")
+        partes.append("<h3>Indicadores econômicos</h3><div style='overflow-x:auto'><table><tr><th>Última leitura</th>"
+                      "<th>Por que pode importar</th><th>O que não dá para concluir</th></tr>" + "".join(linhas) + "</table></div>")
+    pv = ctx.get("previsao")
+    if pv:
+        fx = lambda v: f"{v:+.1f}".replace("-", "−").replace(".", ",")
+        linhas = "".join(f"<tr><td>{'com juros' if l['modelo'] == 'juros' else 'só histórico'}</td><td>{l['horizonte']} meses ({E(l['alvo'][:7])})</td>"
+                         f"<td class='r'>{fx(l['valor'])}</td><td class='r'>{fx(l['lo80'])} a {fx(l['hi80'])}</td></tr>" for l in pv["linhas"])
+        partes.append(f"""<h3>Previsão registrada da indústria CNAE 27</h3>
+<p class="small">Variação em 12 meses da produção (log × 100), especificação fixa <code>setorial_v1</code>, registrada em {E(pv['registrado_em'][:10])} no
+registro público (origem {E(pv['origem'][:7])}).</p>
+<div style="overflow-x:auto"><table><tr><th>Modelo</th><th>Horizonte</th><th class="r">Previsão</th><th class="r">Margem de 80%</th></tr>{linhas}</table></div>
+<p class="small">A margem é muito mais larga que a diferença entre os modelos: a previsão quase não informa a direção. Na calibração, a margem conteve
+o realizado em menos de 80% das vezes. É uma série da indústria fornecedora, não da demanda da transmissão (D27).</p>""")
+    return "\n".join(partes)
+
+
 def gerar(op: pd.DataFrame, ev: pd.DataFrame, cats: dict, perfil: dict, pasta: Path, top: int = 30,
           hoje: Optional[pd.Timestamp] = None, fontes: Optional[dict] = None,
-          eventos: Optional[pd.DataFrame] = None) -> dict:
+          eventos: Optional[pd.DataFrame] = None, contexto: Optional[dict] = None) -> dict:
     """Grava oportunidades.csv, evidencias.csv e relatorio.html na pasta. Devolve os caminhos."""
     hoje = hoje or pd.Timestamp.today().normalize()
     pasta.mkdir(parents=True, exist_ok=True)
@@ -166,6 +217,9 @@ não a previsão da transmissora. O <b>score</b> (0–100) só ordena o que olha
 {_tabela_contagem(op.ufs.str.split(',').explode().replace('', '–'), 'UF das subestações')}
 {_tabela_contagem(ano, 'Ano de operação (ato legal)')}
 </div>
+
+<h2>Contexto de mercado</h2>
+{_secao_contexto(contexto)}
 
 <h2>O que mudou desde a última coleta</h2>
 {_secao_mudancas(eventos, op)}

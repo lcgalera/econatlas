@@ -51,6 +51,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `fonte-explorar TERMO [--conjunto NOME]` | Fase 1 do radar de oportunidades: lista conjuntos do portal da ANEEL ou baixa um conjunto e gera o perfil dos campos em `data/fontes/` (ver `docs/03-fonte-siget.md`) |
 | `siget-atualizar` | Fase 2: baixa só os arquivos do SIGET que a ANEEL atualizou e registra versões e eventos de mudança no histórico |
 | `siget-historico-exportar` / `siget-historico-importar` | Grava o histórico em `historico/*.csv` (só acrescenta) / carrega os CSVs num banco novo |
+| `contexto-atualizar` | Fase 5: baixa só as séries públicas do contexto econômico do radar (`catalog/contexto_radar.json`) |
 | `oportunidades [--perfil arq.json] [--top 30]` | Fase 3: oportunidades do SIGET para um perfil, com evidência por regra e score explicado; gera `relatorio.html` e CSVs em `data/relatorios/` (`docs/06-motor-de-oportunidades.md`) |
 | `siget-amostra [--n 20] [--aleatoria]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
 
@@ -104,7 +105,7 @@ catalog/series.json        catálogo público (metadados conferidos nas fontes o
 catalog/product_categories.json, perfil_demo.json   categorias de produto e perfil de demonstração do radar
 econatlas/
   providers/               BCB/SGS, BCB/Expectativas, IBGE/SIDRA, arquivos (e exportações da Macrodados), ckan (exploração de fontes), aneel_siget (visão por empreendimento)
-  intelligence/            motor de oportunidades: evidências (R1–R5), score e relatório
+  intelligence/            motor de oportunidades: evidências (R1–R5), score, histórico, contexto econômico e relatório
   storage.py               SQLite com versões (vintages) e arquivos brutos com SHA-256
   transforms.py            transformações declaradas
   payloads.py              dados que a interface consome (API local e site público)
@@ -119,14 +120,14 @@ avaliacoes/                avaliações humanas de relevância (conjunto de test
 historico/                 histórico do SIGET: coletas, eventos de mudança e estado (CSV, só acréscimos; ODbL)
 tests/                     pytest (inclui as guardas do repositório público)
 docs/01-avaliacao-inicial.md, 02-diagnostico-intelligence.md, 03-fonte-siget.md, 04-mercado-e-posicionamento.md,
-05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, DECISOES.md
+05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, 07-contexto-economico.md, DECISOES.md
 privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ```
 
 ## Radar SIGET (GitHub Actions, semanal)
 
 O workflow [`.github/workflows/radar-siget.yml`](.github/workflows/radar-siget.yml) roda **toda segunda-feira** (ou à mão, em *Actions › Radar SIGET › Run workflow*):
-carrega `historico/`, baixa o que mudou no SIGET, registra os eventos, acrescenta ao histórico, gera o relatório do perfil de demonstração
+carrega `historico/`, baixa o que mudou no SIGET, registra os eventos, acrescenta ao histórico, atualiza as séries do contexto, gera o relatório do perfil de demonstração
 (artefato `relatorio-radar` da execução, guardado por 90 dias) e faz o commit de `historico/`.
 
 ## Pendências

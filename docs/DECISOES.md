@@ -156,3 +156,9 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Licença:** dados da ANEEL sob ODbL, com atribuição em `historico/LEIAME.md`; a base derivada fica sob a mesma licença.
 **Limite:** em 04/11/2026 só existe a linha de base; a detecção de mudanças ainda não foi exercitada com dados reais.
 **Revisar quando:** o tamanho de `historico/` passar de alguns MB (o estado tem ~0,7 MB) ou houver clientes com perfis próprios, que precisarão de relatórios privados, fora do Actions público.
+
+### D34 · 04/11/2026 · Contexto econômico no relatório, fora do score
+**Como:** `intelligence/contexto.py` + `catalog/contexto_radar.json`. O relatório ganha a seção "Contexto de mercado", com o pipeline do próprio SIGET (contagens por ano), nove indicadores públicos do BCB e do IBGE (cada um com canal possível e limite, escritos antes de ver os valores) e a última previsão setorial registrada, com o aviso sobre a margem. O comando `contexto-atualizar` baixa só as séries usadas e entrou no workflow semanal.
+**Por que fora do score:** a relação entre esses indicadores e uma compra específica não foi medida. Ordenar oportunidades por eles seria associação frágil.
+**Elo concreto encontrado:** a receita de 370 dos 411 contratos de transmissão é reajustada pelo IPCA (e a de 41 pelo IGP-M), segundo o SIGET.
+**Achado da fonte:** nenhum contrato assinado em 2025. O relatório mostra o zero em vez de esconder o ano.

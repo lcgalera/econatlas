@@ -221,6 +221,7 @@ def main(argv=None):
     sa.add_argument("--semente", type=int, default=20261104, help="semente do sorteio (padrão: 20261104)")
 
     sub.add_parser("siget-atualizar", help="Fase 2: baixa os arquivos do SIGET que mudaram e registra versões e eventos no histórico")
+    sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
     sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
     sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
 
@@ -320,6 +321,9 @@ def main(argv=None):
             ev = historico.eventos(storage.connect(), r["coleta_id"])
             print("  " + ", ".join(f"{k}: {v}" for k, v in ev.assign(k=ev.tipo + " " + ev.rotulo).k.str.strip().value_counts().items()))
         print(sg.ATRIBUICAO)
+    elif args.cmd == "contexto-atualizar":
+        from .intelligence import contexto as ctxm
+        update(ctxm.series_usadas())
     elif args.cmd == "siget-historico-exportar":
         from .intelligence import historico
         print("historico/:", historico.exportar(storage.connect()))
@@ -342,7 +346,15 @@ def main(argv=None):
         pasta = Path(args.saida) if args.saida else config.DATA_DIR / "relatorios" / f"{perfil['id']}_{hoje:%Y-%m-%d}"
         from .intelligence import historico
         mudancas = historico.eventos(storage.connect())
-        out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"), eventos=mudancas)
+        from .intelligence import contexto as ctxm
+        conn = storage.connect()
+        ctx = {"pipeline": ctxm.pipeline(t, emp, hoje), "indicadores": ctxm.indicadores(conn, cat.load_catalog()),
+               "previsao": ctxm.previsao_setorial()}
+        faltam = [i["id"] for i in ctx["indicadores"] if "erro" in i]
+        if faltam:
+            print(f"  aviso: sem dados para {', '.join(faltam)} (rode `econatlas atualizar`)")
+        out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"),
+                              eventos=mudancas, contexto=ctx)
         print(f"{len(ops)} oportunidades para {perfil['nome']}")
         for k, v in out.items():
             print(f"  {k}: {v}")
