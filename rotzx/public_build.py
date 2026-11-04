@@ -1,10 +1,10 @@
 """Build público: site estático (HTML + JSON) só com séries de uso público.
 
-    .venv/bin/python -m econatlas publicar            # gera ./site
-    .venv/bin/python -m econatlas publicar --saida X  # gera em X
+    .venv/bin/python -m rotzx publicar            # gera ./site
+    .venv/bin/python -m rotzx publicar --saida X  # gera em X
 
 O resultado pode ser hospedado como está (GitHub Pages, Cloudflare Pages): não depende
-do servidor FastAPI. A interface é a mesma de web/, em modo estático (window.ECONATLAS_STATIC).
+do servidor FastAPI. A interface é a mesma de web/, em modo estático (window.ROTZX_STATIC).
 
 Regras (D20):
 - entram só séries com uso == "publico" no catálogo; tudo que é pessoal (Macrodados) fica de fora
@@ -26,7 +26,8 @@ import numpy as np
 from . import __version__, config, payloads, storage, transforms
 from . import catalog as cat
 
-MARCA = ".econatlas-publico"  # arquivo que identifica uma pasta gerada por este build (só ela pode ser apagada)
+MARCA_ANTIGA = ".econatlas-publico"  # pastas geradas até a v0.12 (D35)
+MARCA = ".rotzx-publico"  # arquivo que identifica uma pasta gerada por este build (só ela pode ser apagada)
 JANELA = 6                    # tamanho da sequência de valores usada na detecção de vazamento
 
 
@@ -41,11 +42,11 @@ def _write(path: Path, obj) -> None:
 
 def _prepare_dir(out: Path) -> None:
     if out.exists():
-        if not (out / MARCA).exists() and any(out.iterdir()):
+        if not any((out / m).exists() for m in (MARCA, MARCA_ANTIGA)) and any(out.iterdir()):
             raise RuntimeError(f"{out} existe e não foi gerada por este build; escolha outra pasta")
         shutil.rmtree(out)
     out.mkdir(parents=True)
-    (out / MARCA).write_text("pasta gerada por econatlas publicar; pode ser apagada e refeita\n")
+    (out / MARCA).write_text("pasta gerada por rotzx publicar; pode ser apagada e refeita\n")
 
 
 def _public_db(conn, dest: Path, permitidas: set) -> Dict:
@@ -88,7 +89,7 @@ def _static_assets(out: Path) -> None:
         shutil.copy2(config.WEB_DIR / name, out / name)
     html = (config.WEB_DIR / "index.html").read_text(encoding="utf-8")
     html = html.replace('href="/static/', 'href="').replace('src="/static/', 'src="')
-    html = html.replace('<script src="app.js', '<script>window.ECONATLAS_STATIC = true;</script>\n  <script src="app.js', 1)
+    html = html.replace('<script src="app.js', '<script>window.ROTZX_STATIC = true;</script>\n  <script src="app.js', 1)
     html = html.replace("Dados de fontes públicas oficiais (Banco Central do Brasil e IBGE), citados em cada indicador.",
                         "Versão pública: somente dados abertos (Banco Central do Brasil e IBGE), citados em cada indicador.")
     (out / "index.html").write_text(html, encoding="utf-8")
@@ -133,7 +134,7 @@ def build(out: Optional[Path] = None, conn=None, catalog: Optional[Dict] = None)
     prev_setores = [s for s in setorial.SETORES_PREVISAO if s in setores_pub]
     _write(data / "previsoes_setoriais.json", payloads.previsoes_setoriais(conn, prev_setores))
 
-    db_stats = _public_db(conn, data / "econatlas_publico.sqlite", permitidas)
+    db_stats = _public_db(conn, data / "rotzx_publico.sqlite", permitidas)
     _static_assets(out)
     meta = {"gerado_em": agora, "versao_codigo": __version__, "series": n_series, "setores_analise": setores_pub,
             "setores_previsao": prev_setores, "banco": db_stats,

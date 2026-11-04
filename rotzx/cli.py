@@ -1,12 +1,12 @@
 """Linha de comando do rotzx.
 
 Exemplos:
-  python -m econatlas atualizar                  # baixa todas as séries públicas
-  python -m econatlas atualizar ipca_mensal      # só uma série
-  python -m econatlas importar export.csv --id md_icms --nome "ICMS – SP" --unidade "R$ mil" \
+  python -m rotzx atualizar                  # baixa todas as séries públicas
+  python -m rotzx atualizar ipca_mensal      # só uma série
+  python -m rotzx importar export.csv --id md_icms --nome "ICMS – SP" --unidade "R$ mil" \
       --periodicidade mensal --instituicao "Sefaz-SP" --fonte "Macrodados (exportação)"
-  python -m econatlas qualidade
-  python -m econatlas servir                     # abre a interface em http://127.0.0.1:8000
+  python -m rotzx qualidade
+  python -m rotzx servir                     # abre a interface em http://127.0.0.1:8000
 """
 import argparse
 import shutil
@@ -165,7 +165,7 @@ def import_file(args):
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="econatlas")
+    p = argparse.ArgumentParser(prog="rotzx")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     a = sub.add_parser("atualizar", help="baixa séries dos provedores públicos")
@@ -352,7 +352,7 @@ def main(argv=None):
                "previsao": ctxm.previsao_setorial()}
         faltam = [i["id"] for i in ctx["indicadores"] if "erro" in i]
         if faltam:
-            print(f"  aviso: sem dados para {', '.join(faltam)} (rode `econatlas atualizar`)")
+            print(f"  aviso: sem dados para {', '.join(faltam)} (rode `rotzx atualizar`)")
         out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"),
                               eventos=mudancas, contexto=ctx)
         print(f"{len(ops)} oportunidades para {perfil['nome']}")
@@ -361,7 +361,7 @@ def main(argv=None):
         print(sg.ATRIBUICAO)
     elif args.cmd == "servir":
         import uvicorn
-        uvicorn.run("econatlas.api:app", host="127.0.0.1", port=args.porta)
+        uvicorn.run("rotzx.api:app", host="127.0.0.1", port=args.porta)
 
 
 if __name__ == "__main__":

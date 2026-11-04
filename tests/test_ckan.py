@@ -4,7 +4,7 @@ import zipfile
 
 import pandas as pd
 
-from econatlas.providers import ckan
+from rotzx.providers import ckan
 
 # Formato típico de CSV de órgão público brasileiro: cp1252, separador ";" e acentos nos nomes.
 CSV_EMPREENDIMENTOS = "IdeEmpreendimento;NomEmpreendimento;SigUF;DatPrevista\n1;Subestação Fictícia A;MG;2027-01-01\n2;LT Fictícia B;BA;\n3;SE Fictícia C;MG;2026-05-01\n".encode("cp1252")

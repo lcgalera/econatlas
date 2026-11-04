@@ -46,7 +46,7 @@ Não verifiquei a profundidade de cada produto no setor elétrico. **Nada aqui a
    As plataformas de obras são generalistas, e a imprensa não chega nesse nível. Isso só se confirma se o SIGET trouxer módulos e equipamentos.
 2. **Alertas de mudança**, que são a razão para voltar ao produto: nova obra, nova data prevista, atraso, antecipação, mudança de situação.
    O padrão de vintages com SHA-256 do projeto já é a base técnica disso.
-3. **Rastreabilidade**, que o EconAtlas/rotzx já pratica: cada linha com fonte, data de coleta e link. Isso dá confiança, mas sozinho não gera venda.
+3. **Rastreabilidade**, que o rotzx já pratica: cada linha com fonte, data de coleta e link. Isso dá confiança, mas sozinho não gera venda.
 4. **Contexto econômico do setor** (juros, crédito PJ, produção da CNAE 27): complemento. Sozinho não sustenta preço (ver o diagnóstico: o sinal é fraco).
 
 ## 4. Mudanças de rumo que eu recomendo

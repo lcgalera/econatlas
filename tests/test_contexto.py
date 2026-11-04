@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from econatlas import storage
-from econatlas.catalog import SeriesMeta
-from econatlas.intelligence import contexto, relatorio
-from econatlas.providers import FetchResult
+from rotzx import storage
+from rotzx.catalog import SeriesMeta
+from rotzx.intelligence import contexto, relatorio
+from rotzx.providers import FetchResult
 
 IDX = pd.date_range("2020-01-01", "2026-09-01", freq="MS")
 
@@ -71,7 +71,7 @@ def test_indicadores_so_publicos_e_falta_de_dado_aparece(tmp_path):
 
 
 def test_configuracao_real_usa_series_publicas_do_catalogo():
-    from econatlas import catalog as cat
+    from rotzx import catalog as cat
     c = cat.load_catalog()
     for g in contexto.carregar_config()["grupos"]:
         for i in g["indicadores"]:

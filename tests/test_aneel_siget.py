@@ -2,7 +2,7 @@
 import pandas as pd
 import pytest
 
-from econatlas.providers import aneel_siget as sg
+from rotzx.providers import aneel_siget as sg
 
 
 def _df(rows, cols):

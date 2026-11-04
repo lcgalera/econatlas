@@ -39,28 +39,28 @@ jobs:
         run: python -m pytest -q
 
       - name: Carregar o registro público (banco novo a cada execução)
-        run: python -m econatlas registro-importar
+        run: python -m rotzx registro-importar
 
       - name: Baixar dados abertos (BCB, IBGE, Focus)
-        run: python -m econatlas atualizar
+        run: python -m rotzx atualizar
 
       - name: Previsões do mês (IPCA e setor elétrico, IBGE 3.27)
         run: |
-          python -m econatlas prever
-          python -m econatlas prever-setor
+          python -m rotzx prever
+          python -m rotzx prever-setor
 
       - name: Backtest do IPCA e calibração das faixas setoriais
         run: |
-          python -m econatlas backtest
-          python -m econatlas calibrar-setorial
+          python -m rotzx backtest
+          python -m rotzx calibrar-setorial
 
       - name: Acrescentar ao registro e verificar que nada antigo mudou
         run: |
-          python -m econatlas registro-exportar
-          python -m econatlas registro-verificar --contra HEAD
+          python -m rotzx registro-exportar
+          python -m rotzx registro-verificar --contra HEAD
 
       - name: Site público
-        run: python -m econatlas publicar
+        run: python -m rotzx publicar
 
       - name: Commit do registro
         run: |

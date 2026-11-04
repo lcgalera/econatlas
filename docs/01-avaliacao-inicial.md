@@ -100,7 +100,7 @@ O que **não** é diferencial: ter as séries (todo mundo tem) e ter IA (vira co
 
 | Camada | Escolha | Por quê | Quando trocar |
 |---|---|---|---|
-| Núcleo analítico | **Pacote Python** (`econatlas/`) com pandas | É onde fica a propriedade intelectual; independe da interface | Nunca: é o ativo |
+| Núcleo analítico | **Pacote Python** (`rotzx/`) com pandas | É onde fica a propriedade intelectual; independe da interface | Nunca: é o ativo |
 | Armazenamento | **SQLite** (biblioteca padrão) + arquivos brutos imutáveis | Zero instalação; um arquivo; versionável | DuckDB para análises pesadas; Postgres com multiusuário |
 | API | **FastAPI** | Simples, documentação automática em `/docs` | — |
 | Interface | **HTML + JavaScript puro + ECharts (CDN)** servidos pela própria API | Nenhum passo de build; fácil de entender | Next.js quando houver login, páginas públicas com SEO ou equipe |

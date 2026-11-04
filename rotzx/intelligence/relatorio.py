@@ -75,7 +75,7 @@ def _tabela_contagem(s: pd.Series, titulo: str, n: int = 10) -> str:
 def _secao_mudancas(eventos: Optional[pd.DataFrame], op: pd.DataFrame) -> str:
     """'O que mudou': eventos da última coleta para os empreendimentos do relatório (e os novos)."""
     if eventos is None or eventos.attrs.get("coleta_id") is None:
-        return ("<p class='small'>O histórico ainda não foi iniciado. Rode <code>econatlas siget-atualizar</code> a cada coleta "
+        return ("<p class='small'>O histórico ainda não foi iniciado. Rode <code>rotzx siget-atualizar</code> a cada coleta "
                 "para ver aqui o que mudou de uma vez para a outra.</p>")
     quando = (eventos.attrs.get("coletado_em") or "")[:10]
     if not eventos.attrs.get("anterior_em"):
@@ -239,7 +239,7 @@ não a previsão da transmissora. O <b>score</b> (0–100) só ordena o que olha
 <li><b>Limites da fonte:</b> sem previsão da transmissora, sem município, potência declarada em cerca de metade dos equipamentos, quantidades de manobra raras. Lotes de leilão ainda não assinados não aparecem.</li>
 <li><b>Precisão medida:</b> {E(precisao_medida())}</li>
 </ul>
-<p class="small">Gerado em {gerado} por <code>econatlas oportunidades</code> (categorias {E(cats.get('versao'))}). Arquivos da fonte: {fontes_txt}.<br>
+<p class="small">Gerado em {gerado} por <code>rotzx oportunidades</code> (categorias {E(cats.get('versao'))}). Arquivos da fonte: {fontes_txt}.<br>
 Contém dados da ANEEL (SIGET, Portal de Dados Abertos), disponibilizados sob a licença ODbL. Esta lista é uma base derivada sob a mesma licença.</p>
 </div></body></html>"""
     (pasta / "relatorio.html").write_text(doc, encoding="utf-8")

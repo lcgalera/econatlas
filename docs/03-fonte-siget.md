@@ -7,9 +7,9 @@ Coleta: 04/11/2026, 13:22 UTC (arquivos gerados pela ANEEL em 02/11/2026 e 04/11
 ## 1. Como foi feito
 
 ```bash
-.venv/bin/python -m econatlas fonte-explorar siget                                                # lista os recursos
-.venv/bin/python -m econatlas fonte-explorar x --conjunto sistema-de-gestao-da-transmissao-siget   # baixa e gera o perfil
-.venv/bin/python -m econatlas siget-amostra                                                       # visão por empreendimento + amostra
+.venv/bin/python -m rotzx fonte-explorar siget                                                # lista os recursos
+.venv/bin/python -m rotzx fonte-explorar x --conjunto sistema-de-gestao-da-transmissao-siget   # baixa e gera o perfil
+.venv/bin/python -m rotzx siget-amostra                                                       # visão por empreendimento + amostra
 ```
 
 O comando baixou 17 CSVs (~175 MB, sendo 135 MB a lista de módulos do reajuste da RAP) para `data/fontes/aneel/sistema-de-gestao-da-transmissao-siget/brutos/`,
@@ -125,7 +125,7 @@ Quem avalia é você (Lucas), não o classificador. A meta experimental do plano
 ## 8. Amostra aleatória (avaliação 2)
 
 ```bash
-.venv/bin/python -m econatlas siget-amostra --aleatoria   # semente 20261104, exclui os 20 da amostra anterior
+.venv/bin/python -m rotzx siget-amostra --aleatoria   # semente 20261104, exclui os 20 da amostra anterior
 ```
 
 Sorteio simples de 20 entre os **612 elegíveis** (mesma regra de elegibilidade, sem os 20 já avaliados), para estimar a precisão sem o viés da primeira amostra.

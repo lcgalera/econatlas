@@ -5,10 +5,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from econatlas import registro, storage
-from econatlas.catalog import SeriesMeta
-from econatlas.forecast import focus, registry
-from econatlas.providers import FetchResult
+from rotzx import registro, storage
+from rotzx.catalog import SeriesMeta
+from rotzx.forecast import focus, registry
+from rotzx.providers import FetchResult
 
 
 def _meta(sid, uso="publico"):

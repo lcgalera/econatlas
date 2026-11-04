@@ -5,8 +5,8 @@ from datetime import datetime, timezone
 import pandas as pd
 import pytest
 
-from econatlas.intelligence import historico, relatorio
-from econatlas.providers import aneel_siget as sg
+from rotzx.intelligence import historico, relatorio
+from rotzx.providers import aneel_siget as sg
 
 
 def _emp(linhas, fontes):
@@ -81,7 +81,7 @@ def test_relatorio_mostra_mudancas_so_a_partir_da_segunda_coleta(conn, tmp_path)
 
 
 def test_baixar_pula_arquivo_que_o_portal_nao_atualizou(monkeypatch, tmp_path):
-    from econatlas.providers import ckan
+    from rotzx.providers import ckan
     recursos = [{"nome": n, "url": f"https://x/{n}", "modificado": "2026-11-02T05:00:00", "formato": "csv"} for n in sg.ARQUIVOS.values()]
     monkeypatch.setattr(ckan, "conjunto", lambda portal, nome: {"recursos": recursos})
     baixados = []

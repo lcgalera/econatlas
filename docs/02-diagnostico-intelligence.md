@@ -126,7 +126,7 @@ A separação entre `projeto` e `fonte_registro` existe para que duas fontes (SI
 
 ### Arquivos a criar (fases 2–4)
 
-`econatlas/providers/aneel_siget.py` (coletor real, depois do perfil), `econatlas/intelligence/{projetos,evidencia,matching,scoring}.py`, `catalog/product_categories.json`, `web/oportunidades.js`, testes correspondentes.
+`rotzx/providers/aneel_siget.py` (coletor real, depois do perfil), `rotzx/intelligence/{projetos,evidencia,matching,scoring}.py`, `catalog/product_categories.json`, `web/oportunidades.js`, testes correspondentes.
 
 ### Arquivos existentes que vão mudar
 

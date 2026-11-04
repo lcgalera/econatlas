@@ -45,6 +45,8 @@ CREATE INDEX IF NOT EXISTS ix_vintages_series ON vintages(series_id, id);
 def connect(db_file=None) -> sqlite3.Connection:
     path = db_file or config.DB_FILE
     path.parent.mkdir(parents=True, exist_ok=True)
+    if db_file is None and not path.exists() and config.DB_FILE_ANTIGO.exists():
+        config.DB_FILE_ANTIGO.rename(path)  # banco criado antes da troca de nome (D35)
     conn = sqlite3.connect(path)
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)

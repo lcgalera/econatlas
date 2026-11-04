@@ -1,11 +1,11 @@
 # rotzx — Motor de oportunidades (Fase 3)
 
-Data: 04/11/2026. Código: `econatlas/intelligence/` (`evidencia.py`, `scoring.py`, `relatorio.py`).
+Data: 04/11/2026. Código: `rotzx/intelligence/` (`evidencia.py`, `scoring.py`, `relatorio.py`).
 Catálogo: `catalog/product_categories.json` (versão `categorias_v1`). Perfil de demonstração: `catalog/perfil_demo.json`.
 
 ```bash
-.venv/bin/python -m econatlas fonte-explorar x --conjunto sistema-de-gestao-da-transmissao-siget   # baixa o SIGET (uma vez por coleta)
-.venv/bin/python -m econatlas oportunidades [--perfil arquivo.json] [--top 30]                    # relatório HTML + CSV
+.venv/bin/python -m rotzx fonte-explorar x --conjunto sistema-de-gestao-da-transmissao-siget   # baixa o SIGET (uma vez por coleta)
+.venv/bin/python -m rotzx oportunidades [--perfil arquivo.json] [--top 30]                    # relatório HTML + CSV
 ```
 
 Saída em `data/relatorios/<perfil>_<data>/` (fora do git): `relatorio.html` (abre no navegador e imprime em PDF), `oportunidades.csv`
@@ -98,8 +98,8 @@ O nível de evidência ("confirmado" ou "inferência técnica") é mostrado à p
 ## 7. Histórico e mudanças (Fase 2)
 
 ```bash
-.venv/bin/python -m econatlas siget-atualizar            # baixa só o que o portal atualizou; registra versões e eventos
-.venv/bin/python -m econatlas siget-historico-exportar   # acrescenta a historico/*.csv
+.venv/bin/python -m rotzx siget-atualizar            # baixa só o que o portal atualizou; registra versões e eventos
+.venv/bin/python -m rotzx siget-historico-exportar   # acrescenta a historico/*.csv
 ```
 
 - **Coleta seletiva:** só os 7 arquivos que o motor usa (~30 MB, em vez de 175 MB). Um arquivo só é baixado de novo se a data de modificação declarada pelo portal mudou,
