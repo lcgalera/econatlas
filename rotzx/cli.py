@@ -227,7 +227,7 @@ def main(argv=None):
     mu.add_argument("--ano", default=None, help="ano do comércio (padrão: o último ano completo)")
     mu.add_argument("--sem-noticias", action="store_true", help="não busca manchetes")
     mu.add_argument("--so-noticias", action="store_true", help="só manchetes (não refaz o comércio, que leva ~10 min)")
-    mu.add_argument("--so-relacoes", action="store_true", help="só votos na ONU e disputas na OMC (D42)")
+    mu.add_argument("--so-relacoes", action="store_true", help="só votos na ONU, disputas na OMC e conflitos armados (D42, D43)")
     sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
     sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
     sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")

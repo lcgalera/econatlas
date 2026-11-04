@@ -416,8 +416,35 @@ function blocoExterno(w, eu) {
   const cp = Object.entries(w.contrapartes || {});
   return `<div class="kicker" style="margin:16px 0 6px">Visão externa: disputas com outros países desde ${w.recentes_desde}</div>
     ${w.recentes_total ? `<p class="resumo">${w.recentes_total} disputa${w.recentes_total > 1 ? "s" : ""}; com quem: ${cp.slice(0, 5).map(([k, n]) => `${esc(nomeOMC(k))} (${n})`).join(", ")}${cp.length > 5 ? " e outros" : ""}.</p>
-      <ul class="disputas">${w.recentes.slice(0, 3).map((x) => linhaDisputa(x, eu)).join("")}</ul>` : vazio(`Nenhuma disputa na OMC desde ${w.recentes_desde}.`)}
-    <p class="fonte" style="margin-top:8px">Conflitos armados (base de Uppsala) entram aqui em seguida.</p>`;
+      <ul class="disputas">${w.recentes.slice(0, 3).map((x) => linhaDisputa(x, eu)).join("")}</ul>` : vazio(`Nenhuma disputa na OMC desde ${w.recentes_desde}.`)}`;
+}
+
+// ---- Conflitos armados (D43): UCDP/PRIO, só o que a base mede (25+ mortes em combate no ano, um governo de um dos lados) ----
+const versaoUCDP = () => (M?.conflitos?.versao || "").replace(/^(\d\d)(\d)$/, "$1.$2");
+const contra = (c) => `${c.lado_a.map(esc).join(", ")} × ${c.lado_b.map(esc).join(", ")}`;
+function linhaConflito(c, doPais) {
+  const anos = doPais ? c.anos_pais : c.anos;
+  const periodo = (doPais ? "participação: " : "") + (anos.length > 1 ? `${anos[0]}–${anos[anos.length - 1]}` : `${anos[0]}`);
+  let papel = "";
+  if (doPais) {
+    papel = c.papel === "apoio com tropas"
+      ? `apoio com tropas a ${c.apoia.map(esc).join(", ")}${c.apoiadores_no_lado > 5 ? ` (um entre ${c.apoiadores_no_lado} países desse lado: a base inclui tropas de missões multinacionais, como as de paz da ONU)` : ""}`
+      : c.papel === "lado principal" ? "lado principal" : "no território do país";
+  }
+  return `<li><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.local)}: ${contra(c)}</a>
+    <span>${papel ? papel + " · " : ""}${esc(c.tipo)} · disputa por ${esc(c.disputa)}${c.territorio ? ` (${esc(c.territorio)})` : ""} · ${periodo}
+      ${c.ultimo_ano === M.conflitos.ultimo_ano ? ` · ${doPais ? "o conflito " : ""}em ${c.ultimo_ano}: ${c.guerra_no_ultimo_ano ? "<b>1.000 ou mais mortes em combate</b>" : "25 a 999 mortes em combate"}` : ""}</span></li>`;
+}
+
+function blocoConflitos(d) {
+  const l = d.relacoes?.conflitos;
+  if (!l || !M?.conflitos) return "";
+  const k = M.conflitos;
+  return `<div class="bloco"><h3>Conflitos armados, ${k.desde}–${k.ultimo_ano}</h3>${fonte("ucdp", `versão ${versaoUCDP()}`)}
+    ${l.length ? `<ul class="disputas">${l.slice(0, 6).map((c) => linhaConflito(c, true)).join("")}</ul>${l.length > 6 ? `<p class="fonte">e mais ${l.length - 6} no período.</p>` : ""}`
+      : vazio(`Nenhum conflito armado registrado de ${k.desde} a ${k.ultimo_ano}.`)}
+    <p class="fonte" style="margin-top:10px">Conta só conflitos em que um dos lados é um governo e que deixaram 25 ou mais mortes em combate no ano.
+      Nomes como na base, em inglês.</p></div>`;
 }
 
 function blocoEconomia(d) {
@@ -465,6 +492,7 @@ function painelPais(f) {
       ${d ? blocoEconomia(d) : ""}
       ${d?.relacoes?.omc ? `<div class="bloco"><h3>Disputas do Brasil na OMC</h3>${fonte("omc", "títulos oficiais em inglês")}
         <p class="resumo">${d.relacoes.omc.total} disputas desde 1995, como reclamante ou demandado.</p>${blocoExterno(d.relacoes.omc, "Brasil")}</div>` : ""}
+      ${d ? blocoConflitos(d) : ""}
       ${N ? blocoManchetes(N.mundo || [], "Em alta no mundo", "manchetes em português dos últimos 2 dias sobre geopolítica e temas globais (seleção por palavras-chave)") : ""}
       ${rodape}`;
   }
@@ -474,7 +502,7 @@ function painelPais(f) {
   }
   return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Visto do Brasil</div><h2>${esc(nome)}</h2>
     <p class="sub">Relação com o Brasil, economia e o que está acontecendo.</p></header>
-    ${d ? blocoComercio(d) + blocoRelacoes(d, nome) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
+    ${d ? blocoComercio(d) + blocoRelacoes(d, nome) + blocoConflitos(d) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
     ${N ? blocoManchetes(N.paises?.[f.id] || [], "Manchetes", "manchetes em português dos últimos 7 dias que citam o país no título") : ""}
     <div class="bloco"><span class="selo">interpretação · em breve</span><h3>Por que importa para o Brasil</h3>
       <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação vai aparecer marcado</p>${vazio("Ainda não escrito.")}</div>
@@ -491,6 +519,7 @@ function renderEstado() {
   if (M?.ano_comercio) partes.push(`comércio ${esc(M.ano_comercio)}`);
   if (M?.onu?.ano) partes.push(`votos na ONU ${esc(M.onu.ano)}`);
   if (M?.fontes?.omc) partes.push("disputas na OMC");
+  if (M?.conflitos) partes.push(`conflitos ${M.conflitos.ultimo_ano}`);
   const ok = N && !falhas;
   document.getElementById("estado").innerHTML = `<i class="ponto${ok ? "" : " aviso"}"></i>
     <b>${N ? (falhas ? `${falhas} fonte${falhas > 1 ? "s" : ""} sem resposta` : "Dados abertos") : "Coleta indisponível"}</b>
@@ -500,7 +529,7 @@ function renderEstado() {
 
 // ---------- coluna da direita, sem país aberto: "Mundo agora" ----------
 let aba = "agora", filtro = "todas";
-const ABAS_RESUMO = [["agora", "Agora"], ["brasil", "No Brasil"], ["comercio", "Comércio do Brasil"]];
+const ABAS_RESUMO = [["agora", "Agora"], ["brasil", "No Brasil"], ["conflitos", "Conflitos"], ["comercio", "Comércio do Brasil"]];
 const FILTROS = [["todas", "Todas"], ...Object.entries(NOMES_CAT)];
 
 function listaDaAba() { return aba === "brasil" ? (N?.paises?.["076"] || []) : (N?.mundo || []); }
@@ -520,6 +549,18 @@ function corpoManchetes() {
     <p class="regra">Mais recentes primeiro, sem ranking de importância. ${aba === "brasil" ? "Manchetes que citam o Brasil no título." : "Geopolítica e temas que afetam o mundo."}
       Categorias por palavras-chave no título; podem errar.</p>
     <div class="corpo">${corpo}</div>`;
+}
+
+function corpoConflitos() {
+  const k = M?.conflitos;
+  if (!k) return `<div class="corpo"><div class="nada"><h3>Sem dados de conflitos</h3><p>A coleta da base de Uppsala ainda não rodou.</p></div></div>`;
+  const a = k.mundo.ativos;
+  return `<div class="corpo" style="padding-top:22px">${fonte("ucdp", `versão ${versaoUCDP()}`)}
+    <div class="kpis"><div class="kpi"><span>Conflitos armados em ${k.ultimo_ano}</span><b>${k.mundo.total}</b></div>
+      <div class="kpi"><span>Com 1.000 ou mais mortes em combate</span><b>${k.mundo.guerras}</b></div></div>
+    <p class="regra" style="margin:14px 0 0">Os mais intensos primeiro, depois por lugar. Só conflitos com um governo de um dos lados e 25 ou mais mortes
+      em combate no ano; protestos e crises sem combate não entram. Nomes como na base, em inglês.</p>
+    <ul class="disputas" style="margin-top:8px">${a.map((c) => linhaConflito(c, false)).join("")}</ul></div>`;
 }
 
 function corpoComercio() {
@@ -543,7 +584,7 @@ function renderResumo() {
   $r.innerHTML = `<div class="cab"><div class="kicker">Seu ponto de partida</div><h2>Mundo agora</h2>
       <p class="sub">O que está acontecendo e como chega ao Brasil. Clique num país para ver a relação dele com o Brasil.</p></div>
     <div class="abas-topo" role="tablist">${ABAS_RESUMO.map(([k, r]) => `<button type="button" role="tab" data-aba="${k}" aria-selected="${k === aba}">${esc(r)}</button>`).join("")}</div>
-    ${aba === "comercio" ? corpoComercio() : corpoManchetes()}
+    ${aba === "comercio" ? corpoComercio() : aba === "conflitos" ? corpoConflitos() : corpoManchetes()}
     <div class="rodape"><i class="ponto${N ? "" : " aviso"}"></i>${N ? `Última coleta de manchetes: ${hora(N.gerado_em)}` : "Nenhuma coleta de manchetes carregada"} · imagem do planeta: Blue Marble (NASA)</div>`;
   $r.querySelectorAll("[data-aba]").forEach((b) => (b.onclick = () => { aba = b.dataset.aba; filtro = "todas"; renderResumo(); }));
   $r.querySelectorAll("[data-filtro]").forEach((b) => (b.onclick = () => { filtro = b.dataset.filtro; renderResumo(); }));

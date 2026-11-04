@@ -216,3 +216,19 @@ comércio (superávit ou déficit, Comex Stat), votos na ONU e disputas na OMC.
 - Blocos e alianças pelo Wikidata: a consulta trouxe o México como membro do Mercosul e deixou de fora a Holanda, na OTAN e na UE.
 - Conflitos armados (UCDP, Uppsala): a API agora exige chave de acesso e o site de downloads continuou bloqueado na rede do ambiente.
 **Operação:** `rotzx mundo-atualizar --so-relacoes`; a coleta mensal do workflow Globo já inclui as duas fontes. Se uma falhar, a falha fica em `falhas` e a outra segue.
+
+### D43 · 04/11/2026 · Conflitos armados pela base de Uppsala (UCDP/PRIO)
+**Fonte:** UCDP/PRIO Armed Conflict Dataset (Uppsala Conflict Data Program, CC BY 4.0), versão mais recente da página de downloads
+(26.1, que cobre até 2025). A API da UCDP agora pede chave; o arquivo de download não pede.
+**O que a base mede:** conflitos armados em que um dos lados é um governo e que deixaram 25 ou mais mortes em combate no ano. Para cada
+um, informa os lados, quem apoia com tropas, o que está em disputa (território, governo ou os dois), o tipo (entre Estados, interno,
+interno com tropas estrangeiras) e a intensidade (25 a 999, ou 1.000 ou mais mortes em combate no ano). Protestos, crises diplomáticas e
+violência abaixo desse limite não entram, e o painel avisa isso.
+**Como aparece:**
+- No painel de cada país, os conflitos dos últimos 5 anos em que o país foi lado principal, apoiou com tropas ou que ocorreram no território
+  dele, com os anos de participação do país.
+- No "Mundo agora", a aba "Conflitos" lista os do último ano, os mais intensos primeiro.
+**Cuidado de leitura:** a base registra como "apoio com tropas" também os países que mandam tropas para missões multinacionais, como as de paz
+da ONU (o Brasil aparece assim na República Centro-Africana, ao lado de outros 38 países). Quando há mais de 5 países do mesmo lado, o painel
+mostra quantos são e explica isso. Os nomes ficam como na base, em inglês.
+**Códigos:** os países do protótipo foram ligados aos códigos Gleditsch & Ward da UCDP e conferidos contra os nomes "Government of …" da própria base.
