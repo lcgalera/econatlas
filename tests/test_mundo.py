@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from rotzx.mundo import bancomundial, build, comex, gdelt
+from rotzx.mundo import bancomundial, build, comex, gdelt, omc, onu
 from rotzx.mundo.paises import PAISES, POR_ISO_NUM
 
 
@@ -191,3 +191,84 @@ def test_noticias_combinam_rss_e_mantem_historico(monkeypatch, tmp_path):
     assert [m["titulo"] for m in n["paises"]["156"]] == ["China anuncia compra recorde de soja"]
     assert n["falhas"] == {"rss:Ruim": "OSError"} and n["diagnostico"]["rss_itens"] == 2
     assert (tmp_path / "noticias.js").exists()
+
+
+# ---- D42: votos na ONU e disputas na OMC (fixtures sintéticas no formato real) ----
+
+def test_onu_escolhe_arquivos_da_versao_mais_recente():
+    meta = {"data": {"latestVersion": {"versionNumber": 39, "releaseTime": "2026-07-30T15:57:56Z", "files": [
+        {"dataFile": {"id": 10, "filename": "IdealpointestimatesAll_Jun2024.csv"}},
+        {"dataFile": {"id": 20, "filename": "IdealpointestimatesFP_2026FP.csv"}},
+        {"dataFile": {"id": 15, "filename": "AgreementScores.csv"}},
+        {"dataFile": {"id": 11, "filename": "AgreementScoresAll_Jun2024.csv"}}]}}}
+    a = onu.arquivos(meta)
+    assert a["concordancia"]["id"] == 15 and a["ideal"]["id"] == 20 and a["publicado"] == "2026-07-30"
+    with pytest.raises(ValueError):
+        onu.arquivos({"data": {"latestVersion": {"files": []}}})
+
+
+def test_onu_concordancia_com_o_brasil_media_e_posicao(tmp_path):
+    ideal = tmp_path / "ideal.csv"
+    ideal.write_text('"","ccode","iso3c","year"\n"1",140,"BRA",2024\n"2",2,"USA",2024\n"3",160,"ARG",2024\n"4",710,"CHN",2024\n"5",999,"NA",2024\n')
+    agree = tmp_path / "agree.csv"
+    linhas = ['"","session.x","ccode1","ccode2","agree","year"']
+    for i, (a, b, v, ano) in enumerate([(140, 2, 0.4, 2023), (140, 2, 0.3, 2024), (2, 140, 0.3, 2024), (140, 160, 0.9, 2024),
+                                        (140, 160, 0.7, 2023), (140, 710, 0.8, 2024), (140, 999, 0.99, 2024), (140, 710, "NA", 2023)]):
+        linhas.append(f'"{i}",1,{a},{b},{v},{ano}')
+    agree.write_text("\n".join(linhas) + "\n")
+    conc = onu.concordancias(agree, onu.cow_para_iso3(ideal))
+    assert conc["USA"] == {2023: 0.4, 2024: 0.3} and 2023 not in conc["CHN"] and "NA" not in conc
+    r = onu.resumir(conc, ["USA", "ARG", "CHN", "PRY"])
+    assert r["ano"] == 2024 and "PRY" not in r["paises"]
+    assert r["paises"]["ARG"] == {"concordancia": 0.9, "media": 0.8, "anos_media": "2020–2024", "posicao": 1, "de": 3}
+    assert r["paises"]["USA"]["posicao"] == 3 and r["paises"]["USA"]["media"] == 0.35
+
+
+OMC_JS = '''var ds_array = new Array();
+ds_array[1] = {
+    code: "DS1", title: "Measures Affecting &ldquo;Things&rdquo;", origin: "BRA", destination: "USA",
+    start_date: "2001/01/02", subject: "G1", status: "ST1#2001_01_02|ST31#2003_05_06", third_party: ""
+};
+ds_array[2] = {
+    code: "DS2", title: "Tariffs on Brazil", origin: "USA", destination: "BRA",
+    start_date: "2025/08/05", status: "ST1#2025_08_05"
+};
+ds_array[3] = {
+    code: "DS3", title: "Steel", origin: "CHN#BRA", destination: "EEC",
+    start_date: "2023/03/01", status: "ST3#2024_01_01"
+};
+ds_array[4] = {
+    code: "DS4", title: "Solar", origin: "CHN", destination: "USA",
+    start_date: "2024/04/01", status: "ST99#2024_04_01"
+};
+ds_array[5] = { code: "XX", title: "ignorar" };
+'''
+
+
+def test_omc_le_casos_sem_executar_javascript():
+    c = omc.ler_casos(OMC_JS)
+    assert [x["ds"] for x in c] == ["DS1", "DS2", "DS3", "DS4"]
+    assert c[0]["titulo"] == "Measures Affecting “Things”"            # entidades HTML decodificadas
+    assert c[0]["situacao"] == "encerrada (acordo)" and c[0]["encerrada"]      # vale a última situação
+    assert c[0]["situacao_data"] == "2003-05-06" and c[0]["url"].endswith("/ds1_e.htm")
+    assert c[2]["reclamantes"] == ["CHN", "BRA"] and c[3]["situacao"] == "ST99"  # código desconhecido aparece cru
+
+
+def test_omc_disputas_com_o_brasil_ue_e_visao_externa():
+    r = omc.por_pais(omc.ler_casos(OMC_JS), ["USA", "DEU", "CHN", "BRA"], desde_ano=2021)
+    eua = r["USA"]
+    assert [x["ds"] for x in eua["com_brasil"]] == ["DS2", "DS1"]              # mais recente primeiro
+    assert eua["com_brasil"][0]["lado"] == "reclamante" and eua["com_brasil"][1]["lado"] == "demandado"
+    assert eua["recentes_total"] == 1 and eua["contrapartes"] == {"CHN": 1}    # as com o Brasil não se repetem aqui
+    assert r["DEU"]["via_ue"] and [x["ds"] for x in r["DEU"]["com_brasil"]] == ["DS3"]
+    assert r["CHN"]["com_brasil"] == [] and r["CHN"]["contrapartes"] == {"EEC": 1, "USA": 1}  # co-reclamante não é disputa
+    assert r["BRA"]["recentes_total"] == 2 and r["BRA"]["contrapartes"] == {"USA": 1, "EEC": 1}
+
+
+def test_relacoes_falha_de_uma_fonte_nao_derruba_a_outra(monkeypatch):
+    m = {"paises": {"840": {"nome": "Estados Unidos"}}, "fontes": {}}
+    monkeypatch.setattr(onu, "alinhamento", lambda *a, **k: (_ for _ in ()).throw(OSError("bloqueado")))
+    monkeypatch.setattr(omc, "disputas", lambda iso3: {"USA": {"total": 1}, "XXX": {"total": 9}})
+    build._relacoes(m, log=lambda *_: None)
+    assert m["falhas"]["onu"].startswith("OSError") and "omc" not in m["falhas"]
+    assert m["paises"]["840"]["relacoes"] == {"omc": {"total": 1}} and "onu" in m["fontes"]

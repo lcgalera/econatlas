@@ -54,6 +54,21 @@
   .tip b { display: block; }
   .tip span { color: #9aa6bd; font-size: 12px; }
 
+  /* Sinais da relação, votos na ONU e disputas na OMC (D42) */
+  .sinais { list-style: none; margin: 8px 0 4px; padding: 0; display: grid; gap: 6px; }
+  .sinais li { display: flex; gap: 8px; align-items: baseline; font-size: 14px; line-height: 1.35; }
+  .sinais i { flex: none; width: 9px; height: 9px; border-radius: 50%; background: #9aa3b2; transform: translateY(1px); }
+  .sinais .conv i { background: #3f9d6e; } .sinais .div i, .sinais .atr i { background: #c4607a; }
+  .escala { position: relative; height: 8px; border-radius: 4px; background: var(--chip); margin: 14px 0 6px; }
+  .escala b { position: absolute; top: -5px; width: 4px; height: 18px; margin-left: -2px; border-radius: 2px; background: var(--panel-ink); }
+  .escala u { position: absolute; top: -2px; width: 2px; height: 12px; margin-left: -1px; background: var(--panel-muted); }
+  .escala-leg { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--panel-muted); }
+  .disputas { list-style: none; margin: 6px 0 0; padding: 0; }
+  .disputas li { padding: 7px 0; border-bottom: 1px solid var(--panel-rule); font-size: 13.5px; }
+  .disputas li:last-child { border-bottom: 0; }
+  .disputas a { color: inherit; font-weight: 500; text-decoration: none; } .disputas a:hover { text-decoration: underline; }
+  .disputas span { display: block; font-size: 12px; color: var(--panel-muted); margin-top: 2px; }
+
   /* Resumo fixo à direita (estado inicial) */
   .resumo-mundo { position: fixed; top: 0; right: 0; bottom: 0; width: 340px; z-index: 6; background: var(--panel); color: var(--panel-ink);
                   overflow-y: auto; border-left: 1px solid var(--panel-rule); }
@@ -255,6 +270,73 @@ function blocoComercio(d) {
     ${tabelaProdutos(c.produtos_importados, "O que o Brasil mais compra")}</div>`;
 }
 
+// ---- Relação com o Brasil além do comércio (D42): votos na ONU e disputas na OMC. Só fatos medidos, com fonte. ----
+function nomeOMC(cod) {
+  if (cod === "EEC") return "União Europeia";
+  if (cod === "BRA") return "Brasil";
+  const p = Object.values(M?.paises || {}).find((x) => x.iso3 === cod);
+  return p ? p.nome : cod;   // fora dos 20: o código da OMC (ISO 3166)
+}
+const ano = (iso) => (iso || "").slice(0, 4);
+
+function faixaONU(o) {   // terço da tabela de concordância com o Brasil, entre todos os países com votos no ano
+  const t = o.posicao / o.de;
+  return t <= 1 / 3 ? ["conv", "entre o terço que mais vota igual ao Brasil"] : t > 2 / 3 ? ["div", "entre o terço que menos vota igual ao Brasil"] : ["neu", "no meio da tabela"];
+}
+
+function sinais(d) {
+  const r = d.relacoes || {}, c = d.comercio, o = r.onu, w = r.omc, l = [];
+  if (c?.saldo != null) l.push(["neu", `Comércio: ${c.saldo >= 0 ? "superávit" : "déficit"} brasileiro de ${bi(Math.abs(c.saldo))} em ${esc(M.ano_comercio)}`]);
+  if (o) { const [k, t] = faixaONU(o); l.push([k, `Votos na ONU: ${t} (${o.posicao}º de ${o.de} em ${esc(M.onu?.ano)})`]); }
+  if (w) {
+    // "Recente" e não "em aberto": casos antigos muitas vezes nunca recebem encerramento formal na OMC
+    const rec = w.com_brasil.filter((x) => +ano(x.inicio) >= w.recentes_desde).length, tot = w.com_brasil.length;
+    const ue = w.via_ue ? " (via União Europeia)" : "";
+    l.push([rec ? "atr" : "neu", rec ? `OMC: ${rec} disputa${rec > 1 ? "s" : ""} com o Brasil aberta${rec > 1 ? "s" : ""} desde ${w.recentes_desde}${ue}; ${tot} desde 1995`
+      : `OMC: nenhuma disputa com o Brasil desde ${w.recentes_desde}${ue}${tot ? `; ${tot} desde 1995` : ""}`]);
+  }
+  return l.length ? `<ul class="sinais">${l.map(([k, t]) => `<li class="${k}"><i></i><span>${t}</span></li>`).join("")}</ul>` : "";
+}
+
+function linhaDisputa(x, eu) {
+  const quem = x.lado === "reclamante" ? `${esc(eu)} abriu contra ${x.contra.map(nomeOMC).map(esc).join(", ")}` : `${x.reclamantes.map(nomeOMC).map(esc).join(", ")} abriu contra ${esc(eu)}`;
+  return `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.titulo)}</a>
+    <span>${esc(x.ds)} · ${ano(x.inicio)} · ${quem} · ${esc(x.situacao)}</span></li>`;
+}
+
+function blocoRelacoes(d, nome) {
+  const r = d.relacoes || {}, o = r.onu, w = r.omc;
+  if (!o && !w) return "";
+  const eu = w?.via_ue ? "União Europeia" : nome;
+  let h = `<div class="bloco"><h3>Sinais da relação</h3><p class="fonte">Medidas, não opinião: cada linha diz de onde vem.</p>${sinais(d)}`;
+  if (o) {
+    h += `<div class="kicker" style="margin:16px 0 6px">Votos na Assembleia Geral da ONU</div>${fonte("onu", `${M.onu?.ano}`)}
+      <p class="resumo">Concordância com o Brasil em ${esc(M.onu?.ano)}: <b>${Math.round(o.concordancia * 100)} de 100</b>
+        (média ${esc(o.anos_media)}: ${Math.round(o.media * 100)}). ${o.posicao}º entre ${o.de} países.</p>
+      <div class="escala" role="img" aria-label="Posição na escala de concordância"><u style="left:${M.onu.mediana * 100}%" title="mediana dos países"></u><b style="left:${o.concordancia * 100}%"></b></div>
+      <div class="escala-leg"><span>0 · votam sempre ao contrário</span><span>traço fino = mediana</span><span>100 · votam igual</span></div>
+      <p class="fonte" style="margin-top:8px">1 voto igual vale 1; abstenção de um dos dois vale meio. Muda com a pauta do ano, por isso a média de 5 anos.</p>`;
+  }
+  if (w) {
+    const cb = w.com_brasil;
+    h += `<div class="kicker" style="margin:16px 0 6px">Disputas comerciais com o Brasil na OMC</div>${fonte("omc", "títulos oficiais em inglês")}
+      ${w.via_ue ? `<p class="fonte">Na OMC, os países da União Europeia são representados pela UE: as disputas abaixo são da UE.</p>` : ""}
+      ${cb.length ? `<ul class="disputas">${cb.slice(0, 5).map((x) => linhaDisputa(x, eu)).join("")}</ul>${cb.length > 5 ? `<p class="fonte">e mais ${cb.length - 5} desde 1995.</p>` : ""}`
+        : vazio("Nenhuma disputa com o Brasil na OMC desde 1995.")}`;
+    h += blocoExterno(w, eu);
+  }
+  return h + "</div>";
+}
+
+// Visão externa: com quem o país disputa na OMC, sem o Brasil no meio
+function blocoExterno(w, eu) {
+  const cp = Object.entries(w.contrapartes || {});
+  return `<div class="kicker" style="margin:16px 0 6px">Visão externa: disputas com outros países desde ${w.recentes_desde}</div>
+    ${w.recentes_total ? `<p class="resumo">${w.recentes_total} disputa${w.recentes_total > 1 ? "s" : ""}; com quem: ${cp.slice(0, 5).map(([k, n]) => `${esc(nomeOMC(k))} (${n})`).join(", ")}${cp.length > 5 ? " e outros" : ""}.</p>
+      <ul class="disputas">${w.recentes.slice(0, 3).map((x) => linhaDisputa(x, eu)).join("")}</ul>` : vazio(`Nenhuma disputa na OMC desde ${w.recentes_desde}.`)}
+    <p class="fonte" style="margin-top:8px">Conflitos armados (base de Uppsala) entram aqui em seguida.</p>`;
+}
+
 function blocoEconomia(d) {
   const e = d.economia || [];
   if (!e.length) return `<div class="bloco"><h3>Economia</h3>${vazio("Sem indicadores do Banco Mundial para este país.")}</div>`;
@@ -298,6 +380,8 @@ function painelPais(f) {
         <ol class="prods">${r.map((x) => `<li><div class="barra" style="width:${((x.exportacao + x.importacao) / max) * 100}%"></div>
           <span class="p-nome">${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></li>`).join("")}</ol>` : vazio("Dados ainda não gerados.")}</div>
       ${d ? blocoEconomia(d) : ""}
+      ${d?.relacoes?.omc ? `<div class="bloco"><h3>Disputas do Brasil na OMC</h3>${fonte("omc", "títulos oficiais em inglês")}
+        <p class="resumo">${d.relacoes.omc.total} disputas desde 1995, como reclamante ou demandado.</p>${blocoExterno(d.relacoes.omc, "Brasil")}</div>` : ""}
       ${N ? blocoManchetes(N.mundo || [], "Em alta no mundo", "manchetes em português dos últimos 2 dias sobre geopolítica e temas globais (seleção por palavras-chave)") : ""}
       ${rodape}`;
   }
@@ -307,7 +391,7 @@ function painelPais(f) {
   }
   return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Visto do Brasil</div><h2>${esc(nome)}</h2>
     <p class="sub">Relação com o Brasil, economia e o que está acontecendo.</p></header>
-    ${d ? blocoComercio(d) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
+    ${d ? blocoComercio(d) + blocoRelacoes(d, nome) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
     ${N ? blocoManchetes(N.paises?.[f.id] || [], "Manchetes", "manchetes em português dos últimos 7 dias que citam o país no título") : ""}
     <div class="bloco"><span class="selo">interpretação · em breve</span><h3>Por que importa para o Brasil</h3>
       <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação vai aparecer marcado</p>${vazio("Ainda não escrito.")}</div>

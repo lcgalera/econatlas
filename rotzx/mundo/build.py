@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from .. import config
-from . import bancomundial, comex, gdelt
+from . import bancomundial, comex, gdelt, omc, onu
 from .paises import PAISES
 
 SAIDA = config.ROOT / "prototipos" / "globo" / "dados"
@@ -19,7 +19,13 @@ FONTES = {
     "bancomundial": {"nome": "Banco Mundial (World Development Indicators)", "url": "https://data.worldbank.org", "licenca": "CC BY 4.0"},
     "gdelt": {"nome": "The GDELT Project", "url": "https://www.gdeltproject.org",
               "nota": "manchetes em português; título, veículo e link para a matéria original; categorias por palavras-chave"},
-    "noticias": {"nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI) e GDELT",
+    "onu": {"nome": "Votos na Assembleia Geral da ONU (Voeten, Strezhnev e Bailey, Harvard Dataverse)",
+            "url": "https://doi.org/10.7910/DVN/LEJUQZ", "licenca": "CC0",
+            "nota": "índice de concordância de Lijphart: 1 = votos iguais, 0,5 = um se absteve, 0 = lados opostos"},
+    "omc": {"nome": "Disputas na OMC (lista oficial do site da OMC)",
+            "url": "https://www.wto.org/english/tratop_e/dispu_e/dispu_by_country_e.htm",
+            "nota": "número, título oficial (em inglês), partes, data e situação de cada disputa"},
+    "noticias": {"nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, RFI) e GDELT",
                  "url": "https://www.gdeltproject.org",
                  "nota": "só título, veículo, data e link para a matéria original; categorias por palavras-chave no título"},
 }
@@ -125,11 +131,45 @@ def montar(ano: Optional[str] = None, saida: Path = SAIDA, com_noticias: bool = 
     paises_out["076"].update({"comercio_total": {"exportacao": tot_e, "importacao": tot_i, "saldo": tot_e - tot_i},
                               "maiores_parceiros": ranking})
     mundo = {"gerado_em": agora, "ano_comercio": ano, "fontes": FONTES, "paises": paises_out}
+    _relacoes(mundo, log)
     _gravar(saida, "mundo", mundo)
 
     if com_noticias:
         noticias(saida, log)
     return mundo
+
+
+def _relacoes(m: dict, log=print) -> None:
+    """Votos na ONU e disputas na OMC por país (D42). Falha de uma fonte fica em m["falhas"] e não derruba a outra."""
+    iso3 = [p["iso3"] for p in PAISES]
+    por_iso3 = {p["iso3"]: p["iso_num"] for p in PAISES}
+    falhas = m.setdefault("falhas", {})
+    for chave, coletar in (("onu", lambda: onu.alinhamento(iso3, BRUTOS / "onu")), ("omc", lambda: omc.disputas(iso3))):
+        log(f"{chave.upper()}: coletando")
+        try:
+            r = coletar()
+        except (OSError, ValueError, KeyError) as e:
+            falhas[chave] = f"{type(e).__name__}: {e}"[:200]
+            log(f"  falhou: {falhas[chave]}")
+            continue
+        falhas.pop(chave, None)
+        dados = r["paises"] if chave == "onu" else r
+        for k, v in dados.items():
+            if k in por_iso3:
+                m["paises"].setdefault(por_iso3[k], {}).setdefault("relacoes", {})[chave] = v
+        if chave == "onu":
+            m["onu"] = {k: r[k] for k in ("ano", "mediana", "versao_dados", "publicado")}
+    m["fontes"] = {**m.get("fontes", {}), "onu": FONTES["onu"], "omc": FONTES["omc"]}
+    m["relacoes_em"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def relacoes(saida: Path = SAIDA, log=print) -> dict:
+    """Atualiza só votos na ONU e disputas na OMC no mundo.json já coletado (sem refazer o Comex Stat)."""
+    f = saida / "mundo.json"
+    m = json.loads(f.read_text(encoding="utf-8"))
+    _relacoes(m, log)
+    _gravar(saida, "mundo", m)
+    return m
 
 
 def refazer_resumos(saida: Path = SAIDA) -> None:

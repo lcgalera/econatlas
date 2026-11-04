@@ -227,6 +227,7 @@ def main(argv=None):
     mu.add_argument("--ano", default=None, help="ano do comércio (padrão: o último ano completo)")
     mu.add_argument("--sem-noticias", action="store_true", help="não busca manchetes")
     mu.add_argument("--so-noticias", action="store_true", help="só manchetes (não refaz o comércio, que leva ~10 min)")
+    mu.add_argument("--so-relacoes", action="store_true", help="só votos na ONU e disputas na OMC (D42)")
     sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
     sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
     sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
@@ -344,7 +345,10 @@ def main(argv=None):
         print(al.ATRIBUICAO)
     elif args.cmd == "mundo-atualizar":
         from .mundo import build as mb
-        if args.so_noticias:
+        if args.so_relacoes:
+            m = mb.relacoes()
+            print(f"relações: ONU {m.get('onu', {}).get('ano', '–')}, OMC; falhas: {m.get('falhas', {})}")
+        elif args.so_noticias:
             n = mb.noticias()
             print(f"manchetes: {sum(map(len, n['paises'].values()))} em {len(n['paises'])} países; falhas: {len(n['falhas'])}")
         else:
