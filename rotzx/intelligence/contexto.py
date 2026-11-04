@@ -102,7 +102,7 @@ def indicadores(conn, catalog: Dict, cfg: Optional[dict] = None) -> List[Dict]:
             item.update(unidade=meta.unidade, instituicao=meta.instituicao, codigo=meta.codigo, provedor=meta.provedor,
                         coletado_em=v["fetched_at"] if v else None)
             if m is None:
-                item["erro"] = "sem dados suficientes; rode `econatlas atualizar`"
+                item["erro"] = "sem dados suficientes; rode `rotzx atualizar`"
             else:
                 item.update(m)
             out.append(item)

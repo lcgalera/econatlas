@@ -65,7 +65,7 @@ def analises_setores():
     from .analysis import leading
     out = payloads.analises_setores(leading.SETORES)
     if not out:
-        raise HTTPException(404, "análise ainda não executada; rode `python -m econatlas analisar-setor`")
+        raise HTTPException(404, "análise ainda não executada; rode `python -m rotzx analisar-setor`")
     return out
 
 

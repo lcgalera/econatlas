@@ -5,9 +5,9 @@ const $app = document.getElementById("app");
 const state = { catalog: null, charts: [] };
 
 /* ---------- utilidades ---------- */
-const STATIC = window.ECONATLAS_STATIC === true;  // site público: arquivos JSON no lugar da API
+const STATIC = window.ROTZX_STATIC === true;  // site público: arquivos JSON no lugar da API
 
-// Mapeia cada rota da API para o arquivo gerado por `econatlas publicar`.
+// Mapeia cada rota da API para o arquivo gerado por `rotzx publicar`.
 function staticPath(path) {
   const u = new URL(path, "http://x");
   const p = u.pathname;
@@ -266,7 +266,7 @@ function importedSection(series) {
       </table>
       ${series.some((s) => s.uso !== "publico") ? `<p class="aside">Séries de <b>uso pessoal</b>. Os Termos de uso da Macrodados proíbem copiar, redistribuir ou republicar o conteúdo,
       por isso estas séries não podem ser baixadas pela interface nem aparecer em material publicado.
-      Para atualizar, exporte de novo na Macrodados e rode <code>python -m econatlas importar-macrodados arquivo.csv</code>.</p>` : ""}
+      Para atualizar, exporte de novo na Macrodados e rode <code>python -m rotzx importar-macrodados arquivo.csv</code>.</p>` : ""}
     </section>`;
 }
 
@@ -465,7 +465,7 @@ async function sectorAnalysis() {
 }
 
 /* ---------- Indústria de materiais elétricos em linguagem simples (só dados abertos) ---------- */
-const REPO_URL = "https://github.com/lcgalera/econatlas";
+const REPO_URL = "https://github.com/lcgalera/rotzx";
 const addMonths = (iso, k) => { const [y, m] = iso.split("-").map(Number); const d = new Date(Date.UTC(y, m - 1 + k, 1)); return d.toISOString().slice(0, 10); };
 const NOMES_SIMPLES = {  // candidatos da análise, em português corrente
   "ibcbr_sa|100·ln(x(t)/x(t−12))": "a atividade econômica geral (IBC-Br)",
@@ -942,7 +942,7 @@ async function pageForecast() {
         </table>
       </div>
       <p class="sub" style="margin-top:8px">O acumulado em 12 meses compõe as previsões pontuais mensais. É uma aproximação, sem intervalo de confiança.</p>`
-      : `<p class="empty">Nenhuma previsão registrada. Rode <code>python -m econatlas prever</code>.</p>`}
+      : `<p class="empty">Nenhuma previsão registrada. Rode <code>python -m rotzx prever</code>.</p>`}
     </section>
 
     <section class="sec">
@@ -987,7 +987,7 @@ async function pageForecast() {
       </table></div>
       <p class="aside">A faixa da fórmula do SARIMA supõe que o erro tem sempre o mesmo tamanho, mas o erro do modelo dobrou de patamar depois de 2016.
       A faixa empírica usa os próprios erros recentes do SARIMA, por horizonte e só os já conhecidos na data. A janela de 60 meses foi escolhida entre três variantes declaradas antes,
-      olhando só 2016–2020; o resultado de 2021–2026 não participou da escolha. Em 2016–2020 todas as variantes ficaram perto de 60%: os erros cresceram mais rápido do que qualquer janela acompanha.</p>` : ""}` : `<p class="empty">Backtest ainda não executado. Rode <code>python -m econatlas backtest</code>.</p>`}
+      olhando só 2016–2020; o resultado de 2021–2026 não participou da escolha. Em 2016–2020 todas as variantes ficaram perto de 60%: os erros cresceram mais rápido do que qualquer janela acompanha.</p>` : ""}` : `<p class="empty">Backtest ainda não executado. Rode <code>python -m rotzx backtest</code>.</p>`}
     </section>
 
     <section class="sec prose">
@@ -1087,7 +1087,7 @@ document.getElementById("theme-toggle").onclick = () => {
     ? document.documentElement.dataset.theme === "dark"
     : matchMedia("(prefers-color-scheme: dark)").matches;
   document.documentElement.dataset.theme = dark ? "light" : "dark";
-  try { localStorage.setItem("econatlas-theme", document.documentElement.dataset.theme); } catch (e) {}
+  try { localStorage.setItem("rotzx-theme", document.documentElement.dataset.theme); } catch (e) {}
   route();
 };
 

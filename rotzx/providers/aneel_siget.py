@@ -1,6 +1,6 @@
 """ANEEL — SIGET (Sistema de Gestão da Transmissão): visão por empreendimento, a partir dos arquivos oficiais.
 
-Lê os CSVs baixados por `econatlas fonte-explorar x --conjunto sistema-de-gestao-da-transmissao-siget`
+Lê os CSVs baixados por `rotzx fonte-explorar x --conjunto sistema-de-gestao-da-transmissao-siget`
 (data/fontes/aneel/<conjunto>/brutos/, fora do git) e monta uma linha por empreendimento com o que a
 fonte afirma: situação, datas do ato legal, concessionária (contrato), UF das subestações, obras e
 módulos de equipamento e de manobra. Fase 1: serve para avaliação humana, ainda não é o coletor de produção.
@@ -46,7 +46,7 @@ def carregar(pasta: Optional[Path] = None) -> Dict[str, pd.DataFrame]:
     for chave, nome in ARQUIVOS.items():
         achados = sorted(pasta.glob(f"*_{nome}"), key=lambda p: p.stat().st_mtime)
         if not achados:
-            raise FileNotFoundError(f"{nome} não está em {pasta}; rode `econatlas fonte-explorar x --conjunto {CONJUNTO}`")
+            raise FileNotFoundError(f"{nome} não está em {pasta}; rode `rotzx fonte-explorar x --conjunto {CONJUNTO}`")
         df = ckan.ler_csv(achados[-1].read_bytes())
         df.attrs["arquivo"] = achados[-1].name
         out[chave] = df

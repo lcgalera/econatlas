@@ -56,7 +56,7 @@ def series(conn, catalog: Dict, series_id: str, transform: str = "nivel",
     meta = catalog[series_id]
     s = storage.load_observations(conn, series_id)
     if s.empty:
-        raise LookupError(f"série {series_id} ainda não foi baixada; rode `python -m econatlas atualizar`")
+        raise LookupError(f"série {series_id} ainda não foi baixada; rode `python -m rotzx atualizar`")
     deflator = None
     if transform == "deflacionado_ipca":
         if "ipca_mensal" not in catalog:

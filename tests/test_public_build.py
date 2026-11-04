@@ -5,9 +5,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from econatlas import payloads, public_build, storage
-from econatlas.catalog import SeriesMeta
-from econatlas.providers import FetchResult
+from rotzx import payloads, public_build, storage
+from rotzx.catalog import SeriesMeta
+from rotzx.providers import FetchResult
 
 
 def _meta(sid, uso, **extra):
@@ -44,7 +44,7 @@ def test_public_build_has_no_trace_of_personal_series(ambiente):
     cat_pub = json.loads((out / "data" / "catalogo.json").read_text())
     assert [s["id"] for s in cat_pub] == ["serie_publica"]
     import sqlite3
-    db = sqlite3.connect(out / "data" / "econatlas_publico.sqlite")
+    db = sqlite3.connect(out / "data" / "rotzx_publico.sqlite")
     assert db.execute("SELECT COUNT(*) FROM observations WHERE series_id = 'md_xpto_pessoal'").fetchone()[0] == 0
     assert db.execute("SELECT COUNT(*) FROM observations WHERE series_id = 'serie_publica'").fetchone()[0] == 120
 

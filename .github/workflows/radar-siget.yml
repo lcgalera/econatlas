@@ -34,19 +34,19 @@ jobs:
         run: python -m pytest -q
 
       - name: Carregar o histórico (banco novo a cada execução)
-        run: python -m econatlas siget-historico-importar
+        run: python -m rotzx siget-historico-importar
 
       - name: Baixar o SIGET e registrar o que mudou
-        run: python -m econatlas siget-atualizar
+        run: python -m rotzx siget-atualizar
 
       - name: Acrescentar ao histórico (falha se uma linha antiga mudou)
-        run: python -m econatlas siget-historico-exportar
+        run: python -m rotzx siget-historico-exportar
 
       - name: Séries públicas do contexto econômico (BCB, IBGE)
-        run: python -m econatlas contexto-atualizar
+        run: python -m rotzx contexto-atualizar
 
       - name: Relatório de oportunidades (perfil de demonstração)
-        run: python -m econatlas oportunidades --saida relatorio-radar
+        run: python -m rotzx oportunidades --saida relatorio-radar
 
       - uses: actions/upload-artifact@v4
         with:

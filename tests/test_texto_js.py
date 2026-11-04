@@ -9,7 +9,7 @@ import subprocess
 
 import pytest
 
-from econatlas import config
+from rotzx import config
 
 NODE = shutil.which("node")
 pytestmark = pytest.mark.skipif(NODE is None, reason="Node não instalado")

@@ -3,9 +3,9 @@ from datetime import date
 import pandas as pd
 import pytest
 
-from econatlas import storage, transforms
-from econatlas.catalog import SeriesMeta
-from econatlas.providers import FetchResult, arquivo, bcb_sgs, ibge_sidra
+from rotzx import storage, transforms
+from rotzx.catalog import SeriesMeta
+from rotzx.providers import FetchResult, arquivo, bcb_sgs, ibge_sidra
 
 
 def meta(**kw):
@@ -113,7 +113,7 @@ def test_vintages_track_new_and_revised(tmp_path):
 
 def test_confirmed_bcb_metadata_cites_its_source():
     """Série do BCB marcada como conferida precisa dizer de onde veio a confirmação (sem rótulo inventado)."""
-    from econatlas.catalog import load_catalog
+    from rotzx.catalog import load_catalog
     for m in load_catalog().values():
         if m.provedor == "bcb_sgs" and m.metadados_conferidos:
             assert m.extra.get("nome_oficial") and m.extra.get("fonte_metadados"), m.id

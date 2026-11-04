@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from econatlas.providers import arquivo, macrodados
+from rotzx.providers import arquivo, macrodados
 
 # mesmo formato de uma exportação CSV da Macrodados Web (nov/2026), com nomes e valores fictícios
 EXPORT_ANUAL = (
@@ -54,7 +54,7 @@ def test_manifest_matches_columns_with_non_breaking_spaces(tmp_path):
 
 
 def test_real_basket_manifest_is_consistent():
-    from econatlas import config
+    from rotzx import config
     if not config.MACRODADOS_MANIFEST.exists():
         pytest.skip("manifesto da Macrodados é local (privado/), fora do repositório público")
     m = macrodados.load_manifest(config.MACRODADOS_MANIFEST)

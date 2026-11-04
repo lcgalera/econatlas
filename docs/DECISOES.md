@@ -92,7 +92,7 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Consequências para o uso local:**
 - O registro público oficial é o do repositório.
 - No Mac, `prever-setor --pessoal` registra só CNI/ABIMAQ.
-- Para ver as previsões oficiais no Mac, rodar `git pull` e `econatlas registro-importar`.
+- Para ver as previsões oficiais no Mac, rodar `git pull` e `rotzx registro-importar`.
 - O `prever` local continua possível, mas um registro feito antes do Actions aparece como divergência em `registro-verificar`.
 
 ### D24 · 03/11/2026 · Página do setor elétrico em linguagem simples, com todo número calculado dos dados
@@ -119,7 +119,7 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 
 ### D28 · 04/11/2026 · Radar de oportunidades começa pela exploração da fonte, não pelo classificador
 **Motivo:** o plano do rotzx Intelligence (radar de projetos de transmissão para fornecedores) depende de o SIGET trazer chave estável, estágio, datas e equipamentos por módulo. Nada disso foi verificado.
-**Como:** `econatlas fonte-explorar` usa a API padrão do CKAN do portal da ANEEL, baixa os recursos tabulares com SHA-256 para `data/fontes/` (fora do git) e gera um relatório de campos para avaliação humana. Não é coletor de produção e não interpreta nada.
+**Como:** `rotzx fonte-explorar` usa a API padrão do CKAN do portal da ANEEL, baixa os recursos tabulares com SHA-256 para `data/fontes/` (fora do git) e gera um relatório de campos para avaliação humana. Não é coletor de produção e não interpreta nada.
 **Critério de decisão** fixado antes de ver os dados em `docs/03-fonte-siget.md` §4. Classificador, score e interface só depois dessa decisão.
 **Licença:** nenhum dado da ANEEL entra no build público até a licença do conjunto estar registrada.
 
@@ -133,7 +133,7 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Resultado** (`docs/03-fonte-siget.md`): chaves estáveis com 100% de ligação entre as tabelas, situação preenchida, 754 empreendimentos em andamento (652 com módulo de equipamento), concessionária com CNPJ, datas do ato legal e UF. Licença ODbL, atualização diária. Os três critérios fixados antes de ver os dados foram atendidos.
 **Descoberta:** 616 dos 754 empreendimentos em andamento são autorizações (reforços e melhorias por resolução ou despacho em concessões existentes), com link do ato. Elas quase não saem na imprensa e descrevem a troca ou instalação de equipamento de forma concreta. É o melhor candidato a diferencial do radar, e vale testar nas conversas com compradores.
 **Limites que o produto precisa mostrar:** as datas são as do ato legal, não a previsão da transmissora; potência e quantidade de disjuntores têm preenchimento parcial; `DscSituacaoModulo` está com defeito na fonte; campos fora do dicionário não são usados; lotes de leilão ainda não assinados não aparecem.
-**Como:** `econatlas siget-amostra` (`providers/aneel_siget.py`) monta a visão por empreendimento só com o que a fonte afirma e uma amostra reproduzível de 20 casos, que a avaliação humana classifica com o critério de `docs/03` §5.
+**Como:** `rotzx siget-amostra` (`providers/aneel_siget.py`) monta a visão por empreendimento só com o que a fonte afirma e uma amostra reproduzível de 20 casos, que a avaliação humana classifica com o critério de `docs/03` §5.
 **Licença:** a ODbL permite republicar com atribuição ("Contém dados da ANEEL…") e exige a mesma licença na base derivada. A amostra no `docs/03` já leva a atribuição.
 
 ### D31 · 04/11/2026 · Avaliação aleatória: 80% de precisão (IC 58–92%) — regras da Fase 3 definidas, meta não demonstrada
@@ -142,7 +142,7 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Revisar quando:** houver 60 casos avaliados ou a primeira avaliação feita por comprador.
 
 ### D32 · 04/11/2026 · Motor de oportunidades determinístico: evidência por regra, score separado do nível de evidência
-**Como:** `econatlas/intelligence/` gera evidências por empreendimento e categoria (regras R1–R5: campo de módulo novo, texto com verbo de fornecimento, quantidades de manobra, inferência de bay e de linha), filtra pela elegibilidade (em andamento, concessionária, janela, tensão) e calcula o score 40/25/20/15 com os componentes e a explicação em cada linha. Só inferência tem teto de 60; pendência na descrição limita o estágio. Detalhes em `docs/06-motor-de-oportunidades.md`.
+**Como:** `rotzx/intelligence/` gera evidências por empreendimento e categoria (regras R1–R5: campo de módulo novo, texto com verbo de fornecimento, quantidades de manobra, inferência de bay e de linha), filtra pela elegibilidade (em andamento, concessionária, janela, tensão) e calcula o score 40/25/20/15 com os componentes e a explicação em cada linha. Só inferência tem teto de 60; pendência na descrição limita o estágio. Detalhes em `docs/06-motor-de-oportunidades.md`.
 **Catálogo e perfis:** `catalog/product_categories.json` é versionado (`categorias_v1`). O perfil de demonstração fica em `catalog/perfil_demo.json`; perfis de clientes reais ficam em `privado/perfis/`, fora do git e do site.
 **Normalização:** o CNPJ da fonte perde os zeros à esquerda; ele é completado até 14 dígitos e formatado. Essa é a única transformação de valor da fonte.
 **Limite reconhecido:** com perfil amplo, o score satura (mediana 92). Ele separa o confirmado do inferido e o que está perto da janela, não os bons casos entre si.
@@ -162,3 +162,9 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Por que fora do score:** a relação entre esses indicadores e uma compra específica não foi medida. Ordenar oportunidades por eles seria associação frágil.
 **Elo concreto encontrado:** a receita de 370 dos 411 contratos de transmissão é reajustada pelo IPCA (e a de 41 pelo IGP-M), segundo o SIGET.
 **Achado da fonte:** nenhum contrato assinado em 2025. O relatório mostra o zero em vez de esconder o ano.
+
+### D35 · 04/11/2026 · Repositório, site, pacote e comandos passam a se chamar rotzx (revisa D25)
+**Escolha do Lucas:** o repositório foi renomeado para `lcgalera/rotzx`; com isso, o site passa a ser `lcgalera.github.io/rotzx` e o pacote, os comandos, os links e os identificadores internos também mudam (`rotzx/`, `python -m rotzx`, `ROTZX_STATIC`, `rotzx_publico.sqlite`, `.rotzx-publico`, `rotzx-theme`).
+**Compatibilidade:** `econatlas/` virou um pacote de redirecionamento (`python -m econatlas …` e `import econatlas…` funcionam, com aviso); o banco `data/econatlas.sqlite` é renomeado no primeiro uso; o tema salvo com a chave antiga continua sendo lido; uma pasta `site/` gerada com o marcador antigo pode ser regerada.
+**O que não muda:** o registro de previsões, o histórico do SIGET e a versão do código registrada em cada previsão (`versao_codigo`). Nenhuma linha de `registro/` nem de `historico/` foi tocada. O texto de D25 fica como estava, como registro da decisão da época.
+**Efeito externo:** o endereço antigo do site (`lcgalera.github.io/econatlas`) deixa de funcionar; o GitHub não redireciona sites do Pages. O repositório antigo redireciona.

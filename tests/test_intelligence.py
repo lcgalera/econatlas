@@ -4,10 +4,10 @@ import re
 import pandas as pd
 import pytest
 
-from econatlas import intelligence as it
-from econatlas.intelligence import evidencia as evm
-from econatlas.intelligence import relatorio, scoring
-from econatlas.providers import aneel_siget as sg
+from rotzx import intelligence as it
+from rotzx.intelligence import evidencia as evm
+from rotzx.intelligence import relatorio, scoring
+from rotzx.providers import aneel_siget as sg
 
 HOJE = pd.Timestamp("2026-11-04")
 

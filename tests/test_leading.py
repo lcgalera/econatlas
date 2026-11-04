@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from econatlas.analysis import leading
+from rotzx.analysis import leading
 
 
 def test_holm_adjustment():
@@ -46,9 +46,9 @@ def test_forecast_does_not_use_unpublished_target():
 
 
 def test_real_ex_ante_rate_is_fisher_identity(tmp_path):
-    from econatlas import storage
-    from econatlas.catalog import SeriesMeta
-    from econatlas.providers import FetchResult
+    from rotzx import storage
+    from rotzx.catalog import SeriesMeta
+    from rotzx.providers import FetchResult
     conn = storage.connect(tmp_path / "t.sqlite")
     idx = pd.date_range("2024-01-01", periods=3, freq="MS")
     for sid, val in (("selic_mensal", 10.25), ("ipca_expect_12m", 5.0)):

@@ -4,7 +4,7 @@ Inteligência econômica com dados abertos e rastreáveis. O foco é o **Radar S
 para a produção da indústria de máquinas e materiais elétricos nos próximos 3 a 6 meses, com previsões registradas antes de os dados saírem
 e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câmbio, atividade, renda, crédito) dá o contexto.
 
-- **Site público:** https://lcgalera.github.io/econatlas/ (comece por "Leitura do mês: indústria de materiais elétricos")
+- **Site público:** https://lcgalera.github.io/rotzx/ (comece por "Leitura do mês: indústria de materiais elétricos")
 - **Registro de previsões:** [`registro/`](registro/), que só recebe acréscimos (veja "Como auditar o registro")
 
 **Estado (v0.12, nov/2026)**
@@ -22,19 +22,19 @@ O repositório e o site usam **só dados abertos** (BCB, IBGE). Séries da Macro
 existem no computador do autor, porque os Termos de uso dela proíbem redistribuição. Elas ficam fora do git
 (`privado/`, `data/`, `docs/DIARIO.md`). Duas verificações garantem isso:
 
-- **No build do site:** `econatlas publicar` termina com uma varredura que falha se aparecer id, código, nome ou sequência de valores (inclusive derivados) de qualquer série pessoal.
+- **No build do site:** `rotzx publicar` termina com uma varredura que falha se aparecer id, código, nome ou sequência de valores (inclusive derivados) de qualquer série pessoal.
 - **No repositório:** dois testes falham se algum arquivo versionado estiver nessas pastas ou contiver um código do catálogo da Macrodados.
 
 ## Como rodar localmente
 
 ```bash
-cd ~/Claude/econatlas
+cd ~/Claude/econatlas   # ou o nome que a pasta tiver no seu Mac
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na primeira vez
-.venv/bin/python -m econatlas atualizar     # baixa/atualiza as séries abertas (~1 min)
-.venv/bin/python -m econatlas servir        # interface completa em http://127.0.0.1:8000
+.venv/bin/python -m rotzx atualizar     # baixa/atualiza as séries abertas (~1 min)
+.venv/bin/python -m rotzx servir        # interface completa em http://127.0.0.1:8000
 ```
 
-| Comando (`.venv/bin/python -m econatlas …`) | O que faz |
+| Comando (`.venv/bin/python -m rotzx …`) | O que faz |
 |---|---|
 | `atualizar [séries]` | Baixa as séries do catálogo (BCB, IBGE, Focus); cada versão nova fica guardada com SHA-256 |
 | `prever` | Registra as previsões do IPCA do mês (imutáveis) |
@@ -60,7 +60,7 @@ Testes: `.venv/bin/python -m pytest -q`.
 ## Versão pública
 
 ```bash
-.venv/bin/python -m econatlas publicar
+.venv/bin/python -m rotzx publicar
 python3 -m http.server 8010 --directory site   # abrir http://localhost:8010
 ```
 
@@ -90,20 +90,30 @@ A importação da Macrodados é manual e fica fora da automação.
 **No Mac do autor**, para trazer as previsões oficiais para o banco local:
 
 ```bash
-git pull && .venv/bin/python -m econatlas registro-importar
+git pull && .venv/bin/python -m rotzx registro-importar
 ```
 
 ## Nome
 
-O produto se chama **rotzx** (sempre em minúsculas). O repositório, o endereço do site, o pacote Python e os comandos
-continuam com o identificador interno `econatlas` por enquanto, para não quebrar o site público, o registro e a rotina mensal (D25).
+O produto se chama **rotzx** (sempre em minúsculas), assim como o repositório (`lcgalera/rotzx`), o site
+(`lcgalera.github.io/rotzx`), o pacote Python (`rotzx/`) e os comandos (`python -m rotzx …`), desde a v0.13 (D35).
+O nome antigo continua funcionando por compatibilidade: `python -m econatlas …` redireciona para `rotzx`, e o banco
+local `data/econatlas.sqlite` é renomeado para `data/rotzx.sqlite` no primeiro uso.
+
+**No Mac, uma vez só**, depois do rename do repositório:
+
+```bash
+cd ~/Claude/econatlas && git remote set-url origin https://github.com/lcgalera/rotzx && git pull
+```
+
+A pasta local pode continuar se chamando `econatlas`; se quiser renomear, é só renomear a pasta (o `.venv` precisa ser recriado).
 
 ## Estrutura
 
 ```
 catalog/series.json        catálogo público (metadados conferidos nas fontes oficiais)
 catalog/product_categories.json, perfil_demo.json   categorias de produto e perfil de demonstração do radar
-econatlas/
+rotzx/
   providers/               BCB/SGS, BCB/Expectativas, IBGE/SIDRA, arquivos (e exportações da Macrodados), ckan (exploração de fontes), aneel_siget (visão por empreendimento)
   intelligence/            motor de oportunidades: evidências (R1–R5), score, histórico, contexto econômico e relatório
   storage.py               SQLite com versões (vintages) e arquivos brutos com SHA-256

@@ -1,6 +1,6 @@
 # Histórico do radar de oportunidades (SIGET)
 
-Gerado por `econatlas siget-atualizar` + `econatlas siget-historico-exportar` (toda segunda-feira, pelo workflow `radar-siget.yml`).
+Gerado por `rotzx siget-atualizar` + `rotzx siget-historico-exportar` (toda segunda-feira, pelo workflow `radar-siget.yml`).
 
 | Arquivo | Conteúdo | Regra |
 |---|---|---|

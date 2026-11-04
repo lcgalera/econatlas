@@ -5,10 +5,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from econatlas import storage
-from econatlas.catalog import SeriesMeta
-from econatlas.forecast import empirico, focus, registry
-from econatlas.providers import FetchResult
+from rotzx import storage
+from rotzx.catalog import SeriesMeta
+from rotzx.forecast import empirico, focus, registry
+from rotzx.providers import FetchResult
 
 
 def ipca_like(n=240, start="2004-01-01", seed=0):

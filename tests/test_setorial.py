@@ -5,10 +5,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from econatlas import storage
-from econatlas.catalog import SeriesMeta
-from econatlas.forecast import setorial
-from econatlas.providers import FetchResult
+from rotzx import storage
+from rotzx.catalog import SeriesMeta
+from rotzx.forecast import setorial
+from rotzx.providers import FetchResult
 
 
 def _synthetic(n=260, seed=3):
@@ -86,8 +86,8 @@ def test_spec_cannot_change_without_new_id():
 
 
 def test_default_registration_is_public_only():
-    from econatlas.catalog import load_catalog
-    from econatlas.analysis import leading
+    from rotzx.catalog import load_catalog
+    from rotzx.analysis import leading
     cat = load_catalog()
     assert not set(setorial.SETORES_PUBLICOS) & set(setorial.SETORES_PESSOAIS)
     for s in setorial.SETORES_PUBLICOS:

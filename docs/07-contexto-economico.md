@@ -1,10 +1,10 @@
 # rotzx — Contexto econômico do radar (Fase 5)
 
-Data: 04/11/2026. Código: `econatlas/intelligence/contexto.py`. Configuração: `catalog/contexto_radar.json` (`contexto_v1`).
+Data: 04/11/2026. Código: `rotzx/intelligence/contexto.py`. Configuração: `catalog/contexto_radar.json` (`contexto_v1`).
 
 ```bash
-.venv/bin/python -m econatlas contexto-atualizar   # só as séries públicas usadas no contexto
-.venv/bin/python -m econatlas oportunidades        # o relatório ganha a seção "Contexto de mercado"
+.venv/bin/python -m rotzx contexto-atualizar   # só as séries públicas usadas no contexto
+.venv/bin/python -m rotzx oportunidades        # o relatório ganha a seção "Contexto de mercado"
 ```
 
 ## Princípios
