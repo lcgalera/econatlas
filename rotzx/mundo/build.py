@@ -181,5 +181,21 @@ def noticias(saida: Path = SAIDA, log=print, dias: int = 7, por_lote: int = 7, u
         log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}")
     globais = [m for m in itens if m["categorias"] and ("afeta_o_mundo" in m["categorias"] or "geopolitica" in m["categorias"])]
     out["mundo"] = gdelt.juntar(antes.get("mundo", []), globais, (agora - timedelta(days=2)).strftime("%Y%m%d"))
+    _recategorizar(out)
     _gravar(saida, "noticias", out)
     return out
+
+
+def _recategorizar(n: dict) -> None:
+    """A regra de categorias pode mudar: aplica a atual a todas as manchetes guardadas, não só às novas."""
+    for lista in list(n.get("paises", {}).values()) + [n.get("mundo", [])]:
+        for m in lista:
+            m["categorias"] = gdelt.categorias(m.get("titulo", ""))
+    n["mundo"] = [m for m in n.get("mundo", []) if {"afeta_o_mundo", "geopolitica"} & set(m["categorias"])]
+
+
+def recategorizar(saida: Path = SAIDA) -> None:
+    f = saida / "noticias.json"
+    n = json.loads(f.read_text(encoding="utf-8"))
+    _recategorizar(n)
+    _gravar(saida, "noticias", n)

@@ -15,7 +15,7 @@ from typing import Dict, List, Tuple
 from .. import config
 from .gdelt import categorias
 
-FEEDS = [
+FEEDS = [  # conferidos pela coleta de 04/11/2026 no GitHub Actions (o da CNN Brasil respondeu 404 e saiu)
     ("g1 Mundo", "https://g1.globo.com/rss/g1/mundo/"),
     ("g1 Economia", "https://g1.globo.com/rss/g1/economia/"),
     ("Folha Mundo", "https://feeds.folha.uol.com.br/mundo/rss091.xml"),
@@ -24,7 +24,6 @@ FEEDS = [
     ("DW Brasil", "https://rss.dw.com/xml/rss-br-all"),
     ("Agência Brasil Internacional", "https://agenciabrasil.ebc.com.br/rss/internacional/feed.xml"),
     ("Agência Brasil Economia", "https://agenciabrasil.ebc.com.br/rss/economia/feed.xml"),
-    ("CNN Brasil Internacional", "https://www.cnnbrasil.com.br/internacional/feed/"),
     ("RFI Brasil", "https://www.rfi.fr/br/rss"),
 ]
 _ATOM = "{http://www.w3.org/2005/Atom}"

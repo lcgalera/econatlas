@@ -18,16 +18,18 @@ INTERVALO = 20.0  # o GDELT pede no máximo uma consulta a cada 5 s; de IPs comp
 MAX_REGISTROS = 250  # máximo do modo artlist
 _ultima = [0.0]
 
-CATEGORIAS = {
-    "economia": r"econom|pib|infla[çc]|juros|banco central|export|import|com[ée]rcio|tarifa|bolsa|a[çc][õo]es|d[óo]lar|moeda|"
-                r"petr[óo]leo|soja|min[ée]rio|investiment|empresa|mercado|pre[çc]o|ind[úu]stria|emprego|d[íi]vida|fiscal|imposto|agroneg",
-    "politica": r"elei[çc]|presidente|governo|congresso|parlamento|senado|partido|ministr|oposi[çc]|vota[çc]|\blei\b|reforma|"
+CATEGORIAS = {  # cada termo começa no início de uma palavra (\b); os curtos também terminam nela
+    "economia": r"econom|pib\b|infla[çc]|juros\b|banco central|export|import|com[ée]rcio|tarifa|bolsas?\b|a[çc][õo]es\b|"
+                r"d[óo]lar|moedas?\b|petr[óo]leo|soja\b|min[ée]rio|investiment|empresa|mercados?\b|pre[çc]os?\b|ind[úu]stria|"
+                r"empregos?\b|desemprego|d[íi]vidas?\b|fiscal\b|impostos?\b|agroneg|custo de vida",
+    "politica": r"elei[çc]|presidente|governo|congresso|parlamento|senado|partido|ministr|oposi[çc]|vota[çc]|lei\b|reforma|"
                 r"justi[çc]a|tribunal|protesto|premi[êe]",
-    "geopolitica": r"guerra|conflito|militar|ex[ée]rcito|otan|san[çc]|diplomac|embaixad|fronteira|ataque|m[íi]ssil|tratado|"
-                   r"invas|tropas|nuclear|cessar-fogo|territ[óo]ri|chanceler",
-    "afeta_o_mundo": r"mundial|global|\bmundo\b|mercados|\bonu\b|clima|pandemia|recess|\bg20\b|\bg7\b|brics|c[úu]pula|cadeias? de suprimento",
+    "geopolitica": r"guerra|conflito|militar|ex[ée]rcito|otan\b|san[çc][õo]|diplomac|embaixad|fronteira|ataque|m[íi]sseis\b|m[íi]ssil\b|"
+                   r"tratado|invas|tropas|nuclear|cessar-fogo|territ[óo]ri|chanceler|negocia[çc][õo]es de paz|acordo de paz",
+    "afeta_o_mundo": r"mundial|global|mundo\b|mercados\b|onu\b|clima\b|pandemia|recess|g20\b|g7\b|brics\b|c[úu]pula|"
+                     r"cadeias? de suprimento",
 }
-_CAT = {k: re.compile(v, re.I) for k, v in CATEGORIAS.items()}
+_CAT = {k: re.compile(r"\b(?:" + v + ")", re.I) for k, v in CATEGORIAS.items()}
 
 
 class LimiteGDELT(OSError):

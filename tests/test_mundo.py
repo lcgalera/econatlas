@@ -28,6 +28,15 @@ def test_categorias_por_palavras_chave():
     assert set(gdelt.categorias("Guerra eleva preço do petróleo nos mercados")) >= {"economia", "geopolitica", "afeta_o_mundo"}
     assert gdelt.categorias("Presidente vence eleição") == ["politica"]
     assert gdelt.categorias("Time vence o clássico") == []
+    # manchetes reais de 04/11/2026: "ações" dentro de outra palavra não é economia
+    assert gdelt.categorias("Milei compartilha publicações sobre 'interferência estrangeira' após visita de Janones à Argentina") == []
+    c = gdelt.categorias("Rússia lança ataque com centenas de drones e mísseis contra rede elétrica da Ucrânia às vésperas de negociações de paz")
+    assert c == ["geopolitica"]
+    assert gdelt.categorias("Bolsa sobe e ações da Petrobras disparam") == ["economia"]
+    assert gdelt.categorias("Eleições nos EUA: Mississippi tem disputa acirrada pelo Senado com menos de 100 votos de diferença") == ["politica"]
+    assert gdelt.categorias("Prefeitos voluntários administram milhares de cidades") == []          # "administram" não é "ministro"
+    assert "economia" in gdelt.categorias("Custo de vida e guerra no Irã: as 9 preocupações dos eleitores")
+    assert "geopolitica" in gdelt.categorias("Irã lança míssil contra base")
 
 
 def test_manchetes_filtram_repeticao_e_pais(monkeypatch):
@@ -133,8 +142,9 @@ def test_noticias_mantem_as_anteriores_quando_as_fontes_falham(monkeypatch, tmp_
     monkeypatch.setattr(rss, "coletar", lambda: ([], {"Feed X": "OSError: recusado"}))
     monkeypatch.setattr(gdelt, "lote", falha)
     n = build.noticias(tmp_path, log=lambda *a: None)
-    assert n["paises"]["156"] == [{"titulo": "China cresce", "data": "29991231"}]
-    assert n["mundo"] == [{"titulo": "Cúpula global", "data": "29991231"}]
+    so = lambda l: [(m["titulo"], m["data"]) for m in l]
+    assert so(n["paises"]["156"]) == [("China cresce", "29991231")]
+    assert so(n["mundo"]) == [("Cúpula global", "29991231")] and n["mundo"][0]["categorias"] == ["afeta_o_mundo"]  # recalculadas
     assert "rss:Feed X" in n["falhas"] and "gdelt_lote_1" in n["falhas"]
 
 RSS = """<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Feed</title>

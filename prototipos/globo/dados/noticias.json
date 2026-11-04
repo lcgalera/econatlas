@@ -692,9 +692,7 @@
     "veiculo": "Folha Mundo",
     "data": "20261103",
     "dominio": "redir.folha.com.br",
-    "categorias": [
-     "economia"
-    ]
+    "categorias": []
    },
    {
     "titulo": "'Lulazo' é aula para derrotar Milei em 2027, diz oposição na Argentina",
@@ -800,9 +798,7 @@
     "data": "20261103",
     "dominio": "redir.folha.com.br",
     "categorias": [
-     "economia",
-     "geopolitica",
-     "afeta_o_mundo"
+     "geopolitica"
     ]
    },
    {
@@ -839,9 +835,7 @@
     "veiculo": "DW Brasil",
     "data": "20261102",
     "dominio": "www.dw.com",
-    "categorias": [
-     "politica"
-    ]
+    "categorias": []
    },
    {
     "titulo": "Por que os alemães não pagam rodadas de cerveja para a mesa toda",
@@ -1115,7 +1109,6 @@
     "data": "20261103",
     "dominio": "g1.globo.com",
     "categorias": [
-     "economia",
      "geopolitica"
     ]
    },
@@ -1162,9 +1155,7 @@
     "veiculo": "g1 Mundo",
     "data": "20261103",
     "dominio": "g1.globo.com",
-    "categorias": [
-     "economia"
-    ]
+    "categorias": []
    },
    {
     "titulo": "Rei Charles 3º diz sentir 'horror' da escravidão durante discurso em ex-colônia britânica",
@@ -1332,18 +1323,6 @@
    ]
   },
   {
-   "titulo": "Ciberataques a supermercados já atingem 11 países da Europa",
-   "url": "https://www.dw.com/pt-br/ciberataques-a-supermercados-já-atingem-11-países-da-europa/a-79856789?maca=bra-rss-br-all-1030-xml-mrss",
-   "veiculo": "DW Brasil",
-   "data": "20261104",
-   "dominio": "www.dw.com",
-   "categorias": [
-    "economia",
-    "geopolitica",
-    "afeta_o_mundo"
-   ]
-  },
-  {
    "titulo": "Guerra, economia, IA e casos de corrupção derrotam Trump nos EUA",
    "url": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/guerra-economia-ia-e-casos-de-corrupcao-derrotam-trump-nos-eua",
    "veiculo": "Agência Brasil Internacional",
@@ -1432,7 +1411,6 @@
    "data": "20261103",
    "dominio": "g1.globo.com",
    "categorias": [
-    "economia",
     "geopolitica"
    ]
   },
@@ -1455,18 +1433,6 @@
    "dominio": "g1.globo.com",
    "categorias": [
     "geopolitica"
-   ]
-  },
-  {
-   "titulo": "O que se sabe sobre nova onda de ciberataques a supermercados europeus",
-   "url": "https://g1.globo.com/tecnologia/ciberseguranca/noticia/2026/11/03/o-que-se-sabe-sobre-nova-onda-de-ciberataques-a-supermercados-europeus.ghtml",
-   "veiculo": "g1 Mundo",
-   "data": "20261103",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "economia",
-    "geopolitica",
-    "afeta_o_mundo"
    ]
   },
   {
@@ -1519,9 +1485,7 @@
    "data": "20261103",
    "dominio": "redir.folha.com.br",
    "categorias": [
-    "economia",
-    "geopolitica",
-    "afeta_o_mundo"
+    "geopolitica"
    ]
   },
   {
