@@ -145,9 +145,52 @@ o realizado em menos de 80% das vezes. É uma série da indústria fornecedora, 
     return "\n".join(partes)
 
 
+def _secao_leiloes(lc: Optional[dict], cats: dict, perfil: dict, pasta: Optional[Path] = None) -> str:
+    """Lotes arrematados sem contrato no SIGET: o que será construído, por quem e quando (estimado), com as categorias citadas."""
+    if not lc:
+        return ("<p class='small'>Resultados de leilões não importados. Baixe a planilha oficial e rode "
+                "<code>rotzx leiloes-importar arquivo.xlsx</code>.</p>")
+    from .leiloes import evidencias_lote, resumo_categorias
+    pend, pr = lc["pendentes"], lc.get("prazos") or {}
+    nome_cat = {c["id"]: c["nome"] for c in cats["categorias"]}
+    if pend is None or pend.empty:
+        return "<p class='small'>Nenhum lote arrematado nos últimos 24 meses está sem contrato identificado no SIGET.</p>"
+    prazo_txt = (f"Nos {pr['n']} lotes já ligados a contratos, a assinatura veio de {pr['min']} a {pr['max']} dias depois do leilão "
+                 f"(mediana de {pr['mediana']} dias)." if pr.get("n") else "")
+    linhas, csv = [], []
+    for r in pend.itertuples():
+        evs = evidencias_lote(r.empreendimento, cats)
+        rs = resumo_categorias(evs, nome_cat, perfil.get("categorias"))
+        rap = f"R$ {r.rap_vencedora / 1e6:,.1f} mi/ano".replace(",", "X").replace(".", ",").replace("X", ".") if pd.notna(r.rap_vencedora) else "–"
+        cat_html = (f"<span class='tag ok'>confirmado</span>{E(rs['confirmadas'])}" if rs["confirmadas"] else "") + (
+            f"<br><span class='tag inf'>inferência</span>{E(rs['inferidas'])}" if rs["inferidas"] else "") + (
+            f"<br><span class='tag nv'>não verificado</span>{E(rs['nao_verificadas'])}" if rs["nao_verificadas"] else "")
+        etapa = f" ({r.etapa}ª etapa)" if str(r.etapa or "").strip() else ""
+        linhas.append(f"<tr><td>{E(r.leilao)}{etapa}<div class='small'>{E(str(r.data_leilao)[:10])}</div></td><td>{E(r.lote)}</td>"
+                      f"<td>{E(r.empreendimento) or '<span class=small>descrição ausente na planilha</span>'}</td><td>{E(r.ufs)}</td>"
+                      f"<td>{E(r.vencedor)}</td><td class='r'>{rap}</td><td>{(E(r.prazo_texto) + ' meses') if str(r.prazo_texto or '').strip() else 'não informado'}"
+                      f"<div class='small'>operação ≈ {E(r.operacao_estimada or '–')}</div></td>"
+                      f"<td>{cat_html or '–'}<div class='small'>{E(r.status_contrato)}</div></td></tr>")
+        csv.append({"leilao": r.leilao, "data_leilao": r.data_leilao, "etapa": r.etapa, "lote": r.lote, "empreendimento": r.empreendimento,
+                    "ufs": r.ufs, "vencedor": r.vencedor, "rap_vencedora": r.rap_vencedora, "prazo_meses": r.prazo_meses,
+                    "operacao_estimada": r.operacao_estimada, "status_contrato": r.status_contrato,
+                    "categorias_confirmadas": rs["confirmadas"], "categorias_inferidas": rs["inferidas"],
+                    "categorias_nao_verificadas": rs["nao_verificadas"], "evidencia_contrato": r.evidencia_contrato})
+    if pasta is not None:
+        pd.DataFrame(csv).to_csv(pasta / "leiloes_sem_contrato.csv", index=False, encoding="utf-8-sig")
+    return (f"""<p class="aside"><b>Por que importa.</b> Um lote arrematado só aparece no SIGET depois que o contrato é assinado.
+Até lá, a descrição do lote no resultado oficial do leilão já diz o que será construído. {E(prazo_txt)}
+A operação aqui é uma <b>estimativa</b> (data do leilão + prazo do edital); a data oficial vem no contrato. Lote licitado descreve
+instalações a construir, não pedidos de compra: o vencedor ainda escolhe EPCista e fornecedores.</p>
+<div style="overflow-x:auto"><table><tr><th>Leilão</th><th>Lote</th><th>O que será construído (resultado oficial)</th><th>UF</th>
+<th>Vencedor</th><th class="r">Receita anual</th><th>Prazo</th><th>Categorias do perfil</th></tr>{''.join(linhas)}</table></div>
+<p class="small">{E(lc.get('atribuicao', ''))} Ligação lote → contrato conferida à mão em <code>catalog/leiloes_contratos.json</code>.</p>""")
+
+
 def gerar(op: pd.DataFrame, ev: pd.DataFrame, cats: dict, perfil: dict, pasta: Path, top: int = 30,
           hoje: Optional[pd.Timestamp] = None, fontes: Optional[dict] = None,
-          eventos: Optional[pd.DataFrame] = None, contexto: Optional[dict] = None) -> dict:
+          eventos: Optional[pd.DataFrame] = None, contexto: Optional[dict] = None,
+          leiloes: Optional[dict] = None) -> dict:
     """Grava oportunidades.csv, evidencias.csv e relatorio.html na pasta. Devolve os caminhos."""
     hoje = hoje or pd.Timestamp.today().normalize()
     pasta.mkdir(parents=True, exist_ok=True)
@@ -217,6 +260,9 @@ não a previsão da transmissora. O <b>score</b> (0–100) só ordena o que olha
 {_tabela_contagem(op.ufs.str.split(',').explode().replace('', '–'), 'UF das subestações')}
 {_tabela_contagem(ano, 'Ano de operação (ato legal)')}
 </div>
+
+<h2>Leilões arrematados, contrato ainda não assinado</h2>
+{_secao_leiloes(leiloes, cats, perfil, pasta)}
 
 <h2>Contexto de mercado</h2>
 {_secao_contexto(contexto)}

@@ -221,6 +221,8 @@ def main(argv=None):
     sa.add_argument("--semente", type=int, default=20261104, help="semente do sorteio (padrão: 20261104)")
 
     sub.add_parser("siget-atualizar", help="Fase 2: baixa os arquivos do SIGET que mudaram e registra versões e eventos no histórico")
+    li = sub.add_parser("leiloes-importar", help="importa a planilha oficial de resultados de leilões de transmissão (baixada à mão) para historico/")
+    li.add_argument("arquivo", help="Resultado_leiloes_transmissao.xlsx (gov.br/aneel › Centrais de Conteúdos › Relatórios e Indicadores › Leilões)")
     sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
     sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
     sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
@@ -321,6 +323,21 @@ def main(argv=None):
             ev = historico.eventos(storage.connect(), r["coleta_id"])
             print("  " + ", ".join(f"{k}: {v}" for k, v in ev.assign(k=ev.tipo + " " + ev.rotulo).k.str.strip().value_counts().items()))
         print(sg.ATRIBUICAO)
+    elif args.cmd == "leiloes-importar":
+        import hashlib
+        from .providers import aneel_leiloes as al
+        src = Path(args.arquivo).expanduser().resolve()
+        df = al.ler_planilha(src)
+        destino = config.DATA_DIR / "fontes" / "aneel" / "resultado-de-leiloes" / "planilhas"
+        destino.mkdir(parents=True, exist_ok=True)
+        sha = hashlib.sha256(src.read_bytes()).hexdigest()
+        shutil.copy2(src, destino / f"{sha[:12]}_{src.name}")
+        al.ARQUIVO_TIDY.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(al.ARQUIVO_TIDY, index=False, lineterminator="\n")
+        rec = df[df.data_leilao.notna()].data_leilao.max()
+        print(f"{len(df)} lotes de {df.groupby(['leilao', 'data_leilao'], dropna=False).ngroups} leilões; o mais recente em {rec}")
+        print(f"  {al.ARQUIVO_TIDY.relative_to(config.ROOT)} (SHA-256 da planilha: {sha[:16]})")
+        print(al.ATRIBUICAO)
     elif args.cmd == "contexto-atualizar":
         from .intelligence import contexto as ctxm
         update(ctxm.series_usadas())
@@ -353,8 +370,19 @@ def main(argv=None):
         faltam = [i["id"] for i in ctx["indicadores"] if "erro" in i]
         if faltam:
             print(f"  aviso: sem dados para {', '.join(faltam)} (rode `rotzx atualizar`)")
+        from .intelligence import leiloes as lm
+        from .providers import aneel_leiloes as al
+        tab = al.carregar()
+        lc = None
+        if not tab.empty:
+            mapa = lm.carregar_mapa()
+            lc = {"pendentes": lm.pendentes(tab, mapa, hoje), "prazos": lm.prazos_observados(mapa, t["agente"]),
+                  "atribuicao": al.ATRIBUICAO}
+            print(f"  leilões: {len(lc['pendentes'])} lotes arrematados sem contrato identificado no SIGET")
+        else:
+            print("  aviso: resultados de leilões não importados (rode `rotzx leiloes-importar arquivo.xlsx`)")
         out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"),
-                              eventos=mudancas, contexto=ctx)
+                              eventos=mudancas, contexto=ctx, leiloes=lc)
         print(f"{len(ops)} oportunidades para {perfil['nome']}")
         for k, v in out.items():
             print(f"  {k}: {v}")

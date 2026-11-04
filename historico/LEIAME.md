@@ -6,6 +6,7 @@ Gerado por `rotzx siget-atualizar` + `rotzx siget-historico-exportar` (toda segu
 |---|---|---|
 | `siget_coletas.csv` | uma linha por coleta que trouxe arquivos diferentes, com os nomes (prefixo SHA-256) dos arquivos da ANEEL | só acréscimos |
 | `siget_eventos.csv` | o que mudou em cada empreendimento entre uma coleta e a anterior: `novo`, `saiu_da_fonte` ou `mudou` (campo, antes, depois) | só acréscimos |
+| `leiloes_transmissao.csv` | resultados dos leilões de transmissão, uma linha por lote (planilha da ANEEL, importada com `rotzx leiloes-importar`; `docs/08-leiloes.md`) | regravado a cada importação; o git guarda as versões |
 | `siget_estado.csv` | os campos acompanhados de cada empreendimento na última coleta, para comparar com a próxima | regravado a cada coleta (derivado) |
 
 A exportação falha se uma linha antiga de `siget_coletas.csv` ou `siget_eventos.csv` divergir do banco. O histórico do git mostra quando cada linha entrou.

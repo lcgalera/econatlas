@@ -43,7 +43,7 @@ não informa a direção.
 - Produção da CNAE 27: −1,0% na média de 12 meses (até 08/2026); máquinas (CNAE 28): −4,8%; IBC-Br: +1,4%.
 - SIGET: 220 empreendimentos em andamento com operação prevista pelo ato legal para 2027, 166 para 2028 e 177 para 2029. 72 atos autorizativos em 2026 (até 04/11).
   **Nenhum contrato de concessão foi assinado em 2025** segundo a fonte (0 de 413; a numeração pula de `/2024` para `/2026`). Os nove contratos
-  de 23/02/2026 podem ser do leilão anterior, mas isso **não foi verificado**.
+  de 23/02/2026 são os nove lotes do Leilão 04/2025 (31/10/2025), conferidos nome a nome no `docs/08-leiloes.md`: o zero é efeito do calendário.
 
 Essas frases descrevem; não recomendam nem preveem nada.
 
