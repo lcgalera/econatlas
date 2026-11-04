@@ -128,3 +128,10 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Decisão:** (1) começar as conversas de descoberta já (roteiro em `docs/05-validacao-com-compradores.md`, registros em `privado/`); (2) a primeira entrega comercial é um relatório gerado pelo pipeline e revisado à mão; (3) a interface de oportunidades só começa depois de piloto; (4) a distribuição entra nas conversas como nicho concorrente.
 **Navegação:** o Radar Setorial passa a ser o primeiro item do menu e aparece como ativo; Brasil x Mundo sai do menu e da home (D6), mas a rota continua existindo.
 **Revisar quando:** houver resultado das 5 conversas ou do perfil do SIGET.
+
+### D30 · 04/11/2026 · SIGET validado: seguir com a fonte; autorizações (REA/DSP) como foco inicial
+**Resultado** (`docs/03-fonte-siget.md`): chaves estáveis com 100% de ligação entre as tabelas, situação preenchida, 754 empreendimentos em andamento (652 com módulo de equipamento), concessionária com CNPJ, datas do ato legal e UF. Licença ODbL, atualização diária. Os três critérios fixados antes de ver os dados foram atendidos.
+**Descoberta:** 616 dos 754 empreendimentos em andamento são autorizações (reforços e melhorias por resolução ou despacho em concessões existentes), com link do ato. Elas quase não saem na imprensa e descrevem a troca ou instalação de equipamento de forma concreta. É o melhor candidato a diferencial do radar, e vale testar nas conversas com compradores.
+**Limites que o produto precisa mostrar:** as datas são as do ato legal, não a previsão da transmissora; potência e quantidade de disjuntores têm preenchimento parcial; `DscSituacaoModulo` está com defeito na fonte; campos fora do dicionário não são usados; lotes de leilão ainda não assinados não aparecem.
+**Como:** `econatlas siget-amostra` (`providers/aneel_siget.py`) monta a visão por empreendimento só com o que a fonte afirma e uma amostra reproduzível de 20 casos, que a avaliação humana classifica com o critério de `docs/03` §5.
+**Licença:** a ODbL permite republicar com atribuição ("Contém dados da ANEEL…") e exige a mesma licença na base derivada. A amostra no `docs/03` já leva a atribuição.

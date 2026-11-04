@@ -49,6 +49,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `importar-macrodados arquivo.csv` | Só no Mac: importa exportações da Macrodados (uso pessoal) |
 | `qualidade` | Verificações de consistência dos dados |
 | `fonte-explorar TERMO [--conjunto NOME]` | Fase 1 do radar de oportunidades: lista conjuntos do portal da ANEEL ou baixa um conjunto e gera o perfil dos campos em `data/fontes/` (ver `docs/03-fonte-siget.md`) |
+| `siget-amostra [--n 20]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
 
 Testes: `.venv/bin/python -m pytest -q`.
 
@@ -98,7 +99,7 @@ continuam com o identificador interno `econatlas` por enquanto, para não quebra
 ```
 catalog/series.json        catálogo público (metadados conferidos nas fontes oficiais)
 econatlas/
-  providers/               BCB/SGS, BCB/Expectativas, IBGE/SIDRA, arquivos (e exportações da Macrodados), ckan (exploração de fontes)
+  providers/               BCB/SGS, BCB/Expectativas, IBGE/SIDRA, arquivos (e exportações da Macrodados), ckan (exploração de fontes), aneel_siget (visão por empreendimento)
   storage.py               SQLite com versões (vintages) e arquivos brutos com SHA-256
   transforms.py            transformações declaradas
   payloads.py              dados que a interface consome (API local e site público)
@@ -118,7 +119,7 @@ privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ## Pendências
 
 - **Validação com compradores (antes de construir a interface):** 5 conversas de descoberta com o roteiro de `docs/05-validacao-com-compradores.md`; resultados em `privado/validacao/`, fora do git (D29).
-- **Radar de oportunidades (Fase 1):** validar o SIGET da ANEEL com `fonte-explorar`. O ambiente de nuvem não alcança o portal; rodar no Mac ou liberar o domínio (`docs/03-fonte-siget.md`).
+- **Radar de oportunidades (Fase 1):** SIGET validado (D30). Falta a avaliação manual da amostra de 20 empreendimentos (`data/fontes/aneel/…/amostra.csv`, critério em `docs/03-fonte-siget.md` §5) e uma segunda coleta para medir a frequência de mudança.
 - **Macrodados:** aguardar a resposta sobre uso de dados derivados e uso comercial. Até lá, nada dela em material público.
 - **Faixas da indústria de materiais elétricos estreitas:** cobriram 61–69% no backtest, para uma meta de 80%. Testar uma janela recente de erros, como a do IPCA, como especificação nova (`setorial_v2`), sem alterar a v1.
 - **Defasagens de divulgação** (IBGE, CNI, FGV): são premissas do teste em tempo real; conferir nos calendários oficiais.

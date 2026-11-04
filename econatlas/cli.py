@@ -215,6 +215,9 @@ def main(argv=None):
     fe.add_argument("--conjunto", default=None, help="nome do conjunto: baixa os recursos e gera data/fontes/.../relatorio.md")
     fe.add_argument("--max-mb", type=float, default=300, help="tamanho máximo por arquivo baixado")
 
+    sa = sub.add_parser("siget-amostra", help="Fase 1: visão por empreendimento do SIGET e amostra para avaliação manual")
+    sa.add_argument("--n", type=int, default=20, help="tamanho da amostra (padrão: 20)")
+
     s = sub.add_parser("servir", help="inicia a interface web local")
     s.add_argument("--porta", type=int, default=8000)
 
@@ -274,6 +277,16 @@ def main(argv=None):
                 print(f"{c['nome']}  |  {c['titulo']}  |  licença: {c['licenca'] or 'não declarada'}  |  {c['modificado']}")
                 for r in c["recursos"]:
                     print(f"    [{r['formato'] or '?'}] {r['nome']}  {r['url']}")
+    elif args.cmd == "siget-amostra":
+        from .providers import aneel_siget as sg
+        emp = sg.empreendimentos(sg.carregar())
+        am = sg.amostra(emp, n=args.n)
+        pasta = sg.pasta_padrao().parent
+        emp.to_csv(pasta / "empreendimentos.csv", index=False)
+        am.to_csv(pasta / "amostra.csv", index=False)
+        print(f"{len(emp)} empreendimentos ({(emp.situacao == sg.EM_ANDAMENTO).sum()} em andamento) -> {pasta / 'empreendimentos.csv'}")
+        print(f"amostra de {len(am)} para avaliação manual -> {pasta / 'amostra.csv'}")
+        print(sg.ATRIBUICAO)
     elif args.cmd == "servir":
         import uvicorn
         uvicorn.run("econatlas.api:app", host="127.0.0.1", port=args.porta)

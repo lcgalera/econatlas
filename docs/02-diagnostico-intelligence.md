@@ -172,9 +172,9 @@ O que **não** fazer antes do passo 4: classificador, score, interface de oportu
 
 | Passo | Entregável | Depende de |
 |---|---|---|
-| 1 | Liberar a rede ou rodar `fonte-explorar` no Mac | Lucas |
+| 1 | ~~Liberar a rede ou rodar `fonte-explorar` no Mac~~ feito em 04/11/2026 | Lucas |
 | 1b | **Em paralelo:** 5 conversas de descoberta (~5 h no total) | Lucas |
-| 2 | Perfil real do SIGET e respostas às perguntas do `03-fonte-siget.md` | passo 1 |
+| 2 | ~~Perfil real do SIGET~~ feito: fonte validada, ver `03-fonte-siget.md` e D30 | passo 1 |
 | 3 | Amostra de 10–20 empreendimentos avaliada à mão | passo 2 |
 | 4 | Decisão de fonte **e de nicho** (transmissão × distribuição) | passos 1b e 3 |
 | 5 | Pipeline + regras + relatório exportável | passo 4 |
