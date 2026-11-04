@@ -1,5 +1,5 @@
 window.NOTICIAS = {
- "gerado_em": "2026-11-04T22:30:52+00:00",
+ "gerado_em": "2026-11-04T23:18:02+00:00",
  "fonte": {
   "nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, RFI) e GDELT",
   "url": "https://www.gdeltproject.org",
@@ -501,6 +501,19 @@ window.NOTICIAS = {
   ],
   "840": [
    {
+    "titulo": "Presidente da Câmara dos EUA decide renunciar após derrota republicana",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/presidente-da-camara-dos-representantes-decide-renunciar-apos-derrota-republicana.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ],
+    "paises": [
+     "840"
+    ]
+   },
+   {
     "titulo": "De casa sem janela em Duque de Caxias à Assembleia da Flórida: a trajetória do carioca eleito deputado nos EUA",
     "url": "https://g1.globo.com/rj/rio-de-janeiro/noticia/2026/11/04/duque-de-caxias-assembleia-da-florida-trajetoria-do-carioca-eleito-deputado-nos-eua.ghtml",
     "veiculo": "g1 Mundo",
@@ -873,19 +886,6 @@ window.NOTICIAS = {
     "paises": [
      "840"
     ]
-   },
-   {
-    "titulo": "Eleições nos EUA: democrata vence disputa no Senado pelo Maine",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-democrata-vence-disputa-no-senado-pelo-maine.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ],
-    "paises": [
-     "840"
-    ]
    }
   ],
   "032": [
@@ -1057,19 +1057,6 @@ window.NOTICIAS = {
     ]
    },
    {
-    "titulo": "Alemanha e Romênia relatam ataques hackers a supermercados; sobe para 11 o número de países atingidos",
-    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/tec/2026/11/alemanha-e-romenia-relatam-ataques-hackers-a-supermercados-sobe-para-11-o-numero-de-paises-atingidos.shtml",
-    "veiculo": "Folha Mercado",
-    "data": "20261103",
-    "dominio": "redir.folha.com.br",
-    "categorias": [
-     "geopolitica"
-    ],
-    "paises": [
-     "276"
-    ]
-   },
-   {
     "titulo": "Cresce pressão na Alemanha para reconhecimento pleno de genocídio na Namíbia",
     "url": "https://www.dw.com/pt-br/cresce-pressão-na-alemanha-para-reconhecimento-pleno-de-genocídio-na-namíbia/a-79844930?maca=bra-rss-br-all-1030-xml-mrss",
     "veiculo": "DW Brasil",
@@ -1081,13 +1068,13 @@ window.NOTICIAS = {
     ]
    },
    {
-    "titulo": "Merz defende que Alemanha tenha primeira presidente mulher",
-    "url": "https://www.dw.com/pt-br/merz-defende-que-alemanha-tenha-primeira-presidente-mulher/a-79834919?maca=bra-rss-br-all-1030-xml-mrss",
-    "veiculo": "DW Brasil",
-    "data": "20261102",
-    "dominio": "www.dw.com",
+    "titulo": "Alemanha e Romênia relatam ataques hackers a supermercados; sobe para 11 o número de países atingidos",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/tec/2026/11/alemanha-e-romenia-relatam-ataques-hackers-a-supermercados-sobe-para-11-o-numero-de-paises-atingidos.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261103",
+    "dominio": "redir.folha.com.br",
     "categorias": [
-     "politica"
+     "geopolitica"
     ],
     "paises": [
      "276"
@@ -1113,6 +1100,19 @@ window.NOTICIAS = {
     "data": "20261102",
     "dominio": "www.dw.com",
     "categorias": [],
+    "paises": [
+     "276"
+    ]
+   },
+   {
+    "titulo": "Merz defende que Alemanha tenha primeira presidente mulher",
+    "url": "https://www.dw.com/pt-br/merz-defende-que-alemanha-tenha-primeira-presidente-mulher/a-79834919?maca=bra-rss-br-all-1030-xml-mrss",
+    "veiculo": "DW Brasil",
+    "data": "20261102",
+    "dominio": "www.dw.com",
+    "categorias": [
+     "politica"
+    ],
     "paises": [
      "276"
     ]
@@ -1601,12 +1601,12 @@ window.NOTICIAS = {
   "858": []
  },
  "falhas": {
+  "gdelt_lote_2": "HTTPError: HTTP Error 429: Too Many Requests",
   "gdelt_lote_3": "HTTPError: HTTP Error 429: Too Many Requests"
  },
  "diagnostico": {
-  "rss_itens": 535,
-  "gdelt_lote_1": 0,
-  "gdelt_lote_2": 0
+  "rss_itens": 534,
+  "gdelt_lote_1": 0
  },
  "mundo": [
   {
@@ -1737,6 +1737,18 @@ window.NOTICIAS = {
    "data": "20261104",
    "dominio": "redir.folha.com.br",
    "categorias": [
+    "geopolitica"
+   ],
+   "paises": []
+  },
+  {
+   "titulo": "Mercado Bitcoin afirma ter bloqueado US$ 15 milhões em criptomoedas após ataque hacker",
+   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/financas/2026/11/mercado-bitcoin-afirma-ter-bloqueado-us-15-milhoes-em-criptomoedas-apos-ataque-hacker.shtml",
+   "veiculo": "Folha Mercado",
+   "data": "20261104",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "economia",
     "geopolitica"
    ],
    "paises": []
@@ -1989,19 +2001,6 @@ window.NOTICIAS = {
    ],
    "paises": [
     "840"
-   ]
-  },
-  {
-   "titulo": "Ataques cibernéticos com IA devem se tornar rotina até 2028, diz agência britânica",
-   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://c-level.folha.uol.com.br/ia/2026/11/ataques-ciberneticos-com-ia-devem-se-tornar-rotina-ate-2028-diz-agencia-britanica.shtml",
-   "veiculo": "Folha Mercado",
-   "data": "20261103",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "geopolitica"
-   ],
-   "paises": [
-    "826"
    ]
   }
  ],
