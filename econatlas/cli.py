@@ -220,6 +220,11 @@ def main(argv=None):
     sa.add_argument("--aleatoria", action="store_true", help="sorteio entre os elegíveis (sem os da amostra.csv) + planilha de avaliação")
     sa.add_argument("--semente", type=int, default=20261104, help="semente do sorteio (padrão: 20261104)")
 
+    op = sub.add_parser("oportunidades", help="Fase 3: oportunidades do SIGET para um perfil (relatório HTML + CSV)")
+    op.add_argument("--perfil", default=None, help="JSON do perfil (padrão: catalog/perfil_demo.json)")
+    op.add_argument("--top", type=int, default=30, help="quantas oportunidades detalhar no relatório")
+    op.add_argument("--saida", default=None, help="pasta de saída (padrão: data/relatorios/<perfil>_<data>)")
+
     s = sub.add_parser("servir", help="inicia a interface web local")
     s.add_argument("--porta", type=int, default=8000)
 
@@ -298,6 +303,25 @@ def main(argv=None):
         am.to_csv(pasta / "amostra.csv", index=False)
         print(f"{len(emp)} empreendimentos ({(emp.situacao == sg.EM_ANDAMENTO).sum()} em andamento) -> {pasta / 'empreendimentos.csv'}")
         print(f"amostra de {len(am)} para avaliação manual -> {pasta / 'amostra.csv'}")
+        print(sg.ATRIBUICAO)
+    elif args.cmd == "oportunidades":
+        import pandas as pd
+        from . import intelligence as it
+        from .intelligence import evidencia, relatorio, scoring
+        from .providers import aneel_siget as sg
+        t = sg.carregar()
+        cats = it.carregar_categorias()
+        perfil = it.carregar_perfil(Path(args.perfil)) if args.perfil else it.carregar_perfil()
+        hoje = pd.Timestamp.today().normalize()
+        data_fonte = pd.to_datetime(t["eom"].DatGeracaoConjuntoDados.iloc[0], errors="coerce")
+        emp = sg.empreendimentos(t)
+        ev = evidencia.evidencias(t, cats)
+        ops = scoring.oportunidades(emp, ev, cats, perfil, hoje=hoje, data_fonte=data_fonte)
+        pasta = Path(args.saida) if args.saida else config.DATA_DIR / "relatorios" / f"{perfil['id']}_{hoje:%Y-%m-%d}"
+        out = relatorio.gerar(ops, ev, cats, perfil, pasta, top=args.top, hoje=hoje, fontes=emp.attrs.get("fontes"))
+        print(f"{len(ops)} oportunidades para {perfil['nome']}")
+        for k, v in out.items():
+            print(f"  {k}: {v}")
         print(sg.ATRIBUICAO)
     elif args.cmd == "servir":
         import uvicorn

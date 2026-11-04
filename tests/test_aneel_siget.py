@@ -56,7 +56,7 @@ def test_empreendimentos_uma_linha_por_empreendimento_com_o_que_a_fonte_afirma(t
     emp = sg.empreendimentos(tabelas).set_index("id_aneel")
     assert list(emp.index) == ["1", "2", "3", "4"]
     a = emp.loc["1"]
-    assert a.concessionaria == "Transmissora Fictícia Um" and a.cnpj == "00000000000191"
+    assert a.concessionaria == "Transmissora Fictícia Um" and a.cnpj == "00.000.000/0001-91"  # formatado (formatar_cnpj)
     assert a.origem == "autorização (resolução/despacho)"
     assert a.ato == "REA-2025-2" and a.ato_link.endswith("REA20252")  # o ato mais recente
     assert a.equipamentos == "Transformador de Potência 230 kV 100 MVA [Adequação]" and a.n_equipamentos == 1

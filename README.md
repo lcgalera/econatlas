@@ -49,6 +49,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `importar-macrodados arquivo.csv` | Só no Mac: importa exportações da Macrodados (uso pessoal) |
 | `qualidade` | Verificações de consistência dos dados |
 | `fonte-explorar TERMO [--conjunto NOME]` | Fase 1 do radar de oportunidades: lista conjuntos do portal da ANEEL ou baixa um conjunto e gera o perfil dos campos em `data/fontes/` (ver `docs/03-fonte-siget.md`) |
+| `oportunidades [--perfil arq.json] [--top 30]` | Fase 3: oportunidades do SIGET para um perfil, com evidência por regra e score explicado; gera `relatorio.html` e CSVs em `data/relatorios/` (`docs/06-motor-de-oportunidades.md`) |
 | `siget-amostra [--n 20] [--aleatoria]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
 
 Testes: `.venv/bin/python -m pytest -q`.
@@ -98,8 +99,10 @@ continuam com o identificador interno `econatlas` por enquanto, para não quebra
 
 ```
 catalog/series.json        catálogo público (metadados conferidos nas fontes oficiais)
+catalog/product_categories.json, perfil_demo.json   categorias de produto e perfil de demonstração do radar
 econatlas/
   providers/               BCB/SGS, BCB/Expectativas, IBGE/SIDRA, arquivos (e exportações da Macrodados), ckan (exploração de fontes), aneel_siget (visão por empreendimento)
+  intelligence/            motor de oportunidades: evidências (R1–R5), score e relatório
   storage.py               SQLite com versões (vintages) e arquivos brutos com SHA-256
   transforms.py            transformações declaradas
   payloads.py              dados que a interface consome (API local e site público)
@@ -113,14 +116,14 @@ registro/                  registro público de previsões (versionado)
 avaliacoes/                avaliações humanas de relevância (conjunto de teste das regras do radar)
 tests/                     pytest (inclui as guardas do repositório público)
 docs/01-avaliacao-inicial.md, 02-diagnostico-intelligence.md, 03-fonte-siget.md, 04-mercado-e-posicionamento.md,
-05-validacao-com-compradores.md, DECISOES.md
+05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, DECISOES.md
 privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ```
 
 ## Pendências
 
 - **Validação com compradores (antes de construir a interface):** 5 conversas de descoberta com o roteiro de `docs/05-validacao-com-compradores.md`; resultados em `privado/validacao/`, fora do git (D29).
-- **Radar de oportunidades:** SIGET validado (D30); amostra aleatória com 80% de precisão, IC 58–92% (D31). Próximos: regras da Fase 3 medidas contra `avaliacoes/siget_relevancia.csv` e uma amostra nova; segunda coleta para medir a frequência de mudança.
+- **Radar de oportunidades:** SIGET validado (D30); amostra aleatória com 80% de precisão, IC 58–92% (D31); motor e relatório da Fase 3 prontos (D32). Próximos: amostra nova para medir a precisão fora da amostra; janela por categoria validada com compradores; segunda coleta e histórico (Fase 2).
 - **Macrodados:** aguardar a resposta sobre uso de dados derivados e uso comercial. Até lá, nada dela em material público.
 - **Faixas da indústria de materiais elétricos estreitas:** cobriram 61–69% no backtest, para uma meta de 80%. Testar uma janela recente de erros, como a do IPCA, como especificação nova (`setorial_v2`), sem alterar a v1.
 - **Defasagens de divulgação** (IBGE, CNI, FGV): são premissas do teste em tempo real; conferir nos calendários oficiais.

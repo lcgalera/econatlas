@@ -68,6 +68,15 @@ def data(s: pd.Series) -> pd.Series:
     return br.fillna(iso)
 
 
+def formatar_cnpj(v) -> str:
+    """A fonte guarda o CNPJ como número e perde os zeros à esquerda ('2998611000104'): completa até 14 dígitos e formata."""
+    d = "".join(ch for ch in str(v) if ch.isdigit())
+    if not d or len(d) > 14:
+        return str(v or "")
+    d = d.zfill(14)
+    return f"{d[:2]}.{d[2:5]}.{d[5:8]}/{d[8:12]}-{d[12:]}"
+
+
 def _fmt(v: float, unid: str) -> str:
     return "" if pd.isna(v) else f" {v:g} {unid}"
 
@@ -144,6 +153,7 @@ def empreendimentos(t: Dict[str, pd.DataFrame]) -> pd.DataFrame:
         "IdeEpd": "id_aneel", "IdeOnsEpd": "id_ons", "NomEpd": "nome", "DscEpd": "descricao", "DscSituacaoEpd": "situacao",
         "DatOprComEpd": "operacao_ato_legal", "DatCaoCgmAtoLgl": "conclusao_ato_legal", "DatEfeOprComEpd": "operacao_efetiva",
         "IdeCcd": "id_contrato", "DscRazaoSocial": "concessionaria", "NumCNPJ": "cnpj", "NumCnaCcd": "contrato"})
+    out["cnpj"] = out.cnpj.map(formatar_cnpj)
     out.attrs["fontes"] = {k: v.attrs.get("arquivo") for k, v in t.items()}
     return out.fillna("").sort_values("id_aneel", key=lambda s: pd.to_numeric(s, errors="coerce")).reset_index(drop=True)
 

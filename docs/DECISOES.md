@@ -140,3 +140,11 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Resultado:** 16 de 20 relevantes numa amostra aleatória (semente 20261104) dos 612 elegíveis; 3 das 4 falhas vieram da janela de 6 meses e 1 de "revitalização" sem equipamento novo. Com n = 20, o intervalo de 95% vai de 58% a 92%: a meta de 80% não está demonstrada.
 **Decisões:** (1) a janela passa a fazer parte da elegibilidade, com prazo por categoria a validar com compradores; (2) o classificador lê a descrição (verbos de troca e instalação) e não só o tipo de obra; (3) os 40 casos avaliados ficam em `avaliacoes/siget_relevancia.csv` como conjunto de teste, e as regras novas são medidas numa amostra nova.
 **Revisar quando:** houver 60 casos avaliados ou a primeira avaliação feita por comprador.
+
+### D32 · 04/11/2026 · Motor de oportunidades determinístico: evidência por regra, score separado do nível de evidência
+**Como:** `econatlas/intelligence/` gera evidências por empreendimento e categoria (regras R1–R5: campo de módulo novo, texto com verbo de fornecimento, quantidades de manobra, inferência de bay e de linha), filtra pela elegibilidade (em andamento, concessionária, janela, tensão) e calcula o score 40/25/20/15 com os componentes e a explicação em cada linha. Só inferência tem teto de 60; pendência na descrição limita o estágio. Detalhes em `docs/06-motor-de-oportunidades.md`.
+**Catálogo e perfis:** `catalog/product_categories.json` é versionado (`categorias_v1`). O perfil de demonstração fica em `catalog/perfil_demo.json`; perfis de clientes reais ficam em `privado/perfis/`, fora do git e do site.
+**Normalização:** o CNPJ da fonte perde os zeros à esquerda; ele é completado até 14 dígitos e formatado. Essa é a única transformação de valor da fonte.
+**Limite reconhecido:** com perfil amplo, o score satura (mediana 92). Ele separa o confirmado do inferido e o que está perto da janela, não os bons casos entre si.
+**Verificação:** concordância de 39/40 com as avaliações humanas, que porém inspiraram as regras. A precisão fora da amostra ainda precisa de uma amostra nova.
+**Sem IA:** nada aqui depende de modelo de linguagem.
