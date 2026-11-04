@@ -37,3 +37,10 @@ def test_pasta_site_com_marcador_antigo_pode_ser_regerada(tmp_path):
     (out / "velho.html").write_text("x")
     public_build._prepare_dir(out)
     assert (out / public_build.MARCA).exists() and not (out / "velho.html").exists()
+
+
+def test_servidor_local_serve_o_globo():
+    from fastapi.testclient import TestClient
+    from rotzx.api import app
+    r = TestClient(app).get("/globo/")
+    assert r.status_code == 200 and "O mundo visto do Brasil" in r.text

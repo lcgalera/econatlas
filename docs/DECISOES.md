@@ -196,3 +196,8 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Motivo:** o GDELT limitou o ambiente de desenvolvimento e também o GitHub Actions (429 e respostas em texto), e uma consulta em lote voltou vazia sem explicação. Uma fonte que falha assim não sustenta o produto.
 **Como:** `rotzx/mundo/rss.py` lê feeds de mundo e economia de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI); cada manchete vai para os países que o título cita. O GDELT continua em lotes, quando responde. Cada coleta acumula com a anterior (7 dias por país; 2 dias em "Em alta no mundo", que reúne geopolítica e temas globais). Toda falha fica em `falhas` e quantos itens cada fonte trouxe fica em `diagnostico`.
 **Regra mantida:** só título, veículo, data e link; o texto da matéria fica no site do veículo.
+
+### D41 · 04/11/2026 · Globo publicado no site, com dados frescos lidos do repositório
+**Como:** o build público copia `prototipos/globo/` para `site/globo/`, e o menu do site ganha o link "O mundo visto do Brasil". O globo vem com uma cópia dos dados do dia da publicação e, ao abrir, busca a versão mais nova em `raw.githubusercontent.com/lcgalera/rotzx/main/prototipos/globo/dados/`, que o workflow Globo atualiza todo dia. Se essa busca falhar, fica a cópia. Assim as manchetes ficam frescas sem republicar o site todo dia (a rotina mensal, que publica, roda nos dias 12 e 20).
+**Segurança:** a varredura anti-vazamento do build passa a ler também arquivos `.js`; os dados do globo são só de fontes abertas.
+**Operação:** a rotina mensal passa a fazer `git pull --rebase` antes do push, porque o workflow Globo também grava na `main`.

@@ -5,6 +5,7 @@ para a produção da indústria de máquinas e materiais elétricos nos próximo
 e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câmbio, atividade, renda, crédito) dá o contexto.
 
 - **Site público:** https://lcgalera.github.io/rotzx/ (comece por "Leitura do mês: indústria de materiais elétricos")
+- **O mundo visto do Brasil:** https://lcgalera.github.io/rotzx/globo/ (globo interativo: comércio com o Brasil, economia e manchetes por país; `prototipos/globo/`)
 - **Registro de previsões:** [`registro/`](registro/), que só recebe acréscimos (veja "Como auditar o registro")
 
 **Estado (v0.12, nov/2026)**
