@@ -51,6 +51,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `fonte-explorar TERMO [--conjunto NOME]` | Fase 1 do radar de oportunidades: lista conjuntos do portal da ANEEL ou baixa um conjunto e gera o perfil dos campos em `data/fontes/` (ver `docs/03-fonte-siget.md`) |
 | `siget-atualizar` | Fase 2: baixa só os arquivos do SIGET que a ANEEL atualizou e registra versões e eventos de mudança no histórico |
 | `siget-historico-exportar` / `siget-historico-importar` | Grava o histórico em `historico/*.csv` (só acrescenta) / carrega os CSVs num banco novo |
+| `leiloes-importar arquivo.xlsx` | Importa a planilha oficial de resultados de leilões de transmissão (baixada à mão no gov.br/aneel) para `historico/leiloes_transmissao.csv` (`docs/08-leiloes.md`) |
 | `contexto-atualizar` | Fase 5: baixa só as séries públicas do contexto econômico do radar (`catalog/contexto_radar.json`) |
 | `oportunidades [--perfil arq.json] [--top 30]` | Fase 3: oportunidades do SIGET para um perfil, com evidência por regra e score explicado; gera `relatorio.html` e CSVs em `data/relatorios/` (`docs/06-motor-de-oportunidades.md`) |
 | `siget-amostra [--n 20] [--aleatoria]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
@@ -130,7 +131,7 @@ avaliacoes/                avaliações humanas de relevância (conjunto de test
 historico/                 histórico do SIGET: coletas, eventos de mudança e estado (CSV, só acréscimos; ODbL)
 tests/                     pytest (inclui as guardas do repositório público)
 docs/01-avaliacao-inicial.md, 02-diagnostico-intelligence.md, 03-fonte-siget.md, 04-mercado-e-posicionamento.md,
-05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, 07-contexto-economico.md, DECISOES.md
+05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, 07-contexto-economico.md, 08-leiloes.md, DECISOES.md
 privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ```
 
@@ -143,13 +144,14 @@ carrega `historico/`, baixa o que mudou no SIGET, registra os eventos, acrescent
 ## Pendências
 
 - **Validação com compradores (antes de construir a interface):** 5 conversas de descoberta com o roteiro de `docs/05-validacao-com-compradores.md`; resultados em `privado/validacao/`, fora do git (D29).
+- **Leilões:** importar a planilha da ANEEL depois de cada leilão (`rotzx leiloes-importar`) e atualizar `catalog/leiloes_contratos.json` quando os contratos aparecerem no SIGET; resolver os lotes 1 e 2 do 01/2026 (D37).
 - **Radar de oportunidades:** SIGET validado (D30); amostra aleatória com 80% de precisão, IC 58–92% (D31); motor e relatório da Fase 3 prontos (D32). Próximos: amostra nova para medir a precisão fora da amostra; janela por categoria validada com compradores; segunda coleta e histórico (Fase 2).
 - **Macrodados:** aguardar a resposta sobre uso de dados derivados e uso comercial. Até lá, nada dela em material público.
 - **Faixas da indústria de materiais elétricos estreitas:** cobriram 61–69% no backtest, para uma meta de 80%. Testar uma janela recente de erros, como a do IPCA, como especificação nova (`setorial_v2`), sem alterar a v1.
 - **Defasagens de divulgação** (IBGE, CNI, FGV): são premissas do teste em tempo real; conferir nos calendários oficiais.
 - **ABIMAQ e CNI** (uso pessoal): previsões só locais. A causa do descolamento da série CNI de máquinas em 2022–23 não pode ser verificada com os dados disponíveis.
 - **IPFF** (Índice de Pressão Financeira das Famílias): metodologia proposta em `docs/01-avaliacao-inicial.md`, ainda não construído.
-- **GitHub Actions:** o workflow usa Python 3.9, igual ao Mac. Se o GitHub deixar de oferecer essa versão, mudar `python-version` para 3.12 (as versões fixadas são compatíveis). O rótulo `ubuntu-latest` passará ao Ubuntu 26 a partir de out/2026.
+- **GitHub Actions:** as actions rodam em Node 24 (checkout v5, setup-python v6, upload-artifact v6, upload-pages-artifact v5, deploy-pages v5; D36). O `setup-python` v7 remove versões do Python fora de suporte, como a 3.9: não atualizar sem antes migrar o Python. O workflow usa Python 3.9, igual ao Mac. Se o GitHub deixar de oferecer essa versão, mudar `python-version` para 3.12 (as versões fixadas são compatíveis). O rótulo `ubuntu-latest` passará ao Ubuntu 26 a partir de out/2026.
 - **Primeiras avaliações:** IPCA de out/2026 (por volta de 10/nov) e produção da indústria de materiais elétricos de out/2026 (dezembro).
 
 Decisões e motivos: [`docs/DECISOES.md`](docs/DECISOES.md). Análises econômicas são associações preditivas, não causalidade, e não constituem recomendação financeira ou de investimento.

@@ -168,3 +168,15 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Compatibilidade:** `econatlas/` virou um pacote de redirecionamento (`python -m econatlas …` e `import econatlas…` funcionam, com aviso); o banco `data/econatlas.sqlite` é renomeado no primeiro uso; o tema salvo com a chave antiga continua sendo lido; uma pasta `site/` gerada com o marcador antigo pode ser regerada.
 **O que não muda:** o registro de previsões, o histórico do SIGET e a versão do código registrada em cada previsão (`versao_codigo`). Nenhuma linha de `registro/` nem de `historico/` foi tocada. O texto de D25 fica como estava, como registro da decisão da época.
 **Efeito externo:** o endereço antigo do site (`lcgalera.github.io/econatlas`) deixa de funcionar; o GitHub não redireciona sites do Pages. O repositório antigo redireciona.
+
+### D36 · 04/11/2026 · Actions em Node 24, na menor versão de cada uma que já roda nele
+**Motivo:** o GitHub avisou que o Node 20 foi descontinuado nas actions (`checkout@v4`, `setup-python@v5`, `upload-artifact@v4`).
+**Versões** (conferidas no `action.yml` de cada tag): `checkout@v5`, `setup-python@v6`, `upload-artifact@v6`, `upload-pages-artifact@v5` (usa `upload-artifact@v7` por dentro) e `deploy-pages@v5`, todas em Node 24.
+**Por que não a mais nova:** o `setup-python@v7` remove versões do Python fora de suporte, e o projeto usa a 3.9 (igual ao Mac, D23). A migração do Python é outra decisão.
+**Efeito conhecido:** desde a v4, o `upload-pages-artifact` deixa de fora arquivos que começam com ponto (`.nojekyll`, `.rotzx-publico`). Nenhum deles faz falta no site publicado pelo Actions, que não passa pelo Jekyll.
+
+### D37 · 04/11/2026 · Leilões de transmissão como sinal antecipado, com ligação lote → contrato conferida à mão
+**Fonte:** a planilha oficial da Central de Conteúdos da ANEEL vai até o Leilão 04/2026 (30/10/2026); o conjunto do portal parou em 09/2024. O download automático da planilha é barrado por desafio anti-robô e não é contornado: a planilha é baixada à mão e importada com `rotzx leiloes-importar`. A tabela por lote fica em `historico/leiloes_transmissao.csv` (versionada, com atribuição).
+**Ligação:** sem número de contrato nem código do ONS na planilha, cada lote recente foi ligado ao contrato do SIGET por nome, UF, vencedor e data, com evidência e status (`conferido`, `provavel`, `ambiguo`) em `catalog/leiloes_contratos.json`. Lotes nunca são unidos só por nome parecido.
+**No relatório:** lotes arrematados nos últimos 24 meses sem contrato identificado, com categorias pela regra R6 (instalação nova confirma; continuidade fica como não verificado) e operação estimada (leilão + prazo). Os prazos até a assinatura (68 a 115 dias nos 19 lotes ligados) são medidos a partir do mapa.
+**Achados:** o "nenhum contrato em 2025" do SIGET é efeito do calendário (leilão em 10/2025, contratos em 02/2026); duas fontes oficiais da ANEEL divergem na receita de dois lotes do Leilão 01/2023.
