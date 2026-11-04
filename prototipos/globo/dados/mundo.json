@@ -16,6 +16,17 @@
    "nome": "The GDELT Project",
    "url": "https://www.gdeltproject.org",
    "nota": "manchetes em português; título, veículo e link para a matéria original; categorias por palavras-chave"
+  },
+  "onu": {
+   "nome": "Votos na Assembleia Geral da ONU (Voeten, Strezhnev e Bailey, Harvard Dataverse)",
+   "url": "https://doi.org/10.7910/DVN/LEJUQZ",
+   "licenca": "CC0",
+   "nota": "índice de concordância de Lijphart: 1 = votos iguais, 0,5 = um se absteve, 0 = lados opostos"
+  },
+  "omc": {
+   "nome": "Disputas na OMC (lista oficial do site da OMC)",
+   "url": "https://www.wto.org/english/tratop_e/dispu_e/dispu_by_country_e.htm",
+   "nota": "número, título oficial (em inglês), partes, data e situação de cada disputa"
   }
  },
  "paises": {
@@ -134,7 +145,206 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.7946,
+     "media": 0.6721,
+     "anos_media": "2020–2024",
+     "posicao": 128,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 86,
+     "com_brasil": [
+      {
+       "ds": "DS568",
+       "titulo": "Certain Measures Concerning Imports of Sugar",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2018-10-16",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2018-10-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds568_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS644",
+       "titulo": "Measures Concerning Trade in Goods in the Solar Cell, Solar Module, and Information Technology Sectors",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "IND"
+       ],
+       "inicio": "2025-12-19",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-06-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds644_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "IND"
+       ]
+      },
+      {
+       "ds": "DS642",
+       "titulo": "Measures Concerning Trade in the Automotive and Renewable Energy Technology Sectors",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "IND"
+       ],
+       "inicio": "2025-10-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-05-28",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds642_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "IND"
+       ]
+      },
+      {
+       "ds": "DS641",
+       "titulo": "Surtax and TRQs on Steel and Aluminium (China)",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "2025-08-15",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-08-15",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds641_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CAN"
+       ]
+      },
+      {
+       "ds": "DS638",
+       "titulo": "Universal and Country-specific Additional Duties on Imports from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-04-04",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-04-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds638_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS636",
+       "titulo": "Additional Import Duties on Certain Agricultural and Fishery Products from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-03-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-06-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds636_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CAN"
+       ]
+      },
+      {
+       "ds": "DS633",
+       "titulo": "Additional Tariff Measures on Goods from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-02-04",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-02-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds633_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS632",
+       "titulo": "Worldwide Licensing Terms for Standard Essential Patents",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-01-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-07-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds632_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "EEC"
+       ]
+      },
+      {
+       "ds": "DS631",
+       "titulo": "Provisional Anti-dumping Duties on Brandy from the EU",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-11-25",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-11-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds631_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "EEC"
+       ]
+      }
+     ],
+     "recentes_total": 20,
+     "contrapartes": {
+      "EEC": 7,
+      "USA": 4,
+      "CAN": 3,
+      "AUS": 2,
+      "IND": 2,
+      "JPN": 1,
+      "TUR": 1
+     }
+    }
+   }
   },
   "840": {
    "nome": "Estados Unidos",
@@ -251,7 +461,522 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "os"
+   "artigo": "os",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.3661,
+     "media": 0.4826,
+     "anos_media": "2020–2024",
+     "posicao": 189,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 290,
+     "com_brasil": [
+      {
+       "ds": "DS646",
+       "titulo": "Additional Duties on Certain Products from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2026-07-27",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2026-07-27",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds646_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS640",
+       "titulo": "Tariff Measures on Certain Products from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-08-05",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-08-05",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds640_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS514",
+       "titulo": "Countervailing Measures on Cold- and Hot-Rolled Steel Flat Products from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2016-11-11",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2016-11-11",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds514_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS382",
+       "titulo": "Anti-Dumping Administrative Reviews and Other Measures Related to Imports of Certain Orange Juice from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2008-11-27",
+       "situacao": "encerrada (acordo)",
+       "encerrada": true,
+       "situacao_data": "2013-02-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds382_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS365",
+       "titulo": "Domestic Support and Export Credit Guarantees for Agricultural Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2007-07-11",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2007-12-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds365_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS267",
+       "titulo": "Subsidies on Upland Cotton",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2002-09-27",
+       "situacao": "encerrada (acordo)",
+       "encerrada": true,
+       "situacao_data": "2014-10-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds267_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS259",
+       "titulo": "Definitive Safeguard Measures on Imports of Certain Steel Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2002-05-21",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2003-12-10",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds259_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS250",
+       "titulo": "Equalizing Excise Tax Imposed by Florida on Processed Orange and Grapefruit Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2002-03-20",
+       "situacao": "encerrada (acordo)",
+       "encerrada": true,
+       "situacao_data": "2004-05-28",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds250_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS239",
+       "titulo": "Anti-Dumping Duties on Silicon Metal from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2001-09-18",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2001-09-18",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds239_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS224",
+       "titulo": "US Patents Code",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2001-01-31",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2001-01-31",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds224_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS217",
+       "titulo": "Continued Dumping and Subsidy Offset Act of 2000",
+       "reclamantes": [
+        "AUS",
+        "BRA",
+        "CHL",
+        "EEC",
+        "IND",
+        "IDN",
+        "JPN",
+        "KOR",
+        "THA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "retaliação autorizada",
+       "encerrada": false,
+       "situacao_data": "2004-12-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds217_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "AUS",
+        "BRA",
+        "CHL",
+        "EEC",
+        "IND",
+        "IDN",
+        "JPN",
+        "KOR",
+        "THA"
+       ]
+      },
+      {
+       "ds": "DS218",
+       "titulo": "Countervailing Duties on Certain Carbon Steel Products from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-12-21",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds218_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS197",
+       "titulo": "Measures on Minimum Import Prices",
+       "reclamantes": [
+        "USA"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2000-05-30",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-05-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds197_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS199",
+       "titulo": "Measures Affecting Patent Protection",
+       "reclamantes": [
+        "USA"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2000-05-30",
+       "situacao": "encerrada (acordo)",
+       "encerrada": true,
+       "situacao_data": "2001-07-05",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds199_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS65",
+       "titulo": "Certain Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "USA"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1997-01-10",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-01-10",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds65_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS52",
+       "titulo": "Certain Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "USA"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1996-08-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1996-08-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds52_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS4",
+       "titulo": "Standards for Reformulated and Conventional Gasoline",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "1995-04-10",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "1997-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds4_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS638",
+       "titulo": "Universal and Country-specific Additional Duties on Imports from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-04-04",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-04-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds638_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS637",
+       "titulo": "Additional Duties on Imports of Automobiles and Automobile Parts from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-04-03",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-04-03",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds637_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CAN"
+       ]
+      },
+      {
+       "ds": "DS635",
+       "titulo": "Additional Import Duties on Steel and Aluminium Articles from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-03-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-03-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds635_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CAN"
+       ]
+      },
+      {
+       "ds": "DS634",
+       "titulo": "Additional Import Duties on Goods from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-03-04",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-03-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds634_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CAN"
+       ]
+      },
+      {
+       "ds": "DS633",
+       "titulo": "Additional Tariff Measures on Goods from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-02-04",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-02-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds633_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS623",
+       "titulo": "Certain Tax Credits Under the Inflation Reduction Act",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2024-03-26",
+       "situacao": "em apelação",
+       "encerrada": false,
+       "situacao_data": "2026-02-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds623_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS617",
+       "titulo": "Anti-Dumping Measure on Oil Country Tubular Goods from Argentina",
+       "reclamantes": [
+        "ARG"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2023-05-17",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-01-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds617_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "ARG"
+       ]
+      },
+      {
+       "ds": "DS615",
+       "titulo": "Measures on Certain Semiconductor and other Products, and Related Services and Technologies",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2022-12-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2022-12-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds615_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      }
+     ],
+     "recentes_total": 8,
+     "contrapartes": {
+      "CHN": 4,
+      "CAN": 3,
+      "ARG": 1
+     }
+    }
+   }
   },
   "032": {
    "nome": "Argentina",
@@ -368,7 +1093,125 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.5708,
+     "media": 0.8302,
+     "anos_media": "2020–2024",
+     "posicao": 185,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 45,
+     "com_brasil": [
+      {
+       "ds": "DS355",
+       "titulo": "Anti-dumping Measures on Imports of Certain Resins from Argentina",
+       "reclamantes": [
+        "ARG"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2006-12-26",
+       "situacao": "encerrada (painel caducou)",
+       "encerrada": true,
+       "situacao_data": "2009-02-05",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds355_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS241",
+       "titulo": "Definitive Anti-Dumping Duties on Poultry from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "ARG"
+       ],
+       "inicio": "2001-11-07",
+       "situacao": "relatório adotado; medida deve ser ajustada",
+       "encerrada": false,
+       "situacao_data": "2003-05-19",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds241_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS190",
+       "titulo": "Transitional Safeguard Measures on Certain Imports of Woven Fabric Products of Cotton and Cotton Mixtures Originating in Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "ARG"
+       ],
+       "inicio": "2000-02-11",
+       "situacao": "encerrada (acordo)",
+       "encerrada": true,
+       "situacao_data": "2000-06-27",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds190_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS617",
+       "titulo": "Anti-Dumping Measure on Oil Country Tubular Goods from Argentina",
+       "reclamantes": [
+        "ARG"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2023-05-17",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-01-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds617_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS614",
+       "titulo": "Anti-Dumping and Countervailing Measures on Biodiesel from Argentina",
+       "reclamantes": [
+        "ARG"
+       ],
+       "demandados": [
+        "PER"
+       ],
+       "inicio": "2022-09-02",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2022-09-02",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds614_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "PER"
+       ]
+      }
+     ],
+     "recentes_total": 2,
+     "contrapartes": {
+      "PER": 1,
+      "USA": 1
+     }
+    }
+   }
   },
   "528": {
    "nome": "Países Baixos",
@@ -485,7 +1328,442 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "os"
+   "artigo": "os",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6416,
+     "media": 0.6934,
+     "anos_media": "2020–2024",
+     "posicao": 164,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": true,
+     "total": 212,
+     "com_brasil": [
+      {
+       "ds": "DS607",
+       "titulo": "Measures Concerning the Importation of Certain Poultry Meat Preparations from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-11-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-11-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds607_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS472",
+       "titulo": "Certain Measures Concerning Taxation and Charges",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2013-12-19",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2020-01-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds472_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS409",
+       "titulo": "Seizure of Generic Drugs in Transit",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC",
+        "NLD"
+       ],
+       "inicio": "2010-05-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2010-05-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds409_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS332",
+       "titulo": "Measures Affecting Imports of Retreaded Tyres",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2005-06-20",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2009-09-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds332_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS269",
+       "titulo": "Customs Classification of Frozen Boneless Chicken Cuts",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-10-11",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-06-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds269_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS266",
+       "titulo": "Export Subsidies on Sugar",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-09-27",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-05-24",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds266_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS219",
+       "titulo": "Anti-Dumping Duties on Malleable Cast Iron Tube or Pipe Fittings from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2004-03-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds219_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS209",
+       "titulo": "Measures Affecting Soluble Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-10-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-10-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds209_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS183",
+       "titulo": "Measures on Import Licensing and Minimum Import Prices",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1999-10-14",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1999-10-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds183_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS154",
+       "titulo": "Measures Affecting Differential and Favourable Treatment of Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1998-12-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-12-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds154_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS116",
+       "titulo": "Measures Affecting Payment Terms for Imports",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1998-01-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-01-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds116_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS81",
+       "titulo": "Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1997-05-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-05-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds81_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS69",
+       "titulo": "Measures Affecting Importation of Certain Poultry Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1997-02-24",
+       "situacao": "prazo para ajustar a medida",
+       "encerrada": false,
+       "situacao_data": "1998-10-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds69_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS639",
+       "titulo": "Carbon Border Adjustment Mechanism",
+       "reclamantes": [
+        "RUS"
+       ],
+       "demandados": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ],
+       "inicio": "2025-05-12",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds639_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "RUS"
+       ]
+      },
+      {
+       "ds": "DS632",
+       "titulo": "Worldwide Licensing Terms for Standard Essential Patents",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-01-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-07-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds632_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS631",
+       "titulo": "Provisional Anti-dumping Duties on Brandy from the EU",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-11-25",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-11-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds631_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS630",
+       "titulo": "Definitive Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-11-04",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-10-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds630_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS628",
+       "titulo": "Initiation of CVD Investigation on Imports of Certain Dairy Products (EU)",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-09-23",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-09-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds628_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS626",
+       "titulo": "Provisional Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-08-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-08-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds626_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS625",
+       "titulo": "Measure Relating to Investments in Offshore Wind Installations",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHT"
+       ],
+       "inicio": "2024-07-26",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds625_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHT"
+       ]
+      },
+      {
+       "ds": "DS624",
+       "titulo": "Additional Measures Concerning the Importation of Citrus Fruit from South Africa",
+       "reclamantes": [
+        "ZAF"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-04-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds624_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "ZAF"
+       ]
+      }
+     ],
+     "recentes_total": 20,
+     "contrapartes": {
+      "CHN": 7,
+      "RUS": 3,
+      "IDN": 3,
+      "ZAF": 2,
+      "MYS": 1,
+      "SAU": 1,
+      "EGY": 1,
+      "GBR": 1,
+      "CHT": 1
+     }
+    }
+   }
   },
   "724": {
    "nome": "Espanha",
@@ -602,7 +1880,442 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6637,
+     "media": 0.7004,
+     "anos_media": "2020–2024",
+     "posicao": 154,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": true,
+     "total": 212,
+     "com_brasil": [
+      {
+       "ds": "DS607",
+       "titulo": "Measures Concerning the Importation of Certain Poultry Meat Preparations from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-11-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-11-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds607_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS472",
+       "titulo": "Certain Measures Concerning Taxation and Charges",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2013-12-19",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2020-01-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds472_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS409",
+       "titulo": "Seizure of Generic Drugs in Transit",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC",
+        "NLD"
+       ],
+       "inicio": "2010-05-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2010-05-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds409_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS332",
+       "titulo": "Measures Affecting Imports of Retreaded Tyres",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2005-06-20",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2009-09-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds332_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS269",
+       "titulo": "Customs Classification of Frozen Boneless Chicken Cuts",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-10-11",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-06-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds269_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS266",
+       "titulo": "Export Subsidies on Sugar",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-09-27",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-05-24",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds266_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS219",
+       "titulo": "Anti-Dumping Duties on Malleable Cast Iron Tube or Pipe Fittings from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2004-03-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds219_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS209",
+       "titulo": "Measures Affecting Soluble Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-10-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-10-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds209_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS183",
+       "titulo": "Measures on Import Licensing and Minimum Import Prices",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1999-10-14",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1999-10-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds183_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS154",
+       "titulo": "Measures Affecting Differential and Favourable Treatment of Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1998-12-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-12-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds154_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS116",
+       "titulo": "Measures Affecting Payment Terms for Imports",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1998-01-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-01-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds116_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS81",
+       "titulo": "Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1997-05-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-05-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds81_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS69",
+       "titulo": "Measures Affecting Importation of Certain Poultry Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1997-02-24",
+       "situacao": "prazo para ajustar a medida",
+       "encerrada": false,
+       "situacao_data": "1998-10-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds69_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS639",
+       "titulo": "Carbon Border Adjustment Mechanism",
+       "reclamantes": [
+        "RUS"
+       ],
+       "demandados": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ],
+       "inicio": "2025-05-12",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds639_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "RUS"
+       ]
+      },
+      {
+       "ds": "DS632",
+       "titulo": "Worldwide Licensing Terms for Standard Essential Patents",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-01-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-07-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds632_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS631",
+       "titulo": "Provisional Anti-dumping Duties on Brandy from the EU",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-11-25",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-11-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds631_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS630",
+       "titulo": "Definitive Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-11-04",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-10-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds630_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS628",
+       "titulo": "Initiation of CVD Investigation on Imports of Certain Dairy Products (EU)",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-09-23",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-09-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds628_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS626",
+       "titulo": "Provisional Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-08-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-08-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds626_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS625",
+       "titulo": "Measure Relating to Investments in Offshore Wind Installations",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHT"
+       ],
+       "inicio": "2024-07-26",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds625_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHT"
+       ]
+      },
+      {
+       "ds": "DS624",
+       "titulo": "Additional Measures Concerning the Importation of Citrus Fruit from South Africa",
+       "reclamantes": [
+        "ZAF"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-04-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds624_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "ZAF"
+       ]
+      }
+     ],
+     "recentes_total": 20,
+     "contrapartes": {
+      "CHN": 7,
+      "RUS": 3,
+      "IDN": 3,
+      "ZAF": 2,
+      "MYS": 1,
+      "SAU": 1,
+      "EGY": 1,
+      "GBR": 1,
+      "CHT": 1
+     }
+    }
+   }
   },
   "276": {
    "nome": "Alemanha",
@@ -719,7 +2432,442 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6295,
+     "media": 0.6845,
+     "anos_media": "2020–2024",
+     "posicao": 172,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": true,
+     "total": 212,
+     "com_brasil": [
+      {
+       "ds": "DS607",
+       "titulo": "Measures Concerning the Importation of Certain Poultry Meat Preparations from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-11-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-11-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds607_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS472",
+       "titulo": "Certain Measures Concerning Taxation and Charges",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2013-12-19",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2020-01-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds472_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS409",
+       "titulo": "Seizure of Generic Drugs in Transit",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC",
+        "NLD"
+       ],
+       "inicio": "2010-05-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2010-05-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds409_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS332",
+       "titulo": "Measures Affecting Imports of Retreaded Tyres",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2005-06-20",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2009-09-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds332_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS269",
+       "titulo": "Customs Classification of Frozen Boneless Chicken Cuts",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-10-11",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-06-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds269_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS266",
+       "titulo": "Export Subsidies on Sugar",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-09-27",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-05-24",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds266_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS219",
+       "titulo": "Anti-Dumping Duties on Malleable Cast Iron Tube or Pipe Fittings from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2004-03-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds219_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS209",
+       "titulo": "Measures Affecting Soluble Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-10-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-10-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds209_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS183",
+       "titulo": "Measures on Import Licensing and Minimum Import Prices",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1999-10-14",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1999-10-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds183_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS154",
+       "titulo": "Measures Affecting Differential and Favourable Treatment of Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1998-12-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-12-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds154_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS116",
+       "titulo": "Measures Affecting Payment Terms for Imports",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1998-01-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-01-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds116_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS81",
+       "titulo": "Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1997-05-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-05-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds81_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS69",
+       "titulo": "Measures Affecting Importation of Certain Poultry Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1997-02-24",
+       "situacao": "prazo para ajustar a medida",
+       "encerrada": false,
+       "situacao_data": "1998-10-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds69_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS639",
+       "titulo": "Carbon Border Adjustment Mechanism",
+       "reclamantes": [
+        "RUS"
+       ],
+       "demandados": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ],
+       "inicio": "2025-05-12",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds639_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "RUS"
+       ]
+      },
+      {
+       "ds": "DS632",
+       "titulo": "Worldwide Licensing Terms for Standard Essential Patents",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-01-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-07-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds632_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS631",
+       "titulo": "Provisional Anti-dumping Duties on Brandy from the EU",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-11-25",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-11-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds631_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS630",
+       "titulo": "Definitive Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-11-04",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-10-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds630_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS628",
+       "titulo": "Initiation of CVD Investigation on Imports of Certain Dairy Products (EU)",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-09-23",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-09-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds628_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS626",
+       "titulo": "Provisional Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-08-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-08-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds626_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS625",
+       "titulo": "Measure Relating to Investments in Offshore Wind Installations",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHT"
+       ],
+       "inicio": "2024-07-26",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds625_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHT"
+       ]
+      },
+      {
+       "ds": "DS624",
+       "titulo": "Additional Measures Concerning the Importation of Citrus Fruit from South Africa",
+       "reclamantes": [
+        "ZAF"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-04-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds624_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "ZAF"
+       ]
+      }
+     ],
+     "recentes_total": 20,
+     "contrapartes": {
+      "CHN": 7,
+      "RUS": 3,
+      "IDN": 3,
+      "ZAF": 2,
+      "MYS": 1,
+      "SAU": 1,
+      "EGY": 1,
+      "GBR": 1,
+      "CHT": 1
+     }
+    }
+   }
   },
   "484": {
    "nome": "México",
@@ -836,7 +2984,45 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.9273,
+     "media": 0.9092,
+     "anos_media": "2020–2024",
+     "posicao": 44,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 40,
+     "com_brasil": [
+      {
+       "ds": "DS216",
+       "titulo": "Provisional Anti-Dumping Measure on Electric Transformers",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "MEX"
+       ],
+       "inicio": "2000-12-20",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-12-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds216_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [],
+     "recentes_total": 0,
+     "contrapartes": {}
+    }
+   }
   },
   "152": {
    "nome": "Chile",
@@ -953,7 +3139,25 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.9071,
+     "media": 0.9066,
+     "anos_media": "2020–2024",
+     "posicao": 87,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 23,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [],
+     "recentes_total": 0,
+     "contrapartes": {}
+    }
+   }
   },
   "392": {
    "nome": "Japão",
@@ -1070,7 +3274,86 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.677,
+     "media": 0.7405,
+     "anos_media": "2020–2024",
+     "posicao": 148,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 44,
+     "com_brasil": [
+      {
+       "ds": "DS497",
+       "titulo": "Certain Measures Concerning Taxation and Charges",
+       "reclamantes": [
+        "JPN"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2015-07-02",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2020-01-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds497_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS51",
+       "titulo": "Certain Automotive Investment Measures",
+       "reclamantes": [
+        "JPN"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1996-07-30",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1996-07-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds51_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS601",
+       "titulo": "Anti Dumping Measures on Stainless Steel Products from Japan",
+       "reclamantes": [
+        "JPN"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2021-06-11",
+       "situacao": "relatório adotado; medida deve ser ajustada",
+       "encerrada": false,
+       "situacao_data": "2023-07-28",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds601_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      }
+     ],
+     "recentes_total": 1,
+     "contrapartes": {
+      "CHN": 1
+     }
+    }
+   }
   },
   "356": {
    "nome": "Índia",
@@ -1187,7 +3470,105 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.854,
+     "media": 0.7265,
+     "anos_media": "2020–2024",
+     "posicao": 117,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 58,
+     "com_brasil": [
+      {
+       "ds": "DS579",
+       "titulo": "Measures Concerning Sugar and Sugarcane",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "IND"
+       ],
+       "inicio": "2019-02-27",
+       "situacao": "em apelação",
+       "encerrada": false,
+       "situacao_data": "2021-12-24",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds579_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS229",
+       "titulo": "Anti-Dumping Duties on Jute Bags from India",
+       "reclamantes": [
+        "IND"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2001-04-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2001-04-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds229_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS644",
+       "titulo": "Measures Concerning Trade in Goods in the Solar Cell, Solar Module, and Information Technology Sectors",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "IND"
+       ],
+       "inicio": "2025-12-19",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-06-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds644_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS642",
+       "titulo": "Measures Concerning Trade in the Automotive and Renewable Energy Technology Sectors",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "IND"
+       ],
+       "inicio": "2025-10-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-05-28",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds642_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      }
+     ],
+     "recentes_total": 2,
+     "contrapartes": {
+      "CHN": 2
+     }
+    }
+   }
   },
   "380": {
    "nome": "Itália",
@@ -1304,7 +3685,442 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6416,
+     "media": 0.6903,
+     "anos_media": "2020–2024",
+     "posicao": 165,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": true,
+     "total": 212,
+     "com_brasil": [
+      {
+       "ds": "DS607",
+       "titulo": "Measures Concerning the Importation of Certain Poultry Meat Preparations from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-11-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-11-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds607_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS472",
+       "titulo": "Certain Measures Concerning Taxation and Charges",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2013-12-19",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2020-01-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds472_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS409",
+       "titulo": "Seizure of Generic Drugs in Transit",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC",
+        "NLD"
+       ],
+       "inicio": "2010-05-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2010-05-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds409_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS332",
+       "titulo": "Measures Affecting Imports of Retreaded Tyres",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2005-06-20",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2009-09-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds332_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS269",
+       "titulo": "Customs Classification of Frozen Boneless Chicken Cuts",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-10-11",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-06-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds269_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS266",
+       "titulo": "Export Subsidies on Sugar",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-09-27",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-05-24",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds266_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS219",
+       "titulo": "Anti-Dumping Duties on Malleable Cast Iron Tube or Pipe Fittings from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2004-03-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds219_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS209",
+       "titulo": "Measures Affecting Soluble Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-10-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-10-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds209_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS183",
+       "titulo": "Measures on Import Licensing and Minimum Import Prices",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1999-10-14",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1999-10-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds183_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS154",
+       "titulo": "Measures Affecting Differential and Favourable Treatment of Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1998-12-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-12-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds154_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS116",
+       "titulo": "Measures Affecting Payment Terms for Imports",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1998-01-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-01-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds116_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS81",
+       "titulo": "Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1997-05-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-05-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds81_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS69",
+       "titulo": "Measures Affecting Importation of Certain Poultry Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1997-02-24",
+       "situacao": "prazo para ajustar a medida",
+       "encerrada": false,
+       "situacao_data": "1998-10-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds69_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS639",
+       "titulo": "Carbon Border Adjustment Mechanism",
+       "reclamantes": [
+        "RUS"
+       ],
+       "demandados": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ],
+       "inicio": "2025-05-12",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds639_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "RUS"
+       ]
+      },
+      {
+       "ds": "DS632",
+       "titulo": "Worldwide Licensing Terms for Standard Essential Patents",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-01-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-07-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds632_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS631",
+       "titulo": "Provisional Anti-dumping Duties on Brandy from the EU",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-11-25",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-11-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds631_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS630",
+       "titulo": "Definitive Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-11-04",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-10-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds630_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS628",
+       "titulo": "Initiation of CVD Investigation on Imports of Certain Dairy Products (EU)",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-09-23",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-09-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds628_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS626",
+       "titulo": "Provisional Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-08-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-08-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds626_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS625",
+       "titulo": "Measure Relating to Investments in Offshore Wind Installations",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHT"
+       ],
+       "inicio": "2024-07-26",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds625_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHT"
+       ]
+      },
+      {
+       "ds": "DS624",
+       "titulo": "Additional Measures Concerning the Importation of Citrus Fruit from South Africa",
+       "reclamantes": [
+        "ZAF"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-04-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds624_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "ZAF"
+       ]
+      }
+     ],
+     "recentes_total": 20,
+     "contrapartes": {
+      "CHN": 7,
+      "RUS": 3,
+      "IDN": 3,
+      "ZAF": 2,
+      "MYS": 1,
+      "SAU": 1,
+      "EGY": 1,
+      "GBR": 1,
+      "CHT": 1
+     }
+    }
+   }
   },
   "410": {
    "nome": "Coreia do Sul",
@@ -1421,7 +4237,25 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6562,
+     "media": 0.705,
+     "anos_media": "2020–2024",
+     "posicao": 160,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 40,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [],
+     "recentes_total": 0,
+     "contrapartes": {}
+    }
+   }
   },
   "124": {
    "nome": "Canadá",
@@ -1538,7 +4372,259 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.5885,
+     "media": 0.6679,
+     "anos_media": "2020–2024",
+     "posicao": 183,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 70,
+     "com_brasil": [
+      {
+       "ds": "DS522",
+       "titulo": "Measures Concerning Trade in Commercial Aircraft",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "2017-02-08",
+       "situacao": "encerrada (retirada ou acordo)",
+       "encerrada": true,
+       "situacao_data": "2018-02-18",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds522_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS222",
+       "titulo": "Export Credits and Loan Guarantees for Regional Aircraft",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "2001-01-22",
+       "situacao": "retaliação autorizada",
+       "encerrada": false,
+       "situacao_data": "2003-03-18",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds222_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS70",
+       "titulo": "Measures Affecting the Export of Civilian Aircraft",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "1997-03-10",
+       "situacao": "descumprimento confirmado",
+       "encerrada": false,
+       "situacao_data": "2000-08-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds70_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS71",
+       "titulo": "Measures Affecting the Export of Civilian Aircraft",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "1997-03-10",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-03-10",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds71_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS46",
+       "titulo": "Export Financing Programme for Aircraft",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1996-06-19",
+       "situacao": "encerrada (cumprimento confirmado)",
+       "encerrada": true,
+       "situacao_data": "2001-08-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds46_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS643",
+       "titulo": "Tariff Rate Quotas and Surtax on Imports of Certain Steel Goods and Global Tariff on Certain Steel Derivative Goods",
+       "reclamantes": [
+        "CHT"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "2025-12-15",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-12-15",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds643_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHT"
+       ]
+      },
+      {
+       "ds": "DS641",
+       "titulo": "Surtax and TRQs on Steel and Aluminium (China)",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "2025-08-15",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-08-15",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds641_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS637",
+       "titulo": "Additional Duties on Imports of Automobiles and Automobile Parts from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-04-03",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-04-03",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds637_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS636",
+       "titulo": "Additional Import Duties on Certain Agricultural and Fishery Products from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-03-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-06-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds636_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS635",
+       "titulo": "Additional Import Duties on Steel and Aluminium Articles from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-03-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-03-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds635_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS634",
+       "titulo": "Additional Import Duties on Goods from Canada",
+       "reclamantes": [
+        "CAN"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-03-04",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-03-04",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds634_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS627",
+       "titulo": "Measures on Certain Products of Chinese Origin",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "CAN"
+       ],
+       "inicio": "2024-09-06",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-06-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds627_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      }
+     ],
+     "recentes_total": 7,
+     "contrapartes": {
+      "CHN": 3,
+      "USA": 3,
+      "CHT": 1
+     }
+    }
+   }
   },
   "250": {
    "nome": "França",
@@ -1655,7 +4741,442 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6376,
+     "media": 0.6463,
+     "anos_media": "2020–2024",
+     "posicao": 166,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": true,
+     "total": 212,
+     "com_brasil": [
+      {
+       "ds": "DS607",
+       "titulo": "Measures Concerning the Importation of Certain Poultry Meat Preparations from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-11-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-11-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds607_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS472",
+       "titulo": "Certain Measures Concerning Taxation and Charges",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2013-12-19",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2020-01-16",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds472_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS409",
+       "titulo": "Seizure of Generic Drugs in Transit",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC",
+        "NLD"
+       ],
+       "inicio": "2010-05-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2010-05-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds409_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS332",
+       "titulo": "Measures Affecting Imports of Retreaded Tyres",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "2005-06-20",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2009-09-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds332_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS269",
+       "titulo": "Customs Classification of Frozen Boneless Chicken Cuts",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-10-11",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-06-30",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds269_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS266",
+       "titulo": "Export Subsidies on Sugar",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2002-09-27",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2006-05-24",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds266_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS219",
+       "titulo": "Anti-Dumping Duties on Malleable Cast Iron Tube or Pipe Fittings from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-12-21",
+       "situacao": "ajuste notificado pelo demandado",
+       "encerrada": true,
+       "situacao_data": "2004-03-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds219_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS209",
+       "titulo": "Measures Affecting Soluble Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2000-10-12",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2000-10-12",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds209_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS183",
+       "titulo": "Measures on Import Licensing and Minimum Import Prices",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1999-10-14",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1999-10-14",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds183_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS154",
+       "titulo": "Measures Affecting Differential and Favourable Treatment of Coffee",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1998-12-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-12-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds154_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS116",
+       "titulo": "Measures Affecting Payment Terms for Imports",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1998-01-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1998-01-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds116_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS81",
+       "titulo": "Measures Affecting Trade and Investment in the Automotive Sector",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "BRA"
+       ],
+       "inicio": "1997-05-07",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "1997-05-07",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds81_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "BRA"
+       ]
+      },
+      {
+       "ds": "DS69",
+       "titulo": "Measures Affecting Importation of Certain Poultry Products",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "1997-02-24",
+       "situacao": "prazo para ajustar a medida",
+       "encerrada": false,
+       "situacao_data": "1998-10-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds69_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "BRA"
+       ]
+      }
+     ],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS639",
+       "titulo": "Carbon Border Adjustment Mechanism",
+       "reclamantes": [
+        "RUS"
+       ],
+       "demandados": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ],
+       "inicio": "2025-05-12",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds639_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "RUS"
+       ]
+      },
+      {
+       "ds": "DS632",
+       "titulo": "Worldwide Licensing Terms for Standard Essential Patents",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2025-01-20",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-07-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds632_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS631",
+       "titulo": "Provisional Anti-dumping Duties on Brandy from the EU",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-11-25",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-11-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds631_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS630",
+       "titulo": "Definitive Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-11-04",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2025-10-13",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds630_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS628",
+       "titulo": "Initiation of CVD Investigation on Imports of Certain Dairy Products (EU)",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHN"
+       ],
+       "inicio": "2024-09-23",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-09-23",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds628_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS626",
+       "titulo": "Provisional Countervailing Duties on New Battery Electric Vehicles from China",
+       "reclamantes": [
+        "CHN"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-08-09",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-08-09",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds626_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "CHN"
+       ]
+      },
+      {
+       "ds": "DS625",
+       "titulo": "Measure Relating to Investments in Offshore Wind Installations",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "CHT"
+       ],
+       "inicio": "2024-07-26",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds625_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "CHT"
+       ]
+      },
+      {
+       "ds": "DS624",
+       "titulo": "Additional Measures Concerning the Importation of Citrus Fruit from South Africa",
+       "reclamantes": [
+        "ZAF"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2024-04-15",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2024-07-26",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds624_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "ZAF"
+       ]
+      }
+     ],
+     "recentes_total": 20,
+     "contrapartes": {
+      "CHN": 7,
+      "RUS": 3,
+      "IDN": 3,
+      "ZAF": 2,
+      "MYS": 1,
+      "SAU": 1,
+      "EGY": 1,
+      "GBR": 1,
+      "CHT": 1
+     }
+    }
+   }
   },
   "600": {
    "nome": "Paraguai",
@@ -1772,7 +5293,25 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.7857,
+     "media": 0.8686,
+     "anos_media": "2020–2024",
+     "posicao": 131,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 0,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [],
+     "recentes_total": 0,
+     "contrapartes": {}
+    }
+   }
   },
   "643": {
    "nome": "Rússia",
@@ -1889,7 +5428,100 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.6327,
+     "media": 0.5507,
+     "anos_media": "2020–2024",
+     "posicao": 170,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 20,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS639",
+       "titulo": "Carbon Border Adjustment Mechanism",
+       "reclamantes": [
+        "RUS"
+       ],
+       "demandados": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ],
+       "inicio": "2025-05-12",
+       "situacao": "painel em andamento",
+       "encerrada": false,
+       "situacao_data": "2026-09-25",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds639_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "EEC",
+        "BGR",
+        "HRV",
+        "EST",
+        "LVA",
+        "LTU"
+       ]
+      },
+      {
+       "ds": "DS608",
+       "titulo": "Measures Concerning the Exportation of Wood Products",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "RUS"
+       ],
+       "inicio": "2022-01-20",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2022-01-20",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds608_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "EEC"
+       ]
+      },
+      {
+       "ds": "DS604",
+       "titulo": "Certain Measures Concerning Domestic and Foreign Products and Services",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "RUS"
+       ],
+       "inicio": "2021-07-22",
+       "situacao": "encerrada (painel caducou)",
+       "encerrada": true,
+       "situacao_data": "2023-03-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds604_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "EEC"
+       ]
+      }
+     ],
+     "recentes_total": 3,
+     "contrapartes": {
+      "EEC": 3,
+      "BGR": 1,
+      "HRV": 1,
+      "EST": 1,
+      "LVA": 1,
+      "LTU": 1
+     }
+    }
+   }
   },
   "682": {
    "nome": "Arábia Saudita",
@@ -2006,7 +5638,47 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.8571,
+     "media": 0.8194,
+     "anos_media": "2020–2024",
+     "posicao": 116,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 3,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS606",
+       "titulo": "Provisional Anti-Dumping Duty on Mono-Ethylene Glycol from Saudi Arabia",
+       "reclamantes": [
+        "SAU"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-08-17",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-08-17",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds606_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "EEC"
+       ]
+      }
+     ],
+     "recentes_total": 1,
+     "contrapartes": {
+      "EEC": 1
+     }
+    }
+   }
   },
   "826": {
    "nome": "Reino Unido",
@@ -2123,7 +5795,47 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.5619,
+     "media": 0.6262,
+     "anos_media": "2020–2024",
+     "posicao": 188,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 4,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS612",
+       "titulo": "Measures Relating to the Allocation of Contracts for Difference in Low Carbon Energy Generation",
+       "reclamantes": [
+        "EEC"
+       ],
+       "demandados": [
+        "GBR"
+       ],
+       "inicio": "2022-03-28",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2022-03-28",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds612_e.htm",
+       "lado": "demandado",
+       "contra": [
+        "EEC"
+       ]
+      }
+     ],
+     "recentes_total": 1,
+     "contrapartes": {
+      "EEC": 1
+     }
+    }
+   }
   },
   "170": {
    "nome": "Colômbia",
@@ -2240,7 +5952,25 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "a"
+   "artigo": "a",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.9381,
+     "media": 0.9135,
+     "anos_media": "2020–2024",
+     "posicao": 37,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 12,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [],
+     "recentes_total": 0,
+     "contrapartes": {}
+    }
+   }
   },
   "858": {
    "nome": "Uruguai",
@@ -2357,7 +6087,25 @@
      "atualizado": "2026-10-08"
     }
    ],
-   "artigo": "o"
+   "artigo": "o",
+   "relacoes": {
+    "onu": {
+     "concordancia": 0.8894,
+     "media": 0.9041,
+     "anos_media": "2020–2024",
+     "posicao": 102,
+     "de": 190
+    },
+    "omc": {
+     "via_ue": false,
+     "total": 2,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [],
+     "recentes_total": 0,
+     "contrapartes": {}
+    }
+   }
   },
   "076": {
    "nome": "Brasil",
@@ -2477,7 +6225,87 @@
      "exportacao": 7251870870.0,
      "importacao": 3139581087.0
     }
-   ]
+   ],
+   "relacoes": {
+    "omc": {
+     "via_ue": false,
+     "total": 53,
+     "com_brasil": [],
+     "recentes_desde": 2021,
+     "recentes": [
+      {
+       "ds": "DS646",
+       "titulo": "Additional Duties on Certain Products from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2026-07-27",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2026-07-27",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds646_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS640",
+       "titulo": "Tariff Measures on Certain Products from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "USA"
+       ],
+       "inicio": "2025-08-05",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2025-08-05",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds640_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "USA"
+       ]
+      },
+      {
+       "ds": "DS607",
+       "titulo": "Measures Concerning the Importation of Certain Poultry Meat Preparations from Brazil",
+       "reclamantes": [
+        "BRA"
+       ],
+       "demandados": [
+        "EEC"
+       ],
+       "inicio": "2021-11-08",
+       "situacao": "em consultas",
+       "encerrada": false,
+       "situacao_data": "2021-11-08",
+       "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds607_e.htm",
+       "lado": "reclamante",
+       "contra": [
+        "EEC"
+       ]
+      }
+     ],
+     "recentes_total": 3,
+     "contrapartes": {
+      "USA": 2,
+      "EEC": 1
+     }
+    }
+   }
   }
- }
+ },
+ "falhas": {},
+ "onu": {
+  "ano": 2024,
+  "mediana": 0.8973,
+  "versao_dados": 39,
+  "publicado": "2026-07-30"
+ },
+ "relacoes_em": "2026-11-04T22:28:48+00:00"
 }

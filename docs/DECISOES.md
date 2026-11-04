@@ -201,3 +201,18 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Como:** o build público copia `prototipos/globo/` para `site/globo/`, e o menu do site ganha o link "O mundo visto do Brasil". O globo vem com uma cópia dos dados do dia da publicação e, ao abrir, busca a versão mais nova em `raw.githubusercontent.com/lcgalera/rotzx/main/prototipos/globo/dados/`, que o workflow Globo atualiza todo dia. Se essa busca falhar, fica a cópia. Assim as manchetes ficam frescas sem republicar o site todo dia (a rotina mensal, que publica, roda nos dias 12 e 20).
 **Segurança:** a varredura anti-vazamento do build passa a ler também arquivos `.js`; os dados do globo são só de fontes abertas.
 **Operação:** a rotina mensal passa a fazer `git pull --rebase` antes do push, porque o workflow Globo também grava na `main`.
+
+### D42 · 04/11/2026 · Relação de cada país com o Brasil por sinais medidos, não por veredito
+**Pedido:** mostrar se a relação de cada país com o Brasil é positiva ou negativa, e também os conflitos de cada país com o resto do mundo.
+**Decisão:** não há nota de "boa" ou "ruim", porque isso seria opinião apresentada como dado. O painel mostra três sinais, cada um com a fonte:
+comércio (superávit ou déficit, Comex Stat), votos na ONU e disputas na OMC.
+- **ONU** (`rotzx/mundo/onu.py`): índice de concordância de Lijphart nas votações nominais da Assembleia Geral (Voeten, Strezhnev e Bailey,
+  Harvard Dataverse, CC0). Mostra o valor do último ano, a média de 5 anos (o índice muda com a pauta do ano, como avisam os autores) e a posição
+  entre todos os países. O sinal diz em que terço da tabela o país está.
+- **OMC** (`rotzx/mundo/omc.py`): a lista oficial de disputas do site da OMC, lida como texto, sem executar o JavaScript. Para países da UE, as
+  disputas são da UE, e o painel avisa. O sinal conta as disputas com o Brasil abertas nos últimos 5 anos, e não as "em aberto", porque casos
+  antigos muitas vezes ficam sem encerramento formal. A "visão externa" lista as disputas do país com outros países no mesmo período.
+**Ficou de fora, por enquanto:**
+- Blocos e alianças pelo Wikidata: a consulta trouxe o México como membro do Mercosul e deixou de fora a Holanda, na OTAN e na UE.
+- Conflitos armados (UCDP, Uppsala): a API agora exige chave de acesso e o site de downloads continuou bloqueado na rede do ambiente.
+**Operação:** `rotzx mundo-atualizar --so-relacoes`; a coleta mensal do workflow Globo já inclui as duas fontes. Se uma falhar, a falha fica em `falhas` e a outra segue.

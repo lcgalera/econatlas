@@ -36,10 +36,13 @@ o que funciona também abrindo o arquivo direto no computador.
 |---|---|---|
 | Relação com o Brasil | Comex Stat (MDIC) | exportações, importações, saldo, posição no ranking e os 5 principais produtos (SH4) de cada lado, no último ano completo |
 | Economia | Banco Mundial (CC BY 4.0) | crescimento do PIB, inflação, PIB e população, o valor mais recente de cada um |
-| Manchetes | feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI) e GDELT | manchetes dos últimos 7 dias que citam o país no título; só título, veículo, data e link |
+| Sinais da relação: ONU | votos na Assembleia Geral (Voeten, Strezhnev e Bailey, Harvard Dataverse, CC0) | concordância com o Brasil no último ano e média de 5 anos, posição entre todos os países (D42) |
+| Sinais da relação: OMC | lista oficial de disputas do site da OMC | disputas com o Brasil desde 1995 e, na visão externa, as do país com outros países nos últimos 5 anos; para a UE, as da UE |
+| Manchetes | feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, RFI) e GDELT | manchetes dos últimos 7 dias que citam o país no título; só título, veículo, data e link |
 
 - O FMI ficou de fora: o servidor dele barra acesso automatizado ("Access Denied").
 - O resumo de cada país é gerado dos números do Comex Stat e só descreve: posição, valores, participação e saldo. Os produtos ficam
   fora da frase porque os nomes oficiais dos grupos SH4 são longos e abreviá-los pode enganar (ex.: "Barcos-faróis…", que inclui plataformas).
 - As manchetes são classificadas por palavras-chave no título (`rotzx/mundo/gdelt.py`), e isso pode errar.
-- O workflow `.github/workflows/globo.yml` atualiza as manchetes todo dia e o comércio todo dia 15.
+- O workflow `.github/workflows/globo.yml` atualiza as manchetes todo dia e o comércio, os votos na ONU e as disputas na OMC todo dia 15.
+- Não há nota de relação "boa" ou "ruim": o painel mostra sinais medidos, cada um com a fonte (D42).
