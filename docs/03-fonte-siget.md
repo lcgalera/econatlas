@@ -109,3 +109,15 @@ Quem avalia é você (Lucas), não o classificador. A meta experimental do plano
 - Conjunto SIGET no Portal de Dados Abertos da ANEEL: https://dadosabertos.aneel.gov.br/dataset/sistema-de-gestao-da-transmissao-siget
 - Dicionários de dados (PDF) baixados do mesmo conjunto; ex.: `dm-siget-contrato-empreendimento-obra-modulo.pdf`
 - Licença: Open Data Commons Open Database License (ODbL), declarada no portal
+
+## 7. Avaliação 1 (04/11/2026)
+
+- **Avaliador:** Lucas. **Resultado declarado:** os 20 empreendimentos foram considerados relevantes.
+- **Conferência contra o critério escrito (§5):** 5 dos 20 não atendem à condição 2, porque operam em menos de 6 meses pelo ato legal:
+  T2023-134 (15/11/2026, 11 dias), T2022-120-A (19/12/2026), T2023-001 (02/02/2027), T2023-174-A (28/02/2027) e T2023-190 (26/03/2027).
+  **Pelo critério, a precisão seria de 15/20 = 75%, abaixo da meta de 80%.**
+- **Por que o número não generaliza:** a amostra pegou os casos mais documentados (viés de seleção), e o avaliador é quem construiu o produto, não o comprador.
+- **Aprendizados para as regras:**
+  1. O tipo de obra "Adequação" esconde substituições com equipamento novo: 5 casos da amostra só têm módulos em "Adequação", mas a descrição diz "substituição do TR… por novo de 100 MVA". A regra precisa ler a descrição (`DscEpd`/`DscObr`), não só o tipo da obra.
+  2. A janela de 6 meses provavelmente é curta para transformadores de potência, que têm prazo de fabricação longo: a janela deve variar por categoria de equipamento. Isso é hipótese a validar com compradores.
+- **Próximo:** uma amostra **aleatória** (semente fixa) dos 632 elegíveis, para estimar a precisão sem viés, e os 20 casos atuais como material de demonstração nas conversas.
