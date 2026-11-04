@@ -32,7 +32,7 @@ o que funciona também abrindo o arquivo direto no computador.
 |---|---|---|
 | Relação com o Brasil | Comex Stat (MDIC) | exportações, importações, saldo, posição no ranking e os 5 principais produtos (SH4) de cada lado, no último ano completo |
 | Economia | Banco Mundial (CC BY 4.0) | crescimento do PIB, inflação, PIB e população, o valor mais recente de cada um |
-| Manchetes | The GDELT Project | matérias em português dos últimos 7 dias que citam o país no título; só título, veículo, data e link |
+| Manchetes | feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI) e GDELT | manchetes dos últimos 7 dias que citam o país no título; só título, veículo, data e link |
 
 - O FMI ficou de fora: o servidor dele barra acesso automatizado ("Access Denied").
 - O resumo de cada país é gerado dos números do Comex Stat e só descreve: posição, valores, participação e saldo. Os produtos ficam

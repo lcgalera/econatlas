@@ -236,7 +236,7 @@ function listaManchetes(lista, cat) {
 function blocoManchetes(lista, titulo, nota) {
   const abas = [["todas", "Todas"], ...Object.entries(NOMES_CAT)];
   return `<div class="bloco"><h3>${esc(titulo)}</h3>
-    <p class="fonte">Fonte: <a href="https://www.gdeltproject.org" target="_blank" rel="noopener">The GDELT Project</a> · ${esc(nota)} · coletado em ${quando(N?.gerado_em)}</p>
+    <p class="fonte">Fontes: feeds RSS de veículos em português e <a href="https://www.gdeltproject.org" target="_blank" rel="noopener">GDELT</a> · ${esc(nota)} · atualizado em ${quando(N?.gerado_em)}</p>
     <div class="abas" role="tablist">${abas.map(([k, r], i) => `<button role="tab" aria-selected="${i === 0}" data-aba="${k}">${esc(r)}</button>`).join("")}</div>
     <div class="aba-corpo">${listaManchetes(lista, "todas")}</div>
     <p class="fonte" style="margin-top:8px">Categorias atribuídas automaticamente por palavras-chave no título; podem errar.</p></div>`;
@@ -260,7 +260,7 @@ function painelPais(f) {
         <ol class="prods">${r.map((x) => `<li><div class="barra" style="width:${((x.exportacao + x.importacao) / max) * 100}%"></div>
           <span class="p-nome">${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></li>`).join("")}</ol>` : vazio("Dados ainda não gerados.")}</div>
       ${d ? blocoEconomia(d) : ""}
-      ${N ? blocoManchetes(N.mundo || [], "Em alta no mundo", "manchetes em português do último dia sobre temas globais (seleção por palavras-chave)") : ""}
+      ${N ? blocoManchetes(N.mundo || [], "Em alta no mundo", "manchetes em português dos últimos 2 dias sobre geopolítica e temas globais (seleção por palavras-chave)") : ""}
       ${rodape}`;
   }
   if (!foco) {
@@ -270,7 +270,7 @@ function painelPais(f) {
   return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Visto do Brasil</div><h2>${esc(nome)}</h2>
     <p class="sub">Relação com o Brasil, economia e o que está acontecendo.</p></header>
     ${d ? blocoComercio(d) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
-    ${N ? blocoManchetes(N.paises?.[f.id] || [], "Manchetes", "matérias em português dos últimos 7 dias que citam o país no título") : ""}
+    ${N ? blocoManchetes(N.paises?.[f.id] || [], "Manchetes", "manchetes em português dos últimos 7 dias que citam o país no título") : ""}
     <div class="bloco"><span class="selo">interpretação · em breve</span><h3>Por que importa para o Brasil</h3>
       <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação vai aparecer marcado</p>${vazio("Ainda não escrito.")}</div>
     ${rodape}`;

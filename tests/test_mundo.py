@@ -125,11 +125,59 @@ def test_juntar_acumula_sem_repetir_e_descarta_antigas():
     assert [m["titulo"] for m in j] == ["a", "C"]  # "A" repetida (mesmo título) e "B" antiga demais
 
 
-def test_noticias_mantem_as_anteriores_quando_a_consulta_falha(monkeypatch, tmp_path):
-    (tmp_path / "noticias.json").write_text(json.dumps({"paises": {"156": [{"titulo": "China cresce", "data": "29991231"}]}, "mundo": []}))
+def test_noticias_mantem_as_anteriores_quando_as_fontes_falham(monkeypatch, tmp_path):
+    from rotzx.mundo import rss
+    (tmp_path / "noticias.json").write_text(json.dumps({"paises": {"156": [{"titulo": "China cresce", "data": "29991231"}]},
+                                                       "mundo": [{"titulo": "Cúpula global", "data": "29991231"}]}))
     def falha(*a, **k): raise gdelt.LimiteGDELT("Please limit requests")
+    monkeypatch.setattr(rss, "coletar", lambda: ([], {"Feed X": "OSError: recusado"}))
     monkeypatch.setattr(gdelt, "lote", falha)
-    monkeypatch.setattr(gdelt, "manchetes", falha)
     n = build.noticias(tmp_path, log=lambda *a: None)
     assert n["paises"]["156"] == [{"titulo": "China cresce", "data": "29991231"}]
-    assert "156" in n["falhas"] and "mundo" in n["falhas"]
+    assert n["mundo"] == [{"titulo": "Cúpula global", "data": "29991231"}]
+    assert "rss:Feed X" in n["falhas"] and "gdelt_lote_1" in n["falhas"]
+
+RSS = """<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Feed</title>
+<item><title>China anuncia compra recorde de soja</title><link>https://exemplo.invalido/1</link><pubDate>Wed, 04 Nov 2026 10:00:00 -0300</pubDate></item>
+<item><title>  Guerra   eleva tensão na fronteira </title><link>https://exemplo.invalido/2</link><pubDate>data ruim</pubDate></item>
+<item><title>Sem link</title></item>
+</channel></rss>""".encode("utf-8")
+ATOM = """<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>A</title>
+<entry><title>Argentina reduz juros</title><link href="https://exemplo.invalido/3"/><updated>2026-11-03T08:00:00Z</updated></entry></feed>""".encode("utf-8")
+
+
+def test_rss_e_atom_viram_manchetes_com_data_e_categoria():
+    from rotzx.mundo import rss
+    r = rss.ler(RSS, "Veículo X")
+    assert [m["url"] for m in r] == ["https://exemplo.invalido/1", "https://exemplo.invalido/2"]  # item sem link fica de fora
+    assert r[0]["data"] == "20261104" and r[0]["categorias"] == ["economia"] and r[0]["veiculo"] == "Veículo X"
+    assert r[1]["titulo"] == "Guerra eleva tensão na fronteira" and r[1]["data"] == "" and "geopolitica" in r[1]["categorias"]
+    a = rss.ler(ATOM, "Y")
+    assert a[0]["url"] == "https://exemplo.invalido/3" and a[0]["data"] == "20261103"
+
+
+def test_feed_que_falha_nao_derruba_os_outros(monkeypatch):
+    from rotzx.mundo import rss
+
+    class R:
+        def __init__(self, c): self.c = c
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return self.c
+
+    def abrir(req, timeout=30):
+        if "quebrado" in req.full_url:
+            raise OSError("conexão recusada")
+        return R(RSS)
+    monkeypatch.setattr(rss.urllib.request, "urlopen", abrir)
+    itens, falhas = rss.coletar([("Bom", "https://bom.invalido/rss"), ("Ruim", "https://quebrado.invalido/rss")], pausa=0)
+    assert len(itens) == 2 and list(falhas) == ["Ruim"]
+
+
+def test_noticias_combinam_rss_e_mantem_historico(monkeypatch, tmp_path):
+    from rotzx.mundo import rss
+    monkeypatch.setattr(rss, "coletar", lambda: (rss.ler(RSS, "X"), {"Ruim": "OSError"}))
+    n = build.noticias(tmp_path, log=lambda *a: None, usar_gdelt=False)
+    assert [m["titulo"] for m in n["paises"]["156"]] == ["China anuncia compra recorde de soja"]
+    assert n["falhas"] == {"rss:Ruim": "OSError"} and n["diagnostico"]["rss_itens"] == 2
+    assert (tmp_path / "noticias.js").exists()

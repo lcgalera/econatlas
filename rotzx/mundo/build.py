@@ -19,6 +19,9 @@ FONTES = {
     "bancomundial": {"nome": "Banco Mundial (World Development Indicators)", "url": "https://data.worldbank.org", "licenca": "CC BY 4.0"},
     "gdelt": {"nome": "The GDELT Project", "url": "https://www.gdeltproject.org",
               "nota": "manchetes em português; título, veículo e link para a matéria original; categorias por palavras-chave"},
+    "noticias": {"nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI) e GDELT",
+                 "url": "https://www.gdeltproject.org",
+                 "nota": "só título, veículo, data e link para a matéria original; categorias por palavras-chave no título"},
 }
 CONSULTA_MUNDO = ('(guerra OR tarifa OR "mercados" OR petróleo OR cúpula OR eleição OR sanções OR "comércio mundial") '
                   'sourcelang:portuguese')
@@ -141,33 +144,42 @@ def refazer_resumos(saida: Path = SAIDA) -> None:
     _gravar(saida, "mundo", m)
 
 
-def noticias(saida: Path = SAIDA, log=print, dias: int = 7, por_lote: int = 7) -> Dict:
-    """Manchetes por país e do mundo, em poucas consultas (lotes de países), acumulando com a coleta anterior.
+def noticias(saida: Path = SAIDA, log=print, dias: int = 7, por_lote: int = 7, usar_gdelt: bool = True) -> Dict:
+    """Manchetes por país e do mundo, acumulando com a coleta anterior (últimos `dias`).
 
-    Uma consulta que falha fica anotada em "falhas" e os países dela mantêm as manchetes anteriores: falha nunca vira "sem notícias".
+    Fonte principal: feeds RSS de veículos em português (rss.py). Complemento: GDELT em lotes de países.
+    Falha de uma fonte fica em "falhas" e nunca vira "sem notícias": as manchetes anteriores são mantidas.
     """
     from datetime import timedelta
+    from . import rss
     agora = datetime.now(timezone.utc)
     desde = (agora - timedelta(days=dias)).strftime("%Y%m%d")
     f = saida / "noticias.json"
     antes = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
-    out = {"gerado_em": agora.isoformat(timespec="seconds"), "fonte": FONTES["gdelt"], "dias": dias, "paises": {}, "falhas": {}}
-    for i in range(0, len(PAISES), por_lote):
-        grupo = PAISES[i:i + por_lote]
-        try:
-            tem_historico = any(antes.get("paises", {}).get(p["iso_num"]) for p in grupo)
-            novas = gdelt.lote(grupo, dias=1 if tem_historico else dias)  # primeira coleta: a janela inteira
-        except OSError as e:
-            novas = {}
-            for p in grupo:
-                out["falhas"][p["iso_num"]] = f"{type(e).__name__}: {e}"[:200]
-        for p in grupo:
-            out["paises"][p["iso_num"]] = gdelt.juntar(antes.get("paises", {}).get(p["iso_num"], []), novas.get(p["iso_num"], []), desde)
-            log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}" + (" (consulta falhou; mantidas as anteriores)" if p["iso_num"] in out["falhas"] else ""))
-    try:
-        m = [x for x in gdelt.manchetes([], dias=1, maximo=75, exigir_no_titulo=False, consulta=CONSULTA_MUNDO) if x["categorias"]]
-        out["mundo"] = gdelt.juntar(antes.get("mundo", []), m, (agora - timedelta(days=2)).strftime("%Y%m%d"))
-    except OSError as e:
-        out["mundo"], out["falhas"]["mundo"] = antes.get("mundo", []), f"{type(e).__name__}: {e}"[:200]
+    out = {"gerado_em": agora.isoformat(timespec="seconds"), "fonte": FONTES["noticias"], "dias": dias,
+           "paises": {}, "falhas": {}, "diagnostico": {}}
+
+    itens, falhas_rss = rss.coletar()
+    out["falhas"].update({f"rss:{k}": v for k, v in falhas_rss.items()})
+    out["diagnostico"]["rss_itens"] = len(itens)
+    log(f"  RSS: {len(itens)} itens de {len(rss.FEEDS) - len(falhas_rss)} feeds ({len(falhas_rss)} falharam)")
+    novas = {p["iso_num"]: [m for m in itens if gdelt.menciona(m["titulo"], p["termos"])] for p in PAISES}
+
+    if usar_gdelt:
+        for i in range(0, len(PAISES), por_lote):
+            grupo = PAISES[i:i + por_lote]
+            try:
+                r = gdelt.lote(grupo, dias=dias)
+                out["diagnostico"][f"gdelt_lote_{i // por_lote + 1}"] = sum(map(len, r.values()))
+                for iso, l in r.items():
+                    novas[iso] += l
+            except OSError as e:
+                out["falhas"][f"gdelt_lote_{i // por_lote + 1}"] = f"{type(e).__name__}: {e}"[:200]
+
+    for p in PAISES:
+        out["paises"][p["iso_num"]] = gdelt.juntar(antes.get("paises", {}).get(p["iso_num"], []), novas[p["iso_num"]], desde)
+        log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}")
+    globais = [m for m in itens if m["categorias"] and ("afeta_o_mundo" in m["categorias"] or "geopolitica" in m["categorias"])]
+    out["mundo"] = gdelt.juntar(antes.get("mundo", []), globais, (agora - timedelta(days=2)).strftime("%Y%m%d"))
     _gravar(saida, "noticias", out)
     return out
