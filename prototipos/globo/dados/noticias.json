@@ -1,7 +1,7 @@
 {
- "gerado_em": "2026-11-04T20:28:11+00:00",
+ "gerado_em": "2026-11-04T22:30:52+00:00",
  "fonte": {
-  "nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, CNN Brasil, RFI) e GDELT",
+  "nome": "Feeds RSS de veículos em português (g1, Folha, BBC News Brasil, DW, Agência Brasil, RFI) e GDELT",
   "url": "https://www.gdeltproject.org",
   "nota": "só título, veículo, data e link para a matéria original; categorias por palavras-chave no título"
  },
@@ -65,6 +65,16 @@
     "categorias": []
    },
    {
+    "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
+    "url": "https://g1.globo.com/economia/noticia/2026/11/04/ranking-juro-real-novembro.ghtml",
+    "veiculo": "g1 Economia",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "afeta_o_mundo"
+    ]
+   },
+   {
     "titulo": "Brasil cria 121 mil empregos formais em setembro, pior resultado para o mês desde 2020",
     "url": "https://g1.globo.com/economia/noticia/2026/11/04/brasil-cria-1213-mil-empregos-formais-em-setembro-queda-de-43percent-na-comparacao-com-mesmo-mes-de-2025.ghtml",
     "veiculo": "g1 Economia",
@@ -90,6 +100,24 @@
     "veiculo": "g1 Economia",
     "data": "20261104",
     "dominio": "g1.globo.com",
+    "categorias": []
+   },
+   {
+    "titulo": "Brasil segue na liderança do ranking de juros reais após manutenção da Selic",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/brasil-segue-na-lideranca-do-ranking-de-juros-reais-apos-manutencao-da-selic.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "dominio": "redir.folha.com.br",
+    "categorias": [
+     "economia"
+    ]
+   },
+   {
+    "titulo": "Fluxo cambial do Brasil registra entrada de US$ 18,15 bilhões em outubro, maior valor do ano",
+    "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/fluxo-cambial-do-brasil-registra-entrada-de-us-1815-bilhoes-em-outubro-maior-valor-do-ano.shtml",
+    "veiculo": "Folha Mercado",
+    "data": "20261104",
+    "dominio": "redir.folha.com.br",
     "categorias": []
    },
    {
@@ -256,30 +284,6 @@
      "economia",
      "politica"
     ]
-   },
-   {
-    "titulo": "Eventual derrota de Trump nas midterms pode ampliar pressão sobre ele em temas ligados ao Brasil",
-    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/eventual-derrota-de-trump-nas-midterms-pode-ampliar-pressao-sobre-ele-em-temas-ligados-ao-brasil.shtml",
-    "veiculo": "Folha Mundo",
-    "data": "20261102",
-    "dominio": "redir.folha.com.br",
-    "categorias": []
-   },
-   {
-    "titulo": "Brasileira de 20 anos é identificada como copilota de jato que caiu na Flórida",
-    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/brasileira-de-20-anos-e-identificada-como-copilota-de-jato-que-caiu-na-florida.shtml",
-    "veiculo": "Folha Mundo",
-    "data": "20261102",
-    "dominio": "redir.folha.com.br",
-    "categorias": []
-   },
-   {
-    "titulo": "Por que o Honda CR-V é um sucesso nos EUA, mas quase não vende no Brasil? O g1 testou o SUV 'invisível'",
-    "url": "https://g1.globo.com/carros/noticia/2026/11/01/teste-honda-cr-v.ghtml",
-    "veiculo": "g1 Economia",
-    "data": "20261101",
-    "dominio": "g1.globo.com",
-    "categorias": []
    }
   ],
   "156": [
@@ -365,6 +369,42 @@
    }
   ],
   "840": [
+   {
+    "titulo": "De casa sem janela em Duque de Caxias à Assembleia da Flórida: a trajetória do carioca eleito deputado nos EUA",
+    "url": "https://g1.globo.com/rj/rio-de-janeiro/noticia/2026/11/04/duque-de-caxias-assembleia-da-florida-trajetoria-do-carioca-eleito-deputado-nos-eua.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": []
+   },
+   {
+    "titulo": "Filha de comerciantes eleita deputada nos EUA cresceu vendo caminhonete do pai virar palanque em MT",
+    "url": "https://g1.globo.com/mt/mato-grosso/noticia/2026/11/04/filha-de-comerciantes-eleita-deputada-nos-eua-cresceu-vendo-caminhonete-do-pai-virar-palanque-em-mt.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": []
+   },
+   {
+    "titulo": "Vitória dos democratas no Congresso dos EUA vai colocar fim à Doutrina Donroe?",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/vitoria-dos-democratas-no-congresso-dos-eua-pora-fim-a-doutrina-donroe.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ]
+   },
+   {
+    "titulo": "Eleições nos EUA: mineira reeleita deputada chegou ao país ainda criança e advoga pelos imigrantes",
+    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-mineira-reeleita-deputada-chegou-ao-pais-ainda-crianca-e-advoga-pelos-imigrantes.ghtml",
+    "veiculo": "g1 Mundo",
+    "data": "20261104",
+    "dominio": "g1.globo.com",
+    "categorias": [
+     "politica"
+    ]
+   },
    {
     "titulo": "Eleições nos EUA: democratas conquistam maioria no Senado e na Câmara; SIGA",
     "url": "https://g1.globo.com/mundo/ao-vivo/eleicoes-nos-eua-2026-acompanhe-as-ultimas-noticias-sobre-as-midterms.ghtml",
@@ -615,46 +655,6 @@
    {
     "titulo": "Eleições nos EUA: democrata vence disputa no Senado pelo Maine",
     "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-democrata-vence-disputa-no-senado-pelo-maine.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Midterms: apostas para as eleições já movimentam mais de R$ 8 bilhões nos EUA; dá para confiar nas previsões?",
-    "url": "https://g1.globo.com/economia/noticia/2026/11/04/midterms-mercados-de-previsao.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Eleições nos EUA: em derrota histórica para Trump, democratas conquistam maioria no Senado",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-em-derrota-historica-para-trump-democratas-conquistam-maioria-no-senado.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Eleição nos EUA: democrata vence disputa milionária pelo Senado em Ohio",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/democrata-vence-disputa-milionaria-pelo-senado-em-ohio.ghtml",
-    "veiculo": "g1 Mundo",
-    "data": "20261104",
-    "dominio": "g1.globo.com",
-    "categorias": [
-     "politica"
-    ]
-   },
-   {
-    "titulo": "Eleições nos EUA: James Talarico é 1º democrata eleito senador pelo Texas em 38 anos",
-    "url": "https://g1.globo.com/mundo/noticia/2026/11/04/eleicoes-nos-eua-james-talarico-e-1o-democrata-eleito-senador-pelo-texas-em-38-anos.ghtml",
     "veiculo": "g1 Mundo",
     "data": "20261104",
     "dominio": "g1.globo.com",
@@ -1197,11 +1197,11 @@
   "858": []
  },
  "falhas": {
-  "gdelt_lote_1": "HTTPError: HTTP Error 429: Too Many Requests",
   "gdelt_lote_3": "HTTPError: HTTP Error 429: Too Many Requests"
  },
  "diagnostico": {
-  "rss_itens": 539,
+  "rss_itens": 535,
+  "gdelt_lote_1": 0,
   "gdelt_lote_2": 0
  },
  "mundo": [
@@ -1258,7 +1258,17 @@
    ]
   },
   {
-   "titulo": "Vance se distancia de Trump, atribui derrota nas midterms à guerra no Irã e admite perda de eleitores",
+   "titulo": "Brasil amplia distância e segue com o maior juro real do mundo após Copom manter Selic; veja ranking",
+   "url": "https://g1.globo.com/economia/noticia/2026/11/04/ranking-juro-real-novembro.ghtml",
+   "veiculo": "g1 Economia",
+   "data": "20261104",
+   "dominio": "g1.globo.com",
+   "categorias": [
+    "afeta_o_mundo"
+   ]
+  },
+  {
+   "titulo": "Vance se afasta de Trump e atribui derrota nas midterms à guerra no Irã",
    "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/vance-se-distancia-de-trump-atribui-derrota-nas-midterms-a-guerra-no-ira-e-admite-perda-de-eleitores.shtml",
    "veiculo": "Folha Mundo",
    "data": "20261104",
@@ -1297,6 +1307,17 @@
    "dominio": "redir.folha.com.br",
    "categorias": [
     "geopolitica"
+   ]
+  },
+  {
+   "titulo": "Vitória democrata nos EUA pode favorecer mercados emergentes, mas efeito depende de cenário fiscal",
+   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/mercado/2026/11/vitoria-democrata-nos-eua-pode-favorecer-mercados-emergentes-mas-efeito-depende-de-cenario-fiscal.shtml",
+   "veiculo": "Folha Mercado",
+   "data": "20261104",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "economia",
+    "afeta_o_mundo"
    ]
   },
   {
@@ -1412,6 +1433,16 @@
    ]
   },
   {
+   "titulo": "Vance se distancia de Trump, atribui derrota nas midterms à guerra no Irã e admite perda de eleitores",
+   "url": "https://redir.folha.com.br/redir/online/mundo/rss091/*https://www1.folha.uol.com.br/mundo/2026/11/vance-se-distancia-de-trump-atribui-derrota-nas-midterms-a-guerra-no-ira-e-admite-perda-de-eleitores.shtml",
+   "veiculo": "Folha Mundo",
+   "data": "20261104",
+   "dominio": "redir.folha.com.br",
+   "categorias": [
+    "geopolitica"
+   ]
+  },
+  {
    "titulo": "Rússia lança ataque com centenas de drones e mísseis contra rede elétrica da Ucrânia às vésperas de negociações de paz",
    "url": "https://g1.globo.com/mundo/noticia/2026/11/03/russia-lanca-ataque-com-centenas-de-drones-e-misseis-contra-rede-eletrica-da-ucrania-as-vesperas-de-negociacoes-de-paz.ghtml",
    "veiculo": "g1 Mundo",
@@ -1482,37 +1513,6 @@
    "data": "20261103",
    "dominio": "redir.folha.com.br",
    "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Alemanha e Romênia relatam ataques hackers a supermercados; sobe para 11 o número de países atingidos",
-   "url": "https://redir.folha.com.br/redir/online/mercado/rss091/*https://www1.folha.uol.com.br/tec/2026/11/alemanha-e-romenia-relatam-ataques-hackers-a-supermercados-sobe-para-11-o-numero-de-paises-atingidos.shtml",
-   "veiculo": "Folha Mercado",
-   "data": "20261103",
-   "dominio": "redir.folha.com.br",
-   "categorias": [
-    "geopolitica"
-   ]
-  },
-  {
-   "titulo": "Brasil lança plano de ação global para transição energética",
-   "url": "https://www.dw.com/pt-br/brasil-lança-plano-de-ação-global-para-transição-energética/a-79845717?maca=bra-rss-br-all-1030-xml-mrss",
-   "veiculo": "DW Brasil",
-   "data": "20261103",
-   "dominio": "www.dw.com",
-   "categorias": [
-    "afeta_o_mundo"
-   ]
-  },
-  {
-   "titulo": "Mercado Bitcoin sofre ataque e suspende saques dias após roubo bilionário na Binance",
-   "url": "https://g1.globo.com/tecnologia/ciberseguranca/noticia/2026/11/02/mercado-bitcoin-incidente-seguranca.ghtml",
-   "veiculo": "g1 Economia",
-   "data": "20261102",
-   "dominio": "g1.globo.com",
-   "categorias": [
-    "economia",
     "geopolitica"
    ]
   }
