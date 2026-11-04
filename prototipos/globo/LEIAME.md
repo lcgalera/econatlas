@@ -4,10 +4,12 @@ Abra `index.html` no navegador (precisa de internet para as bibliotecas e de Web
 
 **O que funciona:** globo que gira sozinho; arrastar para girar e rolar para aproximar; passar o mouse mostra o nome; clicar num país (ou buscar pelo nome)
 dá zoom nele e abre o painel. Fecha com "Voltar ao mundo", com o × ou com Esc. Cada país tem link direto (`index.html#China`).
-A tela é dividida: o globo à esquerda e, à direita, um resumo fixo (comércio do Brasil no ano, 5 maiores parceiros clicáveis, manchetes em alta
-no mundo). Ao clicar num país, o painel dele abre por cima do resumo e o globo encolhe para a área livre; no celular, o resumo e o painel
-viram gavetas embaixo e o globo fica em cima. Começa com o Brasil de frente, gira devagar, e "Voltar ao mundo" volta para o Brasil.
-O planeta usa a imagem de satélite Blue Marble (NASA, domínio público) com mapa de relevo, servidas pelo pacote `three-globe@2.45.6` (MIT);
+Um quadro só, dividido em dois, com uma barra em cima. A barra mostra a marca, de quando são os dados (e se alguma fonte de manchetes
+não respondeu) e a busca. À esquerda, o globo, com a opção "Lista de países" (que também substitui o globo quando o navegador não tem
+WebGL) e botões de zoom. À direita, "Mundo agora": abas Agora (geopolítica e temas globais), No Brasil e Comércio do Brasil, com filtros
+por categoria e contagem; a ordem é por data, sem ranking de importância. Ao clicar num país, o painel dele entra no lugar.
+No celular, o globo fica em cima e o texto embaixo. Começa com o Brasil de frente, gira devagar, e "Mundo" volta para o Brasil.
+O planeta usa a imagem de satélite Blue Marble (NASA, domínio público), tingida de verde-petróleo, com mapa de relevo, servidas pelo pacote `three-globe@2.45.6` (MIT);
 os países são camadas translúcidas por cima: Brasil em verde, os 20 países do protótipo em azul-acinzentado, o selecionado em branco.
 
 **O que não é real ainda:** nenhum número, manchete ou texto do painel. Os blocos mostram só de onde cada coisa vai vir:
