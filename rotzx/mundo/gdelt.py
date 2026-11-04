@@ -14,7 +14,8 @@ from typing import Dict, List, Optional
 from .. import config
 
 URL = "https://api.gdeltproject.org/api/v2/doc/doc?"
-INTERVALO = 8.0  # o GDELT pede no máximo uma consulta a cada 5 segundos; com folga, ele derruba menos conexões
+INTERVALO = 20.0  # o GDELT pede no máximo uma consulta a cada 5 s; de IPs compartilhados (Actions) ele limita bem antes
+MAX_REGISTROS = 250  # máximo do modo artlist
 _ultima = [0.0]
 
 CATEGORIAS = {
@@ -29,7 +30,11 @@ CATEGORIAS = {
 _CAT = {k: re.compile(v, re.I) for k, v in CATEGORIAS.items()}
 
 
-def _get(params: dict, tentativas: int = 2) -> dict:
+class LimiteGDELT(OSError):
+    """O GDELT respondeu com texto em vez de JSON (ex.: "Please limit requests…"): é falha, não ausência de notícias."""
+
+
+def _get(params: dict, tentativas: int = 3) -> dict:
     url = URL + urllib.parse.urlencode(params)
     req = urllib.request.Request(url, headers={"User-Agent": config.USER_AGENT})
     for t in range(tentativas):
@@ -40,12 +45,14 @@ def _get(params: dict, tentativas: int = 2) -> dict:
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 corpo = r.read().decode("utf-8", "replace")
-            return json.loads(corpo) if corpo.strip().startswith("{") else {"articles": []}
+            if not corpo.strip().startswith("{"):
+                raise LimiteGDELT(corpo.strip()[:120] or "resposta vazia")
+            return json.loads(corpo)
         except OSError:
             if t == tentativas - 1:
                 raise
             time.sleep(INTERVALO * 2 * (t + 1))
-    return {"articles": []}
+    raise LimiteGDELT("sem resposta")
 
 
 def categorias(titulo: str) -> List[str]:
@@ -77,3 +84,39 @@ def manchetes(termos: List[str], dias: int = 7, maximo: int = 75, exigir_no_titu
         vistos.add(chave)
         out.append(m)
     return out
+
+
+def _chave(titulo: str) -> str:
+    return re.sub(r"\W+", " ", (titulo or "").lower()).strip()
+
+
+def lote(paises: List[dict], dias: int = 1) -> Dict[str, List[dict]]:
+    """Uma consulta para vários países (o nome de cada um, em OR); cada manchete vai para os países que o TÍTULO cita.
+
+    Junta numa só o que seriam várias consultas por país: o GDELT limita o número de consultas, não o tamanho delas.
+    """
+    nomes = " OR ".join(f'"{p["nome"]}"' if " " in p["nome"] else p["nome"] for p in paises)
+    dados = _get({"query": f"({nomes}) sourcelang:portuguese", "mode": "artlist", "maxrecords": MAX_REGISTROS,
+                  "timespan": f"{dias}d", "sort": "datedesc", "format": "json"})
+    out: Dict[str, List[dict]] = {p["iso_num"]: [] for p in paises}
+    vistos: Dict[str, set] = {p["iso_num"]: set() for p in paises}
+    for a in dados.get("articles", []):
+        m = _limpa(a)
+        if not m["titulo"]:
+            continue
+        for p in paises:
+            if menciona(m["titulo"], p["termos"]) and _chave(m["titulo"]) not in vistos[p["iso_num"]]:
+                vistos[p["iso_num"]].add(_chave(m["titulo"]))
+                out[p["iso_num"]].append(m)
+    return out
+
+
+def juntar(antigas: List[dict], novas: List[dict], desde: str, maximo: int = 30) -> List[dict]:
+    """Acumula manchetes entre coletas: sem repetir título, só as de `desde` (AAAAMMDD) em diante, as mais recentes primeiro."""
+    vistos, out = set(), []
+    for m in sorted(novas + antigas, key=lambda x: x.get("data", ""), reverse=True):
+        k = _chave(m.get("titulo"))
+        if k and k not in vistos and m.get("data", "") >= desde:
+            vistos.add(k)
+            out.append(m)
+    return out[:maximo]

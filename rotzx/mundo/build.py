@@ -141,20 +141,33 @@ def refazer_resumos(saida: Path = SAIDA) -> None:
     _gravar(saida, "mundo", m)
 
 
-def noticias(saida: Path = SAIDA, log=print) -> Dict:
-    """Manchetes por país e do mundo. Uma consulta que falha fica vazia, com o erro anotado; as outras seguem."""
-    agora = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    out = {"gerado_em": agora, "fonte": FONTES["gdelt"], "paises": {}, "falhas": {}}
-    for p in PAISES:
+def noticias(saida: Path = SAIDA, log=print, dias: int = 7, por_lote: int = 7) -> Dict:
+    """Manchetes por país e do mundo, em poucas consultas (lotes de países), acumulando com a coleta anterior.
+
+    Uma consulta que falha fica anotada em "falhas" e os países dela mantêm as manchetes anteriores: falha nunca vira "sem notícias".
+    """
+    from datetime import timedelta
+    agora = datetime.now(timezone.utc)
+    desde = (agora - timedelta(days=dias)).strftime("%Y%m%d")
+    f = saida / "noticias.json"
+    antes = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    out = {"gerado_em": agora.isoformat(timespec="seconds"), "fonte": FONTES["gdelt"], "dias": dias, "paises": {}, "falhas": {}}
+    for i in range(0, len(PAISES), por_lote):
+        grupo = PAISES[i:i + por_lote]
         try:
-            out["paises"][p["iso_num"]] = gdelt.manchetes(p["termos"], dias=7)[:30]
+            tem_historico = any(antes.get("paises", {}).get(p["iso_num"]) for p in grupo)
+            novas = gdelt.lote(grupo, dias=1 if tem_historico else dias)  # primeira coleta: a janela inteira
         except OSError as e:
-            out["paises"][p["iso_num"]] = []
-            out["falhas"][p["iso_num"]] = f"{type(e).__name__}: {e}"
-        log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}" + (" (falhou)" if p["iso_num"] in out["falhas"] else ""))
+            novas = {}
+            for p in grupo:
+                out["falhas"][p["iso_num"]] = f"{type(e).__name__}: {e}"[:200]
+        for p in grupo:
+            out["paises"][p["iso_num"]] = gdelt.juntar(antes.get("paises", {}).get(p["iso_num"], []), novas.get(p["iso_num"], []), desde)
+            log(f"  {p['nome']}: {len(out['paises'][p['iso_num']])}" + (" (consulta falhou; mantidas as anteriores)" if p["iso_num"] in out["falhas"] else ""))
     try:
-        out["mundo"] = [m for m in gdelt.manchetes([], dias=1, maximo=75, exigir_no_titulo=False, consulta=CONSULTA_MUNDO) if m["categorias"]][:30]
+        m = [x for x in gdelt.manchetes([], dias=1, maximo=75, exigir_no_titulo=False, consulta=CONSULTA_MUNDO) if x["categorias"]]
+        out["mundo"] = gdelt.juntar(antes.get("mundo", []), m, (agora - timedelta(days=2)).strftime("%Y%m%d"))
     except OSError as e:
-        out["mundo"], out["falhas"]["mundo"] = [], f"{type(e).__name__}: {e}"
+        out["mundo"], out["falhas"]["mundo"] = antes.get("mundo", []), f"{type(e).__name__}: {e}"[:200]
     _gravar(saida, "noticias", out)
     return out

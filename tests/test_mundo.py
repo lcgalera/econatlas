@@ -92,3 +92,44 @@ def test_dados_gravados_tambem_como_script(tmp_path):
     assert json.loads((tmp_path / "mundo.json").read_text(encoding="utf-8")) == {"a": "ç"}
     js = (tmp_path / "mundo.js").read_text(encoding="utf-8")
     assert js.startswith("window.MUNDO = ") and json.loads(js[len("window.MUNDO = "):].rstrip().rstrip(";")) == {"a": "ç"}
+
+
+def test_resposta_que_nao_e_json_e_falha_e_nao_lista_vazia(monkeypatch):
+    class R:
+        def __init__(self, corpo): self.corpo = corpo
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return self.corpo
+    monkeypatch.setattr(gdelt, "INTERVALO", 0)
+    monkeypatch.setattr(gdelt.time, "sleep", lambda s: None)
+    monkeypatch.setattr(gdelt.urllib.request, "urlopen", lambda req, timeout=60: R(b"Please limit requests to one every 5 seconds"))
+    with pytest.raises(gdelt.LimiteGDELT):
+        gdelt.manchetes(["china"])
+
+
+def test_lote_distribui_manchetes_pelo_pais_citado_no_titulo(monkeypatch):
+    artigos = {"articles": [
+        {"title": "China e Argentina fecham acordo de comércio", "url": "u1", "domain": "a.com", "seendate": "20261104T1"},
+        {"title": "Argentina anuncia inflação de outubro", "url": "u2", "domain": "b.com", "seendate": "20261104T2"},
+        {"title": "Notícia que só cita a China no corpo", "url": "u3", "domain": "c.com", "seendate": "20261104T3"},
+    ]}
+    monkeypatch.setattr(gdelt, "_get", lambda params, tentativas=3: artigos)
+    r = gdelt.lote([POR_ISO_NUM["156"], POR_ISO_NUM["032"]])
+    assert [m["url"] for m in r["156"]] == ["u1", "u3"] and [m["url"] for m in r["032"]] == ["u1", "u2"]
+
+
+def test_juntar_acumula_sem_repetir_e_descarta_antigas():
+    antigas = [{"titulo": "A", "data": "20261101"}, {"titulo": "B", "data": "20261020"}]
+    novas = [{"titulo": "a", "data": "20261104"}, {"titulo": "C", "data": "20261103"}]
+    j = gdelt.juntar(antigas, novas, desde="20261028")
+    assert [m["titulo"] for m in j] == ["a", "C"]  # "A" repetida (mesmo título) e "B" antiga demais
+
+
+def test_noticias_mantem_as_anteriores_quando_a_consulta_falha(monkeypatch, tmp_path):
+    (tmp_path / "noticias.json").write_text(json.dumps({"paises": {"156": [{"titulo": "China cresce", "data": "29991231"}]}, "mundo": []}))
+    def falha(*a, **k): raise gdelt.LimiteGDELT("Please limit requests")
+    monkeypatch.setattr(gdelt, "lote", falha)
+    monkeypatch.setattr(gdelt, "manchetes", falha)
+    n = build.noticias(tmp_path, log=lambda *a: None)
+    assert n["paises"]["156"] == [{"titulo": "China cresce", "data": "29991231"}]
+    assert "156" in n["falhas"] and "mundo" in n["falhas"]
