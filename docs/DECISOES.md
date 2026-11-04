@@ -106,3 +106,19 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **O que não muda nesta etapa (de propósito, para não quebrar nada):** o nome do repositório (`lcgalera/econatlas`) e o endereço do site público (`lcgalera.github.io/econatlas`), o pacote Python `econatlas/`, os comandos `python -m econatlas …`, a variável `window.ECONATLAS_STATIC`, a chave `econatlas-theme` do `localStorage` (mudar faria quem já usa o site perder o tema escolhido), o marcador `.econatlas-publico` do build e os arquivos `econatlas.sqlite`/`econatlas_publico.sqlite`. São identificadores internos ou endereços, não marca.
 **Onde o identificador antigo ainda aparece na tela:** só nas instruções de linha de comando dos estados vazios (por exemplo, "rode `python -m econatlas prever`"), porque esse é o comando real. O link do rodapé da página do setor elétrico passou a dizer "repositório público no GitHub" em vez de exibir o endereço.
 **A avaliar separadamente:** renomear repositório, URL do site, pacote e comandos (exige redirecionamento do GitHub Pages, ajuste do workflow, dos imports dos testes e da documentação de uso no Mac).
+
+### D26 · 04/11/2026 · Frases de comparação de erro dizem sempre a direção
+**Motivo:** a página da indústria de materiais elétricos calculava `|razão − 1|` e escrevia sempre "errou X% menos". Uma razão de RMSE de 1,05 viraria "errou 5% menos".
+**Regra:** razão = RMSE do modelo ÷ RMSE da referência. Razão < 1 = "errou menos"; razão > 1 = "errou mais"; |razão − 1| < 0,5% = "praticamente o mesmo erro". O limiar de 0,5% é o arredondamento abaixo do qual a frase com 0 casas mostraria 0%.
+**Como:** as frases ficam em `web/texto.js`, sem DOM, testadas no Node (`tests/test_texto_js.py`; o teste é pulado onde não há Node, como no Mac, e roda no GitHub Actions). A frase de conclusão também muda: se o erro não diminuiu em algum horizonte, a página diz isso em vez de falar em "melhora".
+
+### D27 · 04/11/2026 · Comunicação sem exagero: registro, backtest e nome da série
+- **Registro:** "imutável" e "ninguém consegue mudar" saem da interface. O banco recusa alterações, o verificador falha se uma linha antiga mudar e o git mostra quando cada linha entrou: isso é **auditabilidade**. Quem controla o repositório ainda poderia reescrever o histórico. Os gatilhos do SQLite e as docstrings continuam a usar "imutável" no sentido técnico (o banco recusa UPDATE/DELETE).
+- **Backtest:** o texto principal deixa de dizer "só os dados que existiam naquela data". Diz "só os dados até aquela data, na versão revisada de hoje", que é o que o método faz (D3: não há vintages anteriores a nov/2026).
+- **Nome da série:** a série do IBGE (PIM-PF, seção 3.27 = CNAE 27) passa a ser chamada de "indústria de (máquinas e) materiais elétricos", não "setor elétrico". Ela inclui de transformadores e cabos a lâmpadas e eletrodomésticos, e não mede investimento em transmissão ou distribuição nem compras de concessionárias. A rota `#/setor-eletrico` e os identificadores internos (`eletrico_pim`, `pim_eletricos`) não mudam.
+
+### D28 · 04/11/2026 · Radar de oportunidades começa pela exploração da fonte, não pelo classificador
+**Motivo:** o plano do rotzx Intelligence (radar de projetos de transmissão para fornecedores) depende de o SIGET trazer chave estável, estágio, datas e equipamentos por módulo. Nada disso foi verificado.
+**Como:** `econatlas fonte-explorar` usa a API padrão do CKAN do portal da ANEEL, baixa os recursos tabulares com SHA-256 para `data/fontes/` (fora do git) e gera um relatório de campos para avaliação humana. Não é coletor de produção e não interpreta nada.
+**Critério de decisão** fixado antes de ver os dados em `docs/03-fonte-siget.md` §4. Classificador, score e interface só depois dessa decisão.
+**Licença:** nenhum dado da ANEEL entra no build público até a licença do conjunto estar registrada.

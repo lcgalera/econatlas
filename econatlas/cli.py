@@ -209,6 +209,12 @@ def main(argv=None):
     sub.add_parser("backtest", help="refaz o backtest do IPCA e salva o resultado (~1–2 min)")
     sub.add_parser("calibrar-setorial", help="mede a cobertura das faixas das previsões setoriais (~5 min)")
 
+    fe = sub.add_parser("fonte-explorar", help="Fase 1: busca um conjunto no portal CKAN (ANEEL) e gera o perfil dos campos")
+    fe.add_argument("busca", help="termo de busca (ex.: siget) ou, com --conjunto, ignorado")
+    fe.add_argument("--portal", default="aneel", help="aneel ou a URL de outro portal CKAN")
+    fe.add_argument("--conjunto", default=None, help="nome do conjunto: baixa os recursos e gera data/fontes/.../relatorio.md")
+    fe.add_argument("--max-mb", type=float, default=300, help="tamanho máximo por arquivo baixado")
+
     s = sub.add_parser("servir", help="inicia a interface web local")
     s.add_argument("--porta", type=int, default=8000)
 
@@ -259,6 +265,15 @@ def main(argv=None):
     elif args.cmd == "backtest":
         r = save_backtest()
         print(f"backtest salvo: origens {r['origens'][0]} a {r['origens'][1]}")
+    elif args.cmd == "fonte-explorar":
+        from .providers import ckan
+        if args.conjunto:
+            print("relatório:", ckan.explorar(args.portal, args.conjunto, max_mb=args.max_mb))
+        else:
+            for c in ckan.buscar(args.portal, args.busca):
+                print(f"{c['nome']}  |  {c['titulo']}  |  licença: {c['licenca'] or 'não declarada'}  |  {c['modificado']}")
+                for r in c["recursos"]:
+                    print(f"    [{r['formato'] or '?'}] {r['nome']}  {r['url']}")
     elif args.cmd == "servir":
         import uvicorn
         uvicorn.run("econatlas.api:app", host="127.0.0.1", port=args.porta)
