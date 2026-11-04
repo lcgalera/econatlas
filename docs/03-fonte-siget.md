@@ -121,3 +121,14 @@ Quem avalia é você (Lucas), não o classificador. A meta experimental do plano
   1. O tipo de obra "Adequação" esconde substituições com equipamento novo: 5 casos da amostra só têm módulos em "Adequação", mas a descrição diz "substituição do TR… por novo de 100 MVA". A regra precisa ler a descrição (`DscEpd`/`DscObr`), não só o tipo da obra.
   2. A janela de 6 meses provavelmente é curta para transformadores de potência, que têm prazo de fabricação longo: a janela deve variar por categoria de equipamento. Isso é hipótese a validar com compradores.
 - **Próximo:** uma amostra **aleatória** (semente fixa) dos 632 elegíveis, para estimar a precisão sem viés, e os 20 casos atuais como material de demonstração nas conversas.
+
+## 8. Amostra aleatória (avaliação 2, em andamento)
+
+```bash
+.venv/bin/python -m econatlas siget-amostra --aleatoria   # semente 20261104, exclui os 20 da amostra anterior
+```
+
+Sorteio simples de 20 entre os **612 elegíveis** (mesma regra de elegibilidade, sem os 20 já avaliados), para estimar a precisão sem o viés da primeira amostra.
+Resultado do sorteio: 17 autorizações e 3 contratos, próximo da proporção da população. Em 3 casos a operação está a menos de 6 meses (C2 = n).
+A planilha `amostra-aleatoria-avaliacao.xlsx` traz C2 (janela) e C3 (concessionária) calculadas; a pessoa julga só C1 (equipamento novo do perfil),
+e o resultado e a precisão saem por fórmula (conferidas no LibreOffice).

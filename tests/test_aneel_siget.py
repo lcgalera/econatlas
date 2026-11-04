@@ -83,3 +83,31 @@ def test_amostra_segue_a_regra_documentada(tabelas):
 def test_carregar_exige_os_arquivos_brutos(tmp_path):
     with pytest.raises(FileNotFoundError):
         sg.carregar(tmp_path)
+
+
+def test_amostra_aleatoria_reproduzivel_exclui_avaliados_e_calcula_c2_c3(tabelas):
+    emp = sg.empreendimentos(tabelas)
+    hoje = pd.Timestamp("2026-11-04")
+    a = sg.amostra_aleatoria(emp, n=5, semente=1, hoje=hoje)
+    assert sorted(a.id_aneel) == ["1", "2"]  # só os elegíveis (o universo da fixture tem 2)
+    pd.testing.assert_frame_equal(a, sg.amostra_aleatoria(emp, n=5, semente=1, hoje=hoje))
+    assert set(sg.amostra_aleatoria(emp, n=5, semente=1, hoje=hoje, excluir={"1"}).id_aneel) == {"2"}
+    r = a.set_index("id_aneel")
+    assert r.loc["1", "c2_janela"] == "s" and r.loc["1", "c3_comprador"] == "s"  # 30/12/2027: > 6 meses
+    assert (a.c1_equipamento == "").all()  # a condição 1 é humana
+    # perto da data: falha na janela
+    perto = sg.amostra_aleatoria(emp, n=5, semente=1, hoje=pd.Timestamp("2027-08-01")).set_index("id_aneel")
+    assert perto.loc["1", "c2_janela"] == "n"
+
+
+def test_planilha_tem_formula_de_resultado_e_resumo(tabelas, tmp_path):
+    from openpyxl import load_workbook
+    a = sg.amostra_aleatoria(sg.empreendimentos(tabelas), n=5, semente=1, hoje=pd.Timestamp("2026-11-04"))
+    wb = load_workbook(sg.planilha_avaliacao(a, tmp_path / "av.xlsx"))
+    ws = wb["Amostra"]
+    assert ws["A1"].value.startswith("C1") and ws["A2"].value in (None, "")
+    assert ws["B2"].value.startswith('=IF(A2=""') and 'C2="n"' in ws["B2"].value and 'D2="n"' in ws["B2"].value
+    assert wb["Resumo"]["B6"].value.startswith("=IF(B3+B4=0")
+    assert "ODbL" in str(wb["Como avaliar"]["A9"].value)
+    # "?" é curinga no COUNTIF: a contagem dos "?" precisa do escape "~?"
+    assert wb["Resumo"]["B5"].value == '=COUNTIF(Amostra!B2:B3,"~?")'  # 2 linhas na fixture

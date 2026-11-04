@@ -168,3 +168,86 @@ def amostra(emp: pd.DataFrame, n: int = 20, hoje: Optional[pd.Timestamp] = None)
     a["avaliacao_relevante"] = ""  # preenchido à mão: s / n / ? (critério em docs/03 §7)
     a["avaliacao_nota"] = ""
     return a.reset_index(drop=True)
+
+
+def elegiveis(emp: pd.DataFrame, hoje: Optional[pd.Timestamp] = None) -> pd.DataFrame:
+    """Universo das amostras: em andamento, operação do ato legal no futuro, ≥ 1 equipamento em obra em andamento."""
+    hoje = hoje or pd.Timestamp.today().normalize()
+    return emp[(emp.situacao == EM_ANDAMENTO) & (data(emp.operacao_ato_legal) > hoje) & (emp.n_equipamentos > 0)]
+
+
+JANELA_MESES = 6  # condição 2 do critério (docs/03 §5)
+
+
+def amostra_aleatoria(emp: pd.DataFrame, n: int = 20, semente: int = 20261104, hoje: Optional[pd.Timestamp] = None,
+                      excluir: Optional[set] = None) -> pd.DataFrame:
+    """Sorteio simples (semente fixa) entre os elegíveis, sem os já avaliados. Serve para estimar a precisão sem viés.
+
+    As condições mecânicas do critério já vêm calculadas: c2 (operação a mais de JANELA_MESES meses de `hoje`)
+    e c3 (concessionária identificada). A condição 1 (equipamento novo do perfil) é julgada por pessoa.
+    """
+    hoje = hoje or pd.Timestamp.today().normalize()
+    u = elegiveis(emp, hoje)
+    if excluir:
+        u = u[~u.id_aneel.isin(excluir)]
+    u = u.assign(_id=pd.to_numeric(u.id_aneel, errors="coerce")).sort_values("_id").drop(columns="_id")
+    a = u.sample(n=min(n, len(u)), random_state=semente).copy()
+    op = data(a.operacao_ato_legal)
+    a["meses_ate_operacao"] = ((op - hoje).dt.days / 30.44).round(1)
+    a["c2_janela"] = (op > hoje + pd.DateOffset(months=JANELA_MESES)).map({True: "s", False: "n"})
+    a["c3_comprador"] = (a.concessionaria.astype(str).str.strip() != "").map({True: "s", False: "n"})
+    a["c1_equipamento"] = ""  # s / n / ? — julgamento humano
+    a["avaliacao_nota"] = ""
+    a.attrs.update(semente=semente, data_referencia=str(hoje.date()), universo=len(u))
+    return a.reset_index(drop=True)
+
+
+def planilha_avaliacao(a: pd.DataFrame, caminho: Path) -> Path:
+    """Planilha para a avaliação humana: a pessoa preenche só a condição 1; o resultado sai por fórmula."""
+    from openpyxl.styles import Alignment, Font, PatternFill
+    cols = [("c1_equipamento", "C1 equipamento novo do perfil? (s/n/?)", 16), ("resultado", "Resultado", 11),
+            ("c2_janela", f"C2 > {JANELA_MESES} meses?", 10), ("c3_comprador", "C3 concessionária?", 10),
+            ("meses_ate_operacao", "Meses até operação", 10), ("avaliacao_nota", "Nota", 30), ("id_ons", "Id ONS", 13),
+            ("nome", "Empreendimento", 40), ("descricao", "Descrição (fonte)", 60), ("equipamentos", "Equipamentos (obras em andamento)", 55),
+            ("concessionaria", "Concessionária", 20), ("ufs", "UF", 8), ("operacao_ato_legal", "Operação (ato legal)", 13),
+            ("origem", "Origem", 20), ("n_modulos_manobra", "Módulos de manobra", 10), ("linhas", "Linhas", 35),
+            ("tipos_obra", "Tipos de obra", 16), ("ato", "Ato", 15), ("ato_link", "Link do ato", 35)]
+    x = a.assign(resultado="")[[c for c, _, _ in cols]].rename(columns={c: t for c, t, _ in cols})
+    with pd.ExcelWriter(caminho, engine="openpyxl") as w:
+        x.to_excel(w, index=False, sheet_name="Amostra")
+        ws = w.sheets["Amostra"]
+        for i, (_, _, larg) in enumerate(cols, start=1):
+            ws.column_dimensions[ws.cell(1, i).column_letter].width = larg
+        amarelo = PatternFill("solid", fgColor="FFF2CC")
+        for r in range(2, len(x) + 2):
+            # resultado: n se qualquer condição falha; ? se C1 é ?; s se as três valem; vazio enquanto C1 não for preenchida
+            ws.cell(r, 2).value = (f'=IF(A{r}="","",IF(OR(A{r}="n",C{r}="n",D{r}="n"),"n",IF(A{r}="?","?","s")))')
+            ws.cell(r, 1).fill = amarelo
+            for c in ws[r]:
+                c.alignment = Alignment(wrap_text=True, vertical="top")
+        for c in ws[1]:
+            c.font = Font(bold=True)
+            c.alignment = Alignment(wrap_text=True, vertical="top")
+        ws.freeze_panes = "H2"
+        n = len(x) + 1
+        resumo = pd.DataFrame({"Item": ["Avaliados (C1 preenchida)", "s", "n", "?", "Precisão = s / (s + n)", "",
+                                        "Semente do sorteio", "Data de referência", "Universo elegível"],
+                               "Valor": [f'=COUNTIF(Amostra!A2:A{n},"?*")', f'=COUNTIF(Amostra!B2:B{n},"s")',
+                                         f'=COUNTIF(Amostra!B2:B{n},"n")', f'=COUNTIF(Amostra!B2:B{n},"~?")',
+                                         '=IF(B3+B4=0,"",B3/(B3+B4))', "", a.attrs.get("semente", ""),
+                                         a.attrs.get("data_referencia", ""), a.attrs.get("universo", "")]})
+        resumo.to_excel(w, index=False, sheet_name="Resumo")
+        w.sheets["Resumo"].column_dimensions["A"].width = 30
+        w.sheets["Resumo"]["B6"].number_format = "0%"
+        crit = pd.DataFrame({"Como avaliar (docs/03-fonte-siget.md §5)": [
+            "Preencha só a coluna amarela (C1). C2, C3 e o Resultado já vêm calculados.",
+            "C1 = s se a descrição ou os equipamentos indicam fornecimento NOVO ou SUBSTITUIÇÃO de equipamento do perfil:",
+            "   transformador de potência, reator, banco de capacitores, compensador, manobra (disjuntores/seccionadoras).",
+            "   [Instalação] = módulo novo. [Adequação] sozinho não basta: leia a descrição.",
+            "C1 = n se é só proteção, obra civil, linha sem equipamento de subestação ou revitalização sem equipamento citado.",
+            "C1 = ? se a fonte não permite decidir. Julgue pelo que está escrito, não pelo que imagina.",
+            "Use a Nota para dizer o motivo de n ou ?, e para discordar da regra (sem mudar a marca).",
+            ATRIBUICAO]})
+        crit.to_excel(w, index=False, sheet_name="Como avaliar")
+        w.sheets["Como avaliar"].column_dimensions["A"].width = 115
+    return caminho

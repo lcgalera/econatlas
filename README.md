@@ -49,7 +49,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `importar-macrodados arquivo.csv` | Só no Mac: importa exportações da Macrodados (uso pessoal) |
 | `qualidade` | Verificações de consistência dos dados |
 | `fonte-explorar TERMO [--conjunto NOME]` | Fase 1 do radar de oportunidades: lista conjuntos do portal da ANEEL ou baixa um conjunto e gera o perfil dos campos em `data/fontes/` (ver `docs/03-fonte-siget.md`) |
-| `siget-amostra [--n 20]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
+| `siget-amostra [--n 20] [--aleatoria]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
 
 Testes: `.venv/bin/python -m pytest -q`.
 

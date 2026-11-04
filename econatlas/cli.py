@@ -217,6 +217,8 @@ def main(argv=None):
 
     sa = sub.add_parser("siget-amostra", help="Fase 1: visão por empreendimento do SIGET e amostra para avaliação manual")
     sa.add_argument("--n", type=int, default=20, help="tamanho da amostra (padrão: 20)")
+    sa.add_argument("--aleatoria", action="store_true", help="sorteio entre os elegíveis (sem os da amostra.csv) + planilha de avaliação")
+    sa.add_argument("--semente", type=int, default=20261104, help="semente do sorteio (padrão: 20261104)")
 
     s = sub.add_parser("servir", help="inicia a interface web local")
     s.add_argument("--porta", type=int, default=8000)
@@ -280,8 +282,18 @@ def main(argv=None):
     elif args.cmd == "siget-amostra":
         from .providers import aneel_siget as sg
         emp = sg.empreendimentos(sg.carregar())
-        am = sg.amostra(emp, n=args.n)
         pasta = sg.pasta_padrao().parent
+        if args.aleatoria:
+            import pandas as pd
+            anterior = pasta / "amostra.csv"
+            ja = set(pd.read_csv(anterior, dtype=str).id_aneel) if anterior.exists() else set()
+            al = sg.amostra_aleatoria(emp, n=args.n, semente=args.semente, excluir=ja)
+            al.to_csv(pasta / "amostra-aleatoria.csv", index=False)
+            xl = sg.planilha_avaliacao(al, pasta / "amostra-aleatoria-avaliacao.xlsx")
+            print(f"sorteio de {len(al)} entre {al.attrs['universo']} elegíveis (semente {args.semente}, {len(ja)} já avaliados excluídos) -> {xl}")
+            print(sg.ATRIBUICAO)
+            return
+        am = sg.amostra(emp, n=args.n)
         emp.to_csv(pasta / "empreendimentos.csv", index=False)
         am.to_csv(pasta / "amostra.csv", index=False)
         print(f"{len(emp)} empreendimentos ({(emp.situacao == sg.EM_ANDAMENTO).sum()} em andamento) -> {pasta / 'empreendimentos.csv'}")
