@@ -100,3 +100,9 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 - **Linguagem:** sem jargão no corpo do texto. Os termos técnicos (RMSE, Clark-West, Holm) ficam numa seção recolhível "Para quem quer o método".
 - **Ressalvas na própria página:** associação preditiva não é causalidade, não é recomendação financeira, e a margem de 80% vem acompanhada da cobertura real quando ela fica abaixo de 75%.
 - **Gráficos:** dois gráficos com o tempo sincronizado, em vez de eixo duplo (D5).
+
+### D25 · 04/11/2026 · Nome do produto passa a ser rotzx (sempre em minúsculas)
+**Escolha do Lucas:** a marca EconAtlas é substituída por **rotzx** em toda a interface, títulos, textos, documentação e metadados (título da página, marca no cabeçalho, rodapé, título da API FastAPI, User-Agent das coletas, docstrings e cabeçalhos de arquivos).
+**O que não muda nesta etapa (de propósito, para não quebrar nada):** o nome do repositório (`lcgalera/econatlas`) e o endereço do site público (`lcgalera.github.io/econatlas`), o pacote Python `econatlas/`, os comandos `python -m econatlas …`, a variável `window.ECONATLAS_STATIC`, a chave `econatlas-theme` do `localStorage` (mudar faria quem já usa o site perder o tema escolhido), o marcador `.econatlas-publico` do build e os arquivos `econatlas.sqlite`/`econatlas_publico.sqlite`. São identificadores internos ou endereços, não marca.
+**Onde o identificador antigo ainda aparece na tela:** só nas instruções de linha de comando dos estados vazios (por exemplo, "rode `python -m econatlas prever`"), porque esse é o comando real. O link do rodapé da página do setor elétrico passou a dizer "repositório público no GitHub" em vez de exibir o endereço.
+**A avaliar separadamente:** renomear repositório, URL do site, pacote e comandos (exige redirecionamento do GitHub Pages, ajuste do workflow, dos imports dos testes e da documentação de uso no Mac).

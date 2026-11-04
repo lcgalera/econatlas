@@ -1,4 +1,4 @@
-/* EconAtlas — interface (sem build; ECharts via CDN). */
+/* rotzx — interface (sem build; ECharts via CDN). */
 "use strict";
 
 const $app = document.getElementById("app");
@@ -613,7 +613,7 @@ async function pageSetorEletrico() {
           <p><b>Ciclos de alta da Selic.</b> Do primeiro aumento da meta (SGS 432, fim de mês) até o último aumento antes do primeiro corte.</p>
           <p><b>Limitações.</b> Uma única série-alvo; associação preditiva, não causalidade; usa a versão atual dos dados (revisões passadas não são reproduzidas);
             defasagens de divulgação são premissas. Esta versão pública usa apenas dados abertos.</p>
-          <p>Código, dados e registro: <a href="${REPO_URL}" target="_blank" rel="noopener">${REPO_URL.replace("https://", "")}</a>.</p>
+          <p>Código, dados e registro: <a href="${REPO_URL}" target="_blank" rel="noopener">repositório público no GitHub</a>.</p>
         </div>
       </details>
     </section>`;

@@ -1,4 +1,4 @@
-"""Linha de comando do EconAtlas.
+"""Linha de comando do rotzx.
 
 Exemplos:
   python -m econatlas atualizar                  # baixa todas as séries públicas

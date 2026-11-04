@@ -1,4 +1,4 @@
-# Rotina mensal do EconAtlas (D23): só dados abertos. A importação da Macrodados é manual e fica fora daqui.
+# Rotina mensal do rotzx (D23): só dados abertos. A importação da Macrodados é manual e fica fora daqui.
 # O histórico de commits de registro/ é a prova pública de que nenhuma previsão foi alterada:
 # cada execução só acrescenta linhas, e `registro-verificar` falha se uma linha antiga mudar.
 name: Rotina mensal

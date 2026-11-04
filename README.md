@@ -1,4 +1,4 @@
-# EconAtlas
+# rotzx
 
 Inteligência econômica com dados abertos e rastreáveis. O foco é o **Radar Setorial**: o que os juros indicam
 para a produção do setor elétrico nos próximos 3 a 6 meses, com previsões registradas antes de os dados saírem
@@ -86,6 +86,11 @@ A importação da Macrodados é manual e fica fora da automação.
 ```bash
 git pull && .venv/bin/python -m econatlas registro-importar
 ```
+
+## Nome
+
+O produto se chama **rotzx** (sempre em minúsculas). O repositório, o endereço do site, o pacote Python e os comandos
+continuam com o identificador interno `econatlas` por enquanto, para não quebrar o site público, o registro e a rotina mensal (D25).
 
 ## Estrutura
 

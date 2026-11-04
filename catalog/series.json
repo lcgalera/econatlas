@@ -86,7 +86,7 @@
     "licenca": "Dados abertos BCB – uso livre com citação da fonte",
     "uso": "publico",
     "metadados_conferidos": true,
-    "descricao": "Taxa Selic acumulada no mês, anualizada em base 252. Período anterior ao Plano Real omitido no EconAtlas (regime de alta inflação).",
+    "descricao": "Taxa Selic acumulada no mês, anualizada em base 252. Período anterior ao Plano Real omitido no rotzx (regime de alta inflação).",
     "extra": {
       "nome_oficial": "Taxa de juros - Selic acumulada no mês anualizada base 252",
       "unidade_oficial": "Percentual ao ano",
@@ -110,7 +110,7 @@
     "licenca": "Dados abertos BCB – uso livre com citação da fonte",
     "uso": "publico",
     "metadados_conferidos": true,
-    "descricao": "Média mensal da taxa de câmbio livre, dólar americano, venda. Unidade oficial: unidade monetária corrente por dólar; no EconAtlas começa em jul/1994, quando a unidade passa a ser o real.",
+    "descricao": "Média mensal da taxa de câmbio livre, dólar americano, venda. Unidade oficial: unidade monetária corrente por dólar; no rotzx começa em jul/1994, quando a unidade passa a ser o real.",
     "extra": {
       "nome_oficial": "Taxa de câmbio - Livre - Dólar americano (venda) - Média de período - mensal",
       "unidade_oficial": "u.m.c./US$",
