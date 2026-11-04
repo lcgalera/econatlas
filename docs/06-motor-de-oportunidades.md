@@ -67,7 +67,7 @@ O nível de evidência ("confirmado" ou "inferência técnica") é mostrado à p
 ## 4. Resultado com os dados de 04/11/2026 (perfil de demonstração)
 
 - **524 oportunidades** de 80 concessionárias: 502 com categoria confirmada e 22 só por inferência. 441 são autorizações e 83 vêm de contrato de concessão.
-- Mais frequentes: transformadores de potência (324 empreendimentos), reatores (129), disjuntores (73), bancos de capacitores (54).
+- Mais frequentes: transformadores de potência (324 empreendimentos), reatores (129), bancos de capacitores (54), disjuntores (52, depois de excluir "disjuntor e meio").
 - 5 oportunidades têm pendência na descrição e aparecem com alerta e estágio reduzido.
 - **Limite do score:** com um perfil Brasil inteiro e uma fonte só, a maior parte das oportunidades confirmadas é parecida de verdade.
   Metade fica entre 90 e 96 pontos. O score separa bem o confirmado do inferido e o que está perto demais da janela, mas não ordena com precisão
