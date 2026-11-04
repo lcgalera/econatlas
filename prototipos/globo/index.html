@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rotzx — O mundo visto do Brasil</title>
+<meta name="description" content="Protótipo de navegação: globo interativo; clique num país para ver a relação com o Brasil, a economia e as manchetes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+<style>
+  /* Tokens: o globo é sempre noturno; o painel segue o tema do sistema. */
+  :root {
+    --space: #070b14; --space-2: #0d1424; --ocean: #12213a; --land: #26354f; --land-hover: #3a4d6d;
+    --focus: #e0a43a; --base: #4cc38a; --sel: #ffd27a; --border-line: rgba(255,255,255,.18);
+    --panel: #fbfaf7; --panel-ink: #16181d; --panel-ink-2: #4a5160; --panel-muted: #737a87; --panel-rule: #e1e3e8;
+    --chip: #eef0f3; --chip-ink: #3c4250; --accent: #b4771a; --shadow: 0 10px 40px rgba(0,0,0,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --panel: #151a24; --panel-ink: #eceae4; --panel-ink-2: #c3c6cc; --panel-muted: #969cab; --panel-rule: #2b3241;
+      --chip: #222a38; --chip-ink: #c9cdd6; --accent: #f0c36b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --panel: #151a24; --panel-ink: #eceae4; --panel-ink-2: #c3c6cc; --panel-muted: #969cab; --panel-rule: #2b3241;
+    --chip: #222a38; --chip-ink: #c9cdd6; --accent: #f0c36b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--space); color: #e8ebf2; font: 15px/1.5 "IBM Plex Sans", system-ui, sans-serif; overflow: hidden; }
+  #globo { position: fixed; inset: 0; }
+  .topo { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 16px; padding: 14px 20px;
+          background: linear-gradient(var(--space), transparent); z-index: 5; pointer-events: none; }
+  .topo > * { pointer-events: auto; }
+  .marca { font: 600 20px/1 "Source Serif 4", Georgia, serif; letter-spacing: .01em; }
+  .marca small { display: block; font: 500 11px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: #9aa6bd; margin-top: 4px; }
+  .busca { margin-left: auto; position: relative; }
+  .busca input { width: 240px; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border-line); background: rgba(13,20,36,.85);
+                 color: #e8ebf2; font: inherit; outline: none; }
+  .busca input:focus { border-color: var(--focus); }
+  .legenda { position: fixed; left: 20px; bottom: 18px; z-index: 5; font-size: 12.5px; color: #b9c2d3; display: flex; gap: 14px; flex-wrap: wrap; }
+  .legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dica { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 5; font-size: 12.5px; color: #8e9ab0; }
+  .voltar { position: fixed; top: 74px; left: 20px; z-index: 6; display: none; padding: 8px 14px; border-radius: 999px;
+            border: 1px solid var(--border-line); background: rgba(13,20,36,.85); color: #e8ebf2; font: inherit; cursor: pointer; }
+  .voltar.on { display: inline-flex; }
+  .voltar:hover { border-color: var(--focus); }
+  .tip { background: rgba(7,11,20,.92); border: 1px solid var(--border-line); padding: 6px 9px; border-radius: 6px; font: 13px/1.35 "IBM Plex Sans", sans-serif; color: #e8ebf2; }
+  .tip b { display: block; }
+  .tip span { color: #9aa6bd; font-size: 12px; }
+
+  /* Painel do país: lateral no desktop, gaveta inferior no celular */
+  .painel { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 92vw); z-index: 8; background: var(--panel); color: var(--panel-ink);
+            box-shadow: var(--shadow); transform: translateX(105%); transition: transform .45s cubic-bezier(.2,.8,.2,1); overflow-y: auto; }
+  .painel.on { transform: none; }
+  .painel header { padding: 22px 22px 14px; border-bottom: 1px solid var(--panel-rule); position: sticky; top: 0; background: var(--panel); z-index: 1; }
+  .painel .kicker { font: 500 11px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--panel-muted); }
+  .painel h2 { font: 600 28px/1.15 "Source Serif 4", Georgia, serif; margin: 8px 0 4px; }
+  .painel .sub { color: var(--panel-ink-2); font-size: 14px; margin: 0; }
+  .fechar { position: absolute; top: 16px; right: 14px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--panel-rule);
+            background: transparent; color: var(--panel-ink); font-size: 18px; cursor: pointer; }
+  .bloco { padding: 16px 22px; border-bottom: 1px solid var(--panel-rule); }
+  .bloco h3 { font: 600 16px/1.3 "Source Serif 4", Georgia, serif; margin: 0 0 4px; }
+  .fonte { font-size: 12px; color: var(--panel-muted); margin: 0 0 10px; }
+  .vazio { border: 1px dashed var(--panel-rule); border-radius: 8px; padding: 12px; color: var(--panel-muted); font-size: 13px; }
+  .linhas div { height: 10px; border-radius: 4px; background: var(--chip); margin: 8px 0; }
+  .linhas div:nth-child(2) { width: 82%; } .linhas div:nth-child(3) { width: 64%; }
+  .abas { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 10px; }
+  .abas button { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--panel-rule); background: transparent; color: var(--panel-ink-2);
+                 font: 500 13px/1 "IBM Plex Sans", sans-serif; cursor: pointer; }
+  .abas button[aria-selected="true"] { background: var(--panel-ink); color: var(--panel); border-color: var(--panel-ink); }
+  .selo { display: inline-block; font: 500 10.5px/1.6 "IBM Plex Mono", monospace; letter-spacing: .04em; padding: 0 6px; border-radius: 3px;
+          background: var(--chip); color: var(--chip-ink); margin-bottom: 8px; }
+  .nota { font-size: 12.5px; color: var(--panel-muted); padding: 16px 22px 28px; }
+  @media (max-width: 720px) {
+    .busca input { width: 150px; }
+    .marca small { display: none; }
+    .painel { top: auto; left: 0; width: 100%; height: 58vh; border-radius: 16px 16px 0 0; transform: translateY(105%); }
+    .painel.on { transform: none; }
+    .dica { display: none; }
+    .voltar { top: 64px; left: 16px; }
+    .legenda { left: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .painel { transition: none; } }
+  .erro { position: fixed; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: #c9d1e0; }
+  .erro.on { display: grid; }
+</style>
+</head>
+<body>
+<div id="globo" aria-label="Globo interativo"></div>
+
+<div class="topo">
+  <div class="marca">rotzx<small>O mundo visto do Brasil · protótipo</small></div>
+  <div class="busca">
+    <input id="busca" list="paises" placeholder="Buscar país…" aria-label="Buscar país" autocomplete="off">
+    <datalist id="paises"></datalist>
+  </div>
+</div>
+<button class="voltar" id="voltar" type="button">← Voltar ao mundo</button>
+<div class="legenda" aria-hidden="true">
+  <span><i style="background:var(--base)"></i>Brasil</span>
+  <span><i style="background:var(--focus)"></i>No protótipo (20 países)</span>
+  <span><i style="background:var(--land)"></i>Depois</span>
+</div>
+<div class="dica">Arraste para girar · role para aproximar · clique num país</div>
+
+<aside class="painel" id="painel" aria-live="polite" aria-label="Detalhes do país"></aside>
+<div class="erro" id="erro"><div><b>Não foi possível carregar o globo.</b><br>Seu navegador precisa de WebGL. Tente outro navegador ou atualize a página.</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+"use strict";
+// Países do protótipo: o Brasil (base) e 20 parceiros escolhidos para testar a navegação.
+// A lista final virá dos dados de comércio exterior (Comex Stat), não desta escolha.
+// id = código numérico ISO 3166-1 do mapa (Natural Earth via world-atlas); lat/lng/alt = enquadramento da câmera.
+const FOCO = {
+  "076": { nome: "Brasil", lat: -14, lng: -52, alt: 1.25, base: true },
+  "156": { nome: "China", lat: 35, lng: 104, alt: 1.3 },
+  "840": { nome: "Estados Unidos", lat: 39, lng: -98, alt: 1.35 },
+  "032": { nome: "Argentina", lat: -37, lng: -64, alt: 1.0 },
+  "528": { nome: "Países Baixos", lat: 52.2, lng: 5.3, alt: 0.45 },
+  "724": { nome: "Espanha", lat: 40, lng: -3.7, alt: 0.65 },
+  "276": { nome: "Alemanha", lat: 51, lng: 10, alt: 0.6 },
+  "484": { nome: "México", lat: 23, lng: -102, alt: 0.9 },
+  "152": { nome: "Chile", lat: -35, lng: -71, alt: 1.1 },
+  "392": { nome: "Japão", lat: 36, lng: 138, alt: 0.75 },
+  "356": { nome: "Índia", lat: 22, lng: 79, alt: 1.0 },
+  "380": { nome: "Itália", lat: 42.5, lng: 12.5, alt: 0.6 },
+  "410": { nome: "Coreia do Sul", lat: 36.4, lng: 127.8, alt: 0.45 },
+  "124": { nome: "Canadá", lat: 58, lng: -100, alt: 1.45 },
+  "250": { nome: "França", lat: 46.5, lng: 2.5, alt: 0.65 },
+  "600": { nome: "Paraguai", lat: -23.4, lng: -58.4, alt: 0.6 },
+  "643": { nome: "Rússia", lat: 60, lng: 95, alt: 1.7 },
+  "682": { nome: "Arábia Saudita", lat: 24, lng: 45, alt: 0.85 },
+  "826": { nome: "Reino Unido", lat: 54, lng: -2.5, alt: 0.6 },
+  "170": { nome: "Colômbia", lat: 4.6, lng: -74, alt: 0.75 },
+  "858": { nome: "Uruguai", lat: -32.8, lng: -56, alt: 0.45 },
+};
+const ABAS = ["Economia", "Política", "Geopolítica", "Afeta o mundo"];
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $painel = document.getElementById("painel"), $voltar = document.getElementById("voltar");
+
+let globo, paises = [], selecionado = null, sobre = null;
+const nomeDe = (f) => FOCO[f.id]?.nome || f.properties.name;  // fora do protótipo: nome em inglês do mapa
+
+function cor(f) {
+  if (f === selecionado) return css("--sel");
+  const foco = FOCO[f.id];
+  if (f === sobre) return foco ? (foco.base ? "#6fe0a9" : "#f2bd5c") : css("--land-hover");
+  return foco ? (foco.base ? css("--base") : css("--focus")) : css("--land");
+}
+
+function vazio(texto) {
+  return `<div class="vazio"><div class="linhas" aria-hidden="true"><div></div><div></div><div></div></div>${esc(texto)}</div>`;
+}
+
+function painelPais(f) {
+  const foco = FOCO[f.id];
+  const nome = nomeDe(f);
+  if (foco?.base) {
+    return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Ponto de vista</div><h2>Brasil</h2>
+      <p class="sub">A base de tudo: cada país é lido pela relação com o Brasil.</p></header>
+      <div class="bloco"><h3>O que muda aqui quando o mundo mexe</h3><p class="fonte">Fontes previstas: Banco Central (câmbio, juros), IBGE (inflação)</p>
+      ${vazio("Protótipo: dados ainda não conectados.")}</div>
+      <div class="bloco"><h3>Em alta no mundo</h3><p class="fonte">Fonte prevista: GDELT e feeds RSS de veículos (só manchete, veículo e link)</p>
+      ${vazio("Protótipo: manchetes ainda não conectadas.")}</div>
+      <p class="nota">Protótipo de navegação. Nenhum número ou manchete desta página é real ainda.</p>`;
+  }
+  return `<header><button class="fechar" aria-label="Fechar">×</button>
+    <div class="kicker">${foco ? "Visto do Brasil" : "Fora do protótipo"}</div><h2>${esc(nome)}</h2>
+    <p class="sub">${foco ? "Relação com o Brasil, economia e o que está acontecendo." : "Este país entra depois dos 20 do protótipo."}</p></header>
+    ${foco ? `
+    <div class="bloco"><h3>Relação com o Brasil</h3><p class="fonte">Fonte prevista: Comex Stat (MDIC) — exportações, importações e principais produtos</p>
+      ${vazio("Protótipo: dados ainda não conectados.")}</div>
+    <div class="bloco"><h3>Economia</h3><p class="fonte">Fontes previstas: Banco Mundial e FMI — crescimento, inflação, juros, moeda</p>
+      ${vazio("Protótipo: dados ainda não conectados.")}</div>
+    <div class="bloco"><h3>Manchetes</h3><p class="fonte">Fonte prevista: GDELT e feeds RSS de veículos (só manchete, veículo e link para a matéria original)</p>
+      <div class="abas" role="tablist">${ABAS.map((a, i) => `<button role="tab" aria-selected="${i === 0}" data-aba="${esc(a)}">${esc(a)}</button>`).join("")}</div>
+      <div id="aba-corpo">${vazio(`Protótipo: manchetes de ${ABAS[0].toLowerCase()} ainda não conectadas.`)}</div></div>
+    <div class="bloco"><span class="selo">interpretação</span><h3>Por que importa para o Brasil</h3>
+      <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação aparece marcado</p>
+      ${vazio("Protótipo: ainda não escrito.")}</div>` : `
+    <div class="bloco">${vazio("Sem dados no protótipo.")}</div>`}
+    <p class="nota">Protótipo de navegação. Nenhum número ou manchete desta página é real ainda.</p>`;
+}
+
+function abrir(f) {
+  selecionado = f;
+  globo.polygonCapColor(cor).polygonAltitude((p) => (p === selecionado ? 0.035 : 0.006));
+  globo.controls().autoRotate = false;
+  const foco = FOCO[f.id];
+  globo.pointOfView(enquadrar(foco ? { lat: foco.lat, lng: foco.lng, altitude: foco.alt } : centro(f)), reduzir ? 0 : 1300);
+  $painel.innerHTML = painelPais(f);
+  $painel.classList.add("on");
+  $voltar.classList.add("on");
+  $painel.querySelector(".fechar").onclick = mundo;
+  $painel.querySelectorAll(".abas button").forEach((b) => (b.onclick = () => {
+    $painel.querySelectorAll(".abas button").forEach((x) => x.setAttribute("aria-selected", x === b));
+    document.getElementById("aba-corpo").innerHTML = vazio(`Protótipo: manchetes de ${b.dataset.aba.toLowerCase()} ainda não conectadas.`);
+  }));
+  history.replaceState(null, "", `#${encodeURIComponent(nomeDe(f))}`);
+}
+
+function mundo() {
+  selecionado = null;
+  globo.polygonCapColor(cor).polygonAltitude(0.006);
+  globo.pointOfView({ lat: -10, lng: -40, altitude: 2.4 }, reduzir ? 0 : 1300);
+  globo.controls().autoRotate = !reduzir;
+  $painel.classList.remove("on");
+  $voltar.classList.remove("on");
+  history.replaceState(null, "", location.pathname);
+}
+
+// O painel cobre parte da tela: a câmera mira ao lado do país para ele aparecer na área livre.
+// Desktop: painel à direita → mira a leste (país à esquerda). Celular: gaveta embaixo → mira ao sul e afasta (país em cima).
+function enquadrar(v) {
+  if (innerWidth <= 720) {
+    const alt = v.altitude * 1.7;
+    return { lat: Math.max(-80, v.lat - Math.min(30, alt * 11)), lng: v.lng, altitude: alt };
+  }
+  const fracao = Math.min(440, innerWidth * 0.92) / innerWidth;   // parte da tela coberta pelo painel
+  return { lat: v.lat, lng: v.lng + Math.min(40, v.altitude * 46 * fracao), altitude: v.altitude * 1.08 };
+}
+
+// Enquadramento aproximado para países fora do protótipo: média dos vértices do maior polígono.
+function centro(f) {
+  const g = f.geometry;
+  const aneis = g.type === "Polygon" ? [g.coordinates[0]] : g.coordinates.map((p) => p[0]);
+  const maior = aneis.sort((a, b) => b.length - a.length)[0];
+  const lng = maior.reduce((s, c) => s + c[0], 0) / maior.length, lat = maior.reduce((s, c) => s + c[1], 0) / maior.length;
+  return { lat, lng, altitude: 0.9 };
+}
+
+function iniciar(atlas) {
+  paises = topojson.feature(atlas, atlas.objects.countries).features.filter((f) => f.properties.name !== "Antarctica");
+  const el = document.getElementById("globo");
+  globo = Globe()(el)
+    .backgroundColor(css("--space"))
+    .showAtmosphere(true).atmosphereColor("#5b8cff").atmosphereAltitude(0.18)
+    .polygonsData(paises)
+    .polygonCapColor(cor)
+    .polygonSideColor(() => "rgba(255,255,255,0.06)")
+    .polygonStrokeColor(() => css("--border-line"))
+    .polygonAltitude(0.006)
+    .polygonsTransitionDuration(reduzir ? 0 : 300)
+    .polygonLabel((f) => `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${FOCO[f.id] ? "clique para abrir" : "fora do protótipo"}</span></div>`)
+    .onPolygonHover((f) => { sobre = f; globo.polygonCapColor(cor); el.style.cursor = f ? "pointer" : "grab"; })
+    .onPolygonClick((f) => abrir(f));
+  const mat = globo.globeMaterial();
+  mat.color.set(css("--ocean"));
+  mat.shininess = 0;                     // sem o reflexo branco do material padrão
+  if (mat.specular) mat.specular.set("#000000");
+  globo.controls().autoRotate = !reduzir;
+  globo.controls().autoRotateSpeed = 0.45;
+  globo.pointOfView({ lat: -10, lng: -40, altitude: 2.4 });
+  const ajustar = () => globo.width(innerWidth).height(innerHeight);
+  addEventListener("resize", ajustar);
+  ajustar();
+
+  const lista = document.getElementById("paises");
+  lista.innerHTML = Object.values(FOCO).map((p) => `<option value="${esc(p.nome)}">`).join("");
+  document.getElementById("busca").addEventListener("change", (e) => {
+    const alvo = e.target.value.trim().toLowerCase();
+    const f = paises.find((x) => nomeDe(x).toLowerCase() === alvo);
+    if (f) { abrir(f); e.target.blur(); }
+  });
+  $voltar.onclick = mundo;
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && selecionado) mundo(); });
+  const inicial = decodeURIComponent(location.hash.slice(1));
+  const f0 = inicial && paises.find((x) => nomeDe(x) === inicial);
+  if (f0) setTimeout(() => abrir(f0), 400);
+}
+
+(async () => {
+  try {
+    if (typeof Globe !== "function") throw new Error("biblioteca do globo não carregou");
+    const r = await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json");
+    if (!r.ok) throw new Error("mapa não carregou");
+    iniciar(await r.json());
+  } catch (e) {
+    console.error(e);
+    document.getElementById("erro").classList.add("on");
+  }
+})();
+</script>
+</body>
+</html>

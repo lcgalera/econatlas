@@ -180,3 +180,9 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Ligação:** sem número de contrato nem código do ONS na planilha, cada lote recente foi ligado ao contrato do SIGET por nome, UF, vencedor e data, com evidência e status (`conferido`, `provavel`, `ambiguo`) em `catalog/leiloes_contratos.json`. Lotes nunca são unidos só por nome parecido.
 **No relatório:** lotes arrematados nos últimos 24 meses sem contrato identificado, com categorias pela regra R6 (instalação nova confirma; continuidade fica como não verificado) e operação estimada (leilão + prazo). Os prazos até a assinatura (68 a 115 dias nos 19 lotes ligados) são medidos a partir do mapa.
 **Achados:** o "nenhum contrato em 2025" do SIGET é efeito do calendário (leilão em 10/2025, contratos em 02/2026); duas fontes oficiais da ANEEL divergem na receita de dois lotes do Leilão 01/2023.
+
+### D38 · 04/11/2026 · Nova direção em teste: "o mundo visto do Brasil", com globo interativo
+**Escolha do Lucas:** um site para pessoas comuns em que cada país, clicado num globo, mostra a relação com o Brasil, a economia e as manchetes (economia, política, geopolítica e o que afeta o mundo). Monetização fica para depois.
+**Por que esse recorte:** notícia internacional por país já existe em vários produtos. O diferencial possível é ligar a notícia ao efeito no Brasil com dado oficial (comércio, câmbio, juros), que é o que este projeto já sabe fazer. Começa com 20 países, não 195.
+**Regras herdadas:** manchete só com título, veículo e link (sem copiar matérias); cada número com fonte; o que for interpretação aparece marcado.
+**Estado:** protótipo de navegação em `prototipos/globo/`, sem dados reais. O radar do SIGET e os robôs continuam rodando como estão.
