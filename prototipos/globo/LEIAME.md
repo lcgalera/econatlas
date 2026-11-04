@@ -22,3 +22,20 @@ troca as abas, fecha com Esc e não tem rolagem horizontal no celular.
 
 **Próximo passo:** liberar na rede do ambiente `api.gdeltproject.org`, `api.worldbank.org`, `www.imf.org` e `api-comexstat.mdic.gov.br`,
 conferir licença e termos de uso de cada um e ligar os dados aos 20 países.
+
+## Dados (desde 04/11/2026)
+
+`rotzx mundo-atualizar` gera `dados/mundo.json|js` (comércio e economia) e `dados/noticias.json|js` (manchetes); o globo lê os `.js`,
+o que funciona também abrindo o arquivo direto no computador.
+
+| Bloco | Fonte | O que entra |
+|---|---|---|
+| Relação com o Brasil | Comex Stat (MDIC) | exportações, importações, saldo, posição no ranking e os 5 principais produtos (SH4) de cada lado, no último ano completo |
+| Economia | Banco Mundial (CC BY 4.0) | crescimento do PIB, inflação, PIB e população, o valor mais recente de cada um |
+| Manchetes | The GDELT Project | matérias em português dos últimos 7 dias que citam o país no título; só título, veículo, data e link |
+
+- O FMI ficou de fora: o servidor dele barra acesso automatizado ("Access Denied").
+- O resumo de cada país é gerado dos números do Comex Stat e só descreve: posição, valores, participação e saldo. Os produtos ficam
+  fora da frase porque os nomes oficiais dos grupos SH4 são longos e abreviá-los pode enganar (ex.: "Barcos-faróis…", que inclui plataformas).
+- As manchetes são classificadas por palavras-chave no título (`rotzx/mundo/gdelt.py`), e isso pode errar.
+- O workflow `.github/workflows/globo.yml` atualiza as manchetes todo dia e o comércio todo dia 15.

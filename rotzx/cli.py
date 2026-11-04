@@ -223,6 +223,10 @@ def main(argv=None):
     sub.add_parser("siget-atualizar", help="Fase 2: baixa os arquivos do SIGET que mudaram e registra versões e eventos no histórico")
     li = sub.add_parser("leiloes-importar", help="importa a planilha oficial de resultados de leilões de transmissão (baixada à mão) para historico/")
     li.add_argument("arquivo", help="Resultado_leiloes_transmissao.xlsx (gov.br/aneel › Centrais de Conteúdos › Relatórios e Indicadores › Leilões)")
+    mu = sub.add_parser("mundo-atualizar", help="D38: coleta comércio (Comex Stat), economia (Banco Mundial) e manchetes (GDELT) para o globo")
+    mu.add_argument("--ano", default=None, help="ano do comércio (padrão: o último ano completo)")
+    mu.add_argument("--sem-noticias", action="store_true", help="não busca manchetes")
+    mu.add_argument("--so-noticias", action="store_true", help="só manchetes (não refaz o comércio, que leva ~10 min)")
     sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
     sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
     sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
@@ -338,6 +342,14 @@ def main(argv=None):
         print(f"{len(df)} lotes de {df.groupby(['leilao', 'data_leilao'], dropna=False).ngroups} leilões; o mais recente em {rec}")
         print(f"  {al.ARQUIVO_TIDY.relative_to(config.ROOT)} (SHA-256 da planilha: {sha[:16]})")
         print(al.ATRIBUICAO)
+    elif args.cmd == "mundo-atualizar":
+        from .mundo import build as mb
+        if args.so_noticias:
+            n = mb.noticias()
+            print(f"manchetes: {sum(map(len, n['paises'].values()))} em {len(n['paises'])} países; falhas: {len(n['falhas'])}")
+        else:
+            m = mb.montar(args.ano, com_noticias=not args.sem_noticias)
+            print(f"globo: {len(m['paises'])} países, comércio de {m['ano_comercio']} -> {mb.SAIDA.relative_to(config.ROOT)}")
     elif args.cmd == "contexto-atualizar":
         from .intelligence import contexto as ctxm
         update(ctxm.series_usadas())

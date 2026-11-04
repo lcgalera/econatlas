@@ -73,6 +73,25 @@
   .selo { display: inline-block; font: 500 10.5px/1.6 "IBM Plex Mono", monospace; letter-spacing: .04em; padding: 0 6px; border-radius: 3px;
           background: var(--chip); color: var(--chip-ink); margin-bottom: 8px; }
   .nota { font-size: 12.5px; color: var(--panel-muted); padding: 16px 22px 28px; }
+  .fonte a, .news a { color: inherit; }
+  .resumo { margin: 0 0 12px; color: var(--panel-ink); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+  .kpi { background: var(--chip); border-radius: 8px; padding: 8px 10px; }
+  .kpi span { display: block; font-size: 12px; color: var(--panel-muted); }
+  .kpi b { display: block; font: 600 17px/1.25 "Source Serif 4", Georgia, serif; color: var(--panel-ink); }
+  .kpi small { font-size: 11.5px; color: var(--panel-muted); }
+  .prods { list-style: none; margin: 0; padding: 0; }
+  .prods li { position: relative; display: flex; justify-content: space-between; gap: 10px; padding: 6px 8px; font-size: 13px; margin: 3px 0; }
+  .prods .barra { position: absolute; inset: 0 auto 0 0; background: var(--chip); border-radius: 4px; z-index: 0; }
+  .prods .p-nome, .prods .p-val { position: relative; z-index: 1; }
+  .prods .p-nome { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .prods .p-val { white-space: nowrap; color: var(--panel-ink-2); font-variant-numeric: tabular-nums; }
+  .news { list-style: none; margin: 0; padding: 0; }
+  .news li { padding: 8px 0; border-bottom: 1px solid var(--panel-rule); }
+  .news li:last-child { border-bottom: 0; }
+  .news a { text-decoration: none; font-weight: 500; }
+  .news a:hover { text-decoration: underline; }
+  .news span { display: block; font-size: 12px; color: var(--panel-muted); margin-top: 2px; }
   @media (max-width: 720px) {
     .busca input { width: 150px; }
     .marca small { display: none; }
@@ -91,7 +110,7 @@
 <div id="globo" aria-label="Globo interativo"></div>
 
 <div class="topo">
-  <div class="marca">rotzx<small>O mundo visto do Brasil · protótipo</small></div>
+  <div class="marca">rotzx<small>O mundo visto do Brasil · protótipo com dados reais</small></div>
   <div class="busca">
     <input id="busca" list="paises" placeholder="Buscar país…" aria-label="Buscar país" autocomplete="off">
     <datalist id="paises"></datalist>
@@ -110,6 +129,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="dados/mundo.js"></script>
+<script src="dados/noticias.js"></script>
 <script>
 "use strict";
 // Países do protótipo: o Brasil (base) e 20 parceiros escolhidos para testar a navegação.
@@ -158,34 +179,101 @@ function vazio(texto) {
   return `<div class="vazio"><div class="linhas" aria-hidden="true"><div></div><div></div><div></div></div>${esc(texto)}</div>`;
 }
 
+// ---------- dados (window.MUNDO e window.NOTICIAS, gerados por `rotzx mundo-atualizar`) ----------
+const M = window.MUNDO || null, N = window.NOTICIAS || null;
+const NOMES_CAT = { economia: "Economia", politica: "Política", geopolitica: "Geopolítica", afeta_o_mundo: "Afeta o mundo" };
+const bi = (v) => "US$ " + (v / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " bi";
+const pct = (v, c = 1) => (v * 100).toLocaleString("pt-BR", { minimumFractionDigits: c, maximumFractionDigits: c }) + "%";
+const num = (v, c = 1) => v.toLocaleString("pt-BR", { minimumFractionDigits: c, maximumFractionDigits: c });
+const dataBR = (d) => (d && d.length >= 8 ? `${d.slice(6, 8)}/${d.slice(4, 6)}/${d.slice(0, 4)}` : "");
+const quando = (iso) => (iso ? new Date(iso).toLocaleDateString("pt-BR") : "");
+
+function fonte(chave, extra = "") {
+  const f = M?.fontes?.[chave] || N?.fonte;
+  if (!f) return "";
+  return `<p class="fonte">Fonte: <a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.nome)}</a>${f.licenca ? ` (${esc(f.licenca)})` : ""}${extra ? " · " + esc(extra) : ""}</p>`;
+}
+
+function tabelaProdutos(lista, titulo) {
+  if (!lista?.length) return "";
+  const max = Math.max(...lista.map((x) => x.participacao));
+  return `<div class="kicker" style="margin:12px 0 6px">${esc(titulo)}</div><ol class="prods">${lista.map((x) => `
+    <li><div class="barra" style="width:${(x.participacao / max) * 100}%"></div>
+      <span class="p-nome" title="SH4 ${esc(x.sh4)}">${esc(x.produto)}</span><span class="p-val">${bi(x.fob)} · ${pct(x.participacao)}</span></li>`).join("")}</ol>`;
+}
+
+function blocoComercio(d) {
+  const c = d.comercio;
+  if (!c) return `<div class="bloco"><h3>Relação com o Brasil</h3>${vazio("Sem dados de comércio para este país.")}</div>`;
+  const kpi = (r, v, s = "") => `<div class="kpi"><span>${esc(r)}</span><b>${v}</b>${s ? `<small>${esc(s)}</small>` : ""}</div>`;
+  return `<div class="bloco"><h3>Relação com o Brasil</h3>${fonte("comex", `${M.ano_comercio}, valores FOB`)}
+    <p class="resumo">${esc(d.resumo)}</p>
+    <div class="kpis">
+      ${c.exportacao ? kpi("Brasil exportou", bi(c.exportacao.fob), `${c.exportacao.posicao}º destino`) : ""}
+      ${c.importacao ? kpi("Brasil importou", bi(c.importacao.fob), `${c.importacao.posicao}º fornecedor`) : ""}
+      ${c.saldo != null ? kpi("Saldo", (c.saldo >= 0 ? "+" : "−") + bi(Math.abs(c.saldo)), c.saldo >= 0 ? "superávit" : "déficit") : ""}
+    </div>
+    ${tabelaProdutos(c.produtos_exportados, "O que o Brasil mais vende")}
+    ${tabelaProdutos(c.produtos_importados, "O que o Brasil mais compra")}</div>`;
+}
+
+function blocoEconomia(d) {
+  const e = d.economia || [];
+  if (!e.length) return `<div class="bloco"><h3>Economia</h3>${vazio("Sem indicadores do Banco Mundial para este país.")}</div>`;
+  const fmt = (x) => x.id === "NY.GDP.MKTP.CD" ? "US$ " + num(x.valor / 1e12, 2) + " tri"
+    : x.id === "SP.POP.TOTL" ? num(x.valor / 1e6, 1) + " mi" : (x.valor >= 0 ? "" : "−") + num(Math.abs(x.valor), 1) + "%";
+  return `<div class="bloco"><h3>Economia</h3>${fonte("bancomundial", `atualizado em ${e[0].atualizado || "–"}`)}
+    <div class="kpis">${e.map((x) => `<div class="kpi"><span>${esc(x.rotulo)}</span><b>${fmt(x)}</b><small>${esc(x.ano)}</small></div>`).join("")}</div></div>`;
+}
+
+function listaManchetes(lista, cat) {
+  const l = cat === "todas" ? lista : lista.filter((m) => m.categorias.includes(cat));
+  if (!l.length) return vazio(cat === "todas" ? "Nenhuma manchete em português nos últimos 7 dias." : `Nenhuma manchete de ${NOMES_CAT[cat].toLowerCase()} nos últimos 7 dias.`);
+  return `<ul class="news">${l.slice(0, 12).map((m) => `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a>
+    <span>${esc(m.veiculo)} · ${dataBR(m.data)}${m.categorias.length ? " · " + m.categorias.map((c) => NOMES_CAT[c]).join(", ") : ""}</span></li>`).join("")}</ul>`;
+}
+
+function blocoManchetes(lista, titulo, nota) {
+  const abas = [["todas", "Todas"], ...Object.entries(NOMES_CAT)];
+  return `<div class="bloco"><h3>${esc(titulo)}</h3>
+    <p class="fonte">Fonte: <a href="https://www.gdeltproject.org" target="_blank" rel="noopener">The GDELT Project</a> · ${esc(nota)} · coletado em ${quando(N?.gerado_em)}</p>
+    <div class="abas" role="tablist">${abas.map(([k, r], i) => `<button role="tab" aria-selected="${i === 0}" data-aba="${k}">${esc(r)}</button>`).join("")}</div>
+    <div class="aba-corpo">${listaManchetes(lista, "todas")}</div>
+    <p class="fonte" style="margin-top:8px">Categorias atribuídas automaticamente por palavras-chave no título; podem errar.</p></div>`;
+}
+
 function painelPais(f) {
   const foco = FOCO[f.id];
   const nome = nomeDe(f);
+  const d = M?.paises?.[f.id];
+  const rodape = `<p class="nota">Protótipo. ${M ? `Comércio de ${esc(M.ano_comercio)}; dados coletados em ${quando(M.gerado_em)}.` : "Dados ainda não gerados (rode rotzx mundo-atualizar)."}
+    Manchetes: só título, veículo e link; o texto está no site de cada veículo.</p>`;
   if (foco?.base) {
+    const t = d?.comercio_total, r = d?.maiores_parceiros || [];
+    const max = r.length ? Math.max(...r.map((x) => x.exportacao + x.importacao)) : 1;
     return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Ponto de vista</div><h2>Brasil</h2>
       <p class="sub">A base de tudo: cada país é lido pela relação com o Brasil.</p></header>
-      <div class="bloco"><h3>O que muda aqui quando o mundo mexe</h3><p class="fonte">Fontes previstas: Banco Central (câmbio, juros), IBGE (inflação)</p>
-      ${vazio("Protótipo: dados ainda não conectados.")}</div>
-      <div class="bloco"><h3>Em alta no mundo</h3><p class="fonte">Fonte prevista: GDELT e feeds RSS de veículos (só manchete, veículo e link)</p>
-      ${vazio("Protótipo: manchetes ainda não conectadas.")}</div>
-      <p class="nota">Protótipo de navegação. Nenhum número ou manchete desta página é real ainda.</p>`;
+      <div class="bloco"><h3>Comércio exterior do Brasil</h3>${t ? fonte("comex", `${M.ano_comercio}, valores FOB`) + `
+        <div class="kpis"><div class="kpi"><span>Exportações</span><b>${bi(t.exportacao)}</b></div><div class="kpi"><span>Importações</span><b>${bi(t.importacao)}</b></div>
+        <div class="kpi"><span>Saldo</span><b>${t.saldo >= 0 ? "+" : "−"}${bi(Math.abs(t.saldo))}</b></div></div>
+        <div class="kicker" style="margin:12px 0 6px">Maiores parceiros (exportação + importação)</div>
+        <ol class="prods">${r.map((x) => `<li><div class="barra" style="width:${((x.exportacao + x.importacao) / max) * 100}%"></div>
+          <span class="p-nome">${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></li>`).join("")}</ol>` : vazio("Dados ainda não gerados.")}</div>
+      ${d ? blocoEconomia(d) : ""}
+      ${N ? blocoManchetes(N.mundo || [], "Em alta no mundo", "manchetes em português do último dia sobre temas globais (seleção por palavras-chave)") : ""}
+      ${rodape}`;
   }
-  return `<header><button class="fechar" aria-label="Fechar">×</button>
-    <div class="kicker">${foco ? "Visto do Brasil" : "Fora do protótipo"}</div><h2>${esc(nome)}</h2>
-    <p class="sub">${foco ? "Relação com o Brasil, economia e o que está acontecendo." : "Este país entra depois dos 20 do protótipo."}</p></header>
-    ${foco ? `
-    <div class="bloco"><h3>Relação com o Brasil</h3><p class="fonte">Fonte prevista: Comex Stat (MDIC) — exportações, importações e principais produtos</p>
-      ${vazio("Protótipo: dados ainda não conectados.")}</div>
-    <div class="bloco"><h3>Economia</h3><p class="fonte">Fontes previstas: Banco Mundial e FMI — crescimento, inflação, juros, moeda</p>
-      ${vazio("Protótipo: dados ainda não conectados.")}</div>
-    <div class="bloco"><h3>Manchetes</h3><p class="fonte">Fonte prevista: GDELT e feeds RSS de veículos (só manchete, veículo e link para a matéria original)</p>
-      <div class="abas" role="tablist">${ABAS.map((a, i) => `<button role="tab" aria-selected="${i === 0}" data-aba="${esc(a)}">${esc(a)}</button>`).join("")}</div>
-      <div id="aba-corpo">${vazio(`Protótipo: manchetes de ${ABAS[0].toLowerCase()} ainda não conectadas.`)}</div></div>
-    <div class="bloco"><span class="selo">interpretação</span><h3>Por que importa para o Brasil</h3>
-      <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação aparece marcado</p>
-      ${vazio("Protótipo: ainda não escrito.")}</div>` : `
-    <div class="bloco">${vazio("Sem dados no protótipo.")}</div>`}
-    <p class="nota">Protótipo de navegação. Nenhum número ou manchete desta página é real ainda.</p>`;
+  if (!foco) {
+    return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Fora do protótipo</div><h2>${esc(nome)}</h2>
+      <p class="sub">Este país entra depois dos 20 do protótipo.</p></header><div class="bloco">${vazio("Sem dados no protótipo.")}</div>${rodape}`;
+  }
+  return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Visto do Brasil</div><h2>${esc(nome)}</h2>
+    <p class="sub">Relação com o Brasil, economia e o que está acontecendo.</p></header>
+    ${d ? blocoComercio(d) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
+    ${N ? blocoManchetes(N.paises?.[f.id] || [], "Manchetes", "matérias em português dos últimos 7 dias que citam o país no título") : ""}
+    <div class="bloco"><span class="selo">interpretação · em breve</span><h3>Por que importa para o Brasil</h3>
+      <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação vai aparecer marcado</p>${vazio("Ainda não escrito.")}</div>
+    ${rodape}`;
 }
 
 function abrir(f) {
@@ -198,10 +286,12 @@ function abrir(f) {
   $painel.classList.add("on");
   $voltar.classList.add("on");
   $painel.querySelector(".fechar").onclick = mundo;
+  const lista = FOCO[f.id]?.base ? (N?.mundo || []) : (N?.paises?.[f.id] || []);
   $painel.querySelectorAll(".abas button").forEach((b) => (b.onclick = () => {
     $painel.querySelectorAll(".abas button").forEach((x) => x.setAttribute("aria-selected", x === b));
-    document.getElementById("aba-corpo").innerHTML = vazio(`Protótipo: manchetes de ${b.dataset.aba.toLowerCase()} ainda não conectadas.`);
+    b.closest(".bloco").querySelector(".aba-corpo").innerHTML = listaManchetes(lista, b.dataset.aba);
   }));
+  $painel.scrollTop = 0;
   history.replaceState(null, "", `#${encodeURIComponent(nomeDe(f))}`);
 }
 

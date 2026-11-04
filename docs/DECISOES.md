@@ -186,3 +186,8 @@ Site estático em vez de servidor: hospedagem gratuita e sem manutenção. A int
 **Por que esse recorte:** notícia internacional por país já existe em vários produtos. O diferencial possível é ligar a notícia ao efeito no Brasil com dado oficial (comércio, câmbio, juros), que é o que este projeto já sabe fazer. Começa com 20 países, não 195.
 **Regras herdadas:** manchete só com título, veículo e link (sem copiar matérias); cada número com fonte; o que for interpretação aparece marcado.
 **Estado:** protótipo de navegação em `prototipos/globo/`, sem dados reais. O radar do SIGET e os robôs continuam rodando como estão.
+
+### D39 · 04/11/2026 · Globo com dados reais: Comex Stat, Banco Mundial e GDELT; FMI fora; manchetes coletadas no GitHub Actions
+**Fontes:** comércio do Brasil com cada país (Comex Stat, último ano completo, 5 principais produtos SH4 de cada lado), indicadores do Banco Mundial (CC BY 4.0) e manchetes em português do GDELT (só título, veículo, data e link). O FMI barra acesso automatizado e ficou de fora.
+**Regras:** o resumo de cada país só descreve números do Comex Stat; os produtos ficam numa tabela com o nome oficial completo (abreviar o SH4 enganava); manchete só entra se citar o país no título, comparando com acento (sem acento, "França" casaria com Franca, SP); categorias por palavras-chave, avisadas como automáticas.
+**Operação:** o Comex Stat limita o ritmo (uma consulta a cada ~12 s; só o formato antigo de consulta por GET passou) e o GDELT bloqueou o IP compartilhado do ambiente de desenvolvimento. Por isso a coleta roda no workflow `globo.yml`: manchetes todo dia, comércio e economia todo dia 15.

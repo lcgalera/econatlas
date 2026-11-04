@@ -1,0 +1,57 @@
+# O mundo visto do Brasil (D38): manchetes todo dia (GDELT) e comércio + economia uma vez por mês (Comex Stat, Banco Mundial).
+# Roda aqui, e não no ambiente de desenvolvimento, porque o GDELT bloqueia IPs compartilhados por excesso de consultas.
+name: Globo
+
+on:
+  schedule:
+    - cron: "41 9 * * *"     # todo dia, 6h41 de Brasília: manchetes
+    - cron: "17 11 15 * *"   # dia 15, 8h17 de Brasília: comércio e economia (leva ~10 min por causa do limite do Comex Stat)
+  workflow_dispatch: {}
+  push:                      # teste nas branches de desenvolvimento quando o coletor muda
+    branches: ["claude/**"]
+    paths: ["rotzx/mundo/**", ".github/workflows/globo.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: globo-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dados:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.9"
+          cache: pip
+
+      - name: Dependências
+        run: pip install -r requirements.txt
+
+      - name: Testes do globo
+        run: python -m pytest -q tests/test_mundo.py
+
+      - name: Comércio e economia (mensal)
+        if: github.event.schedule == '17 11 15 * *'
+        run: python -m rotzx mundo-atualizar --sem-noticias
+
+      - name: Manchetes
+        run: python -m rotzx mundo-atualizar --so-noticias
+
+      - name: Commit dos dados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add prototipos/globo/dados/
+          if git diff --cached --quiet; then
+            echo "Nada novo."
+          else
+            git commit -m "Globo: dados de $(date -u +%Y-%m-%d)"
+            git pull --rebase
+            git push
+          fi
