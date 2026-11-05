@@ -246,3 +246,10 @@ mostra quantos são e explica isso. Os nomes ficam como na base, em inglês.
   "Onde" filtram a lista por país. Os países de `MENCOES` abrem um painel só com as manchetes que os citam.
 - **Coleta:** a marcação roda junto com a de categorias, sobre todas as manchetes guardadas. Cada coleta guarda até 60 manchetes por país e
   100 em "Em alta no mundo" (antes, 30).
+
+### D45 · 05/11/2026 · Notícias pausadas; o globo vira retrato histórico (portfólio)
+**Pedido:** voltar o rotzx para projeto pessoal e portfólio. As notícias saem por ora (voltam no futuro como frente principal), e o globo passa
+a mostrar a relação histórica e geopolítica de todos os países com o Brasil, sem coleta recorrente.
+**Como:** `NOTICIAS = false` no topo do script do globo esconde abas, filtros, mapa de calor e blocos de manchetes, e o globo não busca mais
+`noticias.json`. Os agendamentos do workflow Globo saíram (ficam comentados no arquivo, para reativar); a coleta passa a ser só à mão.
+O código das notícias (`rss.py`, `gdelt.py`, marcação de países e assuntos) e os testes continuam no repositório.

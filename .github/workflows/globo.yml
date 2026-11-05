@@ -3,9 +3,10 @@
 name: Globo
 
 on:
-  schedule:
-    - cron: "41 9 * * *"     # todo dia, 6h41 de Brasília: manchetes
-    - cron: "17 11 15 * *"   # dia 15, 8h17 de Brasília: comércio e economia (leva ~10 min por causa do limite do Comex Stat)
+  # Coleta recorrente pausada (D45): o globo virou retrato histórico; as notícias voltam no futuro.
+  # Para reativar, devolva os dois agendamentos:
+  #   - cron: "41 9 * * *"     # todo dia, 6h41 de Brasília: manchetes
+  #   - cron: "17 11 15 * *"   # dia 15, 8h17 de Brasília: comércio e economia
   workflow_dispatch: {}
   push:                      # teste nas branches de desenvolvimento quando o coletor muda
     branches: ["claude/**"]
@@ -40,7 +41,8 @@ jobs:
         if: github.event.schedule == '17 11 15 * *'
         run: python -m rotzx mundo-atualizar --sem-noticias
 
-      - name: Manchetes
+      - name: Manchetes (pausadas, D45; só à mão)
+        if: false
         run: python -m rotzx mundo-atualizar --so-noticias
 
       - name: Commit dos dados
