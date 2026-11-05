@@ -7,6 +7,7 @@ e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câm
 - **Site público:** https://lcgalera.github.io/rotzx/ (comece por "Leitura do mês: indústria de materiais elétricos")
 - **O mundo visto do Brasil:** https://lcgalera.github.io/rotzx/globo/ (globo interativo: comércio com o Brasil, economia e manchetes por país; `prototipos/globo/`)
 - **Registro de previsões:** [`registro/`](registro/), que só recebe acréscimos (veja "Como auditar o registro")
+- **Documentação completa:** [`docs/PROJETO.md`](docs/PROJETO.md) · **prompt para continuar com uma IA:** [`docs/PROMPT.md`](docs/PROMPT.md)
 
 **Estado (v0.12, nov/2026)**
 
@@ -15,6 +16,7 @@ e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câm
 | Radar Setorial | Página "Indústria de materiais elétricos: o que os juros indicam" em linguagem simples. Análise de indicadores antecedentes fora da amostra (Clark-West com correção de Holm). Previsões da indústria de máquinas e materiais elétricos (IBGE, PIM-PF, seção 3.27; não mede investimento em transmissão nem compras de concessionárias) a 3 e 6 meses, com especificação fixa `setorial_v1` e placar automático |
 | MacroForecast | Previsões mensais do IPCA (ingênuo, sazonal ingênuo, SARIMA e Focus), backtest desde 2016 e faixa de 80% empírica, com cobertura medida antes e depois |
 | Radar Brasil | 18 séries públicas do BCB, do IBGE e do Focus, com nomes e unidades conferidos nas fontes oficiais |
+| O mundo visto do Brasil | Globo interativo: comércio com o Brasil (Comex Stat), sinais da relação (votos na ONU, disputas na OMC), conflitos armados (UCDP), economia (Banco Mundial) e manchetes por assunto, dia e lugar (RSS + GDELT); 20 países com dados + Brasil, 34 só com manchetes (D38–D44) |
 | Brasil x Mundo | Adiado (baixa diferenciação) |
 
 ## Dados abertos × uso pessoal
@@ -55,6 +57,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `leiloes-importar arquivo.xlsx` | Importa a planilha oficial de resultados de leilões de transmissão (baixada à mão no gov.br/aneel) para `historico/leiloes_transmissao.csv` (`docs/08-leiloes.md`) |
 | `contexto-atualizar` | Fase 5: baixa só as séries públicas do contexto econômico do radar (`catalog/contexto_radar.json`) |
 | `oportunidades [--perfil arq.json] [--top 30]` | Fase 3: oportunidades do SIGET para um perfil, com evidência por regra e score explicado; gera `relatorio.html` e CSVs em `data/relatorios/` (`docs/06-motor-de-oportunidades.md`) |
+| `mundo-atualizar [--ano A] [--sem-noticias] [--so-noticias] [--so-relacoes]` | Dados do globo em `prototipos/globo/dados/`: comércio, economia, ONU, OMC, conflitos e manchetes (`docs/PROJETO.md`, seção 7) |
 | `siget-amostra [--n 20] [--aleatoria]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
 
 Testes: `.venv/bin/python -m pytest -q`.
@@ -118,6 +121,7 @@ catalog/product_categories.json, perfil_demo.json   categorias de produto e perf
 rotzx/
   providers/               BCB/SGS, BCB/Expectativas, IBGE/SIDRA, arquivos (e exportações da Macrodados), ckan (exploração de fontes), aneel_siget (visão por empreendimento)
   intelligence/            motor de oportunidades: evidências (R1–R5), score, histórico, contexto econômico e relatório
+  mundo/                   globo: Comex Stat, Banco Mundial, RSS, GDELT, ONU, OMC, UCDP, países citados e montagem dos dados
   storage.py               SQLite com versões (vintages) e arquivos brutos com SHA-256
   transforms.py            transformações declaradas
   payloads.py              dados que a interface consome (API local e site público)
@@ -127,12 +131,14 @@ rotzx/
   public_build.py          site público estático + verificação anti-vazamento
   api.py, cli.py           servidor local e linha de comando
 web/                       interface (HTML/JS + ECharts, sem build); texto.js: frases de comparação de erro, testadas
+prototipos/globo/          o mundo visto do Brasil: index.html (página única) e dados/ (gerados pelo workflow Globo)
 registro/                  registro público de previsões (versionado)
 avaliacoes/                avaliações humanas de relevância (conjunto de teste das regras do radar)
 historico/                 histórico do SIGET: coletas, eventos de mudança e estado (CSV, só acréscimos; ODbL)
 tests/                     pytest (inclui as guardas do repositório público)
 docs/01-avaliacao-inicial.md, 02-diagnostico-intelligence.md, 03-fonte-siget.md, 04-mercado-e-posicionamento.md,
-05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, 07-contexto-economico.md, 08-leiloes.md, DECISOES.md
+05-validacao-com-compradores.md, 06-motor-de-oportunidades.md, 07-contexto-economico.md, 08-leiloes.md, DECISOES.md,
+PROJETO.md (documentação completa), PROMPT.md (prompt para continuar com uma IA)
 privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 ```
 
@@ -141,6 +147,10 @@ privado/, data/, site/, docs/DIARIO.md   só locais (fora do git)
 O workflow [`.github/workflows/radar-siget.yml`](.github/workflows/radar-siget.yml) roda **toda segunda-feira** (ou à mão, em *Actions › Radar SIGET › Run workflow*):
 carrega `historico/`, baixa o que mudou no SIGET, registra os eventos, acrescenta ao histórico, atualiza as séries do contexto, gera o relatório do perfil de demonstração
 (artefato `relatorio-radar` da execução, guardado por 90 dias) e faz o commit de `historico/`.
+
+## Globo (GitHub Actions, diário)
+
+O workflow [`.github/workflows/globo.yml`](.github/workflows/globo.yml) coleta as manchetes **todo dia** (6h41 de Brasília) e, **todo dia 15**, o comércio, a economia, os votos na ONU, as disputas na OMC e os conflitos armados; faz o commit de `prototipos/globo/dados/`. O globo publicado lê esses dados direto do repositório ao abrir, então as manchetes ficam frescas sem republicar o site.
 
 ## Pendências
 
