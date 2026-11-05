@@ -37,3 +37,15 @@ def indicadores(iso3: List[str]) -> Dict[str, Dict[str, dict]]:
             if d["value"] is not None and iso in out and ind not in out[iso]:
                 out[iso][ind] = {"valor": float(d["value"]), "ano": d["date"], "atualizado": meta.get("lastupdated")}
     return out
+
+
+def indicadores_todos() -> Dict[str, Dict[str, dict]]:
+    """Como indicadores(), para todos os países de uma vez (country/all): {iso3: {indicador: {valor, ano, atualizado}}} (D46)."""
+    out: Dict[str, Dict[str, dict]] = {}
+    for ind in INDICADORES:
+        meta, dados = _get(URL.format(paises="all", ind=ind).replace("per_page=2000", "per_page=20000"))
+        for d in sorted(dados or [], key=lambda x: x["date"], reverse=True):
+            iso = d["countryiso3code"]
+            if iso and d["value"] is not None and ind not in out.setdefault(iso, {}):
+                out[iso][ind] = {"valor": float(d["value"]), "ano": d["date"], "atualizado": meta.get("lastupdated")}
+    return out

@@ -41,6 +41,10 @@ jobs:
         if: github.event.schedule == '17 11 15 * *'
         run: python -m rotzx mundo-atualizar --sem-noticias
 
+      - name: Retrato histórico de todos os países (D46; só à mão)
+        if: github.event_name == 'workflow_dispatch'
+        run: python -m rotzx mundo-atualizar --historico
+
       - name: Manchetes (pausadas, D45; só à mão)
         if: false
         run: python -m rotzx mundo-atualizar --so-noticias
