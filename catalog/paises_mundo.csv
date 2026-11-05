@@ -1,0 +1,250 @@
+iso_num,iso3,nome,comex,cow,gw,no_mapa
+004,AFG,Afeganistão,013,700,700,1
+008,ALB,Albânia,017,339,339,1
+010,ATA,Antártica,042,,,1
+012,DZA,Argélia,059,615,615,1
+016,ASM,Samoa Americana,691,,,0
+020,AND,Andorra,037,232,,0
+024,AGO,Angola,040,540,540,1
+028,ATG,Antígua e Barbuda,043,58,,0
+031,AZE,Azerbaijão,073,373,373,1
+032,ARG,Argentina,063,160,160,1
+036,AUS,Austrália,069,900,900,1
+040,AUT,Áustria,072,305,305,1
+044,BHS,Bahamas,077,31,31,1
+048,BHR,Barein,080,692,692,0
+050,BGD,Bangladesh,081,771,771,1
+051,ARM,Armênia,064,371,371,1
+052,BRB,Barbados,083,53,,0
+056,BEL,Bélgica,087,211,211,1
+060,BMU,Bermudas,090,,,0
+064,BTN,Butão,119,760,760,1
+068,BOL,Bolívia,097,145,145,1
+070,BIH,Bósnia e Herzegovina,098,346,346,1
+072,BWA,Botsuana,101,571,571,1
+074,BVT,Ilha Bouvet,102,,,0
+076,BRA,Brasil,105,140,140,1
+084,BLZ,Belize,088,80,80,1
+086,IOT,Território Britânico do Oceano Índico,782,,,0
+090,SLB,Ilhas Salomão,677,940,,1
+092,VGB,Ilhas Virgens,863,,,0
+096,BRN,Brunei,108,835,835,1
+100,BGR,Bulgária,111,355,355,1
+104,MMR,Mianmar,093,775,775,1
+108,BDI,Burundi,115,516,516,1
+112,BLR,Belarus,085,370,,1
+116,KHM,Camboja,141,811,811,1
+120,CMR,Camarões,145,471,471,1
+124,CAN,Canadá,149,20,20,1
+132,CPV,Cabo Verde,127,402,,0
+136,CYM,Ilhas Cayman,137,,,0
+140,CAF,República Centro-Africana,640,482,482,1
+144,LKA,Sri Lanka,750,780,780,1
+148,TCD,Chade,788,483,483,1
+152,CHL,Chile,158,155,155,1
+156,CHN,China,160,710,710,1
+158,TWN,Taiwan,161,713,713,1
+162,CXR,Ilha Christmas,511,,,0
+166,CCK,Ilhas Cocos,165,,,0
+170,COL,Colômbia,169,100,100,1
+174,COM,Comores,173,581,581,0
+175,MYT,Mayotte,489,,,0
+178,COG,República do Congo,177,484,484,1
+180,COD,Rep. Dem. do Congo,888,490,490,1
+184,COK,Ilhas Cook,183,,,0
+188,CRI,Costa Rica,196,94,94,1
+191,HRV,Croácia,195,344,344,1
+192,CUB,Cuba,199,40,40,1
+196,CYP,Chipre,163,352,352,1
+203,CZE,Tchéquia,791,316,316,1
+204,BEN,Benin,229,434,434,1
+208,DNK,Dinamarca,232,390,390,1
+212,DMA,Dominica,235,54,,0
+214,DOM,República Dominicana,647,42,42,1
+218,ECU,Equador,239,130,130,1
+222,SLV,El Salvador,687,92,92,1
+226,GNQ,Guiné Equatorial,331,411,,1
+231,ETH,Etiópia,253,530,530,1
+232,ERI,Eritreia,243,531,531,1
+233,EST,Estônia,251,366,366,1
+234,FRO,Ilhas Faroe,259,,,0
+238,FLK,Ilhas Malvinas (Falkland),255,,,1
+239,SGS,Ilhas Geórgia do Sul e Sandwich do Sul,292,,,0
+242,FJI,Fiji,870,950,,1
+246,FIN,Finlândia,271,375,375,1
+248,ALA,Ilhas Aland,015,,,0
+250,FRA,França,275,220,220,1
+254,GUF,Guiana Francesa,325,,,0
+258,PYF,Polinésia Francesa,599,,,0
+260,ATF,Terras Austrais Francesas,781,,,1
+262,DJI,Djibuti,783,522,522,1
+266,GAB,Gabão,281,481,481,1
+268,GEO,Geórgia,291,372,372,1
+270,GMB,Gâmbia,285,420,420,1
+275,PSE,Palestina,578,,,1
+276,DEU,Alemanha,023,255|260|265,260,1
+288,GHA,Gana,289,452,452,1
+292,GIB,Gibraltar,293,,,0
+296,KIR,Kiribati,411,946,,0
+300,GRC,Grécia,301,350,350,1
+304,GRL,Groenlândia,305,,,1
+308,GRD,Granada,297,55,55,0
+312,GLP,Guadalupe,309,,,0
+316,GUM,Guam,313,,,0
+320,GTM,Guatemala,317,90,90,1
+324,GIN,Guiné,329,438,438,1
+328,GUY,Guiana,337,110,,1
+332,HTI,Haiti,341,41,41,1
+334,HMD,Ilha Heard e ilhas mcdonald,343,,,0
+336,VAT,Vaticano,848,,,0
+340,HND,Honduras,345,91,91,1
+344,HKG,Hong Kong,351,,,0
+348,HUN,Hungria,355,310,310,1
+352,ISL,Islândia,379,395,395,1
+356,IND,Índia,361,750,750|751,1
+360,IDN,Indonésia,365,850,850,1
+364,IRN,Irã,372,630,630,1
+368,IRQ,Iraque,369,645,645,1
+372,IRL,Irlanda,375,205,205,1
+376,ISR,Israel,383,666,666,1
+380,ITA,Itália,386,325,325,1
+384,CIV,Costa do Marfim,193,437,437,1
+388,JAM,Jamaica,391,51,51,1
+392,JPN,Japão,399,740,740,1
+398,KAZ,Cazaquistão,153,705,705,1
+400,JOR,Jordânia,403,663,663,1
+404,KEN,Quênia,623,501,501,1
+408,PRK,Coreia do Norte,187,731,731,1
+410,KOR,Coreia do Sul,190,732,732,1
+414,KWT,Kuwait,198,690,690,1
+417,KGZ,Quirguistão,625,703,703,1
+418,LAO,Laos,420,812,812,1
+422,LBN,Líbano,431,660,660,1
+426,LSO,Lesoto,426,570,570,1
+428,LVA,Letônia,427,367,367,1
+430,LBR,Libéria,434,450,450,1
+434,LBY,Líbia,438,620,620,1
+438,LIE,Liechtenstein,440,223,,0
+440,LTU,Lituânia,442,368,368,1
+442,LUX,Luxemburgo,445,212,212,1
+446,MAC,Macau,447,,,0
+450,MDG,Madagascar,450,580,580,1
+454,MWI,Malavi,458,553,553,1
+458,MYS,Malásia,455,820,820,1
+462,MDV,Maldivas,461,781,,0
+466,MLI,Mali,464,432,432,1
+470,MLT,Malta,467,338,,0
+474,MTQ,Martinica,477,,,0
+478,MRT,Mauritânia,488,435,435,1
+480,MUS,Maurício,485,590,,0
+484,MEX,México,493,70,70,1
+492,MCO,Mônaco,495,221,,0
+496,MNG,Mongólia,497,712,712,1
+498,MDA,Moldávia,494,359,359,1
+499,MNE,Montenegro,498,341,341,1
+500,MSR,Montserrat,501,,,0
+504,MAR,Marrocos,474,600,600,1
+508,MOZ,Moçambique,505,541,541,1
+512,OMN,Omã,556,698,698,1
+516,NAM,Namíbia,507,565,565,1
+520,NRU,Nauru,508,970,,0
+524,NPL,Nepal,517,790,790,1
+528,NLD,Países Baixos,573,210,210,1
+531,CUW,Curaçao,200,,,0
+533,ABW,Aruba,065,,,0
+534,SXM,Sint Maarten,699,,,0
+535,BES,Saint Eustatius e Saba Bonaire,099,,,0
+540,NCL,Nova Caledônia,542,,,1
+548,VUT,Vanuatu,551,935,,1
+554,NZL,Nova Zelândia,548,920,920,1
+558,NIC,Nicarágua,521,93,93,1
+562,NER,Níger,525,436,436,1
+566,NGA,Nigéria,528,475,475,1
+570,NIU,Niue,531,,,0
+574,NFK,Ilha Norfolk,535,,,0
+578,NOR,Noruega,538,385,385,1
+580,MNP,Ilhas Marianas do Norte,472,,,0
+581,UMI,Ilhas Menores Distantes dos Estados Unidos,,,,0
+583,FSM,Micronésia,499,987,,0
+584,MHL,Ilhas Marshall,476,983,,0
+585,PLW,Palau,575,986,,0
+586,PAK,Paquistão,576,770,770,1
+591,PAN,Panamá,580,95,95,1
+598,PNG,Papua Nova Guiné,545,910,910,1
+600,PRY,Paraguai,586,150,150,1
+604,PER,Peru,589,135,135,1
+608,PHL,Filipinas,267,840,840,1
+612,PCN,Pitcairn,593,,,0
+616,POL,Polônia,603,290,290,1
+620,PRT,Portugal,607,235,235,1
+624,GNB,Guiné-Bissau,334,404,404,1
+626,TLS,Timor-Leste,795,860,,1
+630,PRI,Porto Rico,611,,,1
+634,QAT,Catar,154,694,694,1
+638,REU,Reunião,660,,,0
+642,ROU,Romênia,670,360,360,1
+643,RUS,Rússia,676,365,365,1
+646,RWA,Ruanda,675,517,517,1
+652,BLM,São Bartolomeu,693,,,0
+654,SHN,Santa Helena,710,,,0
+659,KNA,São Cristóvão e Névis,678|695,60,,0
+660,AIA,Anguilla,041,,,0
+662,LCA,Santa Lúcia,715,56,,0
+663,MAF,Ilha de São Martinho,698,,,0
+666,SPM,São Pedro e Miquelon,700,,,0
+670,VCT,São Vicente e Granadinas,705,57,,0
+674,SMR,San Marino,697,331,,0
+678,STP,São Tomé e Príncipe,720,403,,0
+682,SAU,Arábia Saudita,053,670,670,1
+686,SEN,Senegal,728,433,433,1
+688,SRB,Sérvia,737,345,345,1
+690,SYC,Seicheles,731,591,,0
+694,SLE,Serra Leoa,735,451,451,1
+702,SGP,Singapura,741,830,830,0
+703,SVK,Eslováquia,247,317,317,1
+704,VNM,Vietnã,858,816,816|817,1
+705,SVN,Eslovênia,246,349,349,1
+706,SOM,Somália,748,520,520,1
+710,ZAF,África do Sul,756,560,560,1
+716,ZWE,Zimbábue,665,552,552,1
+724,ESP,Espanha,245,230,230,1
+728,SSD,Sudão do Sul,760,626,626,1
+729,SDN,Sudão,759,625,625,1
+732,ESH,Saara Ocidental,685,,,1
+740,SUR,Suriname,770,115,115,1
+744,SJM,Svalbard e Jan Mayen,755,,,0
+748,SWZ,Essuatíni,754,572,,1
+752,SWE,Suécia,764,380,380,1
+756,CHE,Suíça,767,225,225,1
+760,SYR,Síria,744,652,652,1
+762,TJK,Tadjiquistão,772,702,702,1
+764,THA,Tailândia,776,800,800,1
+768,TGO,Togo,800,461,461,1
+772,TKL,Toquelau,805,,,0
+776,TON,Tonga,810,955,,0
+780,TTO,Trinidad e Tobago,815,52,52,1
+784,ARE,Emirados Árabes Unidos,237|244,696,696,1
+788,TUN,Tunísia,820,616,616,1
+792,TUR,Turquia,827,640,640,1
+795,TKM,Turcomenistão,824,701,701,1
+796,TCA,Ilhas Turcas e Caicos,823,,,0
+798,TUV,Tuvalu,828,947,,0
+800,UGA,Uganda,833,500,500,1
+804,UKR,Ucrânia,831,369,369,1
+807,MKD,Macedônia do Norte,449,343,343,1
+818,EGY,Egito,240,651,651,1
+826,GBR,Reino Unido,367|628,200,200,1
+831,GGY,Guernsey,150|321,,,0
+832,JEY,Jersey,152|393,,,0
+833,IMN,Ilha de Man,359,,,0
+834,TZA,Tanzânia,780,510,510,1
+840,USA,Estados Unidos,249,2,2,1
+850,VIR,Ilhas Virgens,866,,,0
+854,BFA,Burkina Faso,031,439,439,1
+858,URY,Uruguai,845,165,165,1
+860,UZB,Uzbequistão,847,704,704,1
+862,VEN,Venezuela,850,101,101,1
+876,WLF,Ilhas Wallis e Futuna,875,,,0
+882,WSM,Samoa,690,990,,0
+887,YEM,Iêmen,357,678|679|680,678|680,1
+894,ZMB,Zâmbia,890,551,551,1
