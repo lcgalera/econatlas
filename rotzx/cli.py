@@ -362,7 +362,6 @@ def main(argv=None):
             m = mb.montar(args.ano, com_noticias=not args.sem_noticias)
             print(f"globo: {len(m['paises'])} países, comércio de {m['ano_comercio']} -> {mb.SAIDA.relative_to(config.ROOT)}")
     elif args.cmd == "mundo-codigos":
-        from pathlib import Path
         from .mundo import build as mb, codigos
         codigos.montar(mb.BRUTOS / "onu", mb.BRUTOS / "ucdp", Path(args.atlas) if args.atlas else None)
     elif args.cmd == "contexto-atualizar":

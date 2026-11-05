@@ -148,6 +148,30 @@
   .camadas button[aria-pressed="true"] { background: rgba(255,255,255,.08); color: var(--ink); }
   .escala-calor { width: 150px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, rgba(170,215,240,.15), rgba(170,215,240,.85)); }
   .legenda .calor { display: none; } body.calor .legenda .calor { display: grid; gap: 4px; } body.calor .legenda .dados { display: none; }
+  /* retrato histórico (D46): indicador, ano e ▶ embaixo do globo; gráficos no painel */
+  .tempo-ctl { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 3; display: grid; gap: 8px; padding: 12px 14px;
+               border: 1px solid var(--rule-2); border-radius: 8px; background: rgba(9,13,18,.78); backdrop-filter: blur(4px); }
+  .ind { display: flex; gap: 4px; flex-wrap: wrap; }
+  .ind button { border: 1px solid var(--rule-2); background: transparent; padding: 5px 10px; border-radius: 5px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+  .ind button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .linha-ano { display: grid; grid-template-columns: 34px 1fr 54px; gap: 10px; align-items: center; }
+  .linha-ano button { width: 34px; height: 30px; border: 1px solid var(--rule-2); border-radius: 5px; background: transparent; cursor: pointer; color: var(--ink); font-size: 12px; }
+  .linha-ano input { width: 100%; accent-color: var(--accent); }
+  .linha-ano output { font: 500 22px/1 "Source Serif 4", Georgia, serif; text-align: right; font-variant-numeric: tabular-nums; }
+  .leg-cab { font-size: 12px; color: var(--muted); }
+  .leg-esc { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--muted); }
+  .leg-esc i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .leg-esc .grad { display: block; width: 100%; height: 6px; border-radius: 3px; }
+  .leg-esc .ext { display: flex; justify-content: space-between; width: 100%; }
+  .leg-aviso { font-size: 12.5px; color: var(--warn); }
+  body.historia .zoom { bottom: auto; top: 76px; }
+  body.historia #globo { bottom: 150px; }   /* o globo fica acima do controle de ano */
+  body.historia.modo-lista #globo { bottom: 0; }
+  body.historia .legenda { display: none; }
+  body.modo-lista .tempo-ctl { display: none; }
+  .grafico { width: 100%; height: 230px; margin-top: 8px; }
+  .grafico.baixo { height: 150px; }
+  .duas-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .rodape { display: flex; align-items: center; gap: 9px; padding: 22px 36px 30px; font-size: 12.5px; color: var(--muted); }
 
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
@@ -231,6 +255,13 @@
     .modos .longo { display: none; }
     .legenda { left: 14px; bottom: 14px; }
     .zoom { right: 14px; bottom: 14px; }
+    .tempo-ctl { left: 10px; right: 10px; bottom: 10px; padding: 10px; }
+    body.historia .zoom { top: 60px; }
+    body.historia #globo { bottom: 140px; }
+    .leg-cab { display: none; }
+    .ind button { padding: 4px 8px; font-size: 12.5px; }
+    .lado-globo { height: 64vh; }
+    .duas-col { grid-template-columns: 1fr; gap: 0; }
     .lista ol { columns: 1; }
     .lista { padding: 64px 16px 16px; }
     .cab { padding: 24px 18px 0; } .cab h2 { font-size: 32px; }
@@ -282,6 +313,15 @@
       <span class="dados"><span><i style="background:var(--focus-solid)"></i>Com dados (20 países)</span></span>
       <span class="calor"><span>Manchetes que citam o país, na aba aberta</span><span class="escala-calor"></span><span>menos → mais</span></span>
     </div>
+    <div class="tempo-ctl" id="tempoCtl" hidden>
+      <div class="ind" role="group" aria-label="Indicador">
+        <button type="button" data-ind="comercio" aria-pressed="true">Comércio</button><button type="button" data-ind="saldo" aria-pressed="false">Saldo</button>
+        <button type="button" data-ind="onu" aria-pressed="false">Votos na ONU</button><button type="button" data-ind="conflitos" aria-pressed="false">Conflitos</button>
+      </div>
+      <div class="linha-ano"><button type="button" id="play" aria-label="Animar ano a ano">▶</button>
+        <input type="range" id="ano" min="1946" max="2025" step="1" value="2025" aria-label="Ano"><output id="anoTxt">2025</output></div>
+      <div id="leg"></div>
+    </div>
     <div class="zoom"><button type="button" id="mais" aria-label="Aproximar">+</button><button type="button" id="menos" aria-label="Afastar">−</button></div>
     <div class="erro" id="erro"><div><b>Não foi possível carregar o globo.</b><br>Seu navegador precisa de WebGL. Use a lista de países ou tente outro navegador.</div></div>
   </section>
@@ -294,6 +334,8 @@
 <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <script src="dados/mundo.js"></script>
+<script src="dados/historia.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <script src="dados/noticias.js"></script>  <!-- notícias pausadas (D45): carregado, mas não usado -->
 <script>
 "use strict";
@@ -332,7 +374,7 @@ const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $painel = document.getElementById("painel"), $voltar = document.getElementById("voltar");
 
 let globo, paises = [], selecionado = null, sobre = null;
-const nomeDe = (f) => FOCO[f.id]?.nome || N?.nomes?.[f.id] || f.properties.name;  // fora do protótipo: nome em inglês do mapa
+const nomeDe = (f) => window.HISTORIA?.paises?.[f.id]?.nome || FOCO[f.id]?.nome || N?.nomes?.[f.id] || f.properties.name;  // fora do protótipo: nome em inglês do mapa
 
 // Mapa de calor das manchetes (D44): quantas manchetes da aba aberta citam cada país (por iso_num do mapa).
 let calor = null, camada = NOTICIAS ? "noticias" : "dados";
@@ -342,6 +384,7 @@ function corCalor(n) {
 }
 function cor(f) {
   if (f === selecionado) return css("--sel");
+  if (H && !NOTICIAS) return f === sobre ? "rgba(231,236,234,.55)" : f.id === "076" ? css("--base") : corValor(valor(f.id));   // o Brasil, ponto de vista, sempre em verde
   if (camada === "noticias" && calor && Object.keys(calor).length) {
     const n = calor[f.id] || 0;
     if (f === sobre) return n ? "rgba(205,232,248,.92)" : css("--land-hover");
@@ -527,6 +570,7 @@ function blocoManchetes(lista, titulo, nota) {
 }
 
 function painelPais(f) {
+  if (H && !NOTICIAS) return painelHistoria(f);
   const foco = FOCO[f.id];
   const nome = nomeDe(f);
   const d = M?.paises?.[f.id];
@@ -711,7 +755,273 @@ function corpoComercio() {
         <span>${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></button></li>`; }).join("")}</ol></div>`;
 }
 
+// =====================================================================================================================
+// Retrato histórico (D46): todos os países × Brasil, 1946–2025, com seletor de ano e indicadores no globo.
+// Só dados medidos, com fonte; ano sem dado = "sem dado" (cinza), nunca zero.
+// =====================================================================================================================
+const H = window.HISTORIA || null;
+const IND = {
+  comercio: { rot: "Comércio com o Brasil", fonte: "Comex Stat", desc: "exportações + importações do Brasil com o país, em US$" },
+  saldo: { rot: "Saldo", fonte: "Comex Stat", desc: "exportações menos importações do Brasil com o país: superávit ou déficit do Brasil" },
+  onu: { rot: "Votos na ONU", fonte: "Voeten et al.", desc: "concordância com o Brasil nas votações nominais da Assembleia Geral (0 a 100)" },
+  conflitos: { rot: "Conflitos", fonte: "UCDP", desc: "conflito armado no território (25+ mortes em combate no ano) ou tropas em conflito fora dele" },
+};
+let ind = "comercio", anoSel = 2025, tocando = null;
+const cobertura = (k) => !H ? [0, 0] : k === "onu" ? [H.onu.inicio, H.onu.fim] : k === "conflitos" ? [H.conflitos.inicio, H.conflitos.fim]
+  : [H.comercio.inicio, H.comercio.fim];
+const na = (serie, inicio, a) => (serie && a >= inicio && a - inicio < serie.length ? serie[a - inicio] : null);
+function comercioDe(id, a) {
+  const c = H?.comercio?.paises?.[id];
+  if (!c) return null;
+  const e = na(c.e, H.comercio.inicio, a), i = na(c.i, H.comercio.inicio, a);
+  return e == null && i == null ? null : { e: e || 0, i: i || 0, t: (e || 0) + (i || 0), s: (e || 0) - (i || 0) };
+}
+const onuDe = (id, a) => na(H?.onu?.paises?.[id], H?.onu?.inicio, a);
+const conflitoDe = (id, a) => H?.conflitos?.paises?.[id]?.[String(a)] || null;
+function valor(id, k = ind, a = anoSel) {
+  if (!H) return null;
+  const [ini, fim] = cobertura(k);
+  if (a < ini || a > fim) return null;
+  if (k === "comercio") return comercioDe(id, a)?.t ?? null;
+  if (k === "saldo") return comercioDe(id, a)?.s ?? null;
+  if (k === "onu") return onuDe(id, a);
+  const c = conflitoDe(id, a);
+  return c ? (c.t ? c.t : (c.l || c.a ? 0.5 : 0)) : 0;   // 2 guerra no território, 1 conflito no território, 0,5 tropas fora
+}
+// escalas de cor: sequencial em verde-água (log no comércio), divergente no saldo, três níveis nos conflitos
+let escalaMax = 1;
+function recalcEscala() {
+  const vs = (H ? Object.keys(H.paises) : []).filter((id) => id !== "076").map((id) => valor(id)).filter((v) => v != null);
+  escalaMax = ind === "saldo" ? Math.max(1, ...vs.map(Math.abs)) : Math.max(1e-9, ...vs);
+}
+function corValor(v) {
+  if (v == null) return "rgba(10,16,28,.35)";
+  // comércio em escala log a partir de US$ 1 milhão (abaixo disso, o tom mais claro)
+  if (ind === "comercio") { const t = Math.max(0, Math.min(1, (Math.log10(Math.max(v, 1)) - 6) / (Math.log10(escalaMax) - 6 || 1)));
+    return `rgba(143,211,182,${(0.06 + 0.84 * t * t).toFixed(3)})`; }
+  if (ind === "saldo") { const t = Math.sqrt(Math.abs(v) / escalaMax); return v >= 0 ? `rgba(143,211,182,${(0.1 + 0.8 * t).toFixed(3)})` : `rgba(226,140,120,${(0.1 + 0.8 * t).toFixed(3)})`; }
+  if (ind === "onu") { const t = Math.max(0, Math.min(1, (v - 0.3) / 0.7)); return `rgba(170,215,240,${(0.08 + 0.84 * t * t).toFixed(3)})`; }
+  return v >= 2 ? "rgba(226,120,100,.85)" : v >= 1 ? "rgba(226,160,120,.55)" : v > 0 ? "rgba(226,190,150,.28)" : "rgba(10,16,28,.25)";
+}
+function fmtValor(v, k = ind) {
+  if (v == null) return "sem dado";
+  if (k === "comercio") return bi(v);
+  if (k === "saldo") return (v >= 0 ? "+" : "−") + bi(Math.abs(v)) + (v >= 0 ? " (superávit do Brasil)" : " (déficit do Brasil)");
+  if (k === "onu") return `${Math.round(v * 100)} de 100`;
+  return v >= 2 ? "guerra no território (1.000+ mortes)" : v >= 1 ? "conflito no território" : v > 0 ? "tropas em conflito fora do país" : "nenhum conflito registrado";
+}
+const nomeH = (id) => H?.paises?.[id]?.nome || FOCO[id]?.nome || id;
+
+// ---------- controles: indicador, ano, ▶ ----------
+function renderControle() {
+  const [ini, fim] = cobertura(ind);
+  const $a = document.getElementById("ano");
+  $a.min = 1946; $a.max = H ? Math.max(H.comercio.fim, H.conflitos.fim) : 2025; $a.value = anoSel;
+  document.getElementById("anoTxt").textContent = anoSel;
+  document.querySelectorAll("[data-ind]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.ind === ind));
+  const fora = anoSel < ini || anoSel > fim;
+  const leg = ind === "conflitos"
+    ? `<span><i style="background:rgba(226,120,100,.85)"></i>guerra no território</span><span><i style="background:rgba(226,160,120,.55)"></i>conflito no território</span><span><i style="background:rgba(226,190,150,.28)"></i>tropas fora</span>`
+    : ind === "saldo" ? `<span class="grad" style="background:linear-gradient(90deg,rgba(226,140,120,.9),rgba(226,140,120,.1),rgba(143,211,182,.1),rgba(143,211,182,.9))"></span><span class="ext"><span>déficit do Brasil</span><span>superávit</span></span>`
+    : `<span class="grad" style="background:linear-gradient(90deg,${corValor(ind === "onu" ? 0.3 : 0)},${corValor(ind === "onu" ? 1 : escalaMax)})"></span><span class="ext"><span>${ind === "onu" ? "vota diferente" : "menos"}</span><span>${ind === "onu" ? "vota igual" : "mais"}</span></span>`;
+  document.getElementById("leg").innerHTML = `<div class="leg-cab">${esc(IND[ind].desc)} · ${esc(IND[ind].fonte)}, ${ini}–${fim}</div>
+    ${fora ? `<div class="leg-aviso">Sem dado de ${esc(IND[ind].rot.toLowerCase())} em ${anoSel}: a fonte cobre ${ini}–${fim}.</div>` : `<div class="leg-esc">${leg}</div>`}`;
+}
+function setAno(a, { painel = true } = {}) {
+  anoSel = a;
+  recalcEscala();
+  renderControle();
+  if (globo) globo.polygonCapColor(cor);
+  if (selecionado && painel) atualizarAnoPainel(); else if (!selecionado) renderResumo();
+}
+function setInd(k) {
+  ind = k;
+  const [ini, fim] = cobertura(k);
+  setAno(Math.min(fim, Math.max(ini, anoSel)));
+}
+function tocar() {
+  const $p = document.getElementById("play");
+  if (tocando) { clearInterval(tocando); tocando = null; $p.textContent = "▶"; $p.setAttribute("aria-label", "Animar ano a ano"); return; }
+  const [ini, fim] = cobertura(ind);
+  if (anoSel >= fim) setAno(ini);
+  $p.textContent = "❚❚"; $p.setAttribute("aria-label", "Pausar");
+  tocando = setInterval(() => { if (anoSel >= fim) return tocar(); setAno(anoSel + 1); }, reduzir ? 1200 : 700);
+}
+
+// ---------- coluna da direita sem país aberto: "O Brasil e o mundo em [ano]" ----------
+let abaH = "ranking";
+function renderResumoHistoria() {
+  const $r = document.getElementById("resumo");
+  const ids = Object.keys(H.paises).filter((id) => id !== "076");
+  const comV = ids.map((id) => [id, valor(id)]).filter(([, v]) => v != null);
+  const [ini, fim] = cobertura(ind);
+  let corpo = "";
+  if (abaH === "ranking") {
+    if (anoSel < ini || anoSel > fim) corpo = `<div class="nada"><h3>Sem dado neste ano</h3><p>${esc(IND[ind].rot)} vem de ${esc(IND[ind].fonte)}, que cobre ${ini}–${fim}. Mude o ano ou o indicador.</p></div>`;
+    else {
+      let kpis = "", lista = [];
+      if (ind === "comercio" || ind === "saldo") {
+        const b = H.comercio.brasil, e = na(b.e, H.comercio.inicio, anoSel), i = na(b.i, H.comercio.inicio, anoSel);
+        kpis = `<div class="kpi"><span>O Brasil exportou</span><b>${bi(e)}</b></div><div class="kpi"><span>Importou</span><b>${bi(i)}</b></div>
+          <div class="kpi"><span>Saldo</span><b>${e - i >= 0 ? "+" : "−"}${bi(Math.abs(e - i))}</b></div>`;
+        lista = ind === "comercio" ? comV.sort((a, b) => b[1] - a[1]).slice(0, 15)
+          : [...comV.sort((a, b) => b[1] - a[1]).slice(0, 8), ...comV.sort((a, b) => a[1] - b[1]).slice(0, 7)];
+      } else if (ind === "onu") {
+        const med = na(H.onu.mediana, H.onu.inicio, anoSel), alto = comV.filter(([, v]) => v >= 0.8).length;
+        kpis = `<div class="kpi"><span>Países com voto no ano</span><b>${comV.length}</b></div><div class="kpi"><span>Mediana da concordância</span><b>${Math.round(med * 100)} de 100</b></div>
+          <div class="kpi"><span>Votaram igual em 80+ de 100</span><b>${Math.round((alto / comV.length) * 100)}%</b></div>`;
+        lista = [...comV.sort((a, b) => b[1] - a[1]).slice(0, 8), ...comV.sort((a, b) => a[1] - b[1]).slice(0, 7)];
+      } else {
+        const c = H.conflitos.por_ano[String(anoSel)] || [];
+        kpis = `<div class="kpi"><span>Conflitos armados em ${anoSel}</span><b>${c.length}</b></div><div class="kpi"><span>Com 1.000+ mortes em combate</span><b>${c.filter((x) => x.guerra).length}</b></div>
+          <div class="kpi"><span>Países com conflito no território</span><b>${comV.filter(([, v]) => v >= 1).length}</b></div>`;
+        lista = comV.filter(([, v]) => v >= 1).sort((a, b) => b[1] - a[1] || nomeH(a[0]).localeCompare(nomeH(b[0])));
+      }
+      const max = Math.max(...lista.map(([, v]) => Math.abs(v)), 1e-9);
+      corpo = `<div class="kpis" style="margin-top:22px">${kpis}</div>
+        <div class="kicker secao">${ind === "comercio" ? "Maiores parceiros" : ind === "saldo" ? "Maiores superávits e déficits do Brasil" : ind === "onu" ? "Quem mais e quem menos votou com o Brasil" : "Onde houve conflito armado"} em ${anoSel}</div>
+        <ol class="parceiros">${lista.map(([id, v]) => `<li><button type="button" data-id="${id}"><span class="barra" style="width:${ind === "conflitos" ? 0 : (Math.abs(v) / max) * 100}%;${ind === "saldo" && v < 0 ? "background:rgba(226,140,120,.14)" : ""}"></span>
+          <span>${esc(nomeH(id))}</span><span class="p-val">${esc(fmtValor(v))}</span></button></li>`).join("") || "<li>nenhum</li>"}</ol>
+        <p class="regra" style="margin:12px 0 0">Clique num país para ver a relação dele com o Brasil ao longo do tempo.</p>`;
+    }
+  } else if (abaH === "conflitos") {
+    const c = H.conflitos.por_ano[String(anoSel)] || [];
+    corpo = `<p class="regra" style="margin:22px 0 0">Conflitos armados em ${anoSel} com um governo de um dos lados e 25 ou mais mortes em combate no ano, os mais
+      intensos primeiro. Nomes como na base (UCDP), em inglês. Países que não existem mais aparecem nas fronteiras de hoje.</p>
+      ${c.length ? `<ul class="disputas" style="margin-top:8px">${c.map((x) => `<li><a href="https://ucdp.uu.se/conflict/${esc(x.id)}" target="_blank" rel="noopener">${esc(x.local)}: ${esc(x.a)} × ${esc(x.b)}</a>
+        <span>${esc(x.tipo)} · disputa por ${esc(x.disputa)}${x.territorio ? ` (${esc(x.territorio)})` : ""} · ${x.guerra ? "<b>1.000 ou mais mortes em combate</b>" : "25 a 999 mortes em combate"}</span></li>`).join("")}</ul>`
+        : `<div class="nada"><h3>Nenhum conflito registrado</h3><p>A base cobre ${H.conflitos.inicio}–${H.conflitos.fim}.</p></div>`}`;
+  } else {
+    corpo = `<p class="regra" style="margin:22px 0 0">Origem das séries: ${esc(IND.comercio.fonte)} (comércio, desde ${H.comercio.inicio}), votações nominais da ONU
+      (Voeten, Strezhnev e Bailey, Harvard Dataverse, CC0, desde ${H.onu.inicio}), UCDP/PRIO (CC BY 4.0, desde ${H.conflitos.inicio}),
+      lista oficial de disputas da OMC e Banco Mundial (CC BY 4.0). Retrato coletado em ${quando(H.gerado_em)}, sem atualização automática.</p>
+      <ul class="disputas" style="margin-top:12px">${[["comercio", "Comércio"], ["onu", "Votos na ONU"], ["conflitos", "Conflitos armados"]].map(([k, r]) => {
+        const [a, b] = cobertura(k); return `<li><b>${r}</b><span>${a}–${b} · ${esc(IND[k].desc)}</span></li>`; }).join("")}</ul>`;
+  }
+  $r.innerHTML = `<div class="cab"><div class="kicker">O Brasil e o mundo</div><h2>Em ${anoSel}</h2>
+      <p class="sub">${esc(IND[ind].rot)}: ${esc(IND[ind].desc)}. Mude o ano embaixo do globo, ou aperte ▶ para ver o tempo passar.</p></div>
+    <div class="abas-topo" role="tablist">${[["ranking", "Ranking"], ["conflitos", "Conflitos do ano"], ["fontes", "Fontes"]].map(([k, r]) =>
+      `<button type="button" role="tab" data-abah="${k}" aria-selected="${k === abaH}">${r}</button>`).join("")}</div>
+    <div class="corpo">${corpo}</div>
+    <div class="rodape">imagem do planeta: Blue Marble (NASA) · fronteiras atuais (Natural Earth)</div>`;
+  $r.querySelectorAll("[data-abah]").forEach((b) => (b.onclick = () => { abaH = b.dataset.abah; renderResumoHistoria(); }));
+  $r.querySelectorAll(".parceiros button[data-id]").forEach((bt) => (bt.onclick = () => abrir(featureDe(bt.dataset.id))));
+}
+const featureDe = (id) => paises.find((x) => x.id === id) || { id, properties: { name: nomeH(id) } };
+
+// ---------- painel do país: a relação com o Brasil ao longo do tempo ----------
+const ITAMARATY = "https://www.gov.br/mre/pt-br/assuntos/relacoes-bilaterais/todos-os-paises";
+function painelHistoria(f) {
+  const id = f.id, nome = nomeH(id), d = M?.paises?.[id], c = H.comercio.paises[id], u = H.onu.paises[id],
+    w = H.omc[id], e = H.economia[id], k = H.conflitos.paises[id];
+  const base = id === "076";
+  const cAno = comercioDe(id, anoSel), uAno = onuDe(id, anoSel), med = na(H.onu.mediana, H.onu.inicio, anoSel);
+  const kpi = (r, v, s = "") => `<div class="kpi"><span>${esc(r)}</span><b>${v}</b>${s ? `<small>${esc(s)}</small>` : ""}</div>`;
+  const prods = (p, lado) => (p || []).map(([sh4, fob, part]) => `<li><div class="barra" style="width:${part * 100}%"></div>
+    <span class="p-nome" title="SH4 ${esc(sh4)}">${esc(H.comercio.sh4[sh4] || sh4)}</span><span class="p-val">${bi(fob)} · ${pct(part)}</span></li>`).join("");
+  const [pa, pb] = H.comercio.anos_produtos;
+  const anosK = k ? Object.keys(k) : [];
+  return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">${base ? "Ponto de vista" : "Relação com o Brasil"}</div><h2>${esc(nome)}</h2>
+      <p class="sub">${base ? "O comércio do Brasil com o mundo ao longo do tempo." : `${H.onu.inicio}–${H.comercio.fim}. Clique num ponto dos gráficos para mudar o ano.`}</p></header>
+    ${!base ? `<div class="bloco"><h3>Em <span class="ano-txt">${anoSel}</span></h3><div class="kpis" id="kpisAno">${kpisAno(id)}</div></div>` : ""}
+    ${(c || base) ? `<div class="bloco"><h3>Comércio com o Brasil, ${H.comercio.inicio}–${H.comercio.fim}</h3>${fonte("comex", "valores FOB em US$ correntes")}
+      <div class="grafico" id="gComercio"></div>
+      ${!base ? `<div class="duas-col"><div><div class="kicker" style="margin:14px 0 6px">O Brasil vendia em ${pa}</div><ol class="prods">${prods(c?.p?.[pa]?.e) || "<li>sem registro</li>"}</ol></div>
+        <div><div class="kicker" style="margin:14px 0 6px">e em ${pb}</div><ol class="prods">${prods(c?.p?.[pb]?.e) || "<li>sem registro</li>"}</ol></div></div>
+      <div class="duas-col"><div><div class="kicker" style="margin:14px 0 6px">O Brasil comprava em ${pa}</div><ol class="prods">${prods(c?.p?.[pa]?.i) || "<li>sem registro</li>"}</ol></div>
+        <div><div class="kicker" style="margin:14px 0 6px">e em ${pb}</div><ol class="prods">${prods(c?.p?.[pb]?.i) || "<li>sem registro</li>"}</ol></div></div>` : ""}</div>` : ""}
+    ${u ? `<div class="bloco"><h3>Votos na ONU, ${H.onu.inicio}–${H.onu.fim}</h3>${fonte("onu")}
+      <p class="resumo">Concordância com o Brasil nas votações nominais da Assembleia Geral, de 0 a 100 (voto igual vale 1; abstenção de um dos dois, meio),
+        comparada com a mediana de todos os países no ano. Muda com a pauta de cada ano.</p><div class="grafico" id="gOnu"></div></div>` : ""}
+    <div class="bloco"><h3>Conflitos armados, ${H.conflitos.inicio}–${H.conflitos.fim}</h3>${fonte("ucdp")}
+      ${anosK.length ? `<div class="grafico baixo" id="gConflitos"></div>
+        <p class="fonte" style="margin-top:8px">Por ano: conflito no território do país (25+ mortes em combate; guerra = 1.000+), como lado principal, ou com tropas
+          de apoio, o que inclui missões multinacionais, como as de paz da ONU. Países que não existem mais aparecem nas fronteiras de hoje.</p>`
+        : vazio(`Nenhum conflito armado registrado de ${H.conflitos.inicio} a ${H.conflitos.fim}.`)}</div>
+    ${!base ? `<div class="bloco"><h3>Disputas comerciais com o Brasil na OMC</h3>${fonte("omc", "títulos oficiais em inglês")}
+      ${w?.via_ue ? `<p class="fonte">Na OMC, os países da União Europeia são representados pela UE: as disputas abaixo são da UE.</p>` : ""}
+      ${w ? `<ul class="disputas">${w.casos.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.titulo)}</a>
+        <span>${esc(x.ds)} · ${x.ano} · ${x.brasil_abriu ? "o Brasil abriu" : "aberta contra o Brasil"} · ${esc(x.situacao)}</span></li>`).join("")}</ul>`
+        : vazio("Nenhuma disputa com o Brasil na OMC desde 1995.")}</div>` : ""}
+    ${d?.relacoes ? blocoRelacoes(d, nome) : ""}
+    ${e?.length ? blocoEconomia({ economia: e }) : ""}
+    ${!base ? `<div class="bloco"><h3>História da relação</h3><p class="resumo">O Itamaraty mantém uma página oficial sobre a relação bilateral com cada país.</p>
+      <p><a class="botao" href="${ITAMARATY}" target="_blank" rel="noopener">Relações bilaterais no Itamaraty ↗</a></p>
+      <p class="fonte" style="margin-top:10px">Abre o índice oficial; procure "${esc(nome)}" na lista. O site do Itamaraty não permite conferir o link de cada país automaticamente.</p></div>` : ""}
+    <p class="nota">Retrato histórico coletado em ${quando(H.gerado_em)}, sem atualização automática. Fontes: Comex Stat, ONU (Voeten et al., CC0), UCDP/PRIO (CC BY 4.0),
+      OMC e Banco Mundial (CC BY 4.0).</p>`;
+}
+function kpisAno(id) {
+  const cAno = comercioDe(id, anoSel), uAno = onuDe(id, anoSel), med = na(H.onu.mediana, H.onu.inicio, anoSel), k = conflitoDe(id, anoSel);
+  const kpi = (r, v, s = "") => `<div class="kpi"><span>${esc(r)}</span><b>${v}</b>${s ? `<small>${esc(s)}</small>` : ""}</div>`;
+  return (cAno ? kpi("Brasil exportou", bi(cAno.e)) + kpi("Brasil importou", bi(cAno.i)) + kpi("Saldo", (cAno.s >= 0 ? "+" : "−") + bi(Math.abs(cAno.s)), cAno.s >= 0 ? "superávit do Brasil" : "déficit do Brasil")
+    : kpi("Comércio", "sem dado", `${H.comercio.inicio}–${H.comercio.fim}`))
+    + (uAno != null ? kpi("Votos na ONU", `${Math.round(uAno * 100)} de 100`, `mediana dos países: ${Math.round(med * 100)}`) : kpi("Votos na ONU", "sem dado", `${H.onu.inicio}–${H.onu.fim}`))
+    + kpi("Conflitos", k && (k.t || k.l || k.a) ? (k.t >= 2 ? "guerra no território" : k.t ? "no território" : "fora do país") : "nenhum", k && (k.l || k.a) ? `${k.l} como lado, ${k.a} com tropas` : "");
+}
+
+// gráficos (ECharts): o ano escolhido aparece marcado; clicar num ponto muda o ano do globo
+let graficos = [];
+const tema = { textStyle: { color: "#b7c0c2", fontFamily: "IBM Plex Sans" }, grid: { left: 52, right: 14, top: 30, bottom: 26 } };
+function marca() { return { symbol: "none", silent: true, label: { show: false }, lineStyle: { color: "#e7ecea", type: "dashed", width: 1 }, data: [{ xAxis: String(anoSel) }] }; }
+function desenharGraficos(f) {
+  graficos.forEach((g) => g.dispose()); graficos = [];
+  if (typeof echarts === "undefined" || !H) return;
+  const id = f.id, base = id === "076";
+  const eixo = (ini, fim) => ({ type: "category", data: Array.from({ length: fim - ini + 1 }, (_, i) => String(ini + i)),
+    axisLine: { lineStyle: { color: "rgba(255,255,255,.15)" } }, axisLabel: { color: "#7f8b91" } });
+  const yv = (fmt) => ({ type: "value", splitLine: { lineStyle: { color: "rgba(255,255,255,.06)" } }, axisLabel: { color: "#7f8b91", formatter: fmt } });
+  const novo = (el, opt) => { if (!el) return; const g = echarts.init(el, null, { renderer: "svg" }); g.setOption({ ...tema, ...opt });
+    g.on("click", (p) => setAno(+p.name)); graficos.push(g); };
+  const cs = base ? H.comercio.brasil : H.comercio.paises[id];
+  if (cs) novo(document.getElementById("gComercio"), {
+    tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem dado" : bi(v)) },
+    legend: { data: ["Brasil exportou", "Brasil importou"], textStyle: { color: "#b7c0c2" }, top: 0, right: 0 },
+    xAxis: eixo(H.comercio.inicio, H.comercio.fim), yAxis: yv((v) => (v / 1e9).toLocaleString("pt-BR") + " bi"),
+    series: [{ name: "Brasil exportou", type: "line", data: cs.e, connectNulls: false, symbolSize: 5, itemStyle: { color: "#8fd3b6" }, markLine: marca() },
+      { name: "Brasil importou", type: "line", data: cs.i, connectNulls: false, symbolSize: 5, itemStyle: { color: "#aad7f0" } }] });
+  const u = H.onu.paises[id];
+  if (u) novo(document.getElementById("gOnu"), {
+    tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem dado" : `${Math.round(v * 100)} de 100`) },
+    legend: { data: [nomeH(id), "Mediana dos países"], textStyle: { color: "#b7c0c2" }, top: 0, right: 0 },
+    xAxis: eixo(H.onu.inicio, H.onu.fim), yAxis: { ...yv((v) => Math.round(v * 100)), min: 0, max: 1 },
+    series: [{ name: nomeH(id), type: "line", data: u, connectNulls: false, symbolSize: 4, itemStyle: { color: "#aad7f0" }, markLine: marca() },
+      { name: "Mediana dos países", type: "line", data: H.onu.mediana, symbol: "none", lineStyle: { type: "dotted", color: "#7f8b91" }, itemStyle: { color: "#7f8b91" } }] });
+  const k = H.conflitos.paises[id];
+  if (k) {
+    const anos = Array.from({ length: H.conflitos.fim - H.conflitos.inicio + 1 }, (_, i) => H.conflitos.inicio + i);
+    const linha = (fn) => anos.map((a) => { const x = k[String(a)]; return x ? fn(x) : null; });
+    novo(document.getElementById("gConflitos"), {
+      grid: { left: 110, right: 14, top: 8, bottom: 26 },
+      tooltip: { trigger: "item", formatter: (p) => `${p.name}: ${p.seriesName}` },
+      xAxis: eixo(H.conflitos.inicio, H.conflitos.fim), yAxis: { type: "category", data: ["Com tropas", "Como lado", "No território"], axisLabel: { color: "#b7c0c2" }, axisLine: { show: false } },
+      series: [
+        { name: "no território", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: linha((x) => (x.t ? 2 : null)),
+          itemStyle: { color: (p) => (k[p.name]?.t >= 2 ? "rgba(226,120,100,.95)" : "rgba(226,160,120,.65)") }, markLine: marca() },
+        { name: "como lado principal", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: linha((x) => (x.l ? 1 : null)), itemStyle: { color: "#aad7f0" } },
+        { name: "com tropas de apoio", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: linha((x) => (x.a ? 0 : null)), itemStyle: { color: "rgba(226,190,150,.6)" } }] });
+  }
+}
+function atualizarAnoPainel() {
+  if (!selecionado || !H) return;
+  const $k = document.getElementById("kpisAno"); if ($k) $k.innerHTML = kpisAno(selecionado.id);
+  document.querySelectorAll("#painel .ano-txt").forEach((x) => (x.textContent = anoSel));
+  graficos.forEach((g) => { const o = g.getOption(); g.setOption({ series: [{ markLine: marca() }] }); });
+}
+
+// lista de países (modo lista e sem WebGL): todos com dado, do maior para o menor comércio no ano
+function renderListaHistoria() {
+  const ids = Object.keys(H.paises).filter((id) => H.comercio.paises[id] || H.onu.paises[id]);
+  const tot = (id) => comercioDe(id, Math.min(anoSel, H.comercio.fim))?.t || 0;
+  ids.sort((a, b) => (a === "076" ? -1 : b === "076" ? 1 : tot(b) - tot(a)));
+  const a = Math.min(anoSel, H.comercio.fim);
+  document.getElementById("lista").innerHTML = `<p class="nota-lista">${ids.length} países, do maior para o menor comércio com o Brasil em ${a}.</p>
+    <ol>${ids.map((id) => `<li><button type="button" data-id="${id}">${esc(nomeH(id))}<span>${id === "076" ? "ponto de vista" : tot(id) ? bi(tot(id)) : "–"}</span></button></li>`).join("")}</ol>`;
+  document.querySelectorAll("#lista button[data-id]").forEach((b) => (b.onclick = () => { if (globo) modo("globo"); abrir(featureDe(b.dataset.id)); }));
+}
+
 function renderResumo() {
+  if (H && !NOTICIAS) return renderResumoHistoria();
   const $r = document.getElementById("resumo");
   $r.innerHTML = `<div class="cab"><div class="kicker">Seu ponto de partida</div><h2>Mundo agora</h2>
       <p class="sub">O que está acontecendo e como chega ao Brasil. Clique num país para ver a relação dele com o Brasil.</p></div>
@@ -732,6 +1042,7 @@ function renderResumo() {
 
 // ---------- lista de países (alternativa ao globo; funciona também sem WebGL) ----------
 function renderLista() {
+  if (H && !NOTICIAS) return renderListaHistoria();
   const tot = (id) => { const c = M?.paises?.[id]?.comercio; return c ? (c.exportacao?.fob || 0) + (c.importacao?.fob || 0) : 0; };
   const ids = Object.keys(FOCO).filter((id) => !FOCO[id].base).sort((a, b) => tot(b) - tot(a));
   document.getElementById("lista").innerHTML = `<p class="nota-lista">Países com dados, do maior para o menor comércio com o Brasil em ${esc(M?.ano_comercio || "")}.</p>
@@ -757,7 +1068,8 @@ function abrir(f) {
   if (globo) {
     globo.polygonCapColor(cor).polygonAltitude((p) => (p === selecionado ? 0.03 : 0.006));
     globo.controls().autoRotate = false;
-    globo.pointOfView(enquadrar(foco ? { lat: foco.lat, lng: foco.lng, altitude: foco.alt } : centro(f)), reduzir ? 0 : 1300);
+    const alvo = foco ? { lat: foco.lat, lng: foco.lng, altitude: foco.alt } : f.geometry ? centro(f) : null;   // fora do mapa: sem zoom
+    if (alvo) globo.pointOfView(enquadrar(alvo), reduzir ? 0 : 1300);
   }
   renderPainel(f);
   document.getElementById("conteudo").scrollTop = 0;
@@ -767,6 +1079,7 @@ function abrir(f) {
 function renderPainel(f) {
   $painel.innerHTML = painelPais(f);
   $painel.querySelector(".fechar").onclick = mundo;
+  if (H && !NOTICIAS) requestAnimationFrame(() => desenharGraficos(f));
   const lista = FOCO[f.id]?.base ? (N?.mundo || []) : FOCO[f.id] ? (N?.paises?.[f.id] || [])
     : [...new Map([N?.mundo || [], ...Object.values(N?.paises || {})].flat().filter((m) => (m.paises || []).includes(f.id)).map((m) => [m.url, m])).values()];
   $painel.querySelectorAll(".abas button").forEach((b) => (b.onclick = () => {
@@ -841,7 +1154,8 @@ function iniciar(atlas) {
     .polygonStrokeColor(() => css("--stroke"))
     .polygonAltitude(0.006)
     .polygonsTransitionDuration(reduzir ? 0 : 300)
-    .polygonLabel((f) => `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${camada === "noticias" && calor
+    .polygonLabel((f) => H && !NOTICIAS ? `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${anoSel} · ${esc(IND[ind].rot)}: ${esc(fmtValor(valor(f.id)))}</span></div>`
+      : `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${camada === "noticias" && calor
       ? `${calor[f.id] || 0} manchete${calor[f.id] === 1 ? "" : "s"} na aba aberta · ` : ""}${FOCO[f.id] ? "clique para abrir" : "fora do protótipo"}</span></div>`)
     .onPolygonHover((f) => { sobre = f; globo.polygonCapColor(cor); el.style.cursor = f ? "pointer" : "grab"; })
     .onPolygonClick((f) => abrir(f));
@@ -859,15 +1173,26 @@ function ligar() {
   renderEstado();
   renderResumo();
   renderLista();
-  document.getElementById("paises").innerHTML = Object.values(FOCO).map((p) => `<option value="${esc(p.nome)}">`).join("");
+  const nomesBusca = H && !NOTICIAS ? Object.values(H.paises).map((p) => p.nome).sort((a, b) => a.localeCompare(b)) : Object.values(FOCO).map((p) => p.nome);
+  document.getElementById("paises").innerHTML = nomesBusca.map((n) => `<option value="${esc(n)}">`).join("");
   document.getElementById("busca").addEventListener("change", (e) => {
     const alvo = e.target.value.trim().toLowerCase();
-    const f = paises.find((x) => nomeDe(x).toLowerCase() === alvo);
-    if (f) { modo("globo"); abrir(f); e.target.blur(); }
+    let f = paises.find((x) => nomeDe(x).toLowerCase() === alvo);
+    if (!f && H) { const id = Object.keys(H.paises).find((k) => H.paises[k].nome.toLowerCase() === alvo); if (id) f = featureDe(id); }
+    if (f) { if (globo) modo("globo"); abrir(f); e.target.blur(); }
   });
   $voltar.onclick = mundo;
   document.querySelectorAll(".modos button").forEach((b) => (b.onclick = () => modo(b.dataset.modo)));
   if (!NOTICIAS) document.querySelector(".camadas").style.display = "none";
+  if (H && !NOTICIAS) {
+    document.body.classList.add("historia");
+    document.getElementById("tempoCtl").hidden = false;
+    document.querySelectorAll("[data-ind]").forEach((b) => (b.onclick = () => setInd(b.dataset.ind)));
+    document.getElementById("ano").oninput = (e) => setAno(+e.target.value);
+    document.getElementById("play").onclick = tocar;
+    document.querySelector(".titulo-globo").lastChild.textContent = " O mundo visto do Brasil";
+    recalcEscala(); renderControle();
+  }
   document.querySelectorAll(".camadas button").forEach((b) => (b.onclick = () => {
     camada = b.dataset.camada;
     document.querySelectorAll(".camadas button").forEach((x) => x.setAttribute("aria-pressed", x === b));
@@ -893,7 +1218,8 @@ function ligar() {
     modo("lista");
   }
   const inicial = decodeURIComponent(location.hash.slice(1));
-  const f0 = inicial && paises.find((x) => nomeDe(x) === inicial);
+  let f0 = inicial && paises.find((x) => nomeDe(x) === inicial);
+  if (!f0 && inicial && H) { const id = Object.keys(H.paises).find((k) => H.paises[k].nome === inicial); if (id) f0 = featureDe(id); }
   if (f0) setTimeout(() => abrir(f0), 400);
   dadosFrescos().catch(() => {});  // sem rede para o GitHub: fica a cópia que veio com o site
 })();
