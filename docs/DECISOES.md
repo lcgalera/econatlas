@@ -253,3 +253,25 @@ a mostrar a relação histórica e geopolítica de todos os países com o Brasil
 **Como:** `NOTICIAS = false` no topo do script do globo esconde abas, filtros, mapa de calor e blocos de manchetes, e o globo não busca mais
 `noticias.json`. Os agendamentos do workflow Globo saíram (ficam comentados no arquivo, para reativar); a coleta passa a ser só à mão.
 O código das notícias (`rss.py`, `gdelt.py`, marcação de países e assuntos) e os testes continuam no repositório.
+
+### D46 · 05/11/2026 · Retrato histórico de todos os países com o Brasil, com seletor de ano
+**Pedido:** portfólio com a relação histórica e geopolítica de todos os países com o Brasil, mais interativo, sem atualização recorrente.
+**Tabela de países** (`rotzx/mundo/codigos.py` → `catalog/paises_mundo.csv`, versionada): 249 países com ISO numérico (id do mapa), ISO3,
+nome em português de uso comum, códigos do Comex Stat, COW (ONU) e GW (UCDP). ISO e nomes oficiais vêm do pycountry (iso-codes do Debian).
+O casamento por nome tem exceções escritas à mão e testadas: o "Congo" do Comex é a República do Congo; Dubai soma nos Emirados e Inglaterra
+no Reino Unido; Alemanhas, Iêmens e Vietnã do Sul vão para os países de hoje (o painel avisa: fronteiras atuais).
+**Coleta de uma vez** (`rotzx mundo-atualizar --historico` → `prototipos/globo/dados/historia.json|js`):
+- comércio por país e ano de 1997 a 2025 numa consulta por fluxo (a API devolve `coAno`);
+- produtos de todos os países num ano numa consulta (pares país × SH4), para 2000 e 2025;
+- concordância na ONU de 1946 a 2024, com a mediana anual;
+- conflitos por ano de 1946 a 2025: no território, como lado, com tropas;
+- disputas na OMC com o Brasil;
+- Banco Mundial para todos os países.
+Ano sem dado fica nulo, nunca zero.
+**Interface:**
+- Embaixo do globo: indicador (Comércio, Saldo, Votos na ONU, Conflitos), ano de 1946 a 2025 e ▶. O globo pinta os países pelo indicador
+  no ano e avisa quando o ano está fora da cobertura da fonte.
+- À direita: ranking do ano, conflitos do ano e fontes.
+- Painel de qualquer país, com gráficos (ECharts 5.5.0, a mesma versão do resto do site). Clicar num ponto muda o ano.
+**Itamaraty:** o site responde com um desafio anti-robô (página de JavaScript), então não dá para ler nem conferir a página de cada país. O painel
+leva ao índice oficial de relações bilaterais e diz para procurar o país lá; nenhuma "história" é escrita de cabeça.

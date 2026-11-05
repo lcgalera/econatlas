@@ -1,8 +1,8 @@
 # rotzx — documentação do projeto
 
-Estado em 05/11/2026 (v0.13 e o globo com as decisões até D44). Este documento descreve o projeto inteiro: o que ele faz,
+Estado em 05/11/2026 (v0.13 e o globo com as decisões até D46). Este documento descreve o projeto inteiro: o que ele faz,
 de onde vem cada dado, como as peças se encaixam e como operar. O porquê de cada escolha está em [`DECISOES.md`](DECISOES.md)
-(D1–D44). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
+(D1–D46). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
 
 - Repositório: https://github.com/lcgalera/rotzx
 - Site público: https://lcgalera.github.io/rotzx/
@@ -71,7 +71,7 @@ forecast/, analysis/, intelligence/ ──► registro/*.csv (previsões)  ─�
 | `registro/` | previsões públicas e coletas (CSV, só acréscimos) |
 | `historico/` | SIGET (coletas, eventos, estado) e leilões de transmissão (CSV, só acréscimos; ODbL) |
 | `avaliacoes/` | avaliação humana de relevância do SIGET (conjunto de teste das regras) |
-| `tests/` | pytest: 140 testes + 1 pulado (inclui as guardas do repositório público) |
+| `tests/` | pytest: 146 testes + 1 pulado (inclui as guardas do repositório público) |
 | `docs/` | avaliações, diagnósticos, fontes, mercado, validação, motor, contexto, leilões, decisões, este documento e o prompt |
 | `privado/`, `data/`, `site/`, `docs/DIARIO.md` | só locais, fora do git |
 
@@ -92,6 +92,8 @@ forecast/, analysis/, intelligence/ ──► registro/*.csv (previsões)  ─�
 | Disputas na OMC (site da OMC) | globo: sinais e visão externa | site oficial | lido como texto; países da UE aparecem pela UE (D42) |
 | UCDP/PRIO Armed Conflict Dataset (Uppsala) | globo: conflitos armados | CC BY 4.0 | 25+ mortes em combate/ano; conta tropas de missões multinacionais como apoio (D43) |
 | NASA Blue Marble (via `three-globe@2.45.6`) | imagem do planeta | domínio público (pacote MIT) | tingida de verde-petróleo |
+| ISO 3166 (pycountry / iso-codes do Debian) | tabela de países | LGPL (dados ISO) | só para gerar `catalog/paises_mundo.csv` (D46) |
+| Itamaraty — relações bilaterais | link no painel | site oficial | desafio anti-robô: só o índice, sem conferir página por país (D46) |
 | Natural Earth 1:110m (via `world-atlas@2.0.2`) | contornos dos países | domínio público (pacote ISC) | ids = ISO 3166 numérico |
 
 Ficaram de fora, com motivo registrado: FMI (barra acesso automatizado, D39); blocos e alianças pelo Wikidata (erros
@@ -117,61 +119,56 @@ Fases (detalhes em `docs/02`, `03`, `06`, `07`, `08`):
 
 Pendente: conversas com compradores antes de construir interface (D29), nova amostra fora da amostra, janela por categoria.
 
-## 7. Frente 3 — O mundo visto do Brasil (globo)
+## 7. Frente 3 — O mundo visto do Brasil (globo, retrato histórico)
 
-### O que a pessoa vê
+Desde 05/11/2026 o globo é um **portfólio histórico**: a relação de todos os países com o Brasil de 1946 a 2025, coletada de uma vez,
+sem atualização recorrente (D45, D46). As notícias estão **pausadas e escondidas** (`NOTICIAS = false` no topo do script); o código das
+manchetes (seção 7.4) continua no repositório para voltar no futuro.
 
-Um quadro dividido em dois, com uma barra em cima (D41 e redesenho de 04/11):
+### 7.1 O que a pessoa vê
 
-- **Barra de cima:** marca, estado dos dados (hora das manchetes, ano do comércio, votos na ONU, OMC, conflitos; aviso se algum feed falhou), "Fontes e método", busca.
-- **Esquerda — Visão mundial:** globo 3D (Blue Marble tingida, relevo, meridianos) que começa com o Brasil de frente e gira devagar;
-  alternância **Globo / Lista de países** (a lista substitui o globo sem WebGL); zoom +/−; camada **Notícias** (mapa de calor:
-  países pintados pelo número de manchetes da aba aberta) ou **Países com dados**.
-- **Direita — Mundo agora:** abas
-  - **Agora** e **No Brasil:** filtros por categoria com contagem; botões **Onde** (países citados) que filtram;
-    **Assuntos mais cobertos** no topo (grupos de manchetes com palavras em comum, ordenados por número de veículos);
-    o resto em **linha do tempo** por dia, com hora de Brasília (D44).
-  - **Conflitos:** conflitos armados do último ano, os mais intensos primeiro (D43).
-  - **Comércio do Brasil:** exportações, importações, saldo e maiores parceiros (clicáveis).
-- **Painel do país** (substitui o resumo ao clicar): relação com o Brasil (resumo descritivo, KPIs, 5 produtos de cada lado),
-  **Sinais da relação** (comércio, votos na ONU, disputas na OMC), visão externa na OMC, **conflitos armados** 2021–2025,
-  economia (Banco Mundial) e manchetes com abas por categoria. Países fora dos 20 abrem um painel com as manchetes que os citam.
-- Link direto por país: `globo/#China`. Esc ou "← Mundo" volta.
+- **Barra de cima:** marca, cobertura dos dados, "Fontes e método", busca (todos os países).
+- **Esquerda:** globo 3D (Blue Marble tingida, relevo, meridianos), Brasil sempre em verde; **Globo / Lista de países** (a lista substitui o
+  globo sem WebGL); zoom; e o **controle do tempo**: indicador (**Comércio**, **Saldo**, **Votos na ONU**, **Conflitos**), barra de ano
+  1946–2025 e **▶** (avança ano a ano). O globo pinta cada país pelo indicador no ano; sem dado = cinza; fora da cobertura da fonte, a
+  legenda avisa ("comércio só desde 1997").
+- **Direita, sem país aberto — "O Brasil e o mundo em [ano]":** abas **Ranking** (números do ano + lista clicável: maiores parceiros,
+  maiores superávits e déficits, quem mais e menos votou com o Brasil, onde houve conflito), **Conflitos do ano** e **Fontes**.
+- **Painel do país** (248 países): números do ano escolhido; gráficos de **comércio 1997–2025**, **votos na ONU 1946–2024** contra a mediana
+  dos países e **conflitos por ano** (no território, como lado, com tropas) — clicar num ponto muda o ano; **produtos 2000 × 2025** de cada
+  lado; **disputas na OMC** com o Brasil; **economia** (Banco Mundial); para os 20 países do primeiro protótipo, também os **sinais da
+  relação**; link para as **relações bilaterais no Itamaraty** (índice oficial; o site não permite conferir a página de cada país).
+- Link direto por país: `globo/#Argentina`. Esc ou "← Mundo" volta.
 
-### Dados (`prototipos/globo/dados/`)
+### 7.2 Dados
 
-Gerados por `rotzx mundo-atualizar`; cada arquivo existe em `.json` e em `.js` (`window.MUNDO` / `window.NOTICIAS`), para a página funcionar também aberta como arquivo local.
-Ao abrir, o globo busca a versão mais nova em `raw.githubusercontent.com/lcgalera/rotzx/main/prototipos/globo/dados/` e fica com a cópia se falhar.
+`catalog/paises_mundo.csv` (D46): uma linha por país — `iso_num` (id do mapa), `iso3`, `nome`, `comex` (códigos do Comex Stat, separados por
+`|`), `cow` (ONU), `gw` (UCDP), `no_mapa`. Gerado por `rotzx mundo-codigos`; exceções escritas à mão em `rotzx/mundo/codigos.py`.
 
-`mundo.json`:
-- `gerado_em`, `ano_comercio`, `fontes` (nome, url, licença, nota de cada fonte), `falhas`
-- `paises[iso_num]`: `nome`, `artigo`, `iso3`, `resumo`, `comercio` (exportacao/importacao com fob, participacao, posicao; saldo; produtos_exportados/importados SH4),
-  `economia` (indicadores do Banco Mundial), `relacoes.onu` (concordancia, media, anos_media, posicao, de), `relacoes.omc` (com_brasil, recentes, contrapartes, via_ue, total),
-  `relacoes.conflitos` (lista com local, lados, papel, anos_pais, tipo, disputa, intensidade, url)
-- `paises["076"]` (Brasil): também `comercio_total` e `maiores_parceiros` (15)
-- `onu` (ano, mediana, versão), `conflitos` (ultimo_ano, desde, versao, mundo.ativos/total/guerras), `relacoes_em`
+`prototipos/globo/dados/historia.json|js` (`window.HISTORIA`, ~1,3 MB), gerado por `rotzx mundo-atualizar --historico`:
+- `paises[iso_num]`: `nome`, `iso3`, `no_mapa`
+- `comercio`: `inicio` (1997), `fim`, `paises[iso_num].e|i` (US$ FOB por ano, `null` sem dado), `paises[iso_num].p[ano].e|i`
+  (5 produtos: `[sh4, fob, participação]`, para 2000 e o último ano), `brasil.e|i` (totais), `sh4` (código → nome oficial)
+- `onu`: `inicio` (1946), `fim`, `paises[iso_num]` (concordância 0–1 por ano), `mediana` (por ano)
+- `conflitos`: `inicio`, `fim`, `paises[iso_num][ano]` = `{t: intensidade no território (0, 1, 2), l: nº como lado, a: nº com tropas}`,
+  `por_ano[ano]` (lista: local, lados, tipo, disputa, território, guerra, países no mapa)
+- `omc[iso_num]`: `via_ue`, `casos` (ds, ano, título, quem abriu, situação, link)
+- `economia[iso_num]`: indicadores do Banco Mundial, valor mais recente
+- `gerado_em`, `falhas`
 
-`noticias.json`:
-- `gerado_em`, `fonte`, `dias`, `falhas`, `diagnostico`, `nomes` (iso_num → nome em português, para os 55 países marcáveis)
-- `paises[iso_num]`: até 60 manchetes dos últimos 7 dias que citam o país no título
-- `mundo`: até 100 manchetes de geopolítica e temas globais dos últimos 2 dias
-- cada manchete: `titulo`, `url`, `veiculo`, `data` (AAAAMMDD), `hora` (HH:MM, Brasília, vazia sem fuso), `dominio`, `categorias`, `paises` (citados)
+`mundo.json` (D39–D43) continua com o painel detalhado dos 20 países do primeiro protótipo (sinais da relação, conflitos 2021–2025).
 
-### Regras de texto e marcação
+### 7.3 Coleta
 
-- Manchete só entra num país se o título o cita, **com acento e palavra inteira** ("França" ≠ Franca, SP). Termos ambíguos ficam de fora
-  ("peru", "sírio", "libanês", "maduro", "português"). Lista em `rotzx/mundo/paises.py` (`PAISES` e `MENCOES`).
-- Categorias (economia, política, geopolítica, afeta o mundo) por expressões regulares ancoradas em início de palavra (`rotzx/mundo/gdelt.py`).
-- O resumo do país só descreve números do Comex Stat; nomes de produtos SH4 ficam na tabela, completos.
-- Assuntos: duas ou mais palavras do título em comum (fora as vazias e os países); critério de destaque = número de veículos.
+Tudo de uma vez, à mão (`workflow_dispatch` do workflow Globo, ou localmente): o Comex Stat entrega o histórico inteiro em 6 consultas
+(~2 min). Os arquivos da ONU e da UCDP ficam em `data/fontes/mundo/` (fora do git). Para refazer: `rotzx mundo-codigos` (se mudar a lista
+de países) e `rotzx mundo-atualizar --historico`.
 
-### Coleta
+### 7.4 Notícias (pausadas)
 
-| Quando | O quê | Onde |
-|---|---|---|
-| todo dia, 6h41 de Brasília | manchetes (RSS + GDELT) | `globo.yml` → commit em `prototipos/globo/dados/` na `main` |
-| todo dia 15 | comércio (~10 min, limite do Comex Stat), economia, ONU, OMC, conflitos | `globo.yml` |
-| push em `claude/**` que mexa em `rotzx/mundo/` | testes + manchetes, para testar o coletor | `globo.yml` |
+Código pronto e testado: feeds RSS + GDELT (`rss.py`, `gdelt.py`), hora de Brasília, países citados (`MENCOES`), assuntos por palavras em
+comum, linha do tempo e mapa de calor (D40, D44). Para voltar: `NOTICIAS = true` no globo e os agendamentos comentados em `globo.yml`.
+Regras que continuam valendo: só título, veículo, data e link; país citado com acento e palavra inteira, sem termos ambíguos.
 
 ## 8. Automação (GitHub Actions)
 
@@ -179,7 +176,7 @@ Ao abrir, o globo busca a versão mais nova em `raw.githubusercontent.com/lcgale
 |---|---|---|
 | `rotina-mensal.yml` | dias 12 e 20, ou à mão | testes, registro, dados abertos, previsões, backtest, calibração, verificação do registro, build do site, commit e deploy no Pages |
 | `radar-siget.yml` | toda segunda, ou à mão | histórico do SIGET, eventos, contexto, relatório (artefato 90 dias), commit de `historico/` |
-| `globo.yml` | diário e dia 15 (ver acima) | coleta do globo e commit dos dados |
+| `globo.yml` | só à mão (agendamentos pausados, D45) | testes; retrato histórico (`--historico`) e commit dos dados |
 
 Actions em Node 24 (D36). Python 3.9 no Actions e no Mac; não atualizar `setup-python` para v7 sem migrar o Python.
 O site só muda quando a rotina mensal roda; as manchetes do globo ficam frescas sem republicar, porque a página lê os dados do repositório.
@@ -199,7 +196,8 @@ O site só muda quando a rotina mensal roda; as manchetes do globo ficam frescas
 | `qualidade` | verificações de consistência |
 | `fonte-explorar`, `siget-atualizar`, `siget-amostra`, `siget-historico-exportar/importar` | radar de oportunidades |
 | `leiloes-importar arquivo.xlsx`, `contexto-atualizar`, `oportunidades [--perfil] [--top]` | leilões, contexto, relatório |
-| `mundo-atualizar [--ano A] [--sem-noticias] [--so-noticias] [--so-relacoes]` | dados do globo |
+| `mundo-atualizar [--ano A] [--historico] [--sem-noticias] [--so-noticias] [--so-relacoes]` | dados do globo (`--historico`: retrato de todos os países) |
+| `mundo-codigos [--atlas arquivo]` | gera `catalog/paises_mundo.csv` |
 | `servir` | interface local em http://127.0.0.1:8000 (o globo fica em `/globo`) |
 
 ## 10. Como rodar
@@ -208,7 +206,7 @@ O site só muda quando a rotina mensal roda; as manchetes do globo ficam frescas
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m rotzx atualizar
 .venv/bin/python -m rotzx servir                 # http://127.0.0.1:8000
-.venv/bin/python -m pytest -q                    # 140 passam, 1 pulado
+.venv/bin/python -m pytest -q                    # 146 passam, 1 pulado
 ```
 
 Só o globo: `python3 -m http.server 8000 --directory prototipos/globo` e abrir http://localhost:8000 (precisa de internet para as bibliotecas e de WebGL;
@@ -216,7 +214,7 @@ sem WebGL, a lista de países assume).
 
 ## 11. Testes e guardas
 
-- 140 testes (`tests/`), com fixtures sintéticas **no formato real** das fontes e valores inventados, marcados como tal.
+- 146 testes (`tests/`), com fixtures sintéticas **no formato real** das fontes e valores inventados, marcados como tal.
 - Guardas do repositório público: falham se um arquivo versionado estiver em pastas privadas ou citar um código do catálogo da Macrodados.
 - Varredura do build: falha se o site tiver id, código, nome ou sequência de valores (inclusive derivados) de série pessoal.
 - Globo: testes de marcação de países (inclusive falsos positivos), categorias, hora de Brasília, ONU, OMC, UCDP, isolamento de falhas entre fontes.
@@ -224,7 +222,8 @@ sem WebGL, a lista de países assume).
 
 ## 12. Limitações conhecidas
 
-- Globo: 20 países com dados completos (mais o Brasil); 34 outros só com manchetes. A lista final deve sair do ranking de comércio.
+- Globo: retrato fechado (sem atualização automática); fronteiras atuais para países que não existem mais; o painel detalhado dos
+  "sinais da relação" só existe para os 20 países do primeiro protótipo.
 - Agrupamento de assuntos, categorias e países citados são automáticos e podem errar (a página avisa).
 - O índice de votos na ONU muda com a pauta do ano; por isso aparece a média de 5 anos.
 - A OMC não dá encerramento formal a muitos casos antigos; o sinal conta disputas abertas nos últimos 5 anos, não "em aberto".
@@ -254,4 +253,4 @@ sem WebGL, a lista de países assume).
 | D25–D27, D35 | nome rotzx e comunicação sem exagero |
 | D28–D34, D37 | radar de oportunidades (SIGET, avaliação, motor, histórico, contexto, leilões) |
 | D36 | Actions em Node 24 |
-| D38–D44 | o mundo visto do Brasil (globo, fontes, publicação, relações, conflitos, manchetes) |
+| D38–D46 | o mundo visto do Brasil (globo, fontes, publicação, relações, conflitos, manchetes, pausa das notícias, retrato histórico) |

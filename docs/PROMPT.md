@@ -15,13 +15,13 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
    materiais elétricos (IBGE 3.27) registradas antes de os dados saírem, com placar público (registro/*.csv, só acréscimos).
 2. Radar de oportunidades em transmissão de energia (B2B): projetos do SIGET/ANEEL com evidência por regra (R1–R5),
    score explicado, histórico semanal (historico/*.csv), leilões e contexto econômico.
-3. "O mundo visto do Brasil" (https://lcgalera.github.io/rotzx/globo/): globo interativo em que cada país mostra a
-   relação com o Brasil (Comex Stat), sinais medidos (votos na ONU, disputas na OMC), conflitos armados (UCDP),
-   economia (Banco Mundial) e manchetes organizadas por assunto, dia e lugar (RSS + GDELT). É a frente em foco agora.
+3. "O mundo visto do Brasil" (https://lcgalera.github.io/rotzx/globo/): portfólio histórico em que cada país mostra a
+   relação com o Brasil de 1946 a 2025 — comércio (Comex Stat), votos na ONU, conflitos armados (UCDP), disputas na OMC
+   e economia (Banco Mundial) —, com seletor de ano no globo. É a frente em foco agora; as notícias estão pausadas.
 
 ## Leia antes de mudar qualquer coisa
 - docs/PROJETO.md (visão geral, fontes, arquitetura, esquemas dos dados do globo, automação, limitações)
-- docs/DECISOES.md (D1–D44: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
+- docs/DECISOES.md (D1–D46: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
 - README.md e prototipos/globo/LEIAME.md
 
 ## Regras que não podem ser quebradas
@@ -40,14 +40,14 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
 
 ## Como trabalhar
 - Python 3.9, dependências fixas em requirements.txt; .venv/bin/python -m rotzx <comando>; testes: .venv/bin/python -m pytest -q
-  (140 passam e 1 é pulado em 05/11/2026). Rode os testes antes de cada commit.
+  (146 passam e 1 é pulado em 05/11/2026). Rode os testes antes de cada commit.
 - Interface sem build: HTML/JS com bibliotecas por CDN com versão exata (globe.gl@2.46.2, topojson-client@3.1.0,
   world-atlas@2.0.2, three-globe@2.45.6 para as texturas). O globo é uma página só: prototipos/globo/index.html.
 - Teste a interface num navegador sem tela (Playwright/Chromium com WebGL por software) em desktop e celular
   (1440×900 e 390×844), sem erros de página e sem rolagem horizontal.
 - Dados do globo: rotzx mundo-atualizar [--so-noticias | --so-relacoes | --sem-noticias]. Coletores em rotzx/mundo/.
   Cada fonte que falha vai para "falhas" e não derruba as outras nem apaga dados bons.
-- Automação: .github/workflows/globo.yml (manchetes diárias; comércio, ONU, OMC e conflitos no dia 15),
+- Automação: .github/workflows/globo.yml (só à mão: retrato histórico; agendamentos pausados),
   rotina-mensal.yml (publica o site; dias 12 e 20), radar-siget.yml (segundas). O site só muda quando a rotina
   mensal roda; o globo lê os dados frescos do repositório ao abrir.
 - Git: trabalhe numa branch, commits em português com mensagem clara (o quê e por quê). Não reescreva histórico
@@ -57,12 +57,12 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
 - Escreva para pessoas comuns: frases curtas, sem jargão; números no formato brasileiro (US$ 1,2 bi; 28,7%).
 
 ## Estado e próximos passos (05/11/2026)
-- Globo publicado com: tela dividida (globo | Mundo agora), barra de estado, abas Agora / No Brasil / Conflitos /
-  Comércio do Brasil, assuntos mais cobertos, linha do tempo com hora de Brasília, filtro "Onde", mapa de calor de
-  manchetes, painel por país com sinais da relação, conflitos 2021–2025 e economia; 20 países com dados + Brasil,
-  e mais 34 países só com manchetes.
-- Ideias na fila: "Por que importa para o Brasil" (texto curto com fonte de cada número e interpretação marcada);
-  camada de conflitos no mapa; mais países pelo ranking de comércio; mais veículos; blocos e alianças de fonte oficial.
+- O globo é um portfólio histórico (D45, D46): todos os países × Brasil de 1946 a 2025, com seletor de ano e ▶, indicadores
+  (comércio, saldo, votos na ONU, conflitos) pintando o globo, ranking do ano e painel por país com gráficos (ECharts 5.5.0).
+  Dados em prototipos/globo/dados/historia.json (rotzx mundo-atualizar --historico) e catalog/paises_mundo.csv (rotzx mundo-codigos).
+  Sem coleta recorrente. Notícias pausadas e escondidas (NOTICIAS = false), com código e testes guardados para voltar.
+- Ideias na fila: "Por que importa para o Brasil" (texto curto com fonte de cada número e interpretação marcada); blocos e
+  alianças de fonte oficial; volta das notícias como frente principal.
 - Radar: setorial_v2 (faixas estreitas, 61–69% para meta de 80%); primeiras avaliações do IPCA (nov/2026) e da
   indústria (dez/2026); validação com compradores antes da interface do radar de oportunidades.
 

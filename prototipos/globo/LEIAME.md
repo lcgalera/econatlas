@@ -1,4 +1,12 @@
-# Protótipo: o mundo visto do Brasil (D38)
+# O mundo visto do Brasil (D38–D46)
+
+**Desde 05/11/2026 (D45, D46):** portfólio histórico. Todos os países × Brasil de 1946 a 2025 (comércio, votos na ONU, conflitos, OMC,
+economia), com indicador, barra de ano e ▶ embaixo do globo, ranking do ano à direita e painel por país com gráficos (ECharts 5.5.0 pela
+cdnjs). Dados em `dados/historia.json|js` (`rotzx mundo-atualizar --historico`), tabela de países em `catalog/paises_mundo.csv`.
+Notícias pausadas e escondidas (`NOTICIAS = false`). O texto abaixo registra as versões anteriores.
+
+---
+
 
 Abra `index.html` no navegador (precisa de internet para as bibliotecas e de WebGL).
 
