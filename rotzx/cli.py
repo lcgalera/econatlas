@@ -227,7 +227,10 @@ def main(argv=None):
     mu.add_argument("--ano", default=None, help="ano do comércio (padrão: o último ano completo)")
     mu.add_argument("--sem-noticias", action="store_true", help="não busca manchetes")
     mu.add_argument("--so-noticias", action="store_true", help="só manchetes (não refaz o comércio, que leva ~10 min)")
+    mu.add_argument("--historico", action="store_true", help="D46: retrato histórico de todos os países (historia.json), coleta de uma vez")
     mu.add_argument("--so-relacoes", action="store_true", help="só votos na ONU, disputas na OMC e conflitos armados (D42, D43)")
+    mc = sub.add_parser("mundo-codigos", help="D46: gera catalog/paises_mundo.csv (ISO, Comex Stat, COW, GW e mapa)")
+    mc.add_argument("--atlas", default=None, help="cópia local do countries-110m.json (world-atlas), se o CDN não estiver ao alcance")
     sub.add_parser("contexto-atualizar", help="Fase 5: baixa só as séries públicas usadas no contexto do radar (catalog/contexto_radar.json)")
     sub.add_parser("siget-historico-exportar", help="acrescenta coletas e eventos novos a historico/*.csv (nunca reescreve)")
     sub.add_parser("siget-historico-importar", help="carrega historico/*.csv num banco novo (ex.: GitHub Actions)")
@@ -345,7 +348,11 @@ def main(argv=None):
         print(al.ATRIBUICAO)
     elif args.cmd == "mundo-atualizar":
         from .mundo import build as mb
-        if args.so_relacoes:
+        if args.historico:
+            from .mundo import historia
+            h = historia.montar(mb.SAIDA, mb.BRUTOS, args.ano)
+            print(f"história: {sum(1 for p in h['paises'].values())} países; falhas: {h['falhas']}")
+        elif args.so_relacoes:
             m = mb.relacoes()
             print(f"relações: ONU {m.get('onu', {}).get('ano', '–')}, OMC; falhas: {m.get('falhas', {})}")
         elif args.so_noticias:
@@ -354,6 +361,9 @@ def main(argv=None):
         else:
             m = mb.montar(args.ano, com_noticias=not args.sem_noticias)
             print(f"globo: {len(m['paises'])} países, comércio de {m['ano_comercio']} -> {mb.SAIDA.relative_to(config.ROOT)}")
+    elif args.cmd == "mundo-codigos":
+        from .mundo import build as mb, codigos
+        codigos.montar(mb.BRUTOS / "onu", mb.BRUTOS / "ucdp", Path(args.atlas) if args.atlas else None)
     elif args.cmd == "contexto-atualizar":
         from .intelligence import contexto as ctxm
         update(ctxm.series_usadas())

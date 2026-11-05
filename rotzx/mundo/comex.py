@@ -66,3 +66,20 @@ def produtos(ano: str, fluxo: str, pais_comex: str, top: int = 5, pasta: Optiona
     total = sum(float(x["vlFob"]) for x in lista) or 1.0
     lista = sorted(lista, key=lambda x: -float(x["vlFob"]))[:top]
     return [{"sh4": x["coSh4"], "produto": x["noSh4pt"], "fob": float(x["vlFob"]), "participacao": float(x["vlFob"]) / total} for x in lista]
+
+
+def serie(ano_ini: str, ano_fim: str, fluxo: str, pasta: Optional[Path] = None) -> Dict[tuple, float]:
+    """US$ FOB por (país, ano) de ano_ini a ano_fim numa consulta só: a API devolve uma linha por ano (coAno) (D46)."""
+    f = _filtro(ano_ini, fluxo, "noPaispt")
+    f["yearEnd"] = ano_fim
+    return {(x["noPaispt"], int(x["coAno"])): float(x["vlFob"]) for x in _get(f, pasta)}
+
+
+def produtos_todos(ano: str, fluxo: str, pasta: Optional[Path] = None) -> Dict[str, List[tuple]]:
+    """Todos os pares país × produto (SH4) de um ano numa consulta só: {país: [(sh4, nome do produto, US$ FOB)]} (D46)."""
+    f = _filtro(ano, fluxo, "noPaispt")
+    f["detailDatabase"] = [{"id": "noPaispt", "text": ""}, {"id": "noSh4pt", "text": ""}]
+    out: Dict[str, List[tuple]] = {}
+    for x in _get(f, pasta):
+        out.setdefault(x["noPaispt"], []).append((x["coSh4"], x["noSh4pt"].replace("\xa0", " "), float(x["vlFob"])))
+    return out

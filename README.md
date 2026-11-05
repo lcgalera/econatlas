@@ -5,7 +5,7 @@ para a produção da indústria de máquinas e materiais elétricos nos próximo
 e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câmbio, atividade, renda, crédito) dá o contexto.
 
 - **Site público:** https://lcgalera.github.io/rotzx/ (comece por "Leitura do mês: indústria de materiais elétricos")
-- **O mundo visto do Brasil:** https://lcgalera.github.io/rotzx/globo/ (globo interativo: comércio com o Brasil, economia e manchetes por país; `prototipos/globo/`)
+- **O mundo visto do Brasil:** https://lcgalera.github.io/rotzx/globo/ (globo interativo: a relação de todos os países com o Brasil de 1946 a 2025, com seletor de ano; `prototipos/globo/`)
 - **Registro de previsões:** [`registro/`](registro/), que só recebe acréscimos (veja "Como auditar o registro")
 - **Documentação completa:** [`docs/PROJETO.md`](docs/PROJETO.md) · **prompt para continuar com uma IA:** [`docs/PROMPT.md`](docs/PROMPT.md)
 
@@ -16,7 +16,7 @@ e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câm
 | Radar Setorial | Página "Indústria de materiais elétricos: o que os juros indicam" em linguagem simples. Análise de indicadores antecedentes fora da amostra (Clark-West com correção de Holm). Previsões da indústria de máquinas e materiais elétricos (IBGE, PIM-PF, seção 3.27; não mede investimento em transmissão nem compras de concessionárias) a 3 e 6 meses, com especificação fixa `setorial_v1` e placar automático |
 | MacroForecast | Previsões mensais do IPCA (ingênuo, sazonal ingênuo, SARIMA e Focus), backtest desde 2016 e faixa de 80% empírica, com cobertura medida antes e depois |
 | Radar Brasil | 18 séries públicas do BCB, do IBGE e do Focus, com nomes e unidades conferidos nas fontes oficiais |
-| O mundo visto do Brasil | Globo interativo: comércio com o Brasil (Comex Stat), sinais da relação (votos na ONU, disputas na OMC), conflitos armados (UCDP), economia (Banco Mundial) e manchetes por assunto, dia e lugar (RSS + GDELT); 20 países com dados + Brasil, 34 só com manchetes (D38–D44) |
+| O mundo visto do Brasil | Portfólio histórico: todos os países × Brasil, 1946–2025 — comércio (Comex Stat), votos na ONU, conflitos armados (UCDP), disputas na OMC e economia (Banco Mundial) —, com seletor de ano no globo e gráficos por país. Notícias pausadas (D38–D46) |
 | Brasil x Mundo | Adiado (baixa diferenciação) |
 
 ## Dados abertos × uso pessoal
@@ -57,7 +57,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `leiloes-importar arquivo.xlsx` | Importa a planilha oficial de resultados de leilões de transmissão (baixada à mão no gov.br/aneel) para `historico/leiloes_transmissao.csv` (`docs/08-leiloes.md`) |
 | `contexto-atualizar` | Fase 5: baixa só as séries públicas do contexto econômico do radar (`catalog/contexto_radar.json`) |
 | `oportunidades [--perfil arq.json] [--top 30]` | Fase 3: oportunidades do SIGET para um perfil, com evidência por regra e score explicado; gera `relatorio.html` e CSVs em `data/relatorios/` (`docs/06-motor-de-oportunidades.md`) |
-| `mundo-atualizar [--ano A] [--sem-noticias] [--so-noticias] [--so-relacoes]` | Dados do globo em `prototipos/globo/dados/`: comércio, economia, ONU, OMC, conflitos e manchetes (`docs/PROJETO.md`, seção 7) |
+| `mundo-atualizar [--ano A] [--historico] [--sem-noticias] [--so-noticias] [--so-relacoes]` | Dados do globo em `prototipos/globo/dados/`; `--historico` gera o retrato de todos os países (`docs/PROJETO.md`, seção 7) |
+| `mundo-codigos [--atlas arquivo]` | Gera `catalog/paises_mundo.csv`, a tabela que liga Comex Stat, ONU, UCDP e o mapa (D46) |
 | `siget-amostra [--n 20] [--aleatoria]` | Visão por empreendimento do SIGET (ANEEL, licença ODbL) e amostra para avaliação manual, a partir dos arquivos baixados por `fonte-explorar` |
 
 Testes: `.venv/bin/python -m pytest -q`.
@@ -148,9 +149,11 @@ O workflow [`.github/workflows/radar-siget.yml`](.github/workflows/radar-siget.y
 carrega `historico/`, baixa o que mudou no SIGET, registra os eventos, acrescenta ao histórico, atualiza as séries do contexto, gera o relatório do perfil de demonstração
 (artefato `relatorio-radar` da execução, guardado por 90 dias) e faz o commit de `historico/`.
 
-## Globo (GitHub Actions, diário)
+## Globo (GitHub Actions, só à mão)
 
-O workflow [`.github/workflows/globo.yml`](.github/workflows/globo.yml) coleta as manchetes **todo dia** (6h41 de Brasília) e, **todo dia 15**, o comércio, a economia, os votos na ONU, as disputas na OMC e os conflitos armados; faz o commit de `prototipos/globo/dados/`. O globo publicado lê esses dados direto do repositório ao abrir, então as manchetes ficam frescas sem republicar o site.
+O workflow [`.github/workflows/globo.yml`](.github/workflows/globo.yml) não tem mais agendamento (D45): rodado à mão, refaz o retrato histórico
+(`mundo-atualizar --historico`) e faz o commit de `prototipos/globo/dados/`. A coleta das notícias está pausada; os agendamentos ficam
+comentados no arquivo para quando elas voltarem.
 
 ## Pendências
 

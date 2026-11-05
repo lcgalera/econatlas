@@ -359,3 +359,88 @@ def test_juntar_ordena_por_data_e_hora():
     a = [{"titulo": "A", "data": "20261104", "hora": "08:00"}, {"titulo": "B", "data": "20261104", "hora": "21:00"},
          {"titulo": "C", "data": "20261103", "hora": "23:59"}]
     assert [m["titulo"] for m in gdelt.juntar(a, [], "20261101")] == ["B", "A", "C"]
+
+
+# ---- D46: tabela de países do globo ----
+
+def test_tabela_de_paises_versionada_coerente():
+    from rotzx.mundo import codigos
+    t = codigos.carregar()
+    assert len({r["iso_num"] for r in t}) == len(t) and len({r["iso3"] for r in t}) == len(t)
+    por = {r["iso3"]: r for r in t}
+    assert por["BRA"]["iso_num"] == "076" and por["BRA"]["comex"] == ["105"] and por["BRA"]["cow"] == [140]
+    assert por["COG"]["comex"] != por["COD"]["comex"] and por["COD"]["nome"] == "Rep. Dem. do Congo"   # o "Congo" do Comex é a COG
+    assert set(por["DEU"]["gw"]) == {260} and set(por["YEM"]["gw"]) >= {678, 680}
+    assert sum(r["no_mapa"] for r in t) >= 170
+    # os 21 países com painel completo batem com a tabela
+    for p in PAISES:
+        assert por[p["iso3"]]["iso_num"] == p["iso_num"] and p["comex"] in por[p["iso3"]]["comex"], p["nome"]
+    from rotzx.mundo.conflitos import GW
+    for iso3, g in GW.items():
+        assert g in por[iso3]["gw"] or not por[iso3]["gw"], iso3
+
+
+def test_casamento_comex_excecoes_e_erro_para_nome_desconhecido():
+    from rotzx.mundo import codigos
+    _, indice = codigos._iso_pycountry()
+    c = codigos.casar_comex([{"id": "1", "text": "Congo"}, {"id": "2", "text": "Países Baixos (Holanda)"},
+                             {"id": "3", "text": "A Designar"}, {"id": "4", "text": "Coreia do Sul"}], indice)
+    assert c == {"Congo": "COG", "Países Baixos (Holanda)": "NLD", "A Designar": None, "Coreia do Sul": "KOR"}
+    assert codigos._nome_comum("Salomão, Ilhas") == "Ilhas Salomão"
+    with pytest.raises(ValueError):
+        codigos.gerar([{"id": "9", "text": "Terra do Nunca"}], {}, [], [])
+
+
+# ---- D46: retrato histórico (fixtures sintéticas no formato real) ----
+
+TAB = [{"iso_num": "076", "iso3": "BRA", "nome": "Brasil", "comex": ["105"], "cow": [140], "gw": [140], "no_mapa": True},
+       {"iso_num": "840", "iso3": "USA", "nome": "Estados Unidos", "comex": ["249"], "cow": [2], "gw": [2], "no_mapa": True},
+       {"iso_num": "784", "iso3": "ARE", "nome": "Emirados Árabes Unidos", "comex": ["244", "237"], "cow": [696], "gw": [696], "no_mapa": True},
+       {"iso_num": "804", "iso3": "UKR", "nome": "Ucrânia", "comex": ["831"], "cow": [369], "gw": [369], "no_mapa": True},
+       {"iso_num": "643", "iso3": "RUS", "nome": "Rússia", "comex": ["676"], "cow": [365], "gw": [365], "no_mapa": True}]
+
+
+def test_historia_comercio_soma_codigos_e_ano_sem_dado_fica_null(monkeypatch):
+    from rotzx.mundo import historia
+    serie = {"exportacao": {("Estados Unidos", 1997): 10.0, ("Emirados Árabes Unidos", 1998): 3.0, ("Dubai", 1998): 2.0,
+                            ("A Designar", 1997): 1.0},
+             "importacao": {("Estados Unidos", 1998): 4.0}}
+    monkeypatch.setattr(historia.comex, "serie", lambda a, b, fluxo, pasta=None: serie[fluxo])
+    monkeypatch.setattr(historia.comex, "produtos_todos", lambda ano, fluxo, pasta=None: {
+        "Estados Unidos": [("1201", "Soja", 6.0), ("2601", "Minério", 4.0)]} if fluxo == "exportacao" else {})
+    nomes = [{"id": "249", "text": "Estados Unidos"}, {"id": "244", "text": "Emirados Árabes Unidos"}, {"id": "237", "text": "Dubai"},
+             {"id": "994", "text": "A Designar"}]
+    historia.ANO_COMEX = 1997
+    c = historia.comercio(TAB, 1998, nomes_comex=nomes, ano_produtos_antes=1997)
+    assert c["paises"]["840"]["e"] == [10.0, None] and c["paises"]["840"]["i"] == [None, 4.0]
+    assert c["paises"]["784"]["e"] == [None, 5.0]                    # Dubai soma nos Emirados
+    assert c["brasil"]["e"] == [11.0, 5.0]                           # o total do Brasil inclui o que não é país
+    assert c["paises"]["840"]["p"]["1998"]["e"][0] == ["1201", 6, 0.6] and c["sh4"]["1201"] == "Soja"
+
+
+def test_historia_votos_mediana_por_ano(tmp_path):
+    from rotzx.mundo import historia
+    agree = tmp_path / "agree.csv"
+    agree.write_text('"","session.x","ccode1","ccode2","agree","year"\n"1",1,140,2,0.9,1946\n"2",1,140,369,0.5,1946\n'
+                     '"3",1,140,2,0.4,1948\n"4",1,140,365,NA,1948\n')
+    v = historia.votos(TAB, agree)
+    assert v["inicio"] == 1946 and v["fim"] == 1948 and v["paises"]["840"] == [0.9, None, 0.4]
+    assert v["mediana"] == [0.7, None, 0.4]
+
+
+def test_historia_conflitos_por_ano_territorio_lado_apoio():
+    from rotzx.mundo import historia
+    linhas = conflitos.ler(_ucdp(
+        '1,"Russia (Soviet Union), Ukraine",Government of Russia (Soviet Union),57,"Government of United States of America",Government of Ukraine,169,"",3,Crimea,2022,2,1,2,2022-02-24,1,,,0,,,365,"2",369,"","365, 369",1,26.1',
+        '2,Ukraine,Government of Ukraine,169,"",DPR,3,"",1,Donetsk,2014,1,1,3,2014-04-01,1,,,0,,,369,"","","",369,1,26.1'))
+    k = historia.conflitos_por_ano(TAB, linhas)
+    assert k["paises"]["804"]["2022"] == {"t": 2, "l": 1, "a": 0} and k["paises"]["804"]["2014"] == {"t": 1, "l": 1, "a": 0}
+    assert k["paises"]["840"]["2022"] == {"t": 0, "l": 0, "a": 1}            # apoio com tropas, fora do território
+    assert k["por_ano"]["2022"][0]["guerra"] and k["por_ano"]["2022"][0]["paises"] == ["643", "804"]
+
+
+def test_historia_disputas_com_o_brasil():
+    from rotzx.mundo import historia
+    d = historia.disputas(TAB, OMC_JS)
+    assert [c["ds"] for c in d["840"]["casos"]] == ["DS2", "DS1"] and d["840"]["casos"][1]["brasil_abriu"]
+    assert "784" not in d

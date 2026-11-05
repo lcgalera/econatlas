@@ -9,3 +9,4 @@ uvicorn[standard]==0.39.0
 openpyxl==3.1.5
 pytest==8.4.2
 httpx==0.28.1
+pycountry==24.6.1   # só para gerar catalog/paises_mundo.csv (D46)
