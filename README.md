@@ -4,8 +4,7 @@ Inteligência econômica com dados abertos e rastreáveis. O foco é o **Radar S
 para a produção da indústria de máquinas e materiais elétricos nos próximos 3 a 6 meses, com previsões registradas antes de os dados saírem
 e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câmbio, atividade, renda, crédito) dá o contexto.
 
-- **Site público:** https://lcgalera.github.io/rotzx/ (comece por "Leitura do mês: indústria de materiais elétricos")
-- **Como o Brasil se conecta ao mundo:** https://lcgalera.github.io/rotzx/globo/ (atlas dos parceiros e produtos do comércio brasileiro desde 1997, com seletor de ano, comparação e explorador por produto; `prototipos/globo/`)
+- **Site público:** https://lcgalera.github.io/rotzx/ é o atlas "Como o Brasil se conecta ao mundo" (parceiros e produtos do comércio brasileiro desde 1997, com seletor de ano, comparação e explorador por produto; `prototipos/globo/`). Desde a D53, os radares e o placar de previsões não são mais publicados; continuam no repositório (`rotzx publicar --completo` gera o site antigo). Links antigos em `/globo/` redirecionam para a raiz.
 - **Registro de previsões:** [`registro/`](registro/), que só recebe acréscimos (veja "Como auditar o registro")
 - **Documentação completa:** [`docs/PROJETO.md`](docs/PROJETO.md) · **prompt para continuar com uma IA:** [`docs/PROMPT.md`](docs/PROMPT.md)
 
@@ -46,7 +45,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # só na pr
 | `backtest` | Refaz o backtest do IPCA e mede a cobertura das faixas |
 | `analisar-setor [setores]` | Indicadores antecedentes por série-alvo |
 | `calibrar-setorial` | Cobertura das faixas das previsões setoriais (~1–5 min) |
-| `publicar [--saida pasta]` | Gera o site público estático em `./site`, com a verificação anti-vazamento |
+| `publicar [--saida pasta] [--completo]` | Gera o site público em `./site` (só o atlas, na raiz; `--completo`: site antigo com os radares), com a verificação anti-vazamento |
 | `registro-exportar` / `registro-importar` | Grava o registro em CSV (só acrescenta) / carrega os CSVs no banco |
 | `registro-verificar [--contra REF]` | Falha se uma linha antiga do registro mudou no git ou diverge do banco |
 | `importar-macrodados arquivo.csv` | Só no Mac: importa exportações da Macrodados (uso pessoal) |

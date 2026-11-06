@@ -14,10 +14,10 @@ Responda em português do Brasil. O nome do produto é "rotzx", sempre em minús
 Inteligência econômica com dados abertos e rastreáveis, em três frentes:
 1. Radar econômico e setorial (BCB, IBGE, Focus; previsões registradas em `registro/`, só acréscimos).
 2. Radar de oportunidades em transmissão de energia (SIGET/ANEEL; `rotzx/intelligence`, `historico/`).
-3. Atlas "Como o Brasil se conecta ao mundo": `prototipos/globo/index.html` (frente em foco), relações e dependências comerciais do
+3. Atlas "Como o Brasil se conecta ao mundo": `prototipos/globo/index.html` (frente em foco e único conteúdo do site público, D53), relações e dependências comerciais do
    Brasil com todos os países e territórios desde 1997 (`rotzx/mundo/historia.py`, `catalog/paises_mundo.csv`). Notícias pausadas, sem coleta recorrente.
 
-Antes de mudar algo relevante, leia `docs/PROJETO.md` (visão completa) e `docs/DECISOES.md` (D1–D52).
+Antes de mudar algo relevante, leia `docs/PROJETO.md` (visão completa) e `docs/DECISOES.md` (D1–D53).
 Toda mudança relevante ganha uma decisão nova em `docs/DECISOES.md`.
 
 ## Regras que não podem ser quebradas
