@@ -417,3 +417,46 @@ As outras perguntas ficam em "Outras perguntas".
   - O mapa mostra o ano, mas não oferece uma segunda escolha.
   - A série anual do Brasil diz que sua cobertura é completa, ao contrário da distribuição por parceiro.
 - **Ano pedido sem recorte** (por exemplo, um link com 2023): a página usa o recorte anterior e avisa ("Não há distribuição por parceiro em 2023 … Mostrando 2010"). A URL passa a mostrar o ano usado.
+
+### D51 · 06/11/2026 · Atlas: versão estável (cobertura do recorte, coerência, falhas e identidade brasileira)
+**Pedido:** última rodada por enquanto. Corrigir a leitura dos dados, a navegação e o acabamento, sem novo redesenho, e dar um toque brasileiro aos detalhes.
+
+**Cobertura do recorte por produto (problema confirmado):**
+- **O problema:** a base detalha só os maiores parceiros de cada produto (até 12). Os demais estão somados em "Outros". Em fertilizantes 2010, a lista mostrava 12 países com dado e 236 "sem registro", embora a fonte registre 58 origens.
+- **Como fica agora**, perto do resultado e calculado de cada produto, fluxo e ano:
+  - texto do recorte: "12 maiores fornecedores detalhados neste recorte. A fonte registra 58 origens no total; as outras 46 estão somadas em 'Outros'";
+  - "Outros" com quantidade e valor;
+  - quando todos os parceiros estão detalhados (664 casos em que o total é 12 ou menos), o texto diz isso, e quem falta aparece como "sem registro", o que nesse caso é correto.
+- **Três estados distintos** em mapa, legenda, dica do globo, lista, painel e tabela de anos:
+  - detalhado;
+  - fora do recorte detalhado (cinza próprio, "não é zero");
+  - sem registro.
+- **Lista do mapa:** os países fora do recorte ficam num grupo recolhido "sem detalhamento individual". Quais países estão em "Outros" não é informado, porque a base não diz.
+- **Diferença entre totais:** a série anual de um produto pode ser maior que a soma por parceiro, porque inclui operações sem país definido (provisões para navios e aeronaves). Por exemplo, derivados de petróleo em 2010: US$ 3,1 bi contra US$ 2,2 bi. Acima de 1% de diferença, a página explica e diz qual total é o denominador. Conferido em 4.087 recortes: a série nunca é menor, e a mediana da diferença é 0.
+
+**Coerência:**
+- O gráfico do produto mostra só o fluxo da análise e se identifica como "Total do Brasil — todos os parceiros". No painel de um país, acrescenta "não só esse país".
+- "Peso" virou "Participação" nos títulos. A parte do produto no comércio com o país virou "Parte do comércio com esse parceiro", e os dois denominadores aparecem juntos.
+- No lugar de "Grupo de produtos", entra a regra do grupo (ex.: "Reúne posições 3101 a 3105").
+- Aviso sobre as revisões do Sistema Harmonizado (2002, 2007, 2012, 2017 e 2022) em Fontes e nos detalhes de cada produto.
+- Tabelas alternativas nos gráficos que não tinham: votos na ONU, conflitos e China × EUA da entrada.
+
+**Navegação e estados:**
+- **Avisos curtos sob a barra:**
+  - ano fora da cobertura da métrica (ex.: votos na ONU em 2025 mostram 2024, com aviso);
+  - ano sem recorte por parceiro;
+  - país, métrica ou produto inválidos na URL.
+- **"Ver todo o comércio com esse parceiro"** deixa clara a mudança de escopo.
+- **Falha dos dados de produtos:** não há mais "Carregando…" eterno. Aparece uma mensagem com "Tentar de novo", e o resto do atlas segue funcionando.
+- **Acessibilidade:** link "Ir para a análise" para teclado; tabelas largas rolam dentro do próprio componente.
+- **Celular:** o mapa da entrada ficou mais baixo (32vh) e ganhou o botão "Ler a análise ↓".
+
+**Identidade brasileira nos detalhes:**
+- **Carregamento com a silhueta do Brasil:**
+  - contorno do Natural Earth 1:50m (domínio público, o mesmo do mapa), simplificado num SVG embutido, sem serviço externo;
+  - a silhueta se traça e se preenche de verde;
+  - só aparece depois de cerca de 0,35 s, para não piscar em cargas rápidas;
+  - não finge medir progresso;
+  - vira desenho estático com movimento reduzido;
+  - é anunciada uma vez como status.
+- **Assinatura no fim da entrada:** "Pátria amada, Brasil.", em serifa itálica, com o contorno do Brasil, um ponto ocre e a referência do retrato ("coletado em 06/11/2026, sem atualização em tempo real").
