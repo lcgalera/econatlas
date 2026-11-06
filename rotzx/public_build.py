@@ -94,7 +94,7 @@ def _static_assets(out: Path) -> None:
                         "Versão pública: somente dados abertos (Banco Central do Brasil e IBGE), citados em cada indicador.")
     (out / "index.html").write_text(html, encoding="utf-8")
     (out / ".nojekyll").write_text("")  # GitHub Pages: servir arquivos como estão
-    globo = config.ROOT / "prototipos" / "globo"  # O mundo visto do Brasil (D41): só dados abertos (Comex Stat, Banco Mundial, manchetes)
+    globo = config.ROOT / "prototipos" / "globo"  # atlas "Como o Brasil se conecta ao mundo" (D41, D47): só dados abertos
     if globo.exists():
         shutil.copytree(globo, out / "globo", ignore=shutil.ignore_patterns("LEIAME.md", "__pycache__"))
 

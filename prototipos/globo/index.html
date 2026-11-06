@@ -3,1225 +3,986 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>rotzx — O mundo visto do Brasil</title>
-<meta name="description" content="Globo interativo: clique num país para ver a relação com o Brasil, a economia e as manchetes.">
+<title>rotzx — Como o Brasil se conecta ao mundo</title>
+<meta name="description" content="Explore os parceiros comerciais do Brasil, descubra o que compramos e vendemos e acompanhe como essas relações mudaram desde 1997.">
 <meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 <style>
-  /* Um quadro só, dividido em dois: o globo à esquerda e o texto à direita. Tema escuro, linhas finas, um acento verde. */
+  /* rotzx — atlas das relações comerciais do Brasil (D47). Tema escuro sóbrio, linhas finas, um acento verde. */
   :root {
-    --bg: #090d12; --frame: #0c1219; --pane: #0e151d; --rule: rgba(255,255,255,.08); --rule-2: rgba(255,255,255,.14);
-    --ink: #e7ecea; --ink-2: #b7c0c2; --muted: #7f8b91; --accent: #8fd3b6; --accent-2: #5fae8e; --warn: #e0b45c;
-    /* nomes usados pelos blocos do painel */
-    --panel: var(--pane); --panel-ink: var(--ink); --panel-ink-2: var(--ink-2); --panel-muted: var(--muted); --panel-rule: var(--rule);
-    --chip: rgba(255,255,255,.05); --chip-ink: var(--ink-2);
-    /* globo: países como camadas translúcidas sobre o relevo */
-    --space: #0b121a; --land: rgba(120,168,162,.14); --land-hover: rgba(160,205,196,.26);
-    --focus: rgba(140,196,182,.30); --focus-hover: rgba(160,215,200,.48); --focus-solid: #7fb5a7;
-    --base: rgba(143,211,182,.58); --base-hover: rgba(165,228,200,.72); --base-solid: #8fd3b6;
-    --sel: rgba(226,246,238,.50); --stroke: rgba(205,236,226,.26);
+    --bg: #090d12; --frame: #0c1219; --pane: #0e151d; --rule: rgba(255,255,255,.08); --rule-2: rgba(255,255,255,.16);
+    --ink: #e7ecea; --ink-2: #b7c0c2; --muted: #8a959b; --accent: #8fd3b6; --accent-2: #5fae8e; --warn: #e0b45c;
+    --exp: #8fd3b6; --imp: #9ccbea; --neg: #e2947f; --chip: rgba(255,255,255,.05);
+    --sel: rgba(240,248,244,.62); --stroke: rgba(205,236,226,.28); --base: rgba(143,211,182,.62);
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
   body { background: var(--bg); color: var(--ink); font: 15px/1.5 "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  button { font: inherit; color: inherit; }
+  button, input, select { font: inherit; color: inherit; }
   a { color: inherit; }
-  .kicker { font: 500 11px/1 "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .kicker { font: 500 11px/1.2 "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .num { font-variant-numeric: tabular-nums; }
 
-  /* ---- barra de cima: marca, estado dos dados e busca ---- */
-  .barra { display: flex; align-items: center; gap: 22px; padding: 14px 32px; border-bottom: 1px solid var(--rule); }
-  .marca { font: 600 19px/1 "Source Serif 4", Georgia, serif; text-decoration: none; white-space: nowrap; }
-  .marca span { font: 400 14px/1 "IBM Plex Sans", sans-serif; color: var(--muted); margin-left: 10px; }
-  .estado { display: flex; align-items: center; gap: 10px; min-width: 0; font-size: 12.5px; color: var(--ink-2); }
-  .estado b { font: 500 11px/1 "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
-  .estado .txt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .estado a { color: var(--ink-2); white-space: nowrap; text-underline-offset: 3px; }
-  .ponto { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-  .ponto.aviso { background: var(--warn); }
-  .busca { margin-left: auto; }
-  .busca input { width: 230px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--rule-2); background: transparent;
-                 color: var(--ink); font: inherit; font-size: 14px; outline: none; }
-  .busca input::placeholder { color: var(--muted); }
-  .busca input:focus { border-color: var(--accent-2); }
+  /* bandeiras: tamanho fixo (não desloca o layout ao carregar); sem bandeira, um retângulo discreto */
+  .flag { display: inline-block; width: 20px; height: 15px; flex: none; border-radius: 2px; object-fit: cover; vertical-align: -2px;
+          background: rgba(255,255,255,.06); box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
+  .flag.g { width: 36px; height: 27px; border-radius: 3px; vertical-align: -5px; }
+  .flag.vazia { background: repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 3px, rgba(255,255,255,.02) 3px 6px); }
 
-  /* ---- o quadro ---- */
-  .quadro { margin: 20px 32px 32px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-            height: max(600px, calc(100vh - 106px)); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--frame); }
-  .lado-globo { position: relative; border-right: 1px solid var(--rule);
-                background: radial-gradient(ellipse at 50% 46%, #122130 0%, var(--frame) 62%); }
+  /* barra de cima */
+  .barra { display: flex; align-items: center; gap: 20px; padding: 12px 28px; border-bottom: 1px solid var(--rule); }
+  .marca { font: 600 20px/1 "Source Serif 4", Georgia, serif; text-decoration: none; white-space: nowrap; }
+  .marca span { font: 400 14px/1 "IBM Plex Sans", sans-serif; color: var(--ink-2); margin-left: 10px; }
+  .barra .fontes-link { margin-left: auto; font-size: 13px; color: var(--ink-2); white-space: nowrap; background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* busca com sugestões (bandeira + nome) */
+  .ac { position: relative; }
+  .ac input { width: 260px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--rule-2); background: rgba(255,255,255,.02); font-size: 14px; outline: none; }
+  .ac input::placeholder { color: var(--muted); }
+  .ac input:focus { border-color: var(--accent-2); }
+  .ac ul { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; min-width: 260px; max-height: 320px; overflow-y: auto; margin: 0; padding: 4px;
+           list-style: none; background: #111a23; border: 1px solid var(--rule-2); border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+  .ac li { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+  .ac li[aria-selected="true"], .ac li:hover { background: rgba(143,211,182,.12); }
+  .ac li small { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+  /* quadro: mapa à esquerda, conteúdo à direita */
+  .quadro { margin: 16px 28px 28px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); height: max(640px, calc(100vh - 96px));
+            border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--frame); }
+  .lado-mapa { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--rule); }
+  .mapa-topo { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--rule); }
+  .modos { display: flex; padding: 3px; border: 1px solid var(--rule-2); border-radius: 7px; }
+  .modos button { border: 0; background: transparent; padding: 5px 12px; border-radius: 5px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
+  .modos button[aria-pressed="true"] { background: rgba(255,255,255,.09); color: var(--ink); }
+  .voltar { display: none; align-items: center; gap: 8px; margin-left: auto; padding: 6px 12px; border: 1px solid var(--rule-2); border-radius: 6px; background: transparent; cursor: pointer; font-size: 14px; }
+  body.com-pais .voltar, body.com-vista .voltar { display: inline-flex; }
+  .area { position: relative; flex: 1; min-height: 0; background: radial-gradient(ellipse at 50% 46%, #122130 0%, var(--frame) 64%); }
   #globo { position: absolute; inset: 0; }
-  .lado-texto { background: var(--pane); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--rule-2) transparent; }
-
-  .pane-topo { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; align-items: center; gap: 12px; padding: 22px 26px; pointer-events: none; }
-  .pane-topo > * { pointer-events: auto; }
-  .titulo-globo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
-  .titulo-globo svg { flex: none; }
-  .voltar { display: none; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border: 1px solid var(--rule-2); border-radius: 6px;
-            background: rgba(9,13,18,.6); cursor: pointer; font-size: 14px; }
-  .voltar:hover { border-color: var(--accent-2); }
-  body.aberto .voltar { display: inline-flex; }
-  body.aberto .titulo-globo { display: none; }
-  .modos { margin-left: auto; display: flex; padding: 3px; border: 1px solid var(--rule-2); border-radius: 7px; background: rgba(9,13,18,.55); }
-  .modos button { border: 0; background: transparent; padding: 6px 12px; border-radius: 5px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
-  .modos button[aria-pressed="true"] { background: rgba(255,255,255,.08); color: var(--ink); }
-
-  .zoom { position: absolute; right: 22px; bottom: 22px; z-index: 3; display: grid; border: 1px solid var(--rule-2); border-radius: 7px; overflow: hidden; background: rgba(9,13,18,.6); }
-  .zoom button { width: 38px; height: 36px; border: 0; background: transparent; cursor: pointer; font-size: 18px; color: var(--ink-2); }
+  .zoom { position: absolute; right: 14px; top: 14px; z-index: 3; display: grid; border: 1px solid var(--rule-2); border-radius: 7px; overflow: hidden; background: rgba(9,13,18,.6); }
+  .zoom button { width: 36px; height: 34px; border: 0; background: transparent; cursor: pointer; font-size: 18px; color: var(--ink-2); }
   .zoom button + button { border-top: 1px solid var(--rule-2); }
-  .zoom button:hover { color: var(--ink); background: rgba(255,255,255,.05); }
-  .legenda { position: absolute; left: 26px; bottom: 22px; z-index: 3; display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
-  .legenda > span { display: block; }
-  .legenda i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 7px; vertical-align: -1px; }
-
-  /* lista de países (alternativa ao globo) */
-  .lista { position: absolute; inset: 0; z-index: 2; display: none; overflow-y: auto; padding: 84px 26px 26px; background: var(--frame); }
+  .lista { position: absolute; inset: 0; z-index: 2; display: none; overflow-y: auto; padding: 14px 18px; background: var(--frame); }
   body.modo-lista .lista { display: block; }
-  body.modo-lista .zoom, body.modo-lista .legenda, body.sem-globo .zoom, body.sem-globo .legenda { display: none; }
-  body.sem-globo .modos button[data-modo="globo"] { opacity: .45; cursor: not-allowed; }
-  .lista ol { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 28px; }
-  .lista li { break-inside: avoid; }
-  .lista button { width: 100%; display: flex; justify-content: space-between; gap: 12px; padding: 11px 2px; border: 0; border-bottom: 1px solid var(--rule);
-                  background: transparent; cursor: pointer; text-align: left; font-size: 14.5px; }
-  .lista button:hover { color: var(--accent); }
-  .lista button span { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .lista .nota-lista { margin: 0 0 14px; font-size: 12.5px; color: var(--muted); }
+  body.modo-lista .zoom { display: none; }
+  .aviso-3d { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--rule-2); border-radius: 6px; font-size: 13.5px; color: var(--ink-2); }
+  .tip { background: rgba(9,13,18,.95); border: 1px solid var(--rule-2); padding: 7px 10px; border-radius: 5px; font: 13px/1.4 "IBM Plex Sans", sans-serif; color: var(--ink); }
+  .tip b { font-weight: 500; } .tip span { display: block; color: var(--ink-2); font-size: 12.5px; }
 
-  .tip { background: rgba(9,13,18,.94); border: 1px solid var(--rule-2); padding: 6px 9px; border-radius: 5px; font: 13px/1.35 "IBM Plex Sans", sans-serif; color: var(--ink); }
-  .tip b { display: block; font-weight: 500; }
-  .tip span { color: var(--muted); font-size: 12px; }
+  /* controles: métrica, ano, legenda — fora do 3D, funcionam com a lista também */
+  .controles { padding: 12px 18px 14px; border-top: 1px solid var(--rule); display: grid; gap: 9px; }
+  .metricas { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .metricas button { border: 1px solid var(--rule-2); background: transparent; padding: 5px 10px; border-radius: 5px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+  .metricas button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .metricas .sep { color: var(--muted); font-size: 12px; margin: 0 4px 0 8px; }
+  .ano-linha { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; }
+  .ano-linha button { width: 34px; height: 32px; border: 1px solid var(--rule-2); border-radius: 5px; background: transparent; cursor: pointer; font-size: 12px; }
+  .ano-linha input[type=range] { width: 100%; accent-color: var(--accent); }
+  .ano-linha output { font: 500 24px/1 "Source Serif 4", Georgia, serif; min-width: 3.2em; text-align: right; }
+  .anos-chips { display: flex; gap: 6px; }
+  .anos-chips button { border: 1px solid var(--rule-2); background: transparent; border-radius: 5px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+  .anos-chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .leg { font-size: 12px; color: var(--ink-2); display: grid; gap: 5px; }
+  .leg .grad { height: 7px; border-radius: 4px; }
+  .leg .ext { display: flex; justify-content: space-between; color: var(--muted); }
+  .leg .cats { display: flex; flex-wrap: wrap; gap: 12px; }
+  .leg i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .leg .aviso { color: var(--warn); }
 
-  /* ---- coluna de texto ---- */
-  .cab { padding: 34px 36px 0; }
-  .cab h2 { font: 500 40px/1.1 "Source Serif 4", Georgia, serif; letter-spacing: -.01em; margin: 12px 0 8px; }
-  .cab .sub { margin: 0; color: var(--ink-2); font-size: 15px; }
-  .abas-topo { display: flex; gap: 26px; margin: 26px 36px 0; border-bottom: 1px solid var(--rule); }
-  .abas-topo button { border: 0; background: transparent; padding: 0 0 12px; cursor: pointer; color: var(--ink-2); font-size: 15px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-  .abas-topo button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
-  .filtros { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 36px 0; }
-  .filtros button { padding: 7px 13px; border-radius: 999px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 13.5px; color: var(--ink-2); }
-  .filtros button small { color: var(--muted); margin-left: 6px; font-size: 12px; }
-  .filtros button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .filtros button[aria-pressed="true"] small { color: #4b555b; }
-  .regra { margin: 14px 36px 0; font-size: 12.5px; color: var(--muted); }
-  .corpo { padding: 8px 36px 8px; }
-  .manchetes { list-style: none; margin: 0; padding: 0; }
-  .manchetes li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
-  .manchetes a { display: block; text-decoration: none; font: 500 18px/1.35 "Source Serif 4", Georgia, serif; }
-  .manchetes a:hover { color: var(--accent); }
-  .manchetes span { display: block; margin-top: 6px; font-size: 12.5px; color: var(--muted); }
-  .nada { padding: 40px 0 24px; }
-  .nada h3 { font: 500 26px/1.2 "Source Serif 4", Georgia, serif; margin: 0 0 10px; }
-  .nada p { margin: 0 0 20px; color: var(--ink-2); max-width: 46ch; }
-  .botao { padding: 10px 16px; border-radius: 6px; border: 1px solid var(--accent-2); background: rgba(95,174,142,.12); cursor: pointer; font-size: 14px; }
-  .botao:hover { background: rgba(95,174,142,.2); }
-  /* organização das manchetes (D44): onde, assuntos mais cobertos, linha do tempo */
-  .onde { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 14px 36px 0; font-size: 12.5px; color: var(--muted); }
-  .onde button { padding: 4px 10px; border-radius: 4px; border: 1px solid var(--rule); background: transparent; cursor: pointer; font-size: 13px; color: var(--ink-2); }
-  .onde button small { color: var(--muted); margin-left: 5px; }
-  .onde button[aria-pressed="true"] { border-color: var(--accent-2); color: var(--ink); background: rgba(95,174,142,.14); }
-  .assuntos { display: grid; gap: 12px; margin: 6px 0 8px; }
-  .assunto { border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; background: rgba(255,255,255,.015); }
-  .assunto .meta { font: 500 11px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-  .assunto .meta span { color: var(--muted); }
-  .assunto > a { display: block; margin: 8px 0 4px; text-decoration: none; font: 500 20px/1.3 "Source Serif 4", Georgia, serif; }
-  .assunto > a:hover { color: var(--accent); }
-  .assunto .por { font-size: 12.5px; color: var(--muted); }
-  .assunto ul { list-style: none; margin: 10px 0 0; padding: 10px 0 0; border-top: 1px solid var(--rule); display: grid; gap: 6px; }
-  .assunto li { font-size: 13.5px; color: var(--ink-2); }
-  .assunto li a { text-decoration: none; } .assunto li a:hover { color: var(--accent); }
-  .assunto li b { font-weight: 500; color: var(--muted); }
-  .assunto details summary { cursor: pointer; margin-top: 8px; font-size: 12.5px; color: var(--muted); list-style: none; }
-  .assunto details summary::-webkit-details-marker { display: none; }
-  .assunto details summary:hover { color: var(--ink); }
-  .dia { margin: 22px 0 0; padding-bottom: 6px; border-bottom: 1px solid var(--rule-2); }
-  .tempo { list-style: none; margin: 0; padding: 0; }
-  .tempo li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
-  .tempo a, .assunto a { overflow-wrap: anywhere; }
-  .tempo time { font: 500 12px/1.9 "IBM Plex Mono", monospace; color: var(--muted); }
-  .tempo a { text-decoration: none; font: 500 16.5px/1.35 "Source Serif 4", Georgia, serif; }
-  .tempo a:hover { color: var(--accent); }
-  .tempo span { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
-  .camadas { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--rule-2); border-radius: 6px; background: rgba(9,13,18,.6); margin-bottom: 8px; width: max-content; }
-  .camadas button { border: 0; background: transparent; padding: 4px 9px; border-radius: 4px; font-size: 12px; color: var(--muted); cursor: pointer; }
-  .camadas button[aria-pressed="true"] { background: rgba(255,255,255,.08); color: var(--ink); }
-  .escala-calor { width: 150px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, rgba(170,215,240,.15), rgba(170,215,240,.85)); }
-  .legenda .calor { display: none; } body.calor .legenda .calor { display: grid; gap: 4px; } body.calor .legenda .dados { display: none; }
-  /* retrato histórico (D46): indicador, ano e ▶ embaixo do globo; gráficos no painel */
-  .tempo-ctl { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 3; display: grid; gap: 8px; padding: 12px 14px;
-               border: 1px solid var(--rule-2); border-radius: 8px; background: rgba(9,13,18,.78); backdrop-filter: blur(4px); }
-  .ind { display: flex; gap: 4px; flex-wrap: wrap; }
-  .ind button { border: 1px solid var(--rule-2); background: transparent; padding: 5px 10px; border-radius: 5px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
-  .ind button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .linha-ano { display: grid; grid-template-columns: 34px 1fr 54px; gap: 10px; align-items: center; }
-  .linha-ano button { width: 34px; height: 30px; border: 1px solid var(--rule-2); border-radius: 5px; background: transparent; cursor: pointer; color: var(--ink); font-size: 12px; }
-  .linha-ano input { width: 100%; accent-color: var(--accent); }
-  .linha-ano output { font: 500 22px/1 "Source Serif 4", Georgia, serif; text-align: right; font-variant-numeric: tabular-nums; }
-  .leg-cab { font-size: 12px; color: var(--muted); }
-  .leg-esc { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--muted); }
-  .leg-esc i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
-  .leg-esc .grad { display: block; width: 100%; height: 6px; border-radius: 3px; }
-  .leg-esc .ext { display: flex; justify-content: space-between; width: 100%; }
-  .leg-aviso { font-size: 12.5px; color: var(--warn); }
-  body.historia .zoom { bottom: auto; top: 76px; }
-  body.historia #globo { bottom: 150px; }   /* o globo fica acima do controle de ano */
-  body.historia.modo-lista #globo { bottom: 0; }
-  body.historia .legenda { display: none; }
-  body.modo-lista .tempo-ctl { display: none; }
-  .grafico { width: 100%; height: 230px; margin-top: 8px; }
-  .grafico.baixo { height: 150px; }
-  .duas-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .rodape { display: flex; align-items: center; gap: 9px; padding: 22px 36px 30px; font-size: 12.5px; color: var(--muted); }
-
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
-  .kpi { background: var(--pane); padding: 12px 14px; }
+  /* coluna de texto */
+  .lado-texto { background: var(--pane); overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+  .sec { padding: 22px 30px; border-bottom: 1px solid var(--rule); }
+  .sec:last-child { border-bottom: 0; }
+  .sec h2 { font: 500 34px/1.12 "Source Serif 4", Georgia, serif; margin: 8px 0 8px; letter-spacing: -.01em; }
+  .sec h3 { font: 500 20px/1.3 "Source Serif 4", Georgia, serif; margin: 0 0 6px; }
+  .lead { color: var(--ink-2); font-size: 15.5px; margin: 0; max-width: 60ch; }
+  .fonte { font-size: 12.5px; color: var(--muted); margin: 4px 0 12px; }
+  .fonte a { color: inherit; }
+  .nota { font-size: 12.5px; color: var(--muted); margin: 10px 0 0; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 10px 0; }
+  .kpi { background: var(--pane); padding: 11px 13px; min-width: 0; }
   .kpi span { display: block; font-size: 12px; color: var(--muted); }
-  .kpi b { display: block; margin-top: 2px; font: 500 21px/1.25 "Source Serif 4", Georgia, serif; color: var(--ink); }
-  .kpi small { font-size: 12px; color: var(--muted); }
-  .secao { margin: 26px 0 10px; }
-  .parceiros { list-style: none; margin: 0; padding: 0; }
-  .parceiros button { width: 100%; position: relative; display: flex; justify-content: space-between; gap: 8px; padding: 10px 10px; margin: 4px 0;
-                      border: 0; border-radius: 4px; background: transparent; cursor: pointer; text-align: left; font-size: 14px; }
-  .parceiros button:disabled { cursor: default; }
-  .parceiros button:not(:disabled):hover span:not(.barra) { color: var(--accent); }
-  .parceiros .barra { position: absolute; inset: 0 auto 0 0; background: rgba(143,211,182,.09); border-radius: 4px; z-index: 0; }
-  .parceiros span { position: relative; z-index: 1; }
-  .parceiros .p-val { color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .kpi b { display: block; margin-top: 2px; font: 500 20px/1.25 "Source Serif 4", Georgia, serif; }
+  .kpi small { display: block; font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+  .perguntas { display: grid; gap: 8px; margin-top: 12px; }
+  .perguntas button { display: flex; align-items: center; gap: 10px; text-align: left; padding: 11px 14px; border: 1px solid var(--rule-2); border-radius: 7px; background: rgba(255,255,255,.015); cursor: pointer; font-size: 14.5px; }
+  .perguntas button:hover { border-color: var(--accent-2); background: rgba(143,211,182,.06); }
+  .perguntas button::after { content: "→"; margin-left: auto; color: var(--muted); }
+  .rank { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: r; }
+  .rank li { border-bottom: 1px solid var(--rule); }
+  .rank button { width: 100%; display: grid; grid-template-columns: 28px 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 2px; border: 0; background: transparent; cursor: pointer; text-align: left; font-size: 14px; position: relative; }
+  .rank button:hover .nome { color: var(--accent); }
+  .rank .pos { color: var(--muted); font-size: 12.5px; text-align: right; }
+  .rank .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank .val { text-align: right; white-space: nowrap; color: var(--ink-2); }
+  .rank .val small { display: block; color: var(--muted); font-size: 12px; }
+  .rank .barra-v { position: absolute; left: 60px; bottom: 3px; height: 2px; background: var(--accent-2); border-radius: 1px; opacity: .7; }
+  .rank .barra-v.neg { background: var(--neg); }
+  .botoes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .btn { padding: 8px 13px; border-radius: 6px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 13.5px; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; }
+  .btn:hover { border-color: var(--accent-2); }
+  .btn.pri { border-color: var(--accent-2); background: rgba(95,174,142,.14); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .chips button { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 13px; color: var(--ink-2); }
+  .chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
-  /* ---- painel do país (entra no lugar do resumo) ---- */
-  .painel { display: none; }
-  body.aberto .painel { display: block; animation: entra .3s ease-out; }
-  body.aberto .resumo-mundo { display: none; }
-  @keyframes entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .painel header { position: sticky; top: 0; z-index: 2; padding: 30px 36px 18px; background: var(--pane); border-bottom: 1px solid var(--rule); }
-  .painel h2 { font: 500 36px/1.1 "Source Serif 4", Georgia, serif; margin: 12px 0 6px; }
-  .painel .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; }
-  .fechar { position: absolute; top: 26px; right: 28px; width: 34px; height: 34px; border-radius: 6px; border: 1px solid var(--rule-2);
-            background: transparent; font-size: 17px; cursor: pointer; color: var(--ink-2); }
-  .fechar:hover { color: var(--ink); border-color: var(--accent-2); }
-  .bloco { padding: 24px 36px; border-bottom: 1px solid var(--rule); }
-  .bloco h3 { font: 500 21px/1.3 "Source Serif 4", Georgia, serif; margin: 0 0 6px; }
-  .fonte { font-size: 12.5px; color: var(--muted); margin: 0 0 12px; }
-  .vazio { border: 1px dashed var(--rule-2); border-radius: 6px; padding: 12px 14px; color: var(--muted); font-size: 13.5px; }
-  .linhas { display: none; }
-  .abas { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 12px; }
-  .abas button { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--rule-2); background: transparent; color: var(--ink-2); font-size: 13px; cursor: pointer; }
-  .abas button[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .selo { display: inline-block; font: 500 10.5px/1.6 "IBM Plex Mono", monospace; letter-spacing: .06em; padding: 0 7px; border-radius: 3px;
-          border: 1px solid var(--rule-2); color: var(--muted); margin-bottom: 10px; text-transform: uppercase; }
-  .nota { font-size: 12.5px; color: var(--muted); padding: 20px 36px 30px; margin: 0; }
-  .fonte a, .news a, .disputas a { color: inherit; }
-  .resumo { margin: 0 0 14px; color: var(--ink); font-size: 15.5px; }
-  .prods { list-style: none; margin: 0; padding: 0; }
-  .prods li { position: relative; display: flex; justify-content: space-between; gap: 12px; padding: 7px 10px; font-size: 13.5px; margin: 3px 0; }
-  .prods .barra { position: absolute; inset: 0 auto 0 0; background: rgba(143,211,182,.09); border-radius: 4px; z-index: 0; }
-  .prods .p-nome, .prods .p-val { position: relative; z-index: 1; }
-  .prods .p-nome { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-  .prods .p-val { white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-  .news { list-style: none; margin: 0; padding: 0; }
-  .news li { padding: 12px 0; border-bottom: 1px solid var(--rule); }
-  .news li:last-child { border-bottom: 0; }
-  .news a { text-decoration: none; font: 500 16.5px/1.35 "Source Serif 4", Georgia, serif; }
-  .news a:hover { color: var(--accent); }
-  .news span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
-  .sinais { list-style: none; margin: 10px 0 4px; padding: 0; display: grid; gap: 8px; }
-  .sinais li { display: flex; gap: 10px; align-items: baseline; font-size: 14.5px; line-height: 1.4; }
-  .sinais i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #6d7980; transform: translateY(1px); }
-  .sinais .conv i { background: var(--accent); } .sinais .div i, .sinais .atr i { background: #d98b7a; }
-  .escala { position: relative; height: 6px; border-radius: 3px; background: rgba(255,255,255,.08); margin: 16px 0 8px; }
-  .escala b { position: absolute; top: -6px; width: 3px; height: 18px; margin-left: -1.5px; border-radius: 2px; background: var(--ink); }
-  .escala u { position: absolute; top: -3px; width: 1px; height: 12px; background: var(--muted); }
-  .escala-leg { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); }
-  .disputas { list-style: none; margin: 6px 0 0; padding: 0; }
-  .disputas li { padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
-  .disputas li:last-child { border-bottom: 0; }
-  .disputas a { font-weight: 500; text-decoration: none; } .disputas a:hover { color: var(--accent); }
-  .disputas span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; }
-
-  .erro { position: absolute; inset: 0; z-index: 1; display: none; place-items: center; text-align: center; padding: 24px; color: var(--ink-2); }
-  .erro.on { display: grid; }
+  /* painel do país */
+  .pais-cab { padding: 22px 30px 16px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; background: var(--pane); z-index: 5; }
+  .pais-cab h2 { display: flex; align-items: center; gap: 12px; font: 500 32px/1.1 "Source Serif 4", Georgia, serif; margin: 8px 0 6px; }
+  .pais-cab .ref { font-size: 13.5px; color: var(--ink-2); }
+  .tag { font: 500 10.5px/1.6 "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; padding: 0 6px; border: 1px solid var(--rule-2); border-radius: 3px; color: var(--muted); vertical-align: middle; }
+  .fechar { position: absolute; top: 18px; right: 22px; width: 34px; height: 34px; border-radius: 6px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; color: var(--ink-2); font-size: 16px; }
+  .resumo-txt { margin: 0; font-size: 16px; line-height: 1.55; max-width: 64ch; }
+  .resumo-txt + .resumo-txt { margin-top: 8px; }
+  .abas { display: flex; gap: 22px; padding: 0 30px; border-bottom: 1px solid var(--rule); position: sticky; z-index: 4; background: var(--pane); }
+  .abas button { border: 0; background: transparent; padding: 12px 0; cursor: pointer; color: var(--ink-2); font-size: 14.5px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .abas button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .grafico { width: 100%; height: 240px; }
+  .grafico.baixo { height: 150px; }
+  details.dados { margin-top: 8px; font-size: 13px; }
+  details.dados summary { cursor: pointer; color: var(--ink-2); }
+  details.dados table { border-collapse: collapse; margin-top: 8px; width: 100%; font-variant-numeric: tabular-nums; }
+  details.dados th, details.dados td { text-align: right; padding: 3px 6px; border-bottom: 1px solid var(--rule); }
+  details.dados th:first-child, details.dados td:first-child { text-align: left; }
+  .barras { list-style: none; margin: 6px 0 0; padding: 0; }
+  .barras li { padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  .barras .lin { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+  .barras .lin span:first-child { min-width: 0; }
+  .barras .lin .v { white-space: nowrap; color: var(--ink-2); }
+  .barras .trilho { height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; margin-top: 5px; }
+  .barras .trilho i { display: block; height: 100%; border-radius: 3px; background: var(--exp); }
+  .barras.imp .trilho i { background: var(--imp); }
+  .barras small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+  .barras button.link { border: 0; background: none; padding: 0; cursor: pointer; text-align: left; color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 3px; }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .lista-ctx { list-style: none; margin: 6px 0 0; padding: 0; }
+  .lista-ctx li { padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  .lista-ctx li span { display: block; font-size: 12.5px; color: var(--muted); }
+  .vazio { border: 1px dashed var(--rule-2); border-radius: 6px; padding: 11px 13px; color: var(--ink-2); font-size: 13.5px; }
+  details.ficha summary { cursor: pointer; font: 500 18px/1.3 "Source Serif 4", Georgia, serif; }
+  .comp-cab { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .comp-cab .ac input { width: 100%; }
+  table.comp { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin-top: 10px; }
+  table.comp th, table.comp td { padding: 8px 6px; border-bottom: 1px solid var(--rule); text-align: right; font-size: 14px; }
+  table.comp th:first-child, table.comp td:first-child { text-align: left; color: var(--ink-2); font-weight: 400; }
+  table.comp thead th { font-weight: 500; color: var(--ink); }
+  .fontes dt { font-weight: 600; margin-top: 14px; }
+  select { background: #111a23; border: 1px solid var(--rule-2); border-radius: 5px; padding: 3px 8px; color: var(--ink); }
+  .fontes dd { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; }
 
   @media (max-width: 980px) {
-    .barra { flex-wrap: wrap; gap: 10px 16px; padding: 12px 16px; }
+    .barra { flex-wrap: wrap; gap: 10px 14px; padding: 10px 14px; }
     .marca span { display: none; }
-    .estado { order: 3; width: 100%; }
-    .busca input { width: 170px; }
-    .quadro { margin: 12px 16px 24px; grid-template-columns: minmax(0, 1fr); height: auto; }
-    .lado-globo { height: 56vh; min-height: 360px; border-right: 0; border-bottom: 1px solid var(--rule); }
+    .ac input { width: 100%; }
+    .barra .ac { order: 3; width: 100%; }
+    .quadro { margin: 10px 12px 20px; grid-template-columns: minmax(0, 1fr); height: auto; }
+    .lado-mapa { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .area { height: 46vh; min-height: 300px; flex: none; }
     .lado-texto { overflow: visible; }
-    .pane-topo { padding: 14px 14px; }
-    .titulo-globo { display: none; }
-    .modos .longo { display: none; }
-    .legenda { left: 14px; bottom: 14px; }
-    .zoom { right: 14px; bottom: 14px; }
-    .tempo-ctl { left: 10px; right: 10px; bottom: 10px; padding: 10px; }
-    body.historia .zoom { top: 60px; }
-    body.historia #globo { bottom: 140px; }
-    .leg-cab { display: none; }
-    .ind button { padding: 4px 8px; font-size: 12.5px; }
-    .lado-globo { height: 64vh; }
-    .duas-col { grid-template-columns: 1fr; gap: 0; }
-    .lista ol { columns: 1; }
-    .lista { padding: 64px 16px 16px; }
-    .cab { padding: 24px 18px 0; } .cab h2 { font-size: 32px; }
-    .abas-topo, .filtros, .regra { margin-left: 18px; margin-right: 18px; }
-    .abas-topo { gap: 20px; overflow-x: auto; }
-    .abas-topo button { white-space: nowrap; }
-    .corpo { padding: 6px 18px; } .rodape { padding: 18px 18px 24px; }
-    .onde { margin-left: 18px; margin-right: 18px; }
-    .tempo li { grid-template-columns: 40px minmax(0, 1fr); gap: 10px; }
-    .assunto { padding: 14px; } .assunto > a { font-size: 18px; }
-    .painel header { position: relative; padding: 22px 18px 14px; } .painel h2 { font-size: 30px; }
-    .fechar { top: 20px; right: 16px; }
-    .bloco { padding: 20px 18px; } .nota { padding: 16px 18px 24px; }
+    .sec { padding: 18px 16px; } .sec h2 { font-size: 28px; }
+    .pais-cab { padding: 18px 16px 12px; position: relative; } .pais-cab h2 { font-size: 26px; }
+    .abas { padding: 0 16px; gap: 16px; overflow-x: auto; position: static; }
+    .abas button { white-space: nowrap; }
+    .duas, .comp-cab { grid-template-columns: 1fr; }
+    .controles { padding: 10px 12px 12px; }
+    .metricas button { padding: 6px 9px; }
+    .mapa-topo { padding: 10px 12px; }
   }
-  @media (prefers-reduced-motion: reduce) { body.aberto .painel { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
 <header class="barra">
-  <a class="marca" href="../" title="Voltar ao rotzx">rotzx<span>O mundo visto do Brasil</span></a>
-  <div class="estado" id="estado" aria-live="polite"></div>
-  <div class="busca">
-    <input id="busca" list="paises" placeholder="Buscar país…" aria-label="Buscar país" autocomplete="off">
-    <datalist id="paises"></datalist>
+  <a class="marca" href="./" title="Início do atlas">rotzx<span>Como o Brasil se conecta ao mundo</span></a>
+  <div class="ac" id="acTopo">
+    <label class="sr" for="busca">Buscar país ou território</label>
+    <input id="busca" type="search" placeholder="Buscar país ou território…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="buscaLista" aria-autocomplete="list">
+    <ul id="buscaLista" role="listbox" hidden></ul>
   </div>
+  <button class="fontes-link" type="button" id="abrirFontes">Fontes e método</button>
 </header>
 
 <main class="quadro">
-  <section class="lado-globo" aria-label="Globo">
-    <div id="globo" aria-label="Globo interativo"></div>
-    <div class="lista" id="lista" aria-label="Lista de países"></div>
-    <div class="pane-topo">
-      <div class="titulo-globo">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="9.5" stroke="var(--accent)" stroke-width="1.2"/><circle cx="11" cy="11" r="5.5" stroke="var(--accent)" stroke-width="1.2"/></svg>
-        Visão mundial
-      </div>
-      <button class="voltar" id="voltar" type="button" aria-label="Voltar ao mundo"><span aria-hidden="true">←</span> Mundo</button>
-      <div class="modos" role="group" aria-label="Modo de visualização">
+  <section class="lado-mapa" aria-label="Mapa e controles">
+    <div class="mapa-topo">
+      <div class="modos" role="group" aria-label="Forma de ver">
         <button type="button" data-modo="globo" aria-pressed="true">Globo</button>
-        <button type="button" data-modo="lista" aria-pressed="false">Lista<span class="longo"> de países</span></button>
+        <button type="button" data-modo="lista" aria-pressed="false">Lista</button>
       </div>
+      <button class="voltar" id="voltar" type="button"><span aria-hidden="true">←</span> Visão do mundo</button>
     </div>
-    <div class="legenda">
-      <div class="camadas" role="group" aria-label="O que o globo destaca">
-        <button type="button" data-camada="noticias" aria-pressed="true">Notícias</button>
-        <button type="button" data-camada="dados" aria-pressed="false">Países com dados</button>
-      </div>
-      <span class="dados"><span><i style="background:var(--base-solid)"></i>Brasil</span></span>
-      <span class="dados"><span><i style="background:var(--focus-solid)"></i>Com dados (20 países)</span></span>
-      <span class="calor"><span>Manchetes que citam o país, na aba aberta</span><span class="escala-calor"></span><span>menos → mais</span></span>
+    <div class="area">
+      <div id="globo" role="img" aria-label="Globo: países coloridos pela métrica escolhida. A mesma informação está na lista e nos rankings."></div>
+      <div class="lista" id="lista" aria-label="Lista de países e territórios"></div>
+      <div class="zoom"><button type="button" id="mais" aria-label="Aproximar o globo">+</button><button type="button" id="menos" aria-label="Afastar o globo">−</button></div>
     </div>
-    <div class="tempo-ctl" id="tempoCtl" hidden>
-      <div class="ind" role="group" aria-label="Indicador">
-        <button type="button" data-ind="comercio" aria-pressed="true">Comércio</button><button type="button" data-ind="saldo" aria-pressed="false">Saldo</button>
-        <button type="button" data-ind="onu" aria-pressed="false">Votos na ONU</button><button type="button" data-ind="conflitos" aria-pressed="false">Conflitos</button>
-      </div>
-      <div class="linha-ano"><button type="button" id="play" aria-label="Animar ano a ano">▶</button>
-        <input type="range" id="ano" min="1946" max="2025" step="1" value="2025" aria-label="Ano"><output id="anoTxt">2025</output></div>
-      <div id="leg"></div>
-    </div>
-    <div class="zoom"><button type="button" id="mais" aria-label="Aproximar">+</button><button type="button" id="menos" aria-label="Afastar">−</button></div>
-    <div class="erro" id="erro"><div><b>Não foi possível carregar o globo.</b><br>Seu navegador precisa de WebGL. Use a lista de países ou tente outro navegador.</div></div>
+    <div class="controles" id="controles" aria-label="Métrica e ano"></div>
   </section>
-  <section class="lado-texto" id="conteudo">
-    <div class="resumo-mundo" id="resumo" aria-label="Resumo"></div>
-    <div class="painel" id="painel" aria-live="polite" aria-label="Detalhes do país"></div>
-  </section>
+  <section class="lado-texto" id="conteudo" aria-live="polite"></section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="dados/mundo.js"></script>
-<script src="dados/historia.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
-<script src="dados/noticias.js"></script>  <!-- notícias pausadas (D45): carregado, mas não usado -->
+<script src="dados/historia.js"></script>
 <script>
 "use strict";
-// Notícias pausadas (D45): o código fica, mas nada de manchetes aparece nem é buscado. Para voltar, NOTICIAS = true.
-const NOTICIAS = false;
-// Países do protótipo: o Brasil (base) e 20 parceiros escolhidos para testar a navegação.
-// A lista final virá dos dados de comércio exterior (Comex Stat), não desta escolha.
-// id = código numérico ISO 3166-1 do mapa (Natural Earth via world-atlas); lat/lng/alt = enquadramento da câmera.
-const FOCO = {
-  "076": { nome: "Brasil", lat: -14, lng: -52, alt: 1.25, base: true },
-  "156": { nome: "China", lat: 35, lng: 104, alt: 1.3 },
-  "840": { nome: "Estados Unidos", lat: 39, lng: -98, alt: 1.35 },
-  "032": { nome: "Argentina", lat: -37, lng: -64, alt: 1.0 },
-  "528": { nome: "Países Baixos", lat: 52.2, lng: 5.3, alt: 0.45 },
-  "724": { nome: "Espanha", lat: 40, lng: -3.7, alt: 0.65 },
-  "276": { nome: "Alemanha", lat: 51, lng: 10, alt: 0.6 },
-  "484": { nome: "México", lat: 23, lng: -102, alt: 0.9 },
-  "152": { nome: "Chile", lat: -35, lng: -71, alt: 1.1 },
-  "392": { nome: "Japão", lat: 36, lng: 138, alt: 0.75 },
-  "356": { nome: "Índia", lat: 22, lng: 79, alt: 1.0 },
-  "380": { nome: "Itália", lat: 42.5, lng: 12.5, alt: 0.6 },
-  "410": { nome: "Coreia do Sul", lat: 36.4, lng: 127.8, alt: 0.45 },
-  "124": { nome: "Canadá", lat: 58, lng: -100, alt: 1.45 },
-  "250": { nome: "França", lat: 46.5, lng: 2.5, alt: 0.65 },
-  "600": { nome: "Paraguai", lat: -23.4, lng: -58.4, alt: 0.6 },
-  "643": { nome: "Rússia", lat: 60, lng: 95, alt: 1.7 },
-  "682": { nome: "Arábia Saudita", lat: 24, lng: 45, alt: 0.85 },
-  "826": { nome: "Reino Unido", lat: 54, lng: -2.5, alt: 0.6 },
-  "170": { nome: "Colômbia", lat: 4.6, lng: -74, alt: 0.75 },
-  "858": { nome: "Uruguai", lat: -32.8, lng: -56, alt: 0.45 },
-};
-const ABAS = ["Economia", "Política", "Geopolítica", "Afeta o mundo"];
-const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// =====================================================================================================================
+// rotzx — atlas das relações comerciais do Brasil (D47).
+// Pergunta-guia: de quem o Brasil depende para vender e para comprar — e como isso mudou ao longo do tempo?
+// Só dados medidos, com fonte e ano. Dado ausente ≠ zero. Participações sempre com o denominador dito na tela.
+// =====================================================================================================================
+const H = window.HISTORIA;
+let P = window.PRODUTOS || null;           // explorador por produto: carregado sob demanda (dados/produtos.js)
+const C = H.comercio, BR = "076";
+const IDS = Object.keys(H.paises).filter((id) => id !== BR);
 const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const $painel = document.getElementById("painel"), $voltar = document.getElementById("voltar");
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-let globo, paises = [], selecionado = null, sobre = null;
-const nomeDe = (f) => window.HISTORIA?.paises?.[f.id]?.nome || FOCO[f.id]?.nome || N?.nomes?.[f.id] || f.properties.name;  // fora do protótipo: nome em inglês do mapa
-
-// Mapa de calor das manchetes (D44): quantas manchetes da aba aberta citam cada país (por iso_num do mapa).
-let calor = null, camada = NOTICIAS ? "noticias" : "dados";
-function corCalor(n) {
-  const max = Math.max(...Object.values(calor));
-  return `rgba(170,215,240,${(0.16 + 0.66 * Math.sqrt(n / max)).toFixed(3)})`;
+// ---------- formatos ----------
+const nf = (v, c) => v.toLocaleString("pt-BR", { minimumFractionDigits: c, maximumFractionDigits: c });
+function usd(v) {                     // escala adaptada à grandeza; null = sem dado (nunca "US$ 0,0 bi")
+  if (v == null) return "sem dado";
+  if (v === 0) return "US$ 0";
+  const a = Math.abs(v), s = v < 0 ? "−" : "";
+  if (a >= 1e12) return `${s}US$ ${nf(a / 1e12, 2)} tri`;
+  if (a >= 1e9) return `${s}US$ ${nf(a / 1e9, a >= 1e11 ? 0 : 1)} bi`;
+  if (a >= 1e6) return `${s}US$ ${nf(a / 1e6, a >= 1e8 ? 0 : 1)} mi`;
+  if (a >= 1e3) return `${s}US$ ${nf(a / 1e3, 0)} mil`;
+  return `${s}US$ ${nf(a, 0)}`;
 }
-function cor(f) {
-  if (f === selecionado) return css("--sel");
-  if (H && !NOTICIAS) return f === sobre ? "rgba(231,236,234,.55)" : f.id === "076" ? css("--base") : corValor(valor(f.id));   // o Brasil, ponto de vista, sempre em verde
-  if (camada === "noticias" && calor && Object.keys(calor).length) {
-    const n = calor[f.id] || 0;
-    if (f === sobre) return n ? "rgba(205,232,248,.92)" : css("--land-hover");
-    return n ? corCalor(n) : "rgba(10,16,28,.22)";
-  }
-  const foco = FOCO[f.id];
-  if (f === sobre) return foco ? (foco.base ? css("--base-hover") : css("--focus-hover")) : css("--land-hover");
-  return foco ? (foco.base ? css("--base") : css("--focus")) : css("--land");
+function pct(x, c = 1) {              // x em fração (0,25 = 25%); muito pequeno não vira "0,0%"
+  if (x == null) return "sem dado";
+  if (x === 0) return "0%";
+  if (Math.abs(x) < 0.0005) return x > 0 ? "menos de 0,1%" : "−menos de 0,1%";
+  return nf(x * 100, c) + "%";
 }
-const BRASIL = { lat: -12, lng: -50, altitude: 2.35 };  // vista inicial: o Brasil de frente, a Terra inteira no quadro
-const TEXTURAS = "https://cdn.jsdelivr.net/npm/three-globe@2.45.6/example/img/";  // Blue Marble (NASA) e relevo
-
-function vazio(texto) {
-  return `<div class="vazio"><div class="linhas" aria-hidden="true"><div></div><div></div><div></div></div>${esc(texto)}</div>`;
-}
-
-// ---------- dados (window.MUNDO e window.NOTICIAS, gerados por `rotzx mundo-atualizar`) ----------
-// Dados: a cópia que veio com o site (dados/*.js) e, se der, a versão mais nova do repositório público,
-// que o robô diário (workflow Globo) atualiza. Assim as manchetes ficam frescas sem republicar o site.
-let M = window.MUNDO || null, N = NOTICIAS ? (window.NOTICIAS || null) : null;
-const REPO_DADOS = "https://raw.githubusercontent.com/lcgalera/rotzx/main/prototipos/globo/dados/";
-async function dadosFrescos() {
-  const pegar = async (nome) => { const r = await fetch(REPO_DADOS + nome + ".json", { cache: "no-cache" }); if (!r.ok) throw new Error(r.status); return r.json(); };
-  const [m, n] = await Promise.allSettled([pegar("mundo"), NOTICIAS ? pegar("noticias") : Promise.reject(new Error("notícias pausadas"))]);
-  let mudou = false;
-  if (m.status === "fulfilled" && (!M || m.value.gerado_em > M.gerado_em)) { M = m.value; mudou = true; }
-  if (n.status === "fulfilled" && (!N || n.value.gerado_em > N.gerado_em)) { N = n.value; mudou = true; }
-  if (mudou) { renderEstado(); renderResumo(); renderLista(); if (selecionado) renderPainel(selecionado); }
-}
-const NOMES_CAT = { economia: "Economia", politica: "Política", geopolitica: "Geopolítica", afeta_o_mundo: "Afeta o mundo" };
-const bi = (v) => "US$ " + (v / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " bi";
-const pct = (v, c = 1) => (v * 100).toLocaleString("pt-BR", { minimumFractionDigits: c, maximumFractionDigits: c }) + "%";
-const num = (v, c = 1) => v.toLocaleString("pt-BR", { minimumFractionDigits: c, maximumFractionDigits: c });
-const dataBR = (d) => (d && d.length >= 8 ? `${d.slice(6, 8)}/${d.slice(4, 6)}/${d.slice(0, 4)}` : "");
+const pp = (d) => (d == null ? "sem dado" : (d >= 0 ? "+" : "−") + nf(Math.abs(d * 100), 1) + " p.p.");
+const ord = (n) => `${n}º`, ordF = (n) => `${n}ª`;   // "9º destino", "12ª origem"
+const juntarE = (l) => (l.length < 2 ? l.join("") : l.slice(0, -1).join(", ") + " e " + l[l.length - 1]);   // "a, b e c"
 const quando = (iso) => (iso ? new Date(iso).toLocaleDateString("pt-BR") : "");
 
-function fonte(chave, extra = "") {
-  const f = M?.fontes?.[chave] || N?.fonte;
-  if (!f) return "";
-  return `<p class="fonte">Fonte: <a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.nome)}</a>${f.licenca ? ` (${esc(f.licenca)})` : ""}${extra ? " · " + esc(extra) : ""}</p>`;
+// ---------- países, territórios e bandeiras ----------
+const nome = (id) => H.paises[id]?.nome || id;
+const ehTerritorio = (id) => H.paises[id]?.tipo === "territorio";
+const FLAGS = "https://cdn.jsdelivr.net/npm/flag-icons@7.5.0/flags/4x3/";   // flag-icons (MIT): bandeira atual, não a do ano
+function bandeira(id, { grande = false, alt = "" } = {}) {
+  const iso2 = (H.paises[id]?.iso2 || "").toLowerCase();
+  const cls = "flag" + (grande ? " g" : "");
+  if (!iso2) return `<span class="${cls} vazia" aria-hidden="true"></span>`;
+  return `<img class="${cls}" src="${FLAGS}${iso2}.svg" width="${grande ? 36 : 20}" height="${grande ? 27 : 15}" alt="${esc(alt)}"${alt ? "" : ' aria-hidden="true"'} loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'${cls} vazia'}))">`;
 }
 
-function tabelaProdutos(lista, titulo) {
-  if (!lista?.length) return "";
-  const max = Math.max(...lista.map((x) => x.participacao));
-  return `<div class="kicker" style="margin:12px 0 6px">${esc(titulo)}</div><ol class="prods">${lista.map((x) => `
-    <li><div class="barra" style="width:${(x.participacao / max) * 100}%"></div>
-      <span class="p-nome" title="SH4 ${esc(x.sh4)}">${esc(x.produto)}</span><span class="p-val">${bi(x.fob)} · ${pct(x.participacao)}</span></li>`).join("")}</ol>`;
+// ---------- séries ----------
+const ini = C.inicio, fim = C.fim;
+const em = (serie, a, inicio = ini) => (serie && a >= inicio && a - inicio < serie.length ? serie[a - inicio] : null);
+const brE = (a) => em(C.brasil.e, a), brI = (a) => em(C.brasil.i, a);
+function trocas(id, a) {              // null = sem registro no Comex Stat naquele ano (o Comex só lista fluxos positivos)
+  const d = C.paises[id]; if (!d || a < ini || a > fim) return null;
+  const e = em(d.e, a), i = em(d.i, a);
+  if (e == null && i == null) return null;
+  return { e, i, t: (e || 0) + (i || 0), s: (e || 0) - (i || 0), pe: e != null ? e / brE(a) : 0, pi: i != null ? i / brI(a) : 0,
+           pt: ((e || 0) + (i || 0)) / (brE(a) + brI(a)) };
 }
 
-function blocoComercio(d) {
-  const c = d.comercio;
-  if (!c) return `<div class="bloco"><h3>Relação com o Brasil</h3>${vazio("Sem dados de comércio para este país.")}</div>`;
-  const kpi = (r, v, s = "") => `<div class="kpi"><span>${esc(r)}</span><b>${v}</b>${s ? `<small>${esc(s)}</small>` : ""}</div>`;
-  return `<div class="bloco"><h3>Relação com o Brasil</h3>${fonte("comex", `${M.ano_comercio}, valores FOB`)}
-    <p class="resumo">${esc(d.resumo)}</p>
-    <div class="kpis">
-      ${c.exportacao ? kpi("Brasil exportou", bi(c.exportacao.fob), `${c.exportacao.posicao}º destino`) : ""}
-      ${c.importacao ? kpi("Brasil importou", bi(c.importacao.fob), `${c.importacao.posicao}º fornecedor`) : ""}
-      ${c.saldo != null ? kpi("Saldo", (c.saldo >= 0 ? "+" : "−") + bi(Math.abs(c.saldo)), c.saldo >= 0 ? "superávit" : "déficit") : ""}
-    </div>
-    ${tabelaProdutos(c.produtos_exportados, "O que o Brasil mais vende")}
-    ${tabelaProdutos(c.produtos_importados, "O que o Brasil mais compra")}</div>`;
-}
-
-// ---- Relação com o Brasil além do comércio (D42): votos na ONU e disputas na OMC. Só fatos medidos, com fonte. ----
-function nomeOMC(cod) {
-  if (cod === "EEC") return "União Europeia";
-  if (cod === "BRA") return "Brasil";
-  const p = Object.values(M?.paises || {}).find((x) => x.iso3 === cod);
-  return p ? p.nome : cod;   // fora dos 20: o código da OMC (ISO 3166)
-}
-const ano = (iso) => (iso || "").slice(0, 4);
-
-function faixaONU(o) {   // terço da tabela de concordância com o Brasil, entre todos os países com votos no ano
-  const t = o.posicao / o.de;
-  return t <= 1 / 3 ? ["conv", "entre o terço que mais vota igual ao Brasil"] : t > 2 / 3 ? ["div", "entre o terço que menos vota igual ao Brasil"] : ["neu", "no meio da tabela"];
-}
-
-function sinais(d) {
-  const r = d.relacoes || {}, c = d.comercio, o = r.onu, w = r.omc, l = [];
-  if (c?.saldo != null) l.push(["neu", `Comércio: ${c.saldo >= 0 ? "superávit" : "déficit"} brasileiro de ${bi(Math.abs(c.saldo))} em ${esc(M.ano_comercio)}`]);
-  if (o) { const [k, t] = faixaONU(o); l.push([k, `Votos na ONU: ${t} (${o.posicao}º de ${o.de} em ${esc(M.onu?.ano)})`]); }
-  if (w) {
-    // "Recente" e não "em aberto": casos antigos muitas vezes nunca recebem encerramento formal na OMC
-    const rec = w.com_brasil.filter((x) => +ano(x.inicio) >= w.recentes_desde).length, tot = w.com_brasil.length;
-    const ue = w.via_ue ? " (via União Europeia)" : "";
-    l.push([rec ? "atr" : "neu", rec ? `OMC: ${rec} disputa${rec > 1 ? "s" : ""} com o Brasil aberta${rec > 1 ? "s" : ""} desde ${w.recentes_desde}${ue}; ${tot} desde 1995`
-      : `OMC: nenhuma disputa com o Brasil desde ${w.recentes_desde}${ue}${tot ? `; ${tot} desde 1995` : ""}`]);
-  }
-  return l.length ? `<ul class="sinais">${l.map(([k, t]) => `<li class="${k}"><i></i><span>${t}</span></li>`).join("")}</ul>` : "";
-}
-
-function linhaDisputa(x, eu) {
-  const quem = x.lado === "reclamante" ? `${esc(eu)} abriu contra ${x.contra.map(nomeOMC).map(esc).join(", ")}` : `${x.reclamantes.map(nomeOMC).map(esc).join(", ")} abriu contra ${esc(eu)}`;
-  return `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.titulo)}</a>
-    <span>${esc(x.ds)} · ${ano(x.inicio)} · ${quem} · ${esc(x.situacao)}</span></li>`;
-}
-
-function blocoRelacoes(d, nome) {
-  const r = d.relacoes || {}, o = r.onu, w = r.omc;
-  if (!o && !w) return "";
-  const eu = w?.via_ue ? "União Europeia" : nome;
-  let h = `<div class="bloco"><h3>Sinais da relação</h3><p class="fonte">Medidas, não opinião: cada linha diz de onde vem.</p>${sinais(d)}`;
-  if (o) {
-    h += `<div class="kicker" style="margin:16px 0 6px">Votos na Assembleia Geral da ONU</div>${fonte("onu", `${M.onu?.ano}`)}
-      <p class="resumo">Concordância com o Brasil em ${esc(M.onu?.ano)}: <b>${Math.round(o.concordancia * 100)} de 100</b>
-        (média ${esc(o.anos_media)}: ${Math.round(o.media * 100)}). ${o.posicao}º entre ${o.de} países.</p>
-      <div class="escala" role="img" aria-label="Posição na escala de concordância"><u style="left:${M.onu.mediana * 100}%" title="mediana dos países"></u><b style="left:${o.concordancia * 100}%"></b></div>
-      <div class="escala-leg"><span>0 · votam sempre ao contrário</span><span>traço fino = mediana</span><span>100 · votam igual</span></div>
-      <p class="fonte" style="margin-top:8px">1 voto igual vale 1; abstenção de um dos dois vale meio. Muda com a pauta do ano, por isso a média de 5 anos.</p>`;
-  }
-  if (w) {
-    const cb = w.com_brasil;
-    h += `<div class="kicker" style="margin:16px 0 6px">Disputas comerciais com o Brasil na OMC</div>${fonte("omc", "títulos oficiais em inglês")}
-      ${w.via_ue ? `<p class="fonte">Na OMC, os países da União Europeia são representados pela UE: as disputas abaixo são da UE.</p>` : ""}
-      ${cb.length ? `<ul class="disputas">${cb.slice(0, 5).map((x) => linhaDisputa(x, eu)).join("")}</ul>${cb.length > 5 ? `<p class="fonte">e mais ${cb.length - 5} desde 1995.</p>` : ""}`
-        : vazio("Nenhuma disputa com o Brasil na OMC desde 1995.")}`;
-    h += blocoExterno(w, eu);
-  }
-  return h + "</div>";
-}
-
-// Visão externa: com quem o país disputa na OMC, sem o Brasil no meio
-function blocoExterno(w, eu) {
-  const cp = Object.entries(w.contrapartes || {});
-  return `<div class="kicker" style="margin:16px 0 6px">Visão externa: disputas com outros países desde ${w.recentes_desde}</div>
-    ${w.recentes_total ? `<p class="resumo">${w.recentes_total} disputa${w.recentes_total > 1 ? "s" : ""}; com quem: ${cp.slice(0, 5).map(([k, n]) => `${esc(nomeOMC(k))} (${n})`).join(", ")}${cp.length > 5 ? " e outros" : ""}.</p>
-      <ul class="disputas">${w.recentes.slice(0, 3).map((x) => linhaDisputa(x, eu)).join("")}</ul>` : vazio(`Nenhuma disputa na OMC desde ${w.recentes_desde}.`)}`;
-}
-
-// ---- Conflitos armados (D43): UCDP/PRIO, só o que a base mede (25+ mortes em combate no ano, um governo de um dos lados) ----
-const versaoUCDP = () => (M?.conflitos?.versao || "").replace(/^(\d\d)(\d)$/, "$1.$2");
-const contra = (c) => `${c.lado_a.map(esc).join(", ")} × ${c.lado_b.map(esc).join(", ")}`;
-function linhaConflito(c, doPais) {
-  const anos = doPais ? c.anos_pais : c.anos;
-  const periodo = (doPais ? "participação: " : "") + (anos.length > 1 ? `${anos[0]}–${anos[anos.length - 1]}` : `${anos[0]}`);
-  let papel = "";
-  if (doPais) {
-    papel = c.papel === "apoio com tropas"
-      ? `apoio com tropas a ${c.apoia.map(esc).join(", ")}${c.apoiadores_no_lado > 5 ? ` (um entre ${c.apoiadores_no_lado} países desse lado: a base inclui tropas de missões multinacionais, como as de paz da ONU)` : ""}`
-      : c.papel === "lado principal" ? "lado principal" : "no território do país";
-  }
-  return `<li><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.local)}: ${contra(c)}</a>
-    <span>${papel ? papel + " · " : ""}${esc(c.tipo)} · disputa por ${esc(c.disputa)}${c.territorio ? ` (${esc(c.territorio)})` : ""} · ${periodo}
-      ${c.ultimo_ano === M.conflitos.ultimo_ano ? ` · ${doPais ? "o conflito " : ""}em ${c.ultimo_ano}: ${c.guerra_no_ultimo_ano ? "<b>1.000 ou mais mortes em combate</b>" : "25 a 999 mortes em combate"}` : ""}</span></li>`;
-}
-
-function blocoConflitos(d) {
-  const l = d.relacoes?.conflitos;
-  if (!l || !M?.conflitos) return "";
-  const k = M.conflitos;
-  return `<div class="bloco"><h3>Conflitos armados, ${k.desde}–${k.ultimo_ano}</h3>${fonte("ucdp", `versão ${versaoUCDP()}`)}
-    ${l.length ? `<ul class="disputas">${l.slice(0, 6).map((c) => linhaConflito(c, true)).join("")}</ul>${l.length > 6 ? `<p class="fonte">e mais ${l.length - 6} no período.</p>` : ""}`
-      : vazio(`Nenhum conflito armado registrado de ${k.desde} a ${k.ultimo_ano}.`)}
-    <p class="fonte" style="margin-top:10px">Conta só conflitos em que um dos lados é um governo e que deixaram 25 ou mais mortes em combate no ano.
-      Nomes como na base, em inglês.</p></div>`;
-}
-
-function blocoEconomia(d) {
-  const e = d.economia || [];
-  if (!e.length) return `<div class="bloco"><h3>Economia</h3>${vazio("Sem indicadores do Banco Mundial para este país.")}</div>`;
-  const fmt = (x) => x.id === "NY.GDP.MKTP.CD" ? "US$ " + num(x.valor / 1e12, 2) + " tri"
-    : x.id === "SP.POP.TOTL" ? num(x.valor / 1e6, 1) + " mi" : (x.valor >= 0 ? "" : "−") + num(Math.abs(x.valor), 1) + "%";
-  return `<div class="bloco"><h3>Economia</h3>${fonte("bancomundial", `atualizado em ${e[0].atualizado || "–"}`)}
-    <div class="kpis">${e.map((x) => `<div class="kpi"><span>${esc(x.rotulo)}</span><b>${fmt(x)}</b><small>${esc(x.ano)}</small></div>`).join("")}</div></div>`;
-}
-
-function listaManchetes(lista, cat) {
-  const l = cat === "todas" ? lista : lista.filter((m) => m.categorias.includes(cat));
-  if (!l.length) return vazio(cat === "todas" ? "Nenhuma manchete em português nos últimos 7 dias." : `Nenhuma manchete de ${NOMES_CAT[cat].toLowerCase()} nos últimos 7 dias.`);
-  return `<ul class="news">${l.slice(0, 12).map((m) => `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a>
-    <span>${esc(m.veiculo)} · ${dataBR(m.data)}${m.categorias.length ? " · " + m.categorias.map((c) => NOMES_CAT[c]).join(", ") : ""}</span></li>`).join("")}</ul>`;
-}
-
-function blocoManchetes(lista, titulo, nota) {
-  const abas = [["todas", "Todas"], ...Object.entries(NOMES_CAT)];
-  return `<div class="bloco"><h3>${esc(titulo)}</h3>
-    <p class="fonte">Fontes: feeds RSS de veículos em português e <a href="https://www.gdeltproject.org" target="_blank" rel="noopener">GDELT</a> · ${esc(nota)} · atualizado em ${quando(N?.gerado_em)}</p>
-    <div class="abas" role="tablist">${abas.map(([k, r], i) => `<button role="tab" aria-selected="${i === 0}" data-aba="${k}">${esc(r)}</button>`).join("")}</div>
-    <div class="aba-corpo">${listaManchetes(lista, "todas")}</div>
-    <p class="fonte" style="margin-top:8px">Categorias atribuídas automaticamente por palavras-chave no título; podem errar.</p></div>`;
-}
-
-function painelPais(f) {
-  if (H && !NOTICIAS) return painelHistoria(f);
-  const foco = FOCO[f.id];
-  const nome = nomeDe(f);
-  const d = M?.paises?.[f.id];
-  const rodape = `<p class="nota">Protótipo. ${M ? `Comércio de ${esc(M.ano_comercio)}; dados coletados em ${quando(M.gerado_em)}.` : "Dados ainda não gerados (rode rotzx mundo-atualizar)."}
-    ${NOTICIAS ? "Manchetes: só título, veículo e link; o texto está no site de cada veículo." : ""}</p>`;
-  if (foco?.base) {
-    const t = d?.comercio_total, r = d?.maiores_parceiros || [];
-    const max = r.length ? Math.max(...r.map((x) => x.exportacao + x.importacao)) : 1;
-    return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Ponto de vista</div><h2>Brasil</h2>
-      <p class="sub">A base de tudo: cada país é lido pela relação com o Brasil.</p></header>
-      <div class="bloco"><h3>Comércio exterior do Brasil</h3>${t ? fonte("comex", `${M.ano_comercio}, valores FOB`) + `
-        <div class="kpis"><div class="kpi"><span>Exportações</span><b>${bi(t.exportacao)}</b></div><div class="kpi"><span>Importações</span><b>${bi(t.importacao)}</b></div>
-        <div class="kpi"><span>Saldo</span><b>${t.saldo >= 0 ? "+" : "−"}${bi(Math.abs(t.saldo))}</b></div></div>
-        <div class="kicker" style="margin:12px 0 6px">Maiores parceiros (exportação + importação)</div>
-        <ol class="prods">${r.map((x) => `<li><div class="barra" style="width:${((x.exportacao + x.importacao) / max) * 100}%"></div>
-          <span class="p-nome">${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></li>`).join("")}</ol>` : vazio("Dados ainda não gerados.")}</div>
-      ${d ? blocoEconomia(d) : ""}
-      ${d?.relacoes?.omc ? `<div class="bloco"><h3>Disputas do Brasil na OMC</h3>${fonte("omc", "títulos oficiais em inglês")}
-        <p class="resumo">${d.relacoes.omc.total} disputas desde 1995, como reclamante ou demandado.</p>${blocoExterno(d.relacoes.omc, "Brasil")}</div>` : ""}
-      ${d ? blocoConflitos(d) : ""}
-      ${N ? blocoManchetes(N.mundo || [], "Em alta no mundo", "manchetes em português dos últimos 2 dias sobre geopolítica e temas globais (seleção por palavras-chave)") : ""}
-      ${rodape}`;
-  }
-  if (!foco) {
-    // sem dados de comércio, mas com as manchetes já coletadas que citam o país no título (D44)
-    const vistas = new Set(), cit = [];
-    [N?.mundo || [], ...Object.values(N?.paises || {})].flat().forEach((m) => { if ((m.paises || []).includes(f.id) && !vistas.has(m.url)) { vistas.add(m.url); cit.push(m); } });
-    cit.sort((a, b) => quandoM(b).localeCompare(quandoM(a)));
-    return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Fora do protótipo</div><h2>${esc(nome)}</h2>
-      <p class="sub">Sem dados de comércio e economia por enquanto${cit.length ? "; abaixo, as manchetes coletadas que citam o país" : ""}.</p></header>
-      ${cit.length ? blocoManchetes(cit, "Manchetes", "manchetes em português que citam o país no título, entre as já coletadas") : `<div class="bloco">${vazio(NOTICIAS ? "Nenhuma manchete coletada cita este país." : "Este país ainda não tem dados no globo.")}</div>`}${rodape}`;
-  }
-  return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">Visto do Brasil</div><h2>${esc(nome)}</h2>
-    <p class="sub">Relação com o Brasil, economia e o que está acontecendo.</p></header>
-    ${d ? blocoComercio(d) + blocoRelacoes(d, nome) + blocoConflitos(d) + blocoEconomia(d) : `<div class="bloco">${vazio("Dados ainda não gerados.")}</div>`}
-    ${N ? blocoManchetes(N.paises?.[f.id] || [], "Manchetes", "manchetes em português dos últimos 7 dias que citam o país no título") : ""}
-    <div class="bloco"><span class="selo">interpretação · em breve</span><h3>Por que importa para o Brasil</h3>
-      <p class="fonte">Texto curto, com a fonte de cada número; o que for interpretação vai aparecer marcado</p>${vazio("Ainda não escrito.")}</div>
-    ${rodape}`;
-}
-
-// ---------- barra de cima: de quando são os dados e se as fontes responderam ----------
-const hora = (iso) => (iso ? new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "");
-const LEIAME = "https://github.com/lcgalera/rotzx/blob/main/prototipos/globo/LEIAME.md";
-function renderEstado() {
-  const falhas = Object.keys(N?.falhas || {}).filter((k) => k.startsWith("rss:")).length;
-  const partes = [];
-  if (N?.gerado_em) partes.push(`manchetes de ${hora(N.gerado_em)}`);
-  if (M?.ano_comercio) partes.push(`comércio ${esc(M.ano_comercio)}`);
-  if (M?.onu?.ano) partes.push(`votos na ONU ${esc(M.onu.ano)}`);
-  if (M?.fontes?.omc) partes.push("disputas na OMC");
-  if (M?.conflitos) partes.push(`conflitos ${M.conflitos.ultimo_ano}`);
-  const ok = !NOTICIAS || (N && !falhas);
-  document.getElementById("estado").innerHTML = `<i class="ponto${ok ? "" : " aviso"}"></i>
-    <b>${!NOTICIAS ? "Dados abertos" : N ? (falhas ? `${falhas} fonte${falhas > 1 ? "s" : ""} sem resposta` : "Dados abertos") : "Coleta indisponível"}</b>
-    <span class="txt">${partes.join(" · ") || "nenhum dado carregado"}</span>
-    <a href="${LEIAME}" target="_blank" rel="noopener">Fontes e método ↗</a>`;
-}
-
-// ---------- coluna da direita, sem país aberto: "Mundo agora" ----------
-let aba = NOTICIAS ? "agora" : "conflitos", filtro = "todas";
-const ABAS_RESUMO = [["agora", "Agora"], ["brasil", "No Brasil"], ["conflitos", "Conflitos"], ["comercio", "Comércio do Brasil"]]
-  .filter(([k]) => NOTICIAS || (k !== "agora" && k !== "brasil"));
-const FILTROS = [["todas", "Todas"], ...Object.entries(NOMES_CAT)];
-
-function listaDaAba() { return aba === "brasil" ? (N?.paises?.["076"] || []) : (N?.mundo || []); }
-
-// ---- Organização das manchetes (D44) ----
-// Assuntos: manchetes que dividem palavras do título (e países citados) viram um grupo. É automático e pode errar;
-// o grupo mostra as palavras em comum para dar para conferir. Nada é resumido nem reescrito: só título, veículo e link.
-const PARADAS = new Set(("para pelo pela pelos pelas como mais menos sobre após apos entre contra diz dizem será serão está estão foram "
-  + "isso essa esse esta este qual quais quando onde porque porquê pode podem deve devem também ainda depois antes desde até "
-  + "seus suas novo nova novos novas anos dias hoje ontem veja entenda saiba após sendo tem têm teve fazer faz feito vai vão "
-  + "muito muita muitos muitas outro outra outros outras mesmo mesma cada todo toda todos todas grande grandes primeiro primeira "
-  + "governo presidente país países mundo brasil brasileiro brasileira").split(" "));
-function palavras(m) {
-  const t = (m.titulo || "").toLowerCase().normalize("NFC").split(/[^a-zà-ÿ0-9]+/).filter((w) => w.length >= 4 && !PARADAS.has(w));
-  return new Set([...t, ...(m.paises || []).filter((p) => p !== "076").map((p) => "#" + p)]);
-}
-function agrupar(lista) {
-  const grupos = [];
-  for (const m of lista) {
-    const w = palavras(m);
-    let melhor = null, nota = 0;
-    for (const g of grupos) {
-      const iguais = [...w].filter((x) => g.base.has(x));
-      const s = iguais.length / Math.min(w.size, g.base.size || 1);
-      // pelo menos 2 palavras em comum além dos países citados: "EUA" + "guerra" sozinhos juntavam assuntos diferentes
-      if (iguais.filter((x) => !x.startsWith("#")).length >= 2 && s >= 0.3 && s > nota) { melhor = g; nota = s; }
-    }
-    if (melhor) { melhor.itens.push(m); if (melhor.itens.length <= 3) w.forEach((x) => melhor.base.add(x)); }
-    else grupos.push({ itens: [m], base: new Set(w) });
-  }
-  for (const g of grupos) {
-    const conta = {};
-    g.itens.forEach((m) => palavras(m).forEach((x) => (conta[x] = (conta[x] || 0) + 1)));
-    g.comuns = Object.entries(conta).filter(([, n]) => n >= Math.max(2, Math.ceil(g.itens.length / 2))).sort((a, b) => b[1] - a[1])
-      .map(([x]) => (x.startsWith("#") ? (N?.nomes?.[x.slice(1)] || "") : x)).filter(Boolean).slice(0, 4);
-    g.veiculos = new Set(g.itens.map((m) => m.veiculo)).size;
-  }
-  return grupos;
-}
-
-let paisFiltro = null;
-const quandoM = (m) => (m.data || "") + (m.hora || "");
-function nomeIso(id) { return FOCO[id]?.nome || N?.nomes?.[id] || id; }
-
-function corpoManchetes() {
-  const todas = [...listaDaAba()].sort((a, b) => quandoM(b).localeCompare(quandoM(a)));
-  const porCat = filtro === "todas" ? todas : todas.filter((m) => m.categorias.includes(filtro));
-  const conta = (k) => (k === "todas" ? todas.length : todas.filter((m) => m.categorias.includes(k)).length);
-  // onde: países citados nas manchetes da categoria escolhida (o Brasil fica de fora na aba "No Brasil", em que todas o citam)
-  calor = {};
-  porCat.forEach((m) => (m.paises || []).forEach((p) => { if (!(aba === "brasil" && p === "076")) calor[p] = (calor[p] || 0) + 1; }));
-  if (paisFiltro && !calor[paisFiltro]) paisFiltro = null;
-  const l = paisFiltro ? porCat.filter((m) => (m.paises || []).includes(paisFiltro)) : porCat;
-  const onde = Object.entries(calor).sort((a, b) => b[1] - a[1]).slice(0, 8);
-  const janela = aba === "brasil" ? "7 dias" : "2 dias";
-
-  let corpo;
-  if (!l.length) {
-    corpo = `<div class="nada"><h3>Nada nesta seleção</h3>
-      <p>Nenhuma manchete${filtro === "todas" ? "" : " de " + NOMES_CAT[filtro].toLowerCase()} nos últimos ${janela}. Isso não quer dizer que nada aconteceu:
-      a coleta lê só os títulos de nove veículos em português.</p>${filtro === "todas" ? "" : `<button class="botao" type="button" data-limpar>Ver todas</button>`}</div>`;
-  } else {
-    // 1 + 2: os assuntos cobertos por mais veículos diferentes vão para o topo (critério: número de veículos, não opinião)
-    const grupos = agrupar(l);
-    const topo = grupos.filter((g) => g.veiculos >= 2).sort((a, b) => b.veiculos - a.veiculos || b.itens.length - a.itens.length
-      || quandoM(b.itens[0]).localeCompare(quandoM(a.itens[0]))).slice(0, 4);
-    const noTopo = new Set(topo.flatMap((g) => g.itens));
-    const linha = (m) => `<li><b>${esc(m.veiculo)}</b> · <a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a></li>`;
-    const assuntos = topo.length ? `<div class="kicker" style="margin:18px 0 10px">Assuntos mais cobertos</div><div class="assuntos">${topo.map((g) => {
-      const [p, ...resto] = g.itens;
-      return `<article class="assunto"><div class="meta">${g.veiculos} veículos · ${g.itens.length} manchetes${g.comuns.length ? ` <span>· em comum: ${g.comuns.map(esc).join(", ")}</span>` : ""}</div>
-        <a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.titulo)}</a><div class="por">${esc(p.veiculo)} · ${dataBR(p.data)}${p.hora ? " · " + esc(p.hora) : ""}</div>
-        ${resto.length ? `<ul>${resto.slice(0, 2).map(linha).join("")}</ul>` : ""}
-        ${resto.length > 2 ? `<details><summary>+ ${resto.length - 2} manchete${resto.length - 2 > 1 ? "s" : ""} sobre o assunto</summary><ul>${resto.slice(2).map(linha).join("")}</ul></details>` : ""}</article>`;
-    }).join("")}</div>` : "";
-    // 3: o resto em linha do tempo, por dia
-    const hoje = new Date(), d8 = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
-    const ontem = new Date(hoje); ontem.setDate(hoje.getDate() - 1);
-    const rotuloDia = (d) => (d === d8(hoje) ? "Hoje" : d === d8(ontem) ? "Ontem" : "") + (d ? (d === d8(hoje) || d === d8(ontem) ? " · " : "") + `${d.slice(6, 8)}/${d.slice(4, 6)}` : "Sem data");
-    const dias = {};
-    l.filter((m) => !noTopo.has(m)).forEach((m) => (dias[m.data || ""] = dias[m.data || ""] || []).push(m));
-    const tempo = Object.keys(dias).sort().reverse().map((d) => `<div class="kicker dia">${rotuloDia(d)}</div><ul class="tempo">${dias[d].slice(0, 20).map((m) => `<li>
-        <time>${esc(m.hora || "")}</time><div><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titulo)}</a>
-        <span>${esc(m.veiculo)}${m.categorias.length ? " · " + m.categorias.map((c) => NOMES_CAT[c]).join(", ") : ""}${(m.paises || []).length ? " · " + m.paises.filter((x) => !(aba === "brasil" && x === "076")).map(nomeIso).map(esc).join(", ") : ""}</span></div></li>`).join("")}</ul>`).join("");
-    corpo = assuntos + (tempo ? `<div class="kicker" style="margin:22px 0 0">${topo.length ? "Outras manchetes" : "Linha do tempo"}</div>${tempo}` : "");
-  }
-  return `<div class="filtros" role="group" aria-label="Categorias">${FILTROS.map(([k, r]) => `<button type="button" data-filtro="${k}" aria-pressed="${k === filtro}">${esc(r)}<small>${conta(k)}</small></button>`).join("")}</div>
-    ${onde.length ? `<div class="onde" role="group" aria-label="Países citados"><span>Onde:</span>${onde.map(([id, n]) => `<button type="button" data-onde="${id}" aria-pressed="${id === paisFiltro}">${esc(nomeIso(id))}<small>${n}</small></button>`).join("")}</div>` : ""}
-    <p class="regra">${aba === "brasil" ? "Manchetes que citam o Brasil no título." : "Geopolítica e temas que afetam o mundo."} Em cima, os assuntos cobertos por mais veículos;
-      embaixo, o resto por dia, mais recentes primeiro. Assuntos, categorias e países são marcados automaticamente pelas palavras do título e podem errar.</p>
-    <div class="corpo">${corpo}</div>`;
-}
-
-function corpoConflitos() {
-  const k = M?.conflitos;
-  if (!k) return `<div class="corpo"><div class="nada"><h3>Sem dados de conflitos</h3><p>A coleta da base de Uppsala ainda não rodou.</p></div></div>`;
-  const a = k.mundo.ativos;
-  return `<div class="corpo" style="padding-top:22px">${fonte("ucdp", `versão ${versaoUCDP()}`)}
-    <div class="kpis"><div class="kpi"><span>Conflitos armados em ${k.ultimo_ano}</span><b>${k.mundo.total}</b></div>
-      <div class="kpi"><span>Com 1.000 ou mais mortes em combate</span><b>${k.mundo.guerras}</b></div></div>
-    <p class="regra" style="margin:14px 0 0">Os mais intensos primeiro, depois por lugar. Só conflitos com um governo de um dos lados e 25 ou mais mortes
-      em combate no ano; protestos e crises sem combate não entram. Nomes como na base, em inglês.</p>
-    <ul class="disputas" style="margin-top:8px">${a.map((c) => linhaConflito(c, false)).join("")}</ul></div>`;
-}
-
-function corpoComercio() {
-  const b = M?.paises?.["076"], t = b?.comercio_total;
-  if (!t) return `<div class="corpo"><div class="nada"><h3>Sem dados de comércio</h3><p>Rode <code>rotzx mundo-atualizar</code>.</p></div></div>`;
-  const porNome = Object.fromEntries(Object.entries(FOCO).map(([id, p]) => [p.nome, id]));
-  porNome["Países Baixos (Holanda)"] = "528";
-  const top = (b.maiores_parceiros || []).slice(0, 8);
-  const max = Math.max(...top.map((x) => x.exportacao + x.importacao));
-  return `<div class="corpo" style="padding-top:22px">${fonte("comex", `${M.ano_comercio}, valores FOB`)}
-    <div class="kpis"><div class="kpi"><span>Exportou</span><b>${bi(t.exportacao)}</b></div><div class="kpi"><span>Importou</span><b>${bi(t.importacao)}</b></div>
-      <div class="kpi"><span>Saldo</span><b>${t.saldo >= 0 ? "+" : "−"}${bi(Math.abs(t.saldo))}</b></div></div>
-    <div class="kicker secao">Maiores parceiros · exportação + importação</div>
-    <ol class="parceiros">${top.map((x) => { const id = porNome[x.pais];
-      return `<li><button type="button" ${id ? `data-id="${id}"` : "disabled"}><span class="barra" style="width:${((x.exportacao + x.importacao) / max) * 100}%"></span>
-        <span>${esc(x.pais)}</span><span class="p-val">${bi(x.exportacao + x.importacao)}</span></button></li>`; }).join("")}</ol></div>`;
-}
-
-// =====================================================================================================================
-// Retrato histórico (D46): todos os países × Brasil, 1946–2025, com seletor de ano e indicadores no globo.
-// Só dados medidos, com fonte; ano sem dado = "sem dado" (cinza), nunca zero.
-// =====================================================================================================================
-const H = window.HISTORIA || null;
-const IND = {
-  comercio: { rot: "Comércio com o Brasil", fonte: "Comex Stat", desc: "exportações + importações do Brasil com o país, em US$" },
-  saldo: { rot: "Saldo", fonte: "Comex Stat", desc: "exportações menos importações do Brasil com o país: superávit ou déficit do Brasil" },
-  onu: { rot: "Votos na ONU", fonte: "Voeten et al.", desc: "concordância com o Brasil nas votações nominais da Assembleia Geral (0 a 100)" },
-  conflitos: { rot: "Conflitos", fonte: "UCDP", desc: "conflito armado no território (25+ mortes em combate no ano) ou tropas em conflito fora dele" },
+// ---------- métricas do mapa e dos rankings ----------
+const MET = {
+  exp: { rot: "Exportações", cab: "Para onde vão as exportações", desc: "exportações do Brasil para o país (US$ FOB correntes)",
+         den: "participação = exportações para o país ÷ total exportado pelo Brasil no ano", v: (t) => t?.e ?? null, p: (t) => t?.pe, tipo: "usd" },
+  imp: { rot: "Importações", cab: "De onde vêm as importações", desc: "importações do Brasil com origem no país (US$ FOB correntes)",
+         den: "participação = importações do país ÷ total importado pelo Brasil no ano", v: (t) => t?.i ?? null, p: (t) => t?.pi, tipo: "usd" },
+  corrente: { rot: "Corrente", cab: "Maiores parceiros", desc: "corrente de comércio: exportações + importações (US$ FOB correntes)",
+         den: "participação = corrente com o país ÷ corrente total do Brasil no ano", v: (t) => t?.t ?? null, p: (t) => t?.pt, tipo: "usd" },
+  part: { rot: "Participação", cab: "Peso de cada parceiro", desc: "participação do parceiro na corrente de comércio do Brasil (%)",
+         den: "corrente com o país ÷ corrente total do Brasil (exportações + importações) no ano", v: (t) => t?.pt ?? null, tipo: "pct" },
+  mud: { rot: "Mudança", cab: "Quem ganhou e quem perdeu importância", desc: "variação da participação na corrente de comércio entre dois anos, em pontos percentuais",
+         den: "participação no ano − participação no ano-base; só países e territórios com comércio registrado nos dois anos", tipo: "pp" },
+  prod: { rot: "Produto", cab: "Parceiros de um produto", desc: "participação de cada parceiro no total do produto escolhido", tipo: "prod" },
+  onu: { rot: "Votos na ONU", cab: "Concordância nos votos da ONU", desc: "concordância com o Brasil nas votações nominais da Assembleia Geral (0 a 100)", tipo: "onu", ctx: true },
+  conf: { rot: "Conflitos", cab: "Onde houve conflito armado", desc: "conflito armado no território (25+ mortes em combate no ano)", tipo: "conf", ctx: true },
 };
-let ind = "comercio", anoSel = 2025, tocando = null;
-const cobertura = (k) => !H ? [0, 0] : k === "onu" ? [H.onu.inicio, H.onu.fim] : k === "conflitos" ? [H.conflitos.inicio, H.conflitos.fim]
-  : [H.comercio.inicio, H.comercio.fim];
-const na = (serie, inicio, a) => (serie && a >= inicio && a - inicio < serie.length ? serie[a - inicio] : null);
-function comercioDe(id, a) {
-  const c = H?.comercio?.paises?.[id];
-  if (!c) return null;
-  const e = na(c.e, H.comercio.inicio, a), i = na(c.i, H.comercio.inicio, a);
-  return e == null && i == null ? null : { e: e || 0, i: i || 0, t: (e || 0) + (i || 0), s: (e || 0) - (i || 0) };
+function cobertura(m) {
+  if (m === "onu") return [H.onu.inicio, H.onu.fim];
+  if (m === "conf") return [H.conflitos.inicio, H.conflitos.fim];
+  return [ini, fim];
 }
-const onuDe = (id, a) => na(H?.onu?.paises?.[id], H?.onu?.inicio, a);
-const conflitoDe = (id, a) => H?.conflitos?.paises?.[id]?.[String(a)] || null;
-function valor(id, k = ind, a = anoSel) {
-  if (!H) return null;
-  const [ini, fim] = cobertura(k);
-  if (a < ini || a > fim) return null;
-  if (k === "comercio") return comercioDe(id, a)?.t ?? null;
-  if (k === "saldo") return comercioDe(id, a)?.s ?? null;
-  if (k === "onu") return onuDe(id, a);
-  const c = conflitoDe(id, a);
-  return c ? (c.t ? c.t : (c.l || c.a ? 0.5 : 0)) : 0;   // 2 guerra no território, 1 conflito no território, 0,5 tropas fora
+function valor(id, m = st.m, a = st.ano) {
+  const [c0, c1] = cobertura(m);
+  if (a < c0 || a > c1) return null;
+  if (m === "onu") return em(H.onu.paises[id], a, H.onu.inicio);
+  if (m === "conf") { const k = H.conflitos.paises[id]?.[String(a)]; return k ? k.t : 0; }
+  if (m === "mud") { const t1 = trocas(id, a), t0 = trocas(id, st.base); return t1 && t0 ? t1.pt - t0.pt : null; }
+  if (m === "prod") return prodParte(id);
+  const t = trocas(id, a);
+  return t ? MET[m].v(t) : null;
 }
-// escalas de cor: sequencial em verde-água (log no comércio), divergente no saldo, três níveis nos conflitos
-let escalaMax = 1;
-function recalcEscala() {
-  const vs = (H ? Object.keys(H.paises) : []).filter((id) => id !== "076").map((id) => valor(id)).filter((v) => v != null);
-  escalaMax = ind === "saldo" ? Math.max(1, ...vs.map(Math.abs)) : Math.max(1e-9, ...vs);
+// escalas FIXAS para todos os anos (dá para comparar anos olhando as cores); a legenda diz isso
+const MAX = {};
+function maxGlobal(m) {
+  if (MAX[m] != null) return MAX[m];
+  let mx = 0;
+  for (const id of IDS) for (let a = ini; a <= fim; a++) { const t = trocas(id, a); if (t) mx = Math.max(mx, m === "part" ? t.pt : m === "exp" ? t.e || 0 : m === "imp" ? t.i || 0 : t.t); }
+  return (MAX[m] = mx);
 }
-function corValor(v) {
-  if (v == null) return "rgba(10,16,28,.35)";
-  // comércio em escala log a partir de US$ 1 milhão (abaixo disso, o tom mais claro)
-  if (ind === "comercio") { const t = Math.max(0, Math.min(1, (Math.log10(Math.max(v, 1)) - 6) / (Math.log10(escalaMax) - 6 || 1)));
-    return `rgba(143,211,182,${(0.06 + 0.84 * t * t).toFixed(3)})`; }
-  if (ind === "saldo") { const t = Math.sqrt(Math.abs(v) / escalaMax); return v >= 0 ? `rgba(143,211,182,${(0.1 + 0.8 * t).toFixed(3)})` : `rgba(226,140,120,${(0.1 + 0.8 * t).toFixed(3)})`; }
-  if (ind === "onu") { const t = Math.max(0, Math.min(1, (v - 0.3) / 0.7)); return `rgba(170,215,240,${(0.08 + 0.84 * t * t).toFixed(3)})`; }
-  return v >= 2 ? "rgba(226,120,100,.85)" : v >= 1 ? "rgba(226,160,120,.55)" : v > 0 ? "rgba(226,190,150,.28)" : "rgba(10,16,28,.25)";
+const SEM = "rgba(30,38,48,.55)";
+function corDe(id) {
+  const m = st.m, v = valor(id);
+  if (m === "conf") return v >= 2 ? "rgba(226,120,100,.9)" : v >= 1 ? "rgba(226,160,120,.6)" : "rgba(10,16,28,.25)";
+  if (v == null) return SEM;
+  if (m === "exp" || m === "imp" || m === "corrente") {
+    const t = Math.max(0, Math.min(1, (Math.log10(Math.max(v, 1)) - 6) / (Math.log10(maxGlobal(m)) - 6)));
+    return `rgba(${m === "imp" ? "156,203,234" : "143,211,182"},${(0.08 + 0.86 * t * t).toFixed(3)})`;
+  }
+  if (m === "part") { const t = Math.sqrt(v / maxGlobal("part")); return `rgba(143,211,182,${(0.08 + 0.86 * t).toFixed(3)})`; }
+  if (m === "mud") { const t = Math.min(1, Math.sqrt(Math.abs(v) / escalaMud())); return v >= 0 ? `rgba(143,211,182,${(0.1 + 0.85 * t).toFixed(3)})` : `rgba(226,148,127,${(0.1 + 0.85 * t).toFixed(3)})`; }
+  if (m === "prod") { const t = Math.sqrt(v); return `rgba(${st.fluxo === "i" ? "156,203,234" : "143,211,182"},${(0.12 + 0.84 * t).toFixed(3)})`; }
+  if (m === "onu") { const t = Math.max(0, Math.min(1, (v - 0.3) / 0.7)); return `rgba(170,215,240,${(0.08 + 0.84 * t * t).toFixed(3)})`; }
+  return SEM;
 }
-function fmtValor(v, k = ind) {
-  if (v == null) return "sem dado";
-  if (k === "comercio") return bi(v);
-  if (k === "saldo") return (v >= 0 ? "+" : "−") + bi(Math.abs(v)) + (v >= 0 ? " (superávit do Brasil)" : " (déficit do Brasil)");
-  if (k === "onu") return `${Math.round(v * 100)} de 100`;
-  return v >= 2 ? "guerra no território (1.000+ mortes)" : v >= 1 ? "conflito no território" : v > 0 ? "tropas em conflito fora do país" : "nenhum conflito registrado";
+function escalaMud() { let mx = 0.001; for (const id of IDS) { const v = valor(id, "mud"); if (v != null) mx = Math.max(mx, Math.abs(v)); } return mx; }
+function fmtValor(v, m = st.m) {
+  if (v == null) return m === "prod" ? "fora dos 12 maiores parceiros (ou sem registro)" : "sem registro neste ano";
+  if (MET[m].tipo === "usd") return usd(v);
+  if (m === "part" || m === "prod") return pct(v);
+  if (m === "mud") return pp(v);
+  if (m === "onu") return `${Math.round(v * 100)} de 100`;
+  return v >= 2 ? "guerra no território (1.000+ mortes em combate)" : v >= 1 ? "conflito armado no território" : "nenhum conflito no território";
 }
-const nomeH = (id) => H?.paises?.[id]?.nome || FOCO[id]?.nome || id;
+function ranking(m = st.m, a = st.ano) {
+  const r = IDS.map((id) => [id, valor(id, m, a)]).filter(([, v]) => v != null && (m !== "conf" || v > 0));
+  r.sort((x, y) => y[1] - x[1]);
+  return r;
+}
+function posicao(id, m = st.m, a = st.ano) { const r = ranking(m, a); const i = r.findIndex(([x]) => x === id); return i < 0 ? null : [i + 1, r.length]; }
 
-// ---------- controles: indicador, ano, ▶ ----------
-function renderControle() {
-  const [ini, fim] = cobertura(ind);
-  const $a = document.getElementById("ano");
-  $a.min = 1946; $a.max = H ? Math.max(H.comercio.fim, H.conflitos.fim) : 2025; $a.value = anoSel;
-  document.getElementById("anoTxt").textContent = anoSel;
-  document.querySelectorAll("[data-ind]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.ind === ind));
-  const fora = anoSel < ini || anoSel > fim;
-  const leg = ind === "conflitos"
-    ? `<span><i style="background:rgba(226,120,100,.85)"></i>guerra no território</span><span><i style="background:rgba(226,160,120,.55)"></i>conflito no território</span><span><i style="background:rgba(226,190,150,.28)"></i>tropas fora</span>`
-    : ind === "saldo" ? `<span class="grad" style="background:linear-gradient(90deg,rgba(226,140,120,.9),rgba(226,140,120,.1),rgba(143,211,182,.1),rgba(143,211,182,.9))"></span><span class="ext"><span>déficit do Brasil</span><span>superávit</span></span>`
-    : `<span class="grad" style="background:linear-gradient(90deg,${corValor(ind === "onu" ? 0.3 : 0)},${corValor(ind === "onu" ? 1 : escalaMax)})"></span><span class="ext"><span>${ind === "onu" ? "vota diferente" : "menos"}</span><span>${ind === "onu" ? "vota igual" : "mais"}</span></span>`;
-  document.getElementById("leg").innerHTML = `<div class="leg-cab">${esc(IND[ind].desc)} · ${esc(IND[ind].fonte)}, ${ini}–${fim}</div>
-    ${fora ? `<div class="leg-aviso">Sem dado de ${esc(IND[ind].rot.toLowerCase())} em ${anoSel}: a fonte cobre ${ini}–${fim}.</div>` : `<div class="leg-esc">${leg}</div>`}`;
+// ---------- produtos ----------
+const anosProd = C.anos_produtos;                         // recortes com composição completa por produto (ex.: 2000, 2010, 2025)
+const nomeProd = (sh4) => C.curtos?.[sh4] || P?.itens?.[sh4]?.nome || C.sh4[sh4] || sh4;
+const oficialProd = (sh4) => C.sh4[sh4] || P?.itens?.[sh4]?.oficial || "";
+function anoProdPara(a) { const ok = anosProd.filter((x) => x <= a); return ok.length ? ok[ok.length - 1] : anosProd[0]; }
+function prodParte(id) {                                  // parte do país no total do produto escolhido (só os 12 maiores são conhecidos)
+  const x = P?.itens?.[st.prod]?.p?.[String(st.ano)]?.[st.fluxo];
+  if (!x) return null;
+  const hit = x.top.find(([i]) => i === id);
+  return hit ? hit[1] / x.t : null;
 }
-function setAno(a, { painel = true } = {}) {
-  anoSel = a;
-  recalcEscala();
-  renderControle();
-  if (globo) globo.polygonCapColor(cor);
-  if (selecionado && painel) atualizarAnoPainel(); else if (!selecionado) renderResumo();
+let carregandoP = null;
+function carregarProdutos() {
+  if (P) return Promise.resolve(P);
+  if (!carregandoP) carregandoP = new Promise((ok, erro) => {
+    const s = document.createElement("script"); s.src = "dados/produtos.js";
+    s.onload = () => { P = window.PRODUTOS; ok(P); }; s.onerror = () => erro(new Error("não carregou dados/produtos.js"));
+    document.head.appendChild(s);
+  });
+  return carregandoP;
 }
-function setInd(k) {
-  ind = k;
-  const [ini, fim] = cobertura(k);
-  setAno(Math.min(fim, Math.max(ini, anoSel)));
+
+// ---------- estado (na URL: #pais=CHN&ano=2025&m=exp&prod=1201&fluxo=e&vs=USA) ----------
+const st = { pais: null, ano: fim, m: "corrente", base: 2000, prod: null, fluxo: "e", vs: null, aba: "comercial", vista: "inicio", modo: "globo" };
+const porIso3 = Object.fromEntries(Object.entries(H.paises).map(([id, p]) => [p.iso3, id]));
+function urlDe(s) {
+  const q = new URLSearchParams();
+  if (s.pais) q.set("pais", H.paises[s.pais].iso3);
+  if (s.vista !== "inicio" && !s.pais) q.set("ver", s.vista);
+  q.set("ano", s.ano); q.set("m", s.m);
+  if (s.m === "mud" || s.vista === "ranking") q.set("base", s.base);
+  if (s.prod) { q.set("prod", s.prod); q.set("fluxo", s.fluxo); }
+  if (s.vs) q.set("vs", H.paises[s.vs].iso3);
+  if (s.pais && s.aba !== "comercial") q.set("aba", s.aba);
+  return "#" + q.toString();
+}
+function lerURL() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  const s = { pais: null, ano: fim, m: "corrente", base: 2000, prod: null, fluxo: "e", vs: null, aba: "comercial", vista: "inicio" };
+  if (!h) return s;
+  if (!h.includes("=")) {                                  // links antigos: #China, #Estados%20Unidos
+    const id = Object.keys(H.paises).find((k) => H.paises[k].nome.toLowerCase() === h.toLowerCase()) || porIso3[h.toUpperCase()];
+    if (id) s.pais = id;
+    return s;
+  }
+  const q = new URLSearchParams(h);
+  const n = (k, d) => { const v = parseInt(q.get(k), 10); return Number.isFinite(v) ? v : d; };
+  s.pais = porIso3[(q.get("pais") || "").toUpperCase()] || null;
+  s.vs = porIso3[(q.get("vs") || "").toUpperCase()] || null;
+  s.m = MET[q.get("m")] ? q.get("m") : "corrente";
+  s.ano = n("ano", fim); s.base = n("base", 2000);
+  s.prod = q.get("prod") || null; s.fluxo = q.get("fluxo") === "i" ? "i" : "e";
+  s.aba = ["comercial", "produtos", "contexto"].includes(q.get("aba")) ? q.get("aba") : "comercial";
+  s.vista = ["ranking", "produto", "comparar", "fontes", "lista"].includes(q.get("ver")) ? q.get("ver") : (s.vs ? "comparar" : s.prod ? "produto" : "inicio");
+  const [c0, c1] = cobertura(s.m); s.ano = Math.min(c1, Math.max(c0, s.ano));
+  s.base = Math.min(Math.max(ini, s.base), fim);
+  return s;
+}
+function ir(mud, { push = true } = {}) {
+  const antes = st.pais;
+  Object.assign(st, mud);
+  if (st.m === "prod" && !st.prod) st.m = "corrente";
+  const [c0, c1] = cobertura(st.m); st.ano = Math.min(c1, Math.max(c0, st.ano));
+  if (st.m === "prod" && !anosProd.includes(st.ano)) st.ano = anoProdPara(st.ano);
+  const u = urlDe(st);
+  if (u !== location.hash) history[push ? "pushState" : "replaceState"](null, "", u);
+  render(antes !== st.pais);
+}
+addEventListener("popstate", () => { const antes = st.pais; Object.assign(st, lerURL()); render(antes !== st.pais); });
+
+// ---------- render geral ----------
+function render(paisMudou = false) {
+  document.body.classList.toggle("com-pais", !!st.pais);
+  document.body.classList.toggle("com-vista", !st.pais && st.vista !== "inicio");
+  document.title = st.pais ? `${nome(st.pais)} e o Brasil — rotzx` : "rotzx — Como o Brasil se conecta ao mundo";
+  renderControles();
+  if (st.m === "prod" && !P) carregarProdutos().then(() => render()).catch(() => {});
+  const $c = $("#conteudo");
+  const rolagem = $c.scrollTop, focado = $c.contains(document.activeElement) ? document.activeElement.id : "";
+  if (st.pais) $c.innerHTML = painelPais(st.pais);
+  else if (st.vista === "ranking") $c.innerHTML = vistaRanking();
+  else if (st.vista === "produto") $c.innerHTML = vistaProduto();
+  else if (st.vista === "comparar") $c.innerHTML = vistaComparar();
+  else if (st.vista === "fontes") $c.innerHTML = vistaFontes();
+  else $c.innerHTML = vistaInicio();
+  if (!paisMudou) $c.scrollTop = rolagem; else $c.scrollTop = 0;
+  ligarConteudo($c);
+  if (focado) $("#" + focado)?.focus({ preventScroll: true });   // redesenhar não pode tirar o foco de quem usa teclado
+  renderLista();
+  if (globo) {
+    globo.polygonCapColor(corPol).polygonAltitude((p) => (p.id === st.pais ? 0.03 : p.id === st.vs ? 0.018 : 0.006));
+    if (paisMudou) enquadrar();
+  }
+  requestAnimationFrame(desenharGraficos);
+}
+
+// ---------- controles (métrica, ano, legenda) ----------
+let tocando = null;
+function renderControles() {
+  const [c0, c1] = cobertura(st.m);
+  const prod = st.m === "prod";
+  const metricas = ["exp", "imp", "corrente", "part", "mud"].map((k) => `<button type="button" data-m="${k}" aria-pressed="${st.m === k}">${MET[k].rot}</button>`).join("")
+    + (st.prod ? `<button type="button" data-m="prod" aria-pressed="${prod}">${esc(nomeCurtoMax(st.prod))}</button>` : "")
+    + `<span class="sep">Contexto:</span>` + ["onu", "conf"].map((k) => `<button type="button" data-m="${k}" aria-pressed="${st.m === k}">${MET[k].rot}</button>`).join("");
+  const ano = prod
+    ? `<div class="anos-chips" role="group" aria-label="Ano com composição por produto">${anosProd.map((a) => `<button type="button" data-ano="${a}" aria-pressed="${st.ano === a}">${a}</button>`).join("")}</div>`
+    : `<div class="ano-linha"><button type="button" id="play" aria-label="${tocando ? "Pausar" : "Avançar ano a ano"}">${tocando ? "❚❚" : "▶"}</button>
+        <input type="range" id="ano" min="${c0}" max="${c1}" step="1" value="${st.ano}" aria-label="Ano de referência"><output for="ano">${st.ano}</output></div>`;
+  $("#controles").innerHTML = `<div class="metricas" role="group" aria-label="O que o mapa mostra">${metricas}</div>${ano}<div class="leg">${legenda()}</div>`;
+}
+const nomeCurtoMax = (c) => { const n = nomeProd(c); return n.length > 26 ? n.slice(0, 24) + "…" : n; };
+function legenda() {
+  const [c0, c1] = cobertura(st.m), m = st.m;
+  const desc = m === "mud" ? `${MET.mud.desc}: ${st.base} → ${st.ano}` : m === "prod" ? `${esc(nomeProd(st.prod))}: participação de cada parceiro nas ${st.fluxo === "e" ? "exportações" : "importações"} brasileiras do produto em ${st.ano}` : MET[m].desc;
+  let esc_ = "";
+  if (m === "exp" || m === "imp" || m === "corrente") esc_ = `<div class="grad" style="background:linear-gradient(90deg,${m === "imp" ? "rgba(156,203,234,.1),rgba(156,203,234,.94)" : "rgba(143,211,182,.1),rgba(143,211,182,.94)"})"></div>
+    <div class="ext"><span>US$ 1 mi ou menos</span><span>${usd(maxGlobal(m))}</span></div><div>Escala logarítmica fixa para todos os anos (valores correntes, sem correção pela inflação).</div>`;
+  else if (m === "part") esc_ = `<div class="grad" style="background:linear-gradient(90deg,rgba(143,211,182,.1),rgba(143,211,182,.94))"></div><div class="ext"><span>0%</span><span>${pct(maxGlobal("part"))}</span></div><div>Escala fixa para todos os anos.</div>`;
+  else if (m === "mud") esc_ = `<div class="grad" style="background:linear-gradient(90deg,rgba(226,148,127,.95),rgba(226,148,127,.1),rgba(143,211,182,.1),rgba(143,211,182,.95))"></div><div class="ext"><span>${pp(-escalaMud())} (perdeu)</span><span>0</span><span>${pp(escalaMud())} (ganhou)</span></div><div>Escala ajustada a este par de anos.</div>`;
+  else if (m === "prod") esc_ = P ? `<div class="grad" style="background:linear-gradient(90deg,rgba(143,211,182,.12),rgba(143,211,182,.96))"></div><div class="ext"><span>0%</span><span>100%</span></div><div>Só os 12 maiores parceiros de cada produto estão na base; os demais aparecem em cinza.</div>` : "Carregando dados de produtos…";
+  else if (m === "onu") esc_ = `<div class="grad" style="background:linear-gradient(90deg,rgba(170,215,240,.08),rgba(170,215,240,.92))"></div><div class="ext"><span>30 ou menos</span><span>100</span></div><div>Concordância de votos não equivale a aliança política.</div>`;
+  else esc_ = `<div class="cats"><span><i style="background:rgba(226,120,100,.9)"></i>guerra no território</span><span><i style="background:rgba(226,160,120,.6)"></i>conflito no território</span></div><div>Missões de paz e tropas fora do país aparecem no painel de cada país, não no mapa.</div>`;
+  const fora = st.ano < c0 || st.ano > c1;
+  return `<div>${esc(desc)} · cobertura ${c0}–${c1}.</div>${fora ? `<div class="aviso">Sem dado nesta métrica em ${st.ano}.</div>` : esc_}<div><i style="background:${SEM}"></i>sem registro no ano</div>`;
 }
 function tocar() {
-  const $p = document.getElementById("play");
-  if (tocando) { clearInterval(tocando); tocando = null; $p.textContent = "▶"; $p.setAttribute("aria-label", "Animar ano a ano"); return; }
-  const [ini, fim] = cobertura(ind);
-  if (anoSel >= fim) setAno(ini);
-  $p.textContent = "❚❚"; $p.setAttribute("aria-label", "Pausar");
-  tocando = setInterval(() => { if (anoSel >= fim) return tocar(); setAno(anoSel + 1); }, reduzir ? 1200 : 700);
+  if (tocando) { clearInterval(tocando); tocando = null; return renderControles(); }
+  const [c0, c1] = cobertura(st.m);
+  if (st.ano >= c1) ir({ ano: c0 }, { push: false });
+  tocando = setInterval(() => { if (st.ano >= cobertura(st.m)[1]) { clearInterval(tocando); tocando = null; return renderControles(); } ir({ ano: st.ano + 1 }, { push: false }); }, reduzir ? 1400 : 800);
+  renderControles();
+}
+$("#controles").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.m) ir({ m: b.dataset.m, vista: st.pais ? st.vista : (["onu", "conf"].includes(b.dataset.m) ? st.vista : st.vista === "inicio" ? "ranking" : st.vista) }, { push: false });
+  else if (b.dataset.ano) ir({ ano: +b.dataset.ano }, { push: false });
+  else if (b.id === "play") tocar();
+});
+$("#controles").addEventListener("input", (e) => { if (e.target.id === "ano") ir({ ano: +e.target.value }, { push: false }); });
+
+// ---------- início: dar um motivo para explorar ----------
+function concentracao(k, a) {          // parte do maior e dos 5 maiores parceiros no total do Brasil (denominador: total do Brasil)
+  const tot = k === "e" ? brE(a) : brI(a);
+  const r = IDS.map((id) => [id, em(C.paises[id]?.[k], a)]).filter(([, v]) => v).sort((x, y) => y[1] - x[1]);
+  return { n: r.length, top: r[0], p1: r[0][1] / tot, p5: r.slice(0, 5).reduce((s, [, v]) => s + v, 0) / tot };
+}
+function vistaInicio() {
+  const a = Math.min(st.ano, fim), e = brE(a), i = brI(a), ce = concentracao("e", a), ci = concentracao("i", a);
+  const top = ranking("corrente", a).slice(0, 5);
+  const china00 = trocas("156", 2000), china = trocas("156", a);
+  return `<div class="sec"><div class="kicker">rotzx</div><h2>Como o Brasil se conecta ao mundo</h2>
+      <p class="lead">Explore nossos parceiros comerciais, descubra o que compramos e vendemos e acompanhe como essas relações mudaram desde ${ini}.</p></div>
+    <div class="sec"><h3>O comércio do Brasil em ${a}</h3><p class="fonte">Comex Stat (MDIC) · US$ FOB correntes · ano de ${a}</p>
+      <div class="kpis"><div class="kpi"><span>Exportações</span><b class="num">${usd(e)}</b></div><div class="kpi"><span>Importações</span><b class="num">${usd(i)}</b></div>
+        <div class="kpi"><span>Saldo</span><b class="num">${(e - i >= 0 ? "+" : "") + usd(e - i)}</b><small>${e - i >= 0 ? "superávit" : "déficit"}</small></div>
+        <div class="kpi"><span>Corrente (exp. + imp.)</span><b class="num">${usd(e + i)}</b></div></div>
+      <p class="resumo-txt">${bandeira(ce.top[0])} <b>${esc(nome(ce.top[0]))}</b> recebeu ${pct(ce.p1)} das exportações brasileiras; os 5 maiores destinos somaram ${pct(ce.p5)}.
+        ${bandeira(ci.top[0])} <b>${esc(nome(ci.top[0]))}</b> foi a origem de ${pct(ci.p1)} das importações; as 5 maiores origens, ${pct(ci.p5)}.
+        O Brasil vendeu para ${ce.n} e comprou de ${ci.n} países e territórios.</p>
+      <p class="nota">Denominador: total exportado ou importado pelo Brasil no ano (inclui operações sem país definido, como provisão de navios).</p></div>
+    <div class="sec"><h3>Comece por uma pergunta</h3><div class="perguntas">
+      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "corrente", pais: null })}'>Quais são os maiores parceiros do Brasil?</button>
+      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "exp", pais: null })}'>Para onde vão nossas exportações?</button>
+      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "imp", pais: null })}'>De onde vêm nossas importações?</button>
+      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "mud", base: 2000, ano: fim, pais: null })}'>Quais parceiros mais ganharam importância desde 2000?</button>
+      ${china00 && china ? `<button type="button" data-ir='${JSON.stringify({ pais: "156", base: 2000, ano: fim, aba: "comercial" })}'>${bandeira("156")} Como nossa relação com a China mudou desde 2000?</button>` : ""}
+      <button type="button" data-ir='${JSON.stringify({ vista: "produto", prod: "g-fertilizantes", fluxo: "i", m: "prod", ano: fim, pais: null })}'>De quem o Brasil compra fertilizantes?</button>
+      <button type="button" data-ir='${JSON.stringify({ vista: "produto", prod: "1201", fluxo: "e", m: "prod", ano: 2000, pais: null })}'>Para onde ia a soja em 2000 — e para onde vai agora?</button>
+      <button type="button" data-ir='${JSON.stringify({ vista: "comparar", pais: null, vs: "840", cmp: "156" })}'>${bandeira("156")} ${bandeira("840")} Comparar China e Estados Unidos</button>
+    </div></div>
+    <div class="sec"><h3>Maiores parceiros em ${a}</h3><p class="fonte">corrente de comércio (exportações + importações)</p>
+      ${listaRank(top, "corrente", a)}
+      <div class="botoes"><button class="btn" type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "corrente", pais: null })}'>Ranking completo</button>
+        <button class="btn" type="button" data-ir='${JSON.stringify({ vista: "lista", modo: "lista", pais: null })}'>Todos os países e territórios</button>
+        <button class="btn" type="button" data-ir='${JSON.stringify({ vista: "produto", pais: null })}'>Explorar por produto</button></div></div>`;
+}
+function listaRank(r, m, a, { total = null } = {}) {
+  const max = Math.max(...r.map(([, v]) => Math.abs(v)), 1e-12);
+  return `<ol class="rank">${r.map(([id, v], k) => {
+    const t = trocas(id, a);
+    const extra = MET[m].tipo === "usd" && t ? `<small>${pct(MET[m].p(t))} do total</small>` : m === "mud" ? `<small>${pct(trocas(id, st.base)?.pt)} → ${pct(t?.pt)}</small>` : "";
+    return `<li><button type="button" data-pais="${id}"><span class="pos">${(total ? total[k] : k + 1)}º</span>${bandeira(id)}<span class="nome">${esc(nome(id))}${ehTerritorio(id) ? ' <span class="tag">território</span>' : ""}</span>
+      <span class="val num">${fmtValor(v, m)}${extra}</span><span class="barra-v${v < 0 ? " neg" : ""}" style="width:calc((100% - 160px) * ${(Math.abs(v) / max).toFixed(3)})"></span></button></li>`;
+  }).join("")}</ol>`;
 }
 
-// ---------- coluna da direita sem país aberto: "O Brasil e o mundo em [ano]" ----------
-let abaH = "ranking";
-function renderResumoHistoria() {
-  const $r = document.getElementById("resumo");
-  const ids = Object.keys(H.paises).filter((id) => id !== "076");
-  const comV = ids.map((id) => [id, valor(id)]).filter(([, v]) => v != null);
-  const [ini, fim] = cobertura(ind);
-  let corpo = "";
-  if (abaH === "ranking") {
-    if (anoSel < ini || anoSel > fim) corpo = `<div class="nada"><h3>Sem dado neste ano</h3><p>${esc(IND[ind].rot)} vem de ${esc(IND[ind].fonte)}, que cobre ${ini}–${fim}. Mude o ano ou o indicador.</p></div>`;
-    else {
-      let kpis = "", lista = [];
-      if (ind === "comercio" || ind === "saldo") {
-        const b = H.comercio.brasil, e = na(b.e, H.comercio.inicio, anoSel), i = na(b.i, H.comercio.inicio, anoSel);
-        kpis = `<div class="kpi"><span>O Brasil exportou</span><b>${bi(e)}</b></div><div class="kpi"><span>Importou</span><b>${bi(i)}</b></div>
-          <div class="kpi"><span>Saldo</span><b>${e - i >= 0 ? "+" : "−"}${bi(Math.abs(e - i))}</b></div>`;
-        lista = ind === "comercio" ? comV.sort((a, b) => b[1] - a[1]).slice(0, 15)
-          : [...comV.sort((a, b) => b[1] - a[1]).slice(0, 8), ...comV.sort((a, b) => a[1] - b[1]).slice(0, 7)];
-      } else if (ind === "onu") {
-        const med = na(H.onu.mediana, H.onu.inicio, anoSel), alto = comV.filter(([, v]) => v >= 0.8).length;
-        kpis = `<div class="kpi"><span>Países com voto no ano</span><b>${comV.length}</b></div><div class="kpi"><span>Mediana da concordância</span><b>${Math.round(med * 100)} de 100</b></div>
-          <div class="kpi"><span>Votaram igual em 80+ de 100</span><b>${Math.round((alto / comV.length) * 100)}%</b></div>`;
-        lista = [...comV.sort((a, b) => b[1] - a[1]).slice(0, 8), ...comV.sort((a, b) => a[1] - b[1]).slice(0, 7)];
-      } else {
-        const c = H.conflitos.por_ano[String(anoSel)] || [];
-        kpis = `<div class="kpi"><span>Conflitos armados em ${anoSel}</span><b>${c.length}</b></div><div class="kpi"><span>Com 1.000+ mortes em combate</span><b>${c.filter((x) => x.guerra).length}</b></div>
-          <div class="kpi"><span>Países com conflito no território</span><b>${comV.filter(([, v]) => v >= 1).length}</b></div>`;
-        lista = comV.filter(([, v]) => v >= 1).sort((a, b) => b[1] - a[1] || nomeH(a[0]).localeCompare(nomeH(b[0])));
-      }
-      const max = Math.max(...lista.map(([, v]) => Math.abs(v)), 1e-9);
-      corpo = `<div class="kpis" style="margin-top:22px">${kpis}</div>
-        <div class="kicker secao">${ind === "comercio" ? "Maiores parceiros" : ind === "saldo" ? "Maiores superávits e déficits do Brasil" : ind === "onu" ? "Quem mais e quem menos votou com o Brasil" : "Onde houve conflito armado"} em ${anoSel}</div>
-        <ol class="parceiros">${lista.map(([id, v]) => `<li><button type="button" data-id="${id}"><span class="barra" style="width:${ind === "conflitos" ? 0 : (Math.abs(v) / max) * 100}%;${ind === "saldo" && v < 0 ? "background:rgba(226,140,120,.14)" : ""}"></span>
-          <span>${esc(nomeH(id))}</span><span class="p-val">${esc(fmtValor(v))}</span></button></li>`).join("") || "<li>nenhum</li>"}</ol>
-        <p class="regra" style="margin:12px 0 0">Clique num país para ver a relação dele com o Brasil ao longo do tempo.</p>`;
-    }
-  } else if (abaH === "conflitos") {
-    const c = H.conflitos.por_ano[String(anoSel)] || [];
-    corpo = `<p class="regra" style="margin:22px 0 0">Conflitos armados em ${anoSel} com um governo de um dos lados e 25 ou mais mortes em combate no ano, os mais
-      intensos primeiro. Nomes como na base (UCDP), em inglês. Países que não existem mais aparecem nas fronteiras de hoje.</p>
-      ${c.length ? `<ul class="disputas" style="margin-top:8px">${c.map((x) => `<li><a href="https://ucdp.uu.se/conflict/${esc(x.id)}" target="_blank" rel="noopener">${esc(x.local)}: ${esc(x.a)} × ${esc(x.b)}</a>
-        <span>${esc(x.tipo)} · disputa por ${esc(x.disputa)}${x.territorio ? ` (${esc(x.territorio)})` : ""} · ${x.guerra ? "<b>1.000 ou mais mortes em combate</b>" : "25 a 999 mortes em combate"}</span></li>`).join("")}</ul>`
-        : `<div class="nada"><h3>Nenhum conflito registrado</h3><p>A base cobre ${H.conflitos.inicio}–${H.conflitos.fim}.</p></div>`}`;
-  } else {
-    corpo = `<p class="regra" style="margin:22px 0 0">Origem das séries: ${esc(IND.comercio.fonte)} (comércio, desde ${H.comercio.inicio}), votações nominais da ONU
-      (Voeten, Strezhnev e Bailey, Harvard Dataverse, CC0, desde ${H.onu.inicio}), UCDP/PRIO (CC BY 4.0, desde ${H.conflitos.inicio}),
-      lista oficial de disputas da OMC e Banco Mundial (CC BY 4.0). Retrato coletado em ${quando(H.gerado_em)}, sem atualização automática.</p>
-      <ul class="disputas" style="margin-top:12px">${[["comercio", "Comércio"], ["onu", "Votos na ONU"], ["conflitos", "Conflitos armados"]].map(([k, r]) => {
-        const [a, b] = cobertura(k); return `<li><b>${r}</b><span>${a}–${b} · ${esc(IND[k].desc)}</span></li>`; }).join("")}</ul>`;
+// ---------- ranking ----------
+let rankTodos = false;
+function vistaRanking() {
+  const m = ["onu", "conf", "prod"].includes(st.m) ? st.m : st.m;
+  const [c0, c1] = cobertura(m);
+  if (st.ano < c0 || st.ano > c1) return `<div class="sec"><div class="kicker">Ranking</div><h2>${esc(MET[m].cab)}</h2><div class="vazio">Sem dado desta métrica em ${st.ano}: a cobertura é ${c0}–${c1}.</div></div>`;
+  if (m === "prod") return vistaProduto();
+  let r = ranking(m);
+  const crescem = m === "mud" ? r.slice(0, 15) : null, caem = m === "mud" ? r.slice(-10).reverse() : null;
+  const n = r.length;
+  const baseSel = m === "mud" ? `<label class="nota">Ano-base: <select id="baseSel">${Array.from({ length: st.ano - ini }, (_, k) => ini + k).map((a) => `<option ${a === st.base ? "selected" : ""}>${a}</option>`).join("")}</select></label>` : "";
+  return `<div class="sec"><div class="kicker">Ranking · ${st.ano}</div><h2>${esc(MET[m].cab)}</h2>
+      <p class="lead">${esc(MET[m].desc)}${m === "mud" ? ` entre ${st.base} e ${st.ano}` : ""}.</p>
+      ${MET[m].den ? `<p class="nota">${esc(MET[m].den)}.</p>` : ""}${baseSel}
+      <p class="fonte">${m === "onu" ? "Votos na ONU: Voeten, Strezhnev e Bailey (Harvard Dataverse, CC0)" : m === "conf" ? "UCDP/PRIO Armed Conflict Dataset (CC BY 4.0)" : "Comex Stat (MDIC), US$ FOB correntes"} · ${n} países e territórios com dado</p></div>
+    <div class="sec">${m === "mud"
+      ? `<h3>Mais ganharam participação</h3>${listaRank(crescem, m, st.ano)}<h3 style="margin-top:20px">Mais perderam participação</h3>${listaRank(caem, m, st.ano, { total: caem.map((x) => r.indexOf(x) + 1) })}`
+      : listaRank(rankTodos ? r : r.slice(0, 20), m, st.ano)}
+      ${m !== "mud" && n > 20 ? `<div class="botoes"><button class="btn" type="button" id="rankTodos">${rankTodos ? "Mostrar só os 20 primeiros" : `Mostrar todos (${n})`}</button></div>` : ""}</div>`;
+}
+
+// ---------- explorar por produto ----------
+function vistaProduto() {
+  if (!P) { carregarProdutos().then(() => render()).catch(() => { $("#conteudo").innerHTML = `<div class="sec"><div class="vazio">Não foi possível carregar os dados de produtos.</div></div>`; }); return `<div class="sec"><div class="kicker">Explorar por produto</div><p class="lead">Carregando…</p></div>`; }
+  const it = st.prod && P.itens[st.prod];
+  const destaques = ["1201", "2709", "2601", "g-fertilizantes", "g-carnes", "g-veiculos", "8517", "3004"].filter((c) => P.itens[c]);
+  const cab = `<div class="sec"><div class="kicker">Explorar por produto</div><h2>${it ? esc(it.nome) : "O que o Brasil vende e compra"}</h2>
+    ${it ? `<p class="nota">${it.grupo ? esc(it.oficial) : `SH4 ${esc(st.prod)} · nome oficial: ${esc(it.oficial)}`}</p>` : `<p class="lead">Escolha um produto para ver os principais destinos ou origens e como isso mudou.</p>`}
+    <div class="ac" id="acProd" style="margin-top:12px"><label class="sr" for="buscaProd">Buscar produto</label>
+      <input id="buscaProd" type="search" placeholder="Buscar produto (ex.: soja, petróleo, fertilizantes)…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="buscaProdLista" aria-autocomplete="list" style="width:100%">
+      <ul id="buscaProdLista" role="listbox" hidden></ul></div>
+    <div class="chips" aria-label="Produtos em destaque">${destaques.map((c) => `<button type="button" data-prod="${c}" aria-pressed="${st.prod === c}">${esc(P.itens[c].nome)}</button>`).join("")}</div>
+    <p class="nota">Classificação SH4 (Sistema Harmonizado, 4 dígitos), como no Comex Stat. ${Object.keys(P.itens).length} produtos e grupos: posições que passaram de US$ 50 milhões num ano em algum fluxo. Grupos somam posições inteiras, com a regra indicada.</p></div>`;
+  if (!it) return cab;
+  const k = st.fluxo, serie = it[k], anoP = anosProd.includes(st.ano) ? st.ano : anoProdPara(st.ano);
+  const x = it.p?.[String(anoP)]?.[k];
+  const tot = em(serie, anoP), totBr = k === "e" ? brE(anoP) : brI(anoP);
+  const outros = x ? x.t - x.top.reduce((s, [, v]) => s + v, 0) : 0;
+  return cab + `<div class="sec">
+      <div class="chips" role="group" aria-label="Fluxo"><button type="button" data-fluxo="e" aria-pressed="${k === "e"}">Exportações (destinos)</button><button type="button" data-fluxo="i" aria-pressed="${k === "i"}">Importações (origens)</button></div>
+      <h3 style="margin-top:16px">${k === "e" ? "Para onde o Brasil vende" : "De onde o Brasil compra"} em ${anoP}</h3>
+      <div class="chips" role="group" aria-label="Ano com distribuição por parceiro">${anosProd.map((a) => `<button type="button" data-ano="${a}" aria-pressed="${anoP === a}">${a}</button>`).join("")}</div>
+      ${x ? `<p class="resumo-txt" style="margin-top:12px">Em ${anoP}, o Brasil ${k === "e" ? "exportou" : "importou"} ${usd(x.t)} deste produto (${pct(x.t / totBr)} de tudo o que ${k === "e" ? "exportou" : "importou"}),
+          ${k === "e" ? "para" : "de"} ${x.n} países e territórios. ${bandeira(x.top[0][0])} <b>${esc(nome(x.top[0][0]))}</b> ${k === "e" ? "recebeu" : "forneceu"} ${pct(x.top[0][1] / x.t)};
+          os 3 maiores somaram ${pct(x.top.slice(0, 3).reduce((s, [, v]) => s + v, 0) / x.t)}.</p>
+        <ul class="barras${k === "i" ? " imp" : ""}">${x.top.map(([id, v]) => `<li><div class="lin"><span>${bandeira(id)} <button type="button" class="link" data-pais="${id}">${esc(nome(id))}</button></span><span class="v num">${usd(v)} · ${pct(v / x.t)}</span></div>
+          <div class="trilho"><i style="width:${(v / x.t * 100).toFixed(2)}%"></i></div></li>`).join("")}
+          ${outros > 0 ? `<li><div class="lin"><span>Outros ${x.n - x.top.length} parceiros</span><span class="v num">${usd(outros)} · ${pct(outros / x.t)}</span></div></li>` : ""}</ul>
+        <p class="nota">Participação = valor do parceiro ÷ total ${k === "e" ? "exportado" : "importado"} pelo Brasil deste produto em ${anoP} (concentração de ${k === "e" ? "destinos" : "fornecedores"} do produto). A base guarda os 12 maiores parceiros de cada produto; o resto aparece somado em "outros".</p>`
+        : `<div class="vazio" style="margin-top:12px">Sem ${k === "e" ? "exportação" : "importação"} registrada deste produto em ${anoP}.</div>`}</div>
+    <div class="sec"><h3>${k === "e" ? "Exportações" : "Importações"} do produto, ${ini}–${fim}</h3><p class="fonte">Comex Stat · total do Brasil, todos os parceiros · US$ FOB correntes (alta em valor não mostra, sozinha, alta em volume)</p>
+      <div class="grafico" id="gProd" role="img" aria-label="${esc(`${it.nome}: ${k === "e" ? "exportações" : "importações"} do Brasil de ${ini} a ${fim}; ${ini}: ${usd(em(serie, ini))}; ${fim}: ${usd(em(serie, fim))}`)}"></div>
+      ${tabelaSerie([[it.nome, serie]])}</div>`;
+}
+
+// ---------- comparar dois parceiros ----------
+let cmpA = "156";
+function vistaComparar() {
+  const a = cmpA || "156", b = st.vs || "840", ano = Math.min(st.ano, fim);
+  const ta = trocas(a, ano), tb = trocas(b, ano);
+  const lin = (rot, f) => `<tr><th scope="row">${rot}</th><td>${f(ta)}</td><td>${f(tb)}</td></tr>`;
+  const anoP = anoProdPara(ano);
+  const prods = (id, k) => { const x = C.paises[id]?.p?.[String(anoP)]?.[k]; return x ? `<ol class="barras${k === "i" ? " imp" : ""}" style="padding-left:0">${x.top.slice(0, 5).map(([c, v]) => `<li><div class="lin"><span title="${esc(oficialProd(c))}">${esc(nomeProd(c))}</span><span class="v num">${pct(v / x.t)}</span></div><div class="trilho"><i style="width:${(v / x.t * 100).toFixed(1)}%"></i></div></li>`).join("")}</ol>` : `<div class="vazio">Sem registro em ${anoP}.</div>`; };
+  return `<div class="sec"><div class="kicker">Comparar dois parceiros · ${ano}</div><h2>${bandeira(a, { grande: true })} ${esc(nome(a))} × ${bandeira(b, { grande: true })} ${esc(nome(b))}</h2>
+      <div class="comp-cab" style="margin-top:12px">
+        <div class="ac" id="acCmpA"><label class="nota" for="cmpA">Primeiro parceiro</label><input id="cmpA" type="search" value="${esc(nome(a))}" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="cmpALista" aria-autocomplete="list"><ul id="cmpALista" role="listbox" hidden></ul></div>
+        <div class="ac" id="acCmpB"><label class="nota" for="cmpB">Segundo parceiro</label><input id="cmpB" type="search" value="${esc(nome(b))}" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="cmpBLista" aria-autocomplete="list"><ul id="cmpBLista" role="listbox" hidden></ul></div></div></div>
+    <div class="sec"><h3>Em ${ano}</h3><p class="fonte">Comex Stat · US$ FOB correntes · mesmos critérios para os dois</p>
+      <table class="comp"><thead><tr><th scope="col"></th><th scope="col">${bandeira(a)} ${esc(nome(a))}</th><th scope="col">${bandeira(b)} ${esc(nome(b))}</th></tr></thead><tbody>
+        ${lin("Exportações do Brasil", (t) => usd(t?.e ?? null))}${lin("Importações do Brasil", (t) => usd(t?.i ?? null))}
+        ${lin("Saldo", (t) => (t ? (t.s >= 0 ? "+" : "") + usd(t.s) : "sem dado"))}${lin("Corrente", (t) => usd(t?.t ?? null))}
+        ${lin("Parte das exportações do Brasil", (t) => pct(t?.pe ?? null))}${lin("Parte das importações do Brasil", (t) => pct(t?.pi ?? null))}
+        ${lin("Posição na corrente", (t) => { const id = t === ta ? a : b; const p = posicao(id, "corrente", ano); return p ? ord(p[0]) : "—"; })}
+      </tbody></table></div>
+    <div class="sec"><h3>Participação na corrente de comércio do Brasil, ${ini}–${fim}</h3><p class="fonte">mesma escala para os dois · % da corrente total do Brasil</p>
+      <div class="grafico" id="gCmp" role="img" aria-label="${esc(`Participação de ${nome(a)} e ${nome(b)} na corrente de comércio do Brasil de ${ini} a ${fim}`)}"></div>
+      ${tabelaSerie([[nome(a), C.paises[a] ? C.paises[a].e.map((_, k) => trocas(a, ini + k)?.pt ?? null) : []], [nome(b), C.paises[b] ? C.paises[b].e.map((_, k) => trocas(b, ini + k)?.pt ?? null) : []]], pct)}</div>
+    <div class="sec"><h3>Principais produtos em ${anoP}</h3><p class="fonte">participação de cada produto no total ${"exportado"} para o país (5 maiores) · recortes disponíveis: ${anosProd.join(", ")}</p>
+      <div class="duas"><div><div class="kicker" style="margin-bottom:6px">${esc(nome(a))}: o Brasil vende</div>${prods(a, "e")}</div><div><div class="kicker" style="margin-bottom:6px">${esc(nome(b))}: o Brasil vende</div>${prods(b, "e")}</div></div>
+      <div class="duas" style="margin-top:14px"><div><div class="kicker" style="margin-bottom:6px">${esc(nome(a))}: o Brasil compra</div>${prods(a, "i")}</div><div><div class="kicker" style="margin-bottom:6px">${esc(nome(b))}: o Brasil compra</div>${prods(b, "i")}</div></div></div>`;
+}
+
+// ---------- fontes e método ----------
+function vistaFontes() {
+  return `<div class="sec"><div class="kicker">Fontes e método</div><h2>De onde vêm os números</h2>
+    <p class="lead">Retrato coletado em ${quando(H.gerado_em)}, sem atualização automática. Cada bloco da página diz a fonte e o ano da observação.</p></div>
+    <div class="sec"><dl class="fontes">
+      <dt>Comércio exterior — Comex Stat (MDIC)</dt><dd>Exportações e importações do Brasil por país, ${ini}–${fim}, em US$ FOB correntes (sem correção pela inflação: alta em valor não prova alta em volume). Ano sem registro aparece como "sem registro", nunca como zero. Os totais do Brasil incluem operações sem país definido (provisão de navios e aeronaves, por exemplo).</dd>
+      <dt>Produtos — Comex Stat, SH4</dt><dd>Composição completa por país e produto em ${anosProd.join(", ")} (o total bilateral, denominador das participações, é exato). No painel de cada país aparecem os 10 maiores produtos; no explorador, os 12 maiores parceiros de cada produto, mais "outros". Séries anuais do Brasil por produto de ${ini} a ${fim}. Nomes curtos revisados; o nome oficial e o código ficam disponíveis.</dd>
+      <dt>Participação e concentração</dt><dd><b>Destinos:</b> exportações para o país ÷ exportações totais do Brasil. <b>Origens:</b> importações do país ÷ importações totais. <b>Composição bilateral:</b> produto ÷ total trocado com aquele país. <b>Fornecedores de um produto:</b> importações do produto vindas do país ÷ importações totais do produto. Mudanças de participação em pontos percentuais (p.p.). Participação alta indica concentração, não vulnerabilidade: para isso seriam precisos substituibilidade, criticidade e oferta alternativa, que esta base não mede. Por isso não há nota de risco.</dd>
+      <dt>Votos na ONU — Voeten, Strezhnev e Bailey (Harvard Dataverse, CC0)</dt><dd>Concordância com o Brasil nas votações nominais da Assembleia Geral, ${H.onu.inicio}–${H.onu.fim} (voto igual = 1; abstenção de um dos dois = 0,5). Muda com a pauta do ano e não equivale a aliança.</dd>
+      <dt>Conflitos armados — UCDP/PRIO (CC BY 4.0)</dt><dd>${H.conflitos.inicio}–${H.conflitos.fim}: conflitos com um governo de um dos lados e 25+ mortes em combate no ano. Separados: no território do país, como lado principal e com tropas de apoio (inclui missões multinacionais, como as de paz da ONU). Não é pontuação de risco comercial. Países que não existem mais aparecem nas fronteiras de hoje.</dd>
+      <dt>Disputas na OMC — lista oficial da OMC</dt><dd>Disputas com o Brasil desde 1995. Países da União Europeia aparecem pelas disputas da UE. Uma disputa não resume a relação bilateral.</dd>
+      <dt>Indicadores econômicos — Banco Mundial (CC BY 4.0)</dt><dd>Valor mais recente de cada indicador, com o ano da observação e a data de atualização da fonte.</dd>
+      <dt>Países e territórios</dt><dd>Tabela própria (<code>catalog/paises_mundo.csv</code>) que liga os códigos do Comex Stat, da ONU e da UCDP ao ISO 3166; ${IDS.length} países e territórios (territórios marcados como tal). Dubai soma nos Emirados Árabes Unidos e "Inglaterra" no Reino Unido, como no Comex.</dd>
+      <dt>Bandeiras</dt><dd>flag-icons 7.5.0 (MIT, Panayiotis Lipiridis): bandeira atual de cada país ou território, não a do ano escolhido. Sem bandeira, um retângulo neutro.</dd>
+      <dt>Mapa e globo</dt><dd>Contornos Natural Earth 1:110m (domínio público, via world-atlas); imagem do planeta Blue Marble (NASA, domínio público); globe.gl (MIT); gráficos ECharts (Apache-2.0). Países pequenos não aparecem no mapa, mas estão na lista e na busca.</dd>
+      <dt>Relações bilaterais — Itamaraty</dt><dd>Link para o índice oficial; o site bloqueia leitura automática, então nada dele é copiado ou resumido aqui.</dd>
+    </dl></div>`;
+}
+
+// ---------- painel do país ----------
+function anoUlt(serie, inicio, a) { for (let x = Math.min(a, inicio + serie.length - 1); x >= inicio; x--) if (serie[x - inicio] != null) return x; return null; }
+function resumoPais(id, a) {
+  const t = trocas(id, a), frases = [];
+  if (!t) {
+    const ult = C.paises[id] ? anoUlt(C.paises[id].e.map((v, k) => v ?? C.paises[id].i[k]), ini, a) : null;
+    frases.push(`Não há registro de comércio com o Brasil em ${a} no Comex Stat${ult ? `; o último registro é de ${ult}` : ""}.`);
+    return frases;
   }
-  $r.innerHTML = `<div class="cab"><div class="kicker">O Brasil e o mundo</div><h2>Em ${anoSel}</h2>
-      <p class="sub">${esc(IND[ind].rot)}: ${esc(IND[ind].desc)}. Mude o ano embaixo do globo, ou aperte ▶ para ver o tempo passar.</p></div>
-    <div class="abas-topo" role="tablist">${[["ranking", "Ranking"], ["conflitos", "Conflitos do ano"], ["fontes", "Fontes"]].map(([k, r]) =>
-      `<button type="button" role="tab" data-abah="${k}" aria-selected="${k === abaH}">${r}</button>`).join("")}</div>
-    <div class="corpo">${corpo}</div>
-    <div class="rodape">imagem do planeta: Blue Marble (NASA) · fronteiras atuais (Natural Earth)</div>`;
-  $r.querySelectorAll("[data-abah]").forEach((b) => (b.onclick = () => { abaH = b.dataset.abah; renderResumoHistoria(); }));
-  $r.querySelectorAll(".parceiros button[data-id]").forEach((bt) => (bt.onclick = () => abrir(featureDe(bt.dataset.id))));
+  const pe = posicao(id, "exp", a), pi = posicao(id, "imp", a);
+  // frase sem sujeito: evita errar a concordância com nomes como "Países Baixos" ou "Emirados Árabes Unidos"
+  const partes = [t.e ? `destino de <b>${pct(t.pe)}</b> das exportações brasileiras${pe ? ` (${ord(pe[0])} lugar)` : ""}` : "nenhuma exportação brasileira registrada",
+                  t.i ? `origem de <b>${pct(t.pi)}</b> das importações${pi ? ` (${ord(pi[0])} lugar)` : ""}` : "nenhuma importação registrada"];
+  frases.push(`Em ${a}: ${partes.join("; ")}.`);
+  const ap = anoProdPara(a), x = C.paises[id]?.p?.[String(ap)]?.e;
+  if (x && x.top.length) {
+    const tres = x.top.slice(0, Math.min(3, x.top.length)), s = tres.reduce((q, [, v]) => q + v, 0) / x.t;
+    const quando = `${ap}${ap !== a ? ` (composição por produto disponível em ${anosProd.join(", ")})` : ""}`;
+    // nome curto revisado na frase; sem ele, não se encurta o nome oficial por conta própria: a lista completa está na aba Produtos
+    if (tres.every(([c]) => C.curtos?.[c])) frases.push(`As vendas brasileiras para lá em ${quando} se concentraram em ${juntarE(tres.map(([c]) => `<span title="${esc(oficialProd(c))} (SH4 ${c})">${esc(nomeProd(c).toLowerCase())}</span>`))}: <b>${pct(s)}</b> do total exportado para esse parceiro.`);
+    else frases.push(`Em ${quando}, os ${tres.length} produtos mais vendidos pelo Brasil para esse parceiro somaram <b>${pct(s)}</b> do total exportado para lá (lista na aba Produtos e concentração).`);
+  }
+  const b = st.base, t0 = b < a ? trocas(id, b) : null;
+  if (t0) frases.push(`A participação na corrente de comércio do Brasil passou de ${pct(t0.pt)} em ${b} para ${pct(t.pt)} em ${a} (<b>${pp(t.pt - t0.pt)}</b>).`);
+  return frases;
 }
-const featureDe = (id) => paises.find((x) => x.id === id) || { id, properties: { name: nomeH(id) } };
-
-// ---------- painel do país: a relação com o Brasil ao longo do tempo ----------
-const ITAMARATY = "https://www.gov.br/mre/pt-br/assuntos/relacoes-bilaterais/todos-os-paises";
-function painelHistoria(f) {
-  const id = f.id, nome = nomeH(id), d = M?.paises?.[id], c = H.comercio.paises[id], u = H.onu.paises[id],
-    w = H.omc[id], e = H.economia[id], k = H.conflitos.paises[id];
-  const base = id === "076";
-  const cAno = comercioDe(id, anoSel), uAno = onuDe(id, anoSel), med = na(H.onu.mediana, H.onu.inicio, anoSel);
-  const kpi = (r, v, s = "") => `<div class="kpi"><span>${esc(r)}</span><b>${v}</b>${s ? `<small>${esc(s)}</small>` : ""}</div>`;
-  const prods = (p, lado) => (p || []).map(([sh4, fob, part]) => `<li><div class="barra" style="width:${part * 100}%"></div>
-    <span class="p-nome" title="SH4 ${esc(sh4)}">${esc(H.comercio.sh4[sh4] || sh4)}</span><span class="p-val">${bi(fob)} · ${pct(part)}</span></li>`).join("");
-  const [pa, pb] = H.comercio.anos_produtos;
+function painelPais(id) {
+  const a = Math.min(st.ano, fim), t = trocas(id, a), terr = ehTerritorio(id), m = MET[st.m] && !MET[st.m].ctx && st.m !== "prod" ? st.m : "corrente";
+  const pos = posicao(id, m === "mud" ? "corrente" : m, a);
+  const cab = `<div class="pais-cab"><button class="fechar" type="button" data-fechar aria-label="Fechar e voltar à visão do mundo">✕</button>
+      <div class="kicker">${id === BR ? "Ponto de referência da análise" : "Relação comercial com o Brasil"}</div>
+      <h2>${bandeira(id, { grande: true })}<span>${esc(nome(id))}</span>${terr ? '<span class="tag">território</span>' : ""}</h2>
+      <div class="ref">Ano de referência: <b>${a}</b>${st.ano > fim ? ` (comércio só até ${fim})` : ""}${pos && id !== BR ? ` · <b>${ord(pos[0])}</b> de ${pos[1]} em ${MET[m === "mud" ? "corrente" : m].rot.toLowerCase()}` : ""}
+        <span class="sr">. A bandeira é a atual, não a do ano.</span></div>
+      <div class="botoes">${id !== BR ? `<button class="btn" type="button" data-ir='${JSON.stringify({ vista: "comparar", vs: id, pais: null })}'>Comparar com outro parceiro</button>` : ""}
+        <a class="btn" href="#">← Visão do mundo</a></div></div>`;
+  if (id === BR) return cab + painelBrasil(a);
+  const abas = [["comercial", "Relação comercial"], ["produtos", "Produtos e concentração"], ["contexto", "Contexto diplomático"]];
+  return cab + `<div class="sec">${resumoPais(id, a).map((f) => `<p class="resumo-txt">${f}</p>`).join("")}
+      <p class="nota">Resumo calculado com regras fixas a partir do Comex Stat (US$ FOB correntes). Só descreve números; não avalia a relação.</p>
+      ${t ? `<div class="kpis"><div class="kpi"><span>Exportações do Brasil</span><b class="num">${usd(t.e)}</b><small>${pct(t.pe)} do total exportado</small></div>
+        <div class="kpi"><span>Importações do Brasil</span><b class="num">${usd(t.i)}</b><small>${pct(t.pi)} do total importado</small></div>
+        <div class="kpi"><span>Saldo</span><b class="num">${(t.s >= 0 ? "+" : "") + usd(t.s)}</b><small>${t.s > 0 ? "superávit do Brasil" : t.s < 0 ? "déficit do Brasil" : "equilíbrio"}</small></div>
+        <div class="kpi"><span>Corrente</span><b class="num">${usd(t.t)}</b><small>${pct(t.pt)} da corrente do Brasil</small></div></div>` : ""}</div>
+    <div class="abas" role="tablist" aria-label="Partes do painel">${abas.map(([k, r]) => `<button type="button" role="tab" id="tab-${k}" aria-controls="aba-${k}" aria-selected="${st.aba === k}" tabindex="${st.aba === k ? 0 : -1}" data-aba="${k}">${r}</button>`).join("")}</div>
+    <div role="tabpanel" id="aba-${st.aba}" aria-labelledby="tab-${st.aba}">${st.aba === "produtos" ? abaProdutos(id, a) : st.aba === "contexto" ? abaContexto(id, a) : abaComercial(id, a)}</div>`;
+}
+function abaComercial(id, a) {
+  const d = C.paises[id];
+  if (!d) return `<div class="sec"><div class="vazio">Sem registro de comércio com o Brasil entre ${ini} e ${fim} no Comex Stat.</div></div>`;
+  const pe = posicao(id, "exp", a), pi = posicao(id, "imp", a), pc = posicao(id, "corrente", a);
+  const sh = (k) => d[k].map((v, j) => (v == null ? null : v / (k === "e" ? brE(ini + j) : brI(ini + j))));
+  return `<div class="sec"><h3>Posição em ${a}</h3><p class="fonte">rankings entre ${IDS.length} países e territórios · Comex Stat</p>
+      <div class="kpis"><div class="kpi"><span>Como destino das exportações</span><b>${pe ? ord(pe[0]) : "—"}</b><small>${pe ? `de ${pe[1]} destinos` : "sem registro"}</small></div>
+        <div class="kpi"><span>Como origem das importações</span><b>${pi ? ordF(pi[0]) : "—"}</b><small>${pi ? `de ${pi[1]} origens` : "sem registro"}</small></div>
+        <div class="kpi"><span>Na corrente de comércio</span><b>${pc ? ord(pc[0]) : "—"}</b><small>${pc ? `de ${pc[1]} parceiros` : "sem registro"}</small></div></div></div>
+    <div class="sec"><h3>Exportações e importações, ${ini}–${fim}</h3><p class="fonte">Comex Stat · US$ FOB correntes · clique num ponto para mudar o ano · alta em valor não mostra, sozinha, alta em volume</p>
+      <div class="grafico" id="gValores" role="img" aria-label="${esc(`${nome(id)}: exportações do Brasil de ${usd(em(d.e, ini))} em ${ini} para ${usd(em(d.e, fim))} em ${fim}; importações de ${usd(em(d.i, ini))} para ${usd(em(d.i, fim))}`)}"></div>
+      ${tabelaSerie([["Exportações do Brasil", d.e], ["Importações do Brasil", d.i]])}</div>
+    <div class="sec"><h3>Peso no comércio do Brasil, ${ini}–${fim}</h3><p class="fonte">% das exportações totais e % das importações totais do Brasil em cada ano</p>
+      <div class="grafico" id="gPartes" role="img" aria-label="${esc(`${nome(id)}: participação nas exportações brasileiras de ${pct(sh("e")[0])} em ${ini} para ${pct(sh("e")[fim - ini])} em ${fim}; nas importações, de ${pct(sh("i")[0])} para ${pct(sh("i")[fim - ini])}`)}"></div>
+      ${tabelaSerie([["% das exportações do Brasil", sh("e")], ["% das importações do Brasil", sh("i")]], pct)}</div>`;
+}
+function abaProdutos(id, a) {
+  const d = C.paises[id];
+  if (!d?.p) return `<div class="sec"><div class="vazio">Sem composição por produto para este parceiro nos anos disponíveis (${anosProd.join(", ")}).</div></div>`;
+  const ap = anosProd.includes(st.ano) ? st.ano : anoProdPara(a);
+  const bloco = (k) => {
+    const x = d.p[String(ap)]?.[k];
+    if (!x) return `<div class="vazio">Sem ${k === "e" ? "exportações" : "importações"} registradas em ${ap}.</div>`;
+    const t5 = x.top.slice(0, 5).reduce((s, [, v]) => s + v, 0) / x.t;
+    return `<p class="resumo-txt" style="font-size:14.5px">${usd(x.t)} em ${x.n} produtos (SH4). Os 5 maiores somam <b>${pct(t5)}</b> desse total.</p>
+      <ul class="barras${k === "i" ? " imp" : ""}">${x.top.map(([c, v]) => {
+        const fornec = k === "i" && P?.itens?.[c]?.p?.[String(ap)]?.i ? (() => { const q = P.itens[c].p[String(ap)].i, h = q.top.find(([i]) => i === id); return h ? `${esc(nome(id))} forneceu ${pct(h[1] / q.t)} de tudo o que o Brasil importou deste produto` : ""; })() : "";
+        const dest = k === "e" && P?.itens?.[c]?.p?.[String(ap)]?.e ? (() => { const q = P.itens[c].p[String(ap)].e, h = q.top.find(([i]) => i === id); return h ? `${esc(nome(id))} recebeu ${pct(h[1] / q.t)} de tudo o que o Brasil exportou deste produto` : ""; })() : "";
+        return `<li><div class="lin"><span>${P?.itens?.[c] ? `<button type="button" class="link" data-prod-abrir="${c}" data-fluxo="${k}" title="${esc(oficialProd(c))}">${esc(nomeProd(c))}</button>` : `<span title="${esc(oficialProd(c))}">${esc(nomeProd(c))}</span>`}</span><span class="v num">${usd(v)} · ${pct(v / x.t)}</span></div>
+          <div class="trilho"><i style="width:${(v / x.t * 100).toFixed(2)}%"></i></div><small>SH4 ${c}${C.curtos?.[c] ? ` · oficial: ${esc(oficialProd(c).slice(0, 110))}${oficialProd(c).length > 110 ? "…" : ""}` : ""}${fornec || dest ? ` · ${fornec || dest}` : ""}</small></li>`;
+      }).join("")}</ul>`;
+  };
+  if (!P) carregarProdutos().then(() => { if (st.pais === id && st.aba === "produtos") render(); }).catch(() => {});
+  return `<div class="sec"><h3>O que o Brasil vende e compra</h3>
+      <p class="fonte">Comex Stat · SH4 · a composição completa por produto existe só em ${anosProd.join(", ")} — não é uma série anual</p>
+      <div class="chips" role="group" aria-label="Ano da composição">${anosProd.map((x) => `<button type="button" data-ano="${x}" aria-pressed="${ap === x}">${x}</button>`).join("")}</div>
+      <p class="nota">Participação de cada produto = valor do produto ÷ total trocado com este parceiro no ano (composição bilateral). ${P ? "Abaixo de cada produto, quando o parceiro está entre os 12 maiores, a parte dele no total do Brasil daquele produto (outro denominador)." : ""}</p></div>
+    <div class="sec"><h3>Exportações do Brasil para ${esc(nome(id))}, ${ap}</h3>${bloco("e")}</div>
+    <div class="sec"><h3>Importações do Brasil vindas de ${esc(nome(id))}, ${ap}</h3>${bloco("i")}</div>`;
+}
+function abaContexto(id, a) {
+  const u = H.onu.paises[id], k = H.conflitos.paises[id], w = H.omc[id], e = H.economia[id];
+  const uA = u ? anoUlt(u, H.onu.inicio, Math.min(a, H.onu.fim)) : null;
   const anosK = k ? Object.keys(k) : [];
-  return `<header><button class="fechar" aria-label="Fechar">×</button><div class="kicker">${base ? "Ponto de vista" : "Relação com o Brasil"}</div><h2>${esc(nome)}</h2>
-      <p class="sub">${base ? "O comércio do Brasil com o mundo ao longo do tempo." : `${H.onu.inicio}–${H.comercio.fim}. Clique num ponto dos gráficos para mudar o ano.`}</p></header>
-    ${!base ? `<div class="bloco"><h3>Em <span class="ano-txt">${anoSel}</span></h3><div class="kpis" id="kpisAno">${kpisAno(id)}</div></div>` : ""}
-    ${(c || base) ? `<div class="bloco"><h3>Comércio com o Brasil, ${H.comercio.inicio}–${H.comercio.fim}</h3>${fonte("comex", "valores FOB em US$ correntes")}
-      <div class="grafico" id="gComercio"></div>
-      ${!base ? `<div class="duas-col"><div><div class="kicker" style="margin:14px 0 6px">O Brasil vendia em ${pa}</div><ol class="prods">${prods(c?.p?.[pa]?.e) || "<li>sem registro</li>"}</ol></div>
-        <div><div class="kicker" style="margin:14px 0 6px">e em ${pb}</div><ol class="prods">${prods(c?.p?.[pb]?.e) || "<li>sem registro</li>"}</ol></div></div>
-      <div class="duas-col"><div><div class="kicker" style="margin:14px 0 6px">O Brasil comprava em ${pa}</div><ol class="prods">${prods(c?.p?.[pa]?.i) || "<li>sem registro</li>"}</ol></div>
-        <div><div class="kicker" style="margin:14px 0 6px">e em ${pb}</div><ol class="prods">${prods(c?.p?.[pb]?.i) || "<li>sem registro</li>"}</ol></div></div>` : ""}</div>` : ""}
-    ${u ? `<div class="bloco"><h3>Votos na ONU, ${H.onu.inicio}–${H.onu.fim}</h3>${fonte("onu")}
-      <p class="resumo">Concordância com o Brasil nas votações nominais da Assembleia Geral, de 0 a 100 (voto igual vale 1; abstenção de um dos dois, meio),
-        comparada com a mediana de todos os países no ano. Muda com a pauta de cada ano.</p><div class="grafico" id="gOnu"></div></div>` : ""}
-    <div class="bloco"><h3>Conflitos armados, ${H.conflitos.inicio}–${H.conflitos.fim}</h3>${fonte("ucdp")}
-      ${anosK.length ? `<div class="grafico baixo" id="gConflitos"></div>
-        <p class="fonte" style="margin-top:8px">Por ano: conflito no território do país (25+ mortes em combate; guerra = 1.000+), como lado principal, ou com tropas
-          de apoio, o que inclui missões multinacionais, como as de paz da ONU. Países que não existem mais aparecem nas fronteiras de hoje.</p>`
-        : vazio(`Nenhum conflito armado registrado de ${H.conflitos.inicio} a ${H.conflitos.fim}.`)}</div>
-    ${!base ? `<div class="bloco"><h3>Disputas comerciais com o Brasil na OMC</h3>${fonte("omc", "títulos oficiais em inglês")}
-      ${w?.via_ue ? `<p class="fonte">Na OMC, os países da União Europeia são representados pela UE: as disputas abaixo são da UE.</p>` : ""}
-      ${w ? `<ul class="disputas">${w.casos.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.titulo)}</a>
-        <span>${esc(x.ds)} · ${x.ano} · ${x.brasil_abriu ? "o Brasil abriu" : "aberta contra o Brasil"} · ${esc(x.situacao)}</span></li>`).join("")}</ul>`
-        : vazio("Nenhuma disputa com o Brasil na OMC desde 1995.")}</div>` : ""}
-    ${d?.relacoes ? blocoRelacoes(d, nome) : ""}
-    ${e?.length ? blocoEconomia({ economia: e }) : ""}
-    ${!base ? `<div class="bloco"><h3>História da relação</h3><p class="resumo">O Itamaraty mantém uma página oficial sobre a relação bilateral com cada país.</p>
-      <p><a class="botao" href="${ITAMARATY}" target="_blank" rel="noopener">Relações bilaterais no Itamaraty ↗</a></p>
-      <p class="fonte" style="margin-top:10px">Abre o índice oficial; procure "${esc(nome)}" na lista. O site do Itamaraty não permite conferir o link de cada país automaticamente.</p></div>` : ""}
-    <p class="nota">Retrato histórico coletado em ${quando(H.gerado_em)}, sem atualização automática. Fontes: Comex Stat, ONU (Voeten et al., CC0), UCDP/PRIO (CC BY 4.0),
-      OMC e Banco Mundial (CC BY 4.0).</p>`;
+  const kA = k?.[String(Math.min(a, H.conflitos.fim))];
+  return `<div class="sec"><p class="lead">Contexto da relação. Nenhum destes indicadores mede o comércio, nem foi transformado em nota de risco.</p></div>
+    <div class="sec"><h3>Votos na Assembleia Geral da ONU</h3><p class="fonte">Voeten, Strezhnev e Bailey (Harvard Dataverse, CC0) · ${H.onu.inicio}–${H.onu.fim}${a > H.onu.fim ? ` · dado mais recente: ${H.onu.fim}` : ""}</p>
+      ${u ? `<p class="resumo-txt" style="font-size:14.5px">Concordância com o Brasil em ${uA}: <b>${Math.round(em(u, uA, H.onu.inicio) * 100)} de 100</b> (mediana dos países: ${Math.round(em(H.onu.mediana, uA, H.onu.inicio) * 100)}).
+          ${uA !== Math.min(a, H.onu.fim) ? `Sem votação registrada em ${Math.min(a, H.onu.fim)}.` : ""}</p>
+        <div class="grafico" id="gOnu" role="img" aria-label="${esc(`Concordância de ${nome(id)} com o Brasil nos votos da ONU, ${H.onu.inicio}–${H.onu.fim}`)}"></div>
+        <p class="nota">Voto igual = 1; abstenção de um dos dois = 0,5. Concordância não equivale a aliança política: muda com a pauta de cada ano.</p>`
+        : `<div class="vazio">${terrOu(id, "Sem votos registrados na base (territórios e não membros não votam).")}</div>`}</div>
+    <div class="sec"><h3>Disputas comerciais com o Brasil na OMC</h3><p class="fonte">lista oficial da OMC · desde 1995 · títulos oficiais em inglês</p>
+      ${w?.via_ue ? `<p class="nota">Na OMC, os países da União Europeia são representados pela UE: as disputas abaixo são da UE.</p>` : ""}
+      ${w ? `<ul class="lista-ctx">${w.casos.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.titulo)}</a><span>${esc(x.ds)} · ${x.ano} · ${x.brasil_abriu ? "o Brasil abriu" : "aberta contra o Brasil"} · ${esc(x.situacao)}</span></li>`).join("")}</ul>
+        <p class="nota">Uma disputa trata de uma medida específica; não resume a relação bilateral.</p>` : `<div class="vazio">Nenhuma disputa com o Brasil na OMC desde 1995.</div>`}</div>
+    <div class="sec"><h3>Conflitos armados</h3><p class="fonte">UCDP/PRIO (CC BY 4.0) · ${H.conflitos.inicio}–${H.conflitos.fim}</p>
+      ${anosK.length ? `<p class="resumo-txt" style="font-size:14.5px">${kA ? `Em ${Math.min(a, H.conflitos.fim)}: ${kA.t >= 2 ? "guerra no território (1.000+ mortes em combate)" : kA.t ? "conflito armado no território" : "nenhum conflito no território"}${kA.l ? `; lado principal em ${kA.l} conflito${kA.l > 1 ? "s" : ""}` : ""}${kA.a ? `; tropas de apoio em ${kA.a}` : ""}.` : `Nenhum registro em ${Math.min(a, H.conflitos.fim)}.`}
+          ${anosK.length} ano${anosK.length > 1 ? "s" : ""} com algum registro desde ${H.conflitos.inicio}.</p>
+        <div class="grafico baixo" id="gConf" role="img" aria-label="${esc(`Conflitos de ${nome(id)} por ano: no território, como lado principal e com tropas de apoio`)}"></div>
+        <p class="nota">"Com tropas" inclui missões multinacionais, como as de paz da ONU — é diferente de conflito no território. Países que não existem mais aparecem nas fronteiras de hoje.</p>`
+        : `<div class="vazio">Nenhum conflito armado registrado de ${H.conflitos.inicio} a ${H.conflitos.fim}.</div>`}</div>
+    <div class="sec"><h3>Relações bilaterais</h3><p class="lead" style="font-size:14.5px">O Itamaraty mantém páginas oficiais sobre a relação com cada país.</p>
+      <div class="botoes"><a class="btn" href="https://www.gov.br/mre/pt-br/assuntos/relacoes-bilaterais/todos-os-paises" target="_blank" rel="noopener">Índice do Itamaraty ↗</a></div>
+      <p class="nota">Abre o índice; procure "${esc(nome(id))}". O site não permite conferir automaticamente a página de cada país.</p></div>
+    <div class="sec"><details class="ficha"><summary>Ficha econômica de ${esc(nome(id))}</summary>
+      ${e?.length ? `<p class="fonte" style="margin-top:8px">Banco Mundial (CC BY 4.0) · valor mais recente de cada indicador</p><div class="kpis">${e.map((x) => `<div class="kpi"><span>${esc(x.rotulo)}</span><b class="num">${fmtEco(x)}</b><small>dado de ${esc(x.ano)} · fonte atualizada em ${esc(x.atualizado || "—")}</small></div>`).join("")}</div>`
+        : `<div class="vazio" style="margin-top:8px">Sem indicadores do Banco Mundial para ${terr(id) ? "este território" : "este país"}.</div>`}</details></div>`;
 }
-function kpisAno(id) {
-  const cAno = comercioDe(id, anoSel), uAno = onuDe(id, anoSel), med = na(H.onu.mediana, H.onu.inicio, anoSel), k = conflitoDe(id, anoSel);
-  const kpi = (r, v, s = "") => `<div class="kpi"><span>${esc(r)}</span><b>${v}</b>${s ? `<small>${esc(s)}</small>` : ""}</div>`;
-  return (cAno ? kpi("Brasil exportou", bi(cAno.e)) + kpi("Brasil importou", bi(cAno.i)) + kpi("Saldo", (cAno.s >= 0 ? "+" : "−") + bi(Math.abs(cAno.s)), cAno.s >= 0 ? "superávit do Brasil" : "déficit do Brasil")
-    : kpi("Comércio", "sem dado", `${H.comercio.inicio}–${H.comercio.fim}`))
-    + (uAno != null ? kpi("Votos na ONU", `${Math.round(uAno * 100)} de 100`, `mediana dos países: ${Math.round(med * 100)}`) : kpi("Votos na ONU", "sem dado", `${H.onu.inicio}–${H.onu.fim}`))
-    + kpi("Conflitos", k && (k.t || k.l || k.a) ? (k.t >= 2 ? "guerra no território" : k.t ? "no território" : "fora do país") : "nenhum", k && (k.l || k.a) ? `${k.l} como lado, ${k.a} com tropas` : "");
+const terr = (id) => ehTerritorio(id);
+const terrOu = (id, t) => (terr(id) ? "Territórios não votam na Assembleia Geral." : t);
+function fmtEco(x) {
+  if (x.id === "NY.GDP.MKTP.CD") return usd(x.valor);
+  if (x.id === "SP.POP.TOTL") return x.valor >= 1e6 ? nf(x.valor / 1e6, 1) + " mi" : nf(x.valor, 0);
+  return (x.valor < 0 ? "−" : "") + nf(Math.abs(x.valor), 1) + "%";
 }
-
-// gráficos (ECharts): o ano escolhido aparece marcado; clicar num ponto muda o ano do globo
-let graficos = [];
-const tema = { textStyle: { color: "#b7c0c2", fontFamily: "IBM Plex Sans" }, grid: { left: 52, right: 14, top: 30, bottom: 26 } };
-function marca() { return { symbol: "none", silent: true, label: { show: false }, lineStyle: { color: "#e7ecea", type: "dashed", width: 1 }, data: [{ xAxis: String(anoSel) }] }; }
-function desenharGraficos(f) {
-  graficos.forEach((g) => g.dispose()); graficos = [];
-  if (typeof echarts === "undefined" || !H) return;
-  const id = f.id, base = id === "076";
-  const eixo = (ini, fim) => ({ type: "category", data: Array.from({ length: fim - ini + 1 }, (_, i) => String(ini + i)),
-    axisLine: { lineStyle: { color: "rgba(255,255,255,.15)" } }, axisLabel: { color: "#7f8b91" } });
-  const yv = (fmt) => ({ type: "value", splitLine: { lineStyle: { color: "rgba(255,255,255,.06)" } }, axisLabel: { color: "#7f8b91", formatter: fmt } });
-  const novo = (el, opt) => { if (!el) return; const g = echarts.init(el, null, { renderer: "svg" }); g.setOption({ ...tema, ...opt });
-    g.on("click", (p) => setAno(+p.name)); graficos.push(g); };
-  const cs = base ? H.comercio.brasil : H.comercio.paises[id];
-  if (cs) novo(document.getElementById("gComercio"), {
-    tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem dado" : bi(v)) },
-    legend: { data: ["Brasil exportou", "Brasil importou"], textStyle: { color: "#b7c0c2" }, top: 0, right: 0 },
-    xAxis: eixo(H.comercio.inicio, H.comercio.fim), yAxis: yv((v) => (v / 1e9).toLocaleString("pt-BR") + " bi"),
-    series: [{ name: "Brasil exportou", type: "line", data: cs.e, connectNulls: false, symbolSize: 5, itemStyle: { color: "#8fd3b6" }, markLine: marca() },
-      { name: "Brasil importou", type: "line", data: cs.i, connectNulls: false, symbolSize: 5, itemStyle: { color: "#aad7f0" } }] });
-  const u = H.onu.paises[id];
-  if (u) novo(document.getElementById("gOnu"), {
-    tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem dado" : `${Math.round(v * 100)} de 100`) },
-    legend: { data: [nomeH(id), "Mediana dos países"], textStyle: { color: "#b7c0c2" }, top: 0, right: 0 },
-    xAxis: eixo(H.onu.inicio, H.onu.fim), yAxis: { ...yv((v) => Math.round(v * 100)), min: 0, max: 1 },
-    series: [{ name: nomeH(id), type: "line", data: u, connectNulls: false, symbolSize: 4, itemStyle: { color: "#aad7f0" }, markLine: marca() },
-      { name: "Mediana dos países", type: "line", data: H.onu.mediana, symbol: "none", lineStyle: { type: "dotted", color: "#7f8b91" }, itemStyle: { color: "#7f8b91" } }] });
-  const k = H.conflitos.paises[id];
-  if (k) {
-    const anos = Array.from({ length: H.conflitos.fim - H.conflitos.inicio + 1 }, (_, i) => H.conflitos.inicio + i);
-    const linha = (fn) => anos.map((a) => { const x = k[String(a)]; return x ? fn(x) : null; });
-    novo(document.getElementById("gConflitos"), {
-      grid: { left: 110, right: 14, top: 8, bottom: 26 },
-      tooltip: { trigger: "item", formatter: (p) => `${p.name}: ${p.seriesName}` },
-      xAxis: eixo(H.conflitos.inicio, H.conflitos.fim), yAxis: { type: "category", data: ["Com tropas", "Como lado", "No território"], axisLabel: { color: "#b7c0c2" }, axisLine: { show: false } },
-      series: [
-        { name: "no território", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: linha((x) => (x.t ? 2 : null)),
-          itemStyle: { color: (p) => (k[p.name]?.t >= 2 ? "rgba(226,120,100,.95)" : "rgba(226,160,120,.65)") }, markLine: marca() },
-        { name: "como lado principal", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: linha((x) => (x.l ? 1 : null)), itemStyle: { color: "#aad7f0" } },
-        { name: "com tropas de apoio", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: linha((x) => (x.a ? 0 : null)), itemStyle: { color: "rgba(226,190,150,.6)" } }] });
-  }
+function painelBrasil(a) {
+  return `<div class="sec"><p class="resumo-txt">O Brasil é o ponto de vista de todo o atlas: cada país aparece pela relação com ele.</p>
+      <div class="kpis"><div class="kpi"><span>Exportações em ${a}</span><b class="num">${usd(brE(a))}</b></div><div class="kpi"><span>Importações em ${a}</span><b class="num">${usd(brI(a))}</b></div>
+      <div class="kpi"><span>Saldo</span><b class="num">${(brE(a) - brI(a) >= 0 ? "+" : "") + usd(brE(a) - brI(a))}</b></div></div></div>
+    <div class="sec"><h3>Comércio do Brasil com o mundo, ${ini}–${fim}</h3><p class="fonte">Comex Stat · US$ FOB correntes</p>
+      <div class="grafico" id="gValores" role="img" aria-label="Exportações e importações totais do Brasil por ano"></div>${tabelaSerie([["Exportações", C.brasil.e], ["Importações", C.brasil.i]])}</div>
+    <div class="sec"><div class="botoes"><button class="btn pri" type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "corrente", pais: null })}'>Ver os maiores parceiros</button></div></div>`;
 }
-function atualizarAnoPainel() {
-  if (!selecionado || !H) return;
-  const $k = document.getElementById("kpisAno"); if ($k) $k.innerHTML = kpisAno(selecionado.id);
-  document.querySelectorAll("#painel .ano-txt").forEach((x) => (x.textContent = anoSel));
-  graficos.forEach((g) => { const o = g.getOption(); g.setOption({ series: [{ markLine: marca() }] }); });
+function tabelaSerie(series, f = usd) {
+  const anos = series[0][1].map((_, k) => ini + k);
+  return `<details class="dados"><summary>Ver os dados em tabela</summary><table><thead><tr><th scope="col">Ano</th>${series.map(([n]) => `<th scope="col">${esc(n)}</th>`).join("")}</tr></thead>
+    <tbody>${anos.map((a, k) => `<tr><td>${a}</td>${series.map(([, s]) => `<td>${s[k] == null ? "sem registro" : f(s[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></details>`;
 }
 
-// lista de países (modo lista e sem WebGL): todos com dado, do maior para o menor comércio no ano
-function renderListaHistoria() {
-  const ids = Object.keys(H.paises).filter((id) => H.comercio.paises[id] || H.onu.paises[id]);
-  const tot = (id) => comercioDe(id, Math.min(anoSel, H.comercio.fim))?.t || 0;
-  ids.sort((a, b) => (a === "076" ? -1 : b === "076" ? 1 : tot(b) - tot(a)));
-  const a = Math.min(anoSel, H.comercio.fim);
-  document.getElementById("lista").innerHTML = `<p class="nota-lista">${ids.length} países, do maior para o menor comércio com o Brasil em ${a}.</p>
-    <ol>${ids.map((id) => `<li><button type="button" data-id="${id}">${esc(nomeH(id))}<span>${id === "076" ? "ponto de vista" : tot(id) ? bi(tot(id)) : "–"}</span></button></li>`).join("")}</ol>`;
-  document.querySelectorAll("#lista button[data-id]").forEach((b) => (b.onclick = () => { if (globo) modo("globo"); abrir(featureDe(b.dataset.id)); }));
+// ---------- ligações de eventos do conteúdo ----------
+function ligarConteudo($c) {
+  $$("[data-ir]", $c).forEach((b) => (b.onclick = () => { const d = JSON.parse(b.dataset.ir); if (d.cmp) { cmpA = d.cmp; delete d.cmp; } if (d.modo) { modo(d.modo); delete d.modo; } ir(d); }));
+  $$("[data-pais]", $c).forEach((b) => (b.onclick = () => abrirPais(b.dataset.pais)));
+  $$("[data-fechar]", $c).forEach((b) => (b.onclick = () => ir({ pais: null })));
+  $$('a.btn[href="#"]', $c).forEach((x) => (x.onclick = (e) => { e.preventDefault(); ir({ pais: null, vista: "inicio" }); }));
+  $$("[data-aba]", $c).forEach((b) => (b.onclick = () => ir({ aba: b.dataset.aba }, { push: false })));
+  const tl = $(".abas", $c);
+  if (tl) tl.onkeydown = (e) => { if (!["ArrowRight", "ArrowLeft"].includes(e.key)) return; const bs = $$("[data-aba]", tl), i = bs.findIndex((b) => b.dataset.aba === st.aba); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; e.preventDefault(); ir({ aba: n.dataset.aba }, { push: false }); requestAnimationFrame(() => $(`#tab-${n.dataset.aba}`)?.focus({ preventScroll: true })); };
+  $$(".chips [data-ano]", $c).forEach((b) => (b.onclick = () => ir({ ano: +b.dataset.ano }, { push: false })));
+  $$("[data-fluxo]", $c).forEach((b) => { if (!b.dataset.prodAbrir) b.onclick = () => ir({ fluxo: b.dataset.fluxo }, { push: false }); });
+  $$("[data-prod]", $c).forEach((b) => (b.onclick = () => ir({ prod: b.dataset.prod, m: "prod", ano: anosProd.includes(st.ano) ? st.ano : fim })));
+  $$("[data-prod-abrir]", $c).forEach((b) => (b.onclick = () => ir({ vista: "produto", prod: b.dataset.prodAbrir, fluxo: b.dataset.fluxo, m: "prod", pais: null })));
+  const rt = $("#rankTodos", $c); if (rt) rt.onclick = () => { rankTodos = !rankTodos; render(); };
+  const bs = $("#baseSel", $c); if (bs) bs.onchange = () => ir({ base: +bs.value }, { push: false });
+  if ($("#buscaProd", $c) && P) autocompletar($("#buscaProd", $c), $("#buscaProdLista", $c), (q) => buscarProduto(q), (c) => ir({ prod: c, m: "prod", ano: anosProd.includes(st.ano) ? st.ano : fim }));
+  if ($("#cmpA", $c)) autocompletar($("#cmpA", $c), $("#cmpALista", $c), buscarPais, (id) => { cmpA = id; render(); });
+  if ($("#cmpB", $c)) autocompletar($("#cmpB", $c), $("#cmpBLista", $c), buscarPais, (id) => ir({ vs: id }));
+}
+function abrirPais(id) { ir({ pais: id, aba: st.prod && st.vista === "produto" ? "produtos" : "comercial", ano: Math.min(st.ano, fim) }); }
+
+// ---------- busca (bandeira + nome; teclado: ↑ ↓ Enter Esc) ----------
+const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+function buscarPais(q) {
+  const n = norm(q.trim()); if (!n) return [];
+  return Object.keys(H.paises).filter((id) => norm(nome(id)).includes(n) || H.paises[id].iso3.toLowerCase() === n)
+    .sort((a, b) => (norm(nome(a)).startsWith(n) ? 0 : 1) - (norm(nome(b)).startsWith(n) ? 0 : 1) || nome(a).localeCompare(nome(b))).slice(0, 12)
+    .map((id) => ({ v: id, html: `${bandeira(id)}<span>${esc(nome(id))}</span>${ehTerritorio(id) ? "<small>território</small>" : ""}` }));
+}
+function buscarProduto(q) {
+  const n = norm(q.trim()); if (!n || !P) return [];
+  return Object.entries(P.itens).filter(([c, x]) => norm(x.nome).includes(n) || norm(x.oficial).includes(n) || c === n)
+    .sort((a, b) => (a[0].startsWith("g-") ? 0 : 1) - (b[0].startsWith("g-") ? 0 : 1) || (norm(a[1].nome).startsWith(n) ? 0 : 1) - (norm(b[1].nome).startsWith(n) ? 0 : 1)).slice(0, 12)
+    .map(([c, x]) => ({ v: c, html: `<span>${esc(x.nome)}</span><small>${c.startsWith("g-") ? "grupo" : "SH4 " + c}</small>` }));
+}
+function autocompletar(inp, lista, fonte, escolher) {
+  let itens = [], sel = -1;
+  const fechar = () => { lista.hidden = true; inp.setAttribute("aria-expanded", "false"); inp.removeAttribute("aria-activedescendant"); sel = -1; };
+  const mostrar = () => {
+    itens = fonte(inp.value);
+    if (!itens.length) return fechar();
+    lista.innerHTML = itens.map((x, i) => `<li role="option" id="${lista.id}-${i}" aria-selected="${i === sel}" data-i="${i}">${x.html}</li>`).join("");
+    lista.hidden = false; inp.setAttribute("aria-expanded", "true");
+    if (sel >= 0) inp.setAttribute("aria-activedescendant", `${lista.id}-${sel}`);
+  };
+  inp.oninput = () => { sel = -1; mostrar(); };
+  inp.onkeydown = (e) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); if (lista.hidden) mostrar(); sel = (sel + (e.key === "ArrowDown" ? 1 : -1) + itens.length) % itens.length; mostrar(); }
+    else if (e.key === "Enter") { e.preventDefault(); const x = itens[sel >= 0 ? sel : 0]; if (x) { fechar(); escolher(x.v); inp.blur(); } }
+    else if (e.key === "Escape") fechar();
+  };
+  lista.onmousedown = (e) => { const li = e.target.closest("li"); if (!li) return; e.preventDefault(); const x = itens[+li.dataset.i]; fechar(); escolher(x.v); };
+  inp.onblur = () => setTimeout(fechar, 120);
 }
 
-function renderResumo() {
-  if (H && !NOTICIAS) return renderResumoHistoria();
-  const $r = document.getElementById("resumo");
-  $r.innerHTML = `<div class="cab"><div class="kicker">Seu ponto de partida</div><h2>Mundo agora</h2>
-      <p class="sub">O que está acontecendo e como chega ao Brasil. Clique num país para ver a relação dele com o Brasil.</p></div>
-    <div class="abas-topo" role="tablist">${ABAS_RESUMO.map(([k, r]) => `<button type="button" role="tab" data-aba="${k}" aria-selected="${k === aba}">${esc(r)}</button>`).join("")}</div>
-    ${aba === "comercio" ? (calor = null, corpoComercio()) : aba === "conflitos" ? (calor = null, corpoConflitos()) : corpoManchetes()}
-    <div class="rodape">${NOTICIAS ? `<i class="ponto${N ? "" : " aviso"}"></i>${N ? `Última coleta de manchetes: ${hora(N.gerado_em)}` : "Nenhuma coleta de manchetes carregada"} · ` : ""}imagem do planeta: Blue Marble (NASA)</div>`;
-  $r.querySelectorAll("[data-aba]").forEach((b) => (b.onclick = () => { aba = b.dataset.aba; filtro = "todas"; paisFiltro = null; renderResumo(); }));
-  $r.querySelectorAll("[data-onde]").forEach((b) => (b.onclick = () => { paisFiltro = paisFiltro === b.dataset.onde ? null : b.dataset.onde; renderResumo(); }));
-  document.body.classList.toggle("calor", camada === "noticias" && !!calor && Object.keys(calor).length > 0);
-  if (globo) globo.polygonCapColor(cor);
-  $r.querySelectorAll("[data-filtro]").forEach((b) => (b.onclick = () => { filtro = b.dataset.filtro; renderResumo(); }));
-  $r.querySelectorAll("[data-limpar]").forEach((b) => (b.onclick = () => { filtro = "todas"; renderResumo(); }));
-  $r.querySelectorAll(".parceiros button[data-id]").forEach((bt) => (bt.onclick = () => {
-    const f = paises.find((x) => x.id === bt.dataset.id);
-    if (f) abrir(f);
-  }));
-}
-
-// ---------- lista de países (alternativa ao globo; funciona também sem WebGL) ----------
+// ---------- lista (alternativa ao globo, e o que assume sem WebGL) ----------
+let semGlobo = false;
 function renderLista() {
-  if (H && !NOTICIAS) return renderListaHistoria();
-  const tot = (id) => { const c = M?.paises?.[id]?.comercio; return c ? (c.exportacao?.fob || 0) + (c.importacao?.fob || 0) : 0; };
-  const ids = Object.keys(FOCO).filter((id) => !FOCO[id].base).sort((a, b) => tot(b) - tot(a));
-  document.getElementById("lista").innerHTML = `<p class="nota-lista">Países com dados, do maior para o menor comércio com o Brasil em ${esc(M?.ano_comercio || "")}.</p>
-    <ol><li><button type="button" data-id="076">Brasil<span>ponto de vista</span></button></li>
-    ${ids.map((id) => `<li><button type="button" data-id="${id}">${esc(FOCO[id].nome)}<span>${tot(id) ? bi(tot(id)) : "–"}</span></button></li>`).join("")}</ol>`;
-  document.querySelectorAll("#lista button[data-id]").forEach((b) => (b.onclick = () => {
-    const f = paises.find((x) => x.id === b.dataset.id) || { id: b.dataset.id, properties: { name: FOCO[b.dataset.id].nome } };
-    modo("globo");
-    abrir(f);
-  }));
+  if (!document.body.classList.contains("modo-lista")) return;
+  const m = MET[st.m]?.ctx || st.m === "prod" ? st.m : st.m;
+  const r = ranking(m === "mud" ? "corrente" : m);
+  const resto = IDS.filter((id) => !r.some(([x]) => x === id)).sort((a, b) => nome(a).localeCompare(nome(b)));
+  $("#lista").innerHTML = `${semGlobo ? `<p class="aviso-3d" role="status">O globo 3D não abriu neste navegador. Tudo continua aqui: busca, ano, métricas, rankings e detalhes.</p>` : ""}
+    <p class="nota" style="margin-top:0">${r.length} países e territórios com dado em ${st.ano}, ordenados por ${esc(MET[m === "mud" ? "corrente" : m].rot.toLowerCase())}${resto.length ? `; ${resto.length} sem registro no ano, em ordem alfabética no fim` : ""}.</p>
+    ${listaRank(r, m === "mud" ? "corrente" : m, st.ano)}
+    ${resto.length ? `<ol class="rank">${resto.map((id) => `<li><button type="button" data-pais="${id}"><span class="pos">—</span>${bandeira(id)}<span class="nome">${esc(nome(id))}${ehTerritorio(id) ? ' <span class="tag">território</span>' : ""}</span><span class="val">sem registro</span></button></li>`).join("")}</ol>` : ""}`;
+  $$("[data-pais]", $("#lista")).forEach((b) => (b.onclick = () => abrirPais(b.dataset.pais)));
 }
-
 function modo(m) {
-  if (m === "globo" && !globo) m = "lista";
+  if (m === "globo" && semGlobo) m = "lista";
+  st.modo = m;
   document.body.classList.toggle("modo-lista", m === "lista");
-  document.querySelectorAll(".modos button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.modo === m));
+  $$(".modos button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.modo === m));
+  renderLista();
 }
+$$(".modos button").forEach((b) => (b.onclick = () => modo(b.dataset.modo)));
+$("#voltar").onclick = () => ir({ pais: null, vista: "inicio", vs: null, prod: st.m === "prod" ? null : st.prod, m: st.m === "prod" ? "corrente" : st.m });
+$("#abrirFontes").onclick = () => ir({ pais: null, vista: "fontes" });
+addEventListener("keydown", (e) => { if (e.key === "Escape" && st.pais && !e.target.closest(".ac")) ir({ pais: null }); });
 
-function abrir(f) {
-  selecionado = f;
-  document.body.classList.add("aberto");
-  const foco = FOCO[f.id];
-  if (globo) {
-    globo.polygonCapColor(cor).polygonAltitude((p) => (p === selecionado ? 0.03 : 0.006));
-    globo.controls().autoRotate = false;
-    const alvo = foco ? { lat: foco.lat, lng: foco.lng, altitude: foco.alt } : f.geometry ? centro(f) : null;   // fora do mapa: sem zoom
-    if (alvo) globo.pointOfView(enquadrar(alvo), reduzir ? 0 : 1300);
+// ---------- gráficos (ECharts) ----------
+let graficos = [];
+const eixoX = (a0, a1) => ({ type: "category", data: Array.from({ length: a1 - a0 + 1 }, (_, i) => String(a0 + i)), axisLine: { lineStyle: { color: "rgba(255,255,255,.15)" } }, axisLabel: { color: "#8a959b" } });
+const eixoY = (fmt) => ({ type: "value", splitLine: { lineStyle: { color: "rgba(255,255,255,.06)" } }, axisLabel: { color: "#8a959b", formatter: fmt } });
+const marca = () => ({ symbol: "none", silent: true, label: { show: false }, lineStyle: { color: "#e7ecea", type: "dashed", width: 1 }, data: [{ xAxis: String(st.ano) }] });
+const usdEixo = (v) => (v >= 1e9 ? nf(v / 1e9, 0) + " bi" : v >= 1e6 ? nf(v / 1e6, 0) + " mi" : nf(v, 0));
+function desenharGraficos() {
+  graficos.forEach((g) => g.dispose()); graficos = [];
+  if (typeof echarts === "undefined") return;
+  const novo = (sel, opt) => { const el = $(sel); if (!el) return; const g = echarts.init(el, null, { renderer: "svg" });
+    g.setOption({ textStyle: { color: "#b7c0c2", fontFamily: "IBM Plex Sans" }, grid: { left: 56, right: 14, top: 34, bottom: 26 }, animation: !reduzir, ...opt });
+    g.on("click", (p) => { if (p.name && /^\d{4}$/.test(p.name)) ir({ ano: +p.name }, { push: false }); }); graficos.push(g); };
+  const leg = (nomes) => ({ data: nomes, textStyle: { color: "#b7c0c2" }, top: 0, right: 0 });
+  const id = st.pais;
+  if (id) {
+    const d = id === BR ? C.brasil : C.paises[id];
+    if (d) novo("#gValores", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : usd(v)) }, legend: leg(["Exportações do Brasil", "Importações do Brasil"]),
+      xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
+      series: [{ name: "Exportações do Brasil", type: "line", data: d.e, connectNulls: false, symbolSize: 5, itemStyle: { color: "#8fd3b6" }, markLine: marca() },
+        { name: "Importações do Brasil", type: "line", data: d.i, connectNulls: false, symbolSize: 5, itemStyle: { color: "#9ccbea" } }] });
+    if (d && id !== BR) novo("#gPartes", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : pct(v)) }, legend: leg(["% das exportações do Brasil", "% das importações do Brasil"]),
+      xAxis: eixoX(ini, fim), yAxis: eixoY((v) => nf(v * 100, 0) + "%"),
+      series: [{ name: "% das exportações do Brasil", type: "line", data: d.e.map((v, j) => (v == null ? null : v / brE(ini + j))), symbolSize: 4, itemStyle: { color: "#8fd3b6" }, markLine: marca() },
+        { name: "% das importações do Brasil", type: "line", data: d.i.map((v, j) => (v == null ? null : v / brI(ini + j))), symbolSize: 4, itemStyle: { color: "#9ccbea" } }] });
+    const u = H.onu.paises[id];
+    if (u) novo("#gOnu", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem votação" : `${Math.round(v * 100)} de 100`) }, legend: leg([nome(id), "Mediana dos países"]),
+      xAxis: eixoX(H.onu.inicio, H.onu.fim), yAxis: { ...eixoY((v) => Math.round(v * 100)), min: 0, max: 1 },
+      series: [{ name: nome(id), type: "line", data: u, symbolSize: 3, itemStyle: { color: "#aad7f0" }, markLine: marca() },
+        { name: "Mediana dos países", type: "line", data: H.onu.mediana, symbol: "none", lineStyle: { type: "dotted", color: "#8a959b" }, itemStyle: { color: "#8a959b" } }] });
+    const k = H.conflitos.paises[id];
+    if (k) { const anos = Array.from({ length: H.conflitos.fim - H.conflitos.inicio + 1 }, (_, i) => H.conflitos.inicio + i), lin = (f) => anos.map((a) => { const x = k[String(a)]; return x ? f(x) : null; });
+      novo("#gConf", { grid: { left: 112, right: 14, top: 8, bottom: 26 }, tooltip: { trigger: "item", formatter: (p) => `${p.name}: ${p.seriesName}` }, xAxis: eixoX(H.conflitos.inicio, H.conflitos.fim),
+        yAxis: { type: "category", data: ["Com tropas", "Como lado", "No território"], axisLabel: { color: "#b7c0c2" }, axisLine: { show: false } },
+        series: [{ name: "conflito no território", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.t ? 2 : null)), itemStyle: { color: (p) => (k[p.name]?.t >= 2 ? "rgba(226,120,100,.95)" : "rgba(226,160,120,.65)") }, markLine: marca() },
+          { name: "lado principal", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.l ? 1 : null)), itemStyle: { color: "#aad7f0" } },
+          { name: "tropas de apoio (inclui missões de paz)", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.a ? 0 : null)), itemStyle: { color: "rgba(226,190,150,.6)" } }] }); }
+  } else if (st.vista === "produto" && P && st.prod && P.itens[st.prod]) {
+    const it = P.itens[st.prod];
+    novo("#gProd", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : usd(v)) }, legend: leg(["Exportações do Brasil", "Importações do Brasil"]),
+      xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
+      series: [{ name: "Exportações do Brasil", type: "line", data: it.e, symbolSize: 4, itemStyle: { color: "#8fd3b6" }, lineStyle: { width: st.fluxo === "e" ? 2.5 : 1, opacity: st.fluxo === "e" ? 1 : .5 }, markLine: marca() },
+        { name: "Importações do Brasil", type: "line", data: it.i, symbolSize: 4, itemStyle: { color: "#9ccbea" }, lineStyle: { width: st.fluxo === "i" ? 2.5 : 1, opacity: st.fluxo === "i" ? 1 : .5 } }] });
+  } else if (st.vista === "comparar") {
+    const a = cmpA, b = st.vs || "840", s = (x) => Array.from({ length: fim - ini + 1 }, (_, j) => trocas(x, ini + j)?.pt ?? null);
+    novo("#gCmp", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : pct(v)) }, legend: leg([nome(a), nome(b)]), xAxis: eixoX(ini, fim), yAxis: eixoY((v) => nf(v * 100, 0) + "%"),
+      series: [{ name: nome(a), type: "line", data: s(a), symbolSize: 4, itemStyle: { color: "#8fd3b6" }, markLine: marca() }, { name: nome(b), type: "line", data: s(b), symbolSize: 4, itemStyle: { color: "#e0b45c" } }] });
   }
-  renderPainel(f);
-  document.getElementById("conteudo").scrollTop = 0;
-  history.replaceState(null, "", `#${encodeURIComponent(nomeDe(f))}`);
 }
+addEventListener("resize", () => graficos.forEach((g) => g.resize()));
 
-function renderPainel(f) {
-  $painel.innerHTML = painelPais(f);
-  $painel.querySelector(".fechar").onclick = mundo;
-  if (H && !NOTICIAS) requestAnimationFrame(() => desenharGraficos(f));
-  const lista = FOCO[f.id]?.base ? (N?.mundo || []) : FOCO[f.id] ? (N?.paises?.[f.id] || [])
-    : [...new Map([N?.mundo || [], ...Object.values(N?.paises || {})].flat().filter((m) => (m.paises || []).includes(f.id)).map((m) => [m.url, m])).values()];
-  $painel.querySelectorAll(".abas button").forEach((b) => (b.onclick = () => {
-    $painel.querySelectorAll(".abas button").forEach((x) => x.setAttribute("aria-selected", x === b));
-    b.closest(".bloco").querySelector(".aba-corpo").innerHTML = listaManchetes(lista, b.dataset.aba);
-  }));
+// ---------- globo ----------
+let globo = null, poligonos = [], sobre = null;
+const TEXTURAS = "https://cdn.jsdelivr.net/npm/three-globe@2.45.6/example/img/";
+function corPol(f) {
+  if (f.id === st.pais) return "rgba(240,248,244,.62)";
+  if (f === sobre) return "rgba(231,236,234,.5)";
+  if (f.id === BR) return "rgba(143,211,182,.62)";
+  return corDe(f.id);
 }
-
-function mundo() {
-  selecionado = null;
-  document.body.classList.remove("aberto");
-  if (globo) {
-    globo.polygonCapColor(cor).polygonAltitude(0.006);
-    globo.pointOfView(BRASIL, reduzir ? 0 : 1300);
-    globo.controls().autoRotate = !reduzir;
-  }
-  document.getElementById("conteudo").scrollTop = 0;
-  history.replaceState(null, "", location.pathname);
-}
-
-// O globo tem o lado dele do quadro: basta centralizar o país e afastar um pouco, para aparecer com os vizinhos.
-function enquadrar(v) {
-  return { lat: v.lat, lng: v.lng, altitude: v.altitude * 1.5 };
-}
-
-function ajustar() {
-  if (!globo) return;
-  const el = document.getElementById("globo");
-  globo.width(el.clientWidth).height(el.clientHeight);
-}
-
-function zoom(fator) {
-  if (!globo) return;
-  const v = globo.pointOfView();
-  globo.controls().autoRotate = false;
-  globo.pointOfView({ ...v, altitude: Math.min(4, Math.max(0.25, v.altitude * fator)) }, reduzir ? 0 : 350);
-}
-
-// Enquadramento aproximado para países fora do protótipo: média dos vértices do maior polígono.
 function centro(f) {
-  const g = f.geometry;
+  const g = f.geometry; if (!g) return null;
   const aneis = g.type === "Polygon" ? [g.coordinates[0]] : g.coordinates.map((p) => p[0]);
   const maior = aneis.sort((a, b) => b.length - a.length)[0];
-  const lng = maior.reduce((s, c) => s + c[0], 0) / maior.length, lat = maior.reduce((s, c) => s + c[1], 0) / maior.length;
-  return { lat, lng, altitude: 0.9 };
+  const lngs = maior.map((c) => c[0]), lats = maior.map((c) => c[1]);
+  const span = Math.max(Math.max(...lngs) - Math.min(...lngs), Math.max(...lats) - Math.min(...lats));
+  return { lat: lats.reduce((s, x) => s + x, 0) / lats.length, lng: lngs.reduce((s, x) => s + x, 0) / lngs.length, altitude: Math.min(2.4, Math.max(0.55, span / 26)) };
 }
-
-// Tinge a imagem de satélite de verde-petróleo escuro (sóbrio, mantendo o relevo). Quando a textura termina de carregar,
-// a biblioteca zera a cor do material; por isso a cor volta depois, criada a partir de outra cor do próprio material.
+function enquadrar() {
+  if (!globo) return;
+  const f = st.pais && poligonos.find((p) => p.id === st.pais);
+  const alvo = f ? centro(f) : st.pais ? null : { lat: -12, lng: -45, altitude: 2.35 };
+  globo.controls().autoRotate = !st.pais && !reduzir;
+  if (alvo) globo.pointOfView(alvo, reduzir ? 0 : 1100);
+}
 function tingir() {
   const mat = globo.globeMaterial();
-  mat.shininess = 0;                     // sem o reflexo branco do material padrão
-  mat.specular.set("#000000");
+  mat.shininess = 0; mat.specular.set("#000000");
   if ("bumpScale" in mat) mat.bumpScale = 6;
   if (!mat.map) return setTimeout(tingir, 250);
-  mat.color = mat.specular.clone().set("#5a7b7e");
-  mat.needsUpdate = true;
+  mat.color = mat.specular.clone().set("#5a7b7e"); mat.needsUpdate = true;
 }
-
-function iniciar(atlas) {
-  paises = topojson.feature(atlas, atlas.objects.countries).features.filter((f) => f.properties.name !== "Antarctica");
-  const el = document.getElementById("globo");
+function iniciarGlobo(atlas) {
+  poligonos = topojson.feature(atlas, atlas.objects.countries).features.filter((f) => f.properties.name !== "Antarctica");
+  const el = $("#globo");
   globo = Globe()(el)
-    .backgroundColor("rgba(0,0,0,0)")      // o fundo é o do quadro
-    .globeImageUrl(TEXTURAS + "earth-blue-marble.jpg")
-    .bumpImageUrl(TEXTURAS + "earth-topology.png")
-    .showGraticules(true)
-    .showAtmosphere(true).atmosphereColor("#7cc3b0").atmosphereAltitude(0.13)
-    .polygonsData(paises)
-    .polygonCapColor(cor)
-    .polygonSideColor(() => "rgba(205,236,226,0.04)")
-    .polygonStrokeColor(() => css("--stroke"))
-    .polygonAltitude(0.006)
-    .polygonsTransitionDuration(reduzir ? 0 : 300)
-    .polygonLabel((f) => H && !NOTICIAS ? `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${anoSel} · ${esc(IND[ind].rot)}: ${esc(fmtValor(valor(f.id)))}</span></div>`
-      : `<div class="tip"><b>${esc(nomeDe(f))}</b><span>${camada === "noticias" && calor
-      ? `${calor[f.id] || 0} manchete${calor[f.id] === 1 ? "" : "s"} na aba aberta · ` : ""}${FOCO[f.id] ? "clique para abrir" : "fora do protótipo"}</span></div>`)
-    .onPolygonHover((f) => { sobre = f; globo.polygonCapColor(cor); el.style.cursor = f ? "pointer" : "grab"; })
-    .onPolygonClick((f) => abrir(f));
+    .backgroundColor("rgba(0,0,0,0)").globeImageUrl(TEXTURAS + "earth-blue-marble.jpg").bumpImageUrl(TEXTURAS + "earth-topology.png")
+    .showGraticules(true).showAtmosphere(true).atmosphereColor("#7cc3b0").atmosphereAltitude(0.13)
+    .polygonsData(poligonos).polygonCapColor(corPol).polygonSideColor(() => "rgba(205,236,226,0.04)").polygonStrokeColor(() => "rgba(205,236,226,.28)")
+    .polygonAltitude((p) => (p.id === st.pais ? 0.03 : 0.006)).polygonsTransitionDuration(reduzir ? 0 : 250)
+    .polygonLabel((f) => { const id = f.id; if (!H.paises[id]) return `<div class="tip"><b>${esc(f.properties.name)}</b><span>sem dados na base</span></div>`;
+      const v = id === BR ? null : valor(id), p = id === BR ? null : posicao(id);
+      return `<div class="tip">${bandeira(id)} <b>${esc(nome(id))}</b><span>${id === BR ? "ponto de referência da análise" : `${esc(MET[st.m].rot)} em ${st.ano}: ${esc(fmtValor(v))}${p ? ` · ${ord(p[0])} de ${p[1]}` : ""}`}</span></div>`; })
+    .onPolygonHover((f) => { sobre = f; globo.polygonCapColor(corPol); el.style.cursor = f ? "pointer" : "grab"; })
+    .onPolygonClick((f) => { if (H.paises[f.id]) abrirPais(f.id); });
   tingir();
-  globo.controls().autoRotate = !reduzir;
-  globo.controls().autoRotateSpeed = 0.18;  // devagar: o Brasil continua à vista por bastante tempo
-  globo.pointOfView(BRASIL);
-  addEventListener("resize", ajustar);
-  if (window.ResizeObserver) new ResizeObserver(ajustar).observe(el);
-  ajustar();
-  globo.polygonCapColor(cor);
+  globo.controls().autoRotateSpeed = 0.18;
+  const ajustar = () => globo.width(el.clientWidth).height(el.clientHeight);
+  addEventListener("resize", ajustar); if (window.ResizeObserver) new ResizeObserver(ajustar).observe(el); ajustar();
+  enquadrar();
 }
+$("#mais").onclick = () => { if (!globo) return; const v = globo.pointOfView(); globo.controls().autoRotate = false; globo.pointOfView({ ...v, altitude: Math.max(0.25, v.altitude * 0.75) }, 300); };
+$("#menos").onclick = () => { if (!globo) return; const v = globo.pointOfView(); globo.pointOfView({ ...v, altitude: Math.min(4, v.altitude * 1.33) }, 300); };
 
-function ligar() {
-  renderEstado();
-  renderResumo();
-  renderLista();
-  const nomesBusca = H && !NOTICIAS ? Object.values(H.paises).map((p) => p.nome).sort((a, b) => a.localeCompare(b)) : Object.values(FOCO).map((p) => p.nome);
-  document.getElementById("paises").innerHTML = nomesBusca.map((n) => `<option value="${esc(n)}">`).join("");
-  document.getElementById("busca").addEventListener("change", (e) => {
-    const alvo = e.target.value.trim().toLowerCase();
-    let f = paises.find((x) => nomeDe(x).toLowerCase() === alvo);
-    if (!f && H) { const id = Object.keys(H.paises).find((k) => H.paises[k].nome.toLowerCase() === alvo); if (id) f = featureDe(id); }
-    if (f) { if (globo) modo("globo"); abrir(f); e.target.blur(); }
-  });
-  $voltar.onclick = mundo;
-  document.querySelectorAll(".modos button").forEach((b) => (b.onclick = () => modo(b.dataset.modo)));
-  if (!NOTICIAS) document.querySelector(".camadas").style.display = "none";
-  if (H && !NOTICIAS) {
-    document.body.classList.add("historia");
-    document.getElementById("tempoCtl").hidden = false;
-    document.querySelectorAll("[data-ind]").forEach((b) => (b.onclick = () => setInd(b.dataset.ind)));
-    document.getElementById("ano").oninput = (e) => setAno(+e.target.value);
-    document.getElementById("play").onclick = tocar;
-    document.querySelector(".titulo-globo").lastChild.textContent = " O mundo visto do Brasil";
-    recalcEscala(); renderControle();
-  }
-  document.querySelectorAll(".camadas button").forEach((b) => (b.onclick = () => {
-    camada = b.dataset.camada;
-    document.querySelectorAll(".camadas button").forEach((x) => x.setAttribute("aria-pressed", x === b));
-    renderResumo();
-  }));
-  document.getElementById("mais").onclick = () => zoom(0.75);
-  document.getElementById("menos").onclick = () => zoom(1.33);
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && selecionado) mundo(); });
-}
-
+// ---------- partida ----------
+autocompletar($("#busca"), $("#buscaLista"), buscarPais, (id) => { $("#busca").value = ""; abrirPais(id); });
+Object.assign(st, lerURL());
+if (location.hash && !location.hash.includes("=")) history.replaceState(null, "", urlDe(st));   // converte #China em #pais=CHN…
+render(true);
 (async () => {
-  ligar();   // o texto e a lista aparecem mesmo se o globo não carregar
   try {
-    if (typeof Globe !== "function") throw new Error("biblioteca do globo não carregou");
+    if (typeof Globe !== "function") throw new Error("globe.gl não carregou");
+    const t = document.createElement("canvas"); if (!(t.getContext("webgl2") || t.getContext("webgl"))) throw new Error("sem WebGL");
     const r = await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json");
     if (!r.ok) throw new Error("mapa não carregou");
-    iniciar(await r.json());
+    iniciarGlobo(await r.json());
   } catch (e) {
-    console.error(e);
-    // sem WebGL ou sem a biblioteca: a lista de países faz o papel do globo
-    document.getElementById("erro").classList.add("on");
-    document.body.classList.add("sem-globo");
-    modo("lista");
+    console.warn("Globo indisponível:", e.message);
+    semGlobo = true; $(".zoom").hidden = true; $('[data-modo="globo"]').disabled = true; modo("lista");
   }
-  const inicial = decodeURIComponent(location.hash.slice(1));
-  let f0 = inicial && paises.find((x) => nomeDe(x) === inicial);
-  if (!f0 && inicial && H) { const id = Object.keys(H.paises).find((k) => H.paises[k].nome === inicial); if (id) f0 = featureDe(id); }
-  if (f0) setTimeout(() => abrir(f0), 400);
-  dadosFrescos().catch(() => {});  // sem rede para o GitHub: fica a cópia que veio com o site
 })();
 </script>
 </body>

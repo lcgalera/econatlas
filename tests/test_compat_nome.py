@@ -43,4 +43,4 @@ def test_servidor_local_serve_o_globo():
     from fastapi.testclient import TestClient
     from rotzx.api import app
     r = TestClient(app).get("/globo/")
-    assert r.status_code == 200 and "O mundo visto do Brasil" in r.text
+    assert r.status_code == 200 and "Como o Brasil se conecta ao mundo" in r.text
