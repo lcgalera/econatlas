@@ -2,7 +2,7 @@
 
 Estado em 05/11/2026 (v0.13 e o globo com as decisões até D47). Este documento descreve o projeto inteiro: o que ele faz,
 de onde vem cada dado, como as peças se encaixam e como operar. O porquê de cada escolha está em [`DECISOES.md`](DECISOES.md)
-(D1–D50). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
+(D1–D51). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
 
 - Repositório: https://github.com/lcgalera/rotzx
 - Site público: https://lcgalera.github.io/rotzx/
@@ -168,6 +168,12 @@ automática (D45). As notícias estão pausadas (seção 7.5).
   - o país aberto por um produto tem abertura própria (posição e parte naquele produto e fluxo);
   - atalhos de produto com rótulos curtos;
   - um só controle de ano ("Ano do recorte"), com aviso quando o ano pedido não tem distribuição por parceiro.
+- **Versão estável (D51):**
+  - o recorte por produto diz quantos parceiros estão detalhados, quantos a fonte registra e quanto está em "Outros";
+  - os países fora do recorte aparecem como "fora do recorte detalhado", nunca como zero ou "sem registro";
+  - avisos para ano ou parâmetro incompatível;
+  - falha de carga com "Tentar de novo";
+  - carregamento com a silhueta do Brasil e a assinatura "Pátria amada, Brasil." na entrada.
 - **URL:** `#pais=RUS&prod=g-fertilizantes&fluxo=i&ano=2025` (país visto por um produto), `#ver=comparar&a=CHN&b=USA`, `&amplo=1`,
   `&aba=produtos`, `#ver=ranking&m=mud&base=2000`. Voltar, avançar e recarregar mantêm o estado; `#China` e `vs=` continuam funcionando.
 
@@ -301,4 +307,4 @@ sem WebGL, a lista de países assume).
 | D25–D27, D35 | nome rotzx e comunicação sem exagero |
 | D28–D34, D37 | radar de oportunidades (SIGET, avaliação, motor, histórico, contexto, leilões) |
 | D36 | Actions em Node 24 |
-| D38–D50 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico, atlas comercial, refinamento da leitura, identidade editorial e acabamento |
+| D38–D51 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico, atlas comercial, refinamento da leitura, identidade editorial, acabamento e versão estável |
