@@ -14,15 +14,16 @@ Responda em português do Brasil. O nome do produto é "rotzx", sempre em minús
 Inteligência econômica com dados abertos e rastreáveis, em três frentes:
 1. Radar econômico e setorial (BCB, IBGE, Focus; previsões registradas em `registro/`, só acréscimos).
 2. Radar de oportunidades em transmissão de energia (SIGET/ANEEL; `rotzx/intelligence`, `historico/`).
-3. O mundo visto do Brasil: globo em `prototipos/globo/index.html` (frente em foco), hoje um portfólio histórico de todos os países
-   × Brasil, 1946–2025 (`rotzx/mundo/historia.py`, `catalog/paises_mundo.csv`). Notícias pausadas (`NOTICIAS = false`), sem coleta recorrente.
+3. Atlas "Como o Brasil se conecta ao mundo": `prototipos/globo/index.html` (frente em foco), relações e dependências comerciais do
+   Brasil com todos os países e territórios desde 1997 (`rotzx/mundo/historia.py`, `catalog/paises_mundo.csv`). Notícias pausadas, sem coleta recorrente.
 
-Antes de mudar algo relevante, leia `docs/PROJETO.md` (visão completa) e `docs/DECISOES.md` (D1–D46).
+Antes de mudar algo relevante, leia `docs/PROJETO.md` (visão completa) e `docs/DECISOES.md` (D1–D47).
 Toda mudança relevante ganha uma decisão nova em `docs/DECISOES.md`.
 
 ## Regras que não podem ser quebradas
 - Só dado real, com fonte e data. Nunca inventar número, nem em exemplo de interface.
-- Interpretação nunca passa por fato; nada de nota "boa/ruim" entre países, só sinais medidos com fonte.
+- Interpretação nunca passa por fato; nada de nota "boa/ruim" ou de risco entre países, só medidas com fonte.
+- Participação sempre com o denominador dito; dado ausente é "sem registro", nunca zero; mudança de participação em p.p.
 - Séries da Macrodados são de uso pessoal: nunca no git, no site ou em automação.
 - Notícias: só título, veículo, data e link; país citado com acento e palavra inteira, sem termos ambíguos.
 - Automático (categorias, assuntos, países citados) pode errar, e a página avisa.

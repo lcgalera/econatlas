@@ -275,3 +275,38 @@ Ano sem dado fica nulo, nunca zero.
 - Painel de qualquer país, com gráficos (ECharts 5.5.0, a mesma versão do resto do site). Clicar num ponto muda o ano.
 **Itamaraty:** o site responde com um desafio anti-robô (página de JavaScript), então não dá para ler nem conferir a página de cada país. O painel
 leva ao índice oficial de relações bilaterais e diz para procurar o país lá; nenhuma "história" é escrita de cabeça.
+
+### D47 · 06/11/2026 · Atlas "Como o Brasil se conecta ao mundo": o globo organizado pela relação comercial
+**Pedido:** transformar o globo num atlas das relações e dependências comerciais do Brasil, guiado pela pergunta "de quem o Brasil depende
+para vender e para comprar — e como isso mudou?". Diplomacia, conflitos e economia viram contexto.
+**Dados:**
+- A composição por produto passou a ter denominador exato. A consulta do Comex Stat traz todos os pares país × SH4 do ano, e para cada país
+  em 2000, 2010 e 2025 ficam o total bilateral, o número de posições e os 10 maiores produtos.
+- O explorador por produto (`produtos.json`) tem:
+  - séries do Brasil por SH4 de 1997 a 2025, para 695 posições que passaram de US$ 50 milhões num ano;
+  - 4 grupos somados sobre a distribuição completa: fertilizantes, petróleo e derivados, carnes, veículos e partes;
+  - os 12 maiores parceiros de cada produto, mais o total do produto, em 2000, 2010 e 2025.
+- Nomes curtos revisados para 79 posições (`rotzx/mundo/produtos_nomes.py`). O nome oficial e o código ficam sempre à mão. O código 9998 não
+  tem descrição no Comex e aparece assim.
+- A tabela de países ganhou o ISO de 2 letras (para as bandeiras) e o tipo (país ou território), com nomes ambíguos corrigidos ("Ilhas Virgens").
+**Interface:** a página foi reescrita na mesma stack.
+- Início com resumo do ano e perguntas que executam ações reais.
+- Métricas do mapa (exportações, importações, corrente, participação, mudança em p.p.) com escalas fixas para todos os anos.
+- Painel do país em três partes (relação comercial, produtos e concentração, contexto diplomático), com resumo por regras fixas.
+- Explorar por produto e comparar dois parceiros.
+- Bandeiras flag-icons 7.5.0 (MIT): bandeira atual, com substituto neutro quando não carrega.
+- Estado na URL, com compatibilidade com `#China`.
+- Lista funcional sem WebGL.
+**Regras:**
+- Dado ausente aparece como "sem registro", nunca como zero.
+- Participações dizem o denominador. Há quatro, cada um com seu significado: destinos, origens, composição bilateral e fornecedores de um produto.
+- Mudança de participação é dada em pontos percentuais, só com comércio registrado nos dois anos.
+- Nenhuma nota de risco ou dependência: participação alta indica concentração, não vulnerabilidade.
+**Limitações:**
+- A composição por produto existe só em 2000, 2010 e 2025.
+- O explorador guarda os 12 maiores parceiros de cada produto.
+- Valores em dólares correntes, sem correção pela inflação.
+- Países que não existem mais aparecem nas fronteiras atuais.
+- Países pequenos ficam fora do mapa 1:110m, mas estão na lista e na busca.
+**Notícias:** continuam pausadas. A interface delas está no histórico do git (`prototipos/globo/index.html` no commit `d193691`), e os
+coletores em Python seguem no repositório.
