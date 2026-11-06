@@ -310,3 +310,86 @@ para vender e para comprar — e como isso mudou?". Diplomacia, conflitos e econ
 - Países pequenos ficam fora do mapa 1:110m, mas estão na lista e na busca.
 **Notícias:** continuam pausadas. A interface delas está no histórico do git (`prototipos/globo/index.html` no commit `d193691`), e os
 coletores em Python seguem no repositório.
+
+### D48 · 06/11/2026 · Atlas: espaço de leitura, informação em dois níveis e continuidade da investigação
+**Pedido:** refinar a experiência sem mudar o foco nem acrescentar funcionalidades. Mais espaço para as análises, menos detalhe técnico no meio da
+leitura e uma pergunta seguida até o fim, sem perder o contexto.
+**Espaço:**
+- Na entrada, mapa e conteúdo dividem a tela. Nas análises (país, produto, comparação, ranking), o conteúdo ganha mais largura.
+- "Ampliar análise" recolhe o mapa, e "Mostrar mapa" o devolve, sem perder nenhum filtro (`amplo=1` na URL). Gráficos e listas de produtos usam
+  o espaço liberado.
+- Uma barra de análise no fluxo da página mostra onde a pessoa está (ex.: Início › Fertilizantes › Importações › Rússia), o ano e o botão.
+  Num ranking com o mapa recolhido, ela mostra também a métrica.
+- No celular, a análise já abre com o mapa recolhido; a barra fica presa no topo.
+**Dois níveis:**
+- Sempre visíveis: nome legível, valor, participação com o que ela representa ("das compras brasileiras desse produto", "das vendas do Brasil a
+  esse parceiro"), ano e fonte resumida.
+- Sob demanda: "Detalhes" em cada produto (código SH4, descrição oficial, regra do grupo) e "Sobre este dado" em cada bloco (fórmula,
+  denominador, cobertura, limitações).
+- Avisos indispensáveis ficam visíveis: anos com distribuição por produto, "fora dos 12 maiores" não é zero, sem registro.
+**Produto → país:**
+- Clicar num fornecedor ou destino no explorador abre o país visto por aquele produto, fluxo e ano (`pais` + `prod` na URL). Mostra:
+  - o valor;
+  - a parte no total brasileiro do produto e a posição;
+  - o peso do produto na relação bilateral;
+  - os anos com distribuição por parceiro (2000, 2010, 2025, sem inventar série anual);
+  - "Voltar aos fornecedores/destinos", que restaura filtros e a posição de leitura (guardada na sessão do navegador);
+  - "Ver a relação comercial completa".
+- A busca do topo sempre abre o painel geral, sem herdar o produto.
+**Comparação:**
+- Os dois parceiros ficam na URL (`a`, `b`; o antigo `vs` vira `b`). "Comparar com outro parceiro" mantém o país atual e deixa o segundo campo
+  vazio, com instrução.
+- Cada campo não oferece o país do outro. País repetido ou código inválido na URL vira um aviso recuperável.
+- Destaque para as exportações (gráfico em US$, mesmo eixo) e para os produtos vendidos a cada um.
+**Entrada:** três explorações em destaque, cada uma com título, uma frase calculada dos dados e uma ação:
+- a China desde 2000: o painel ganha a tabela "2000 × 2025" em p.p. e os gráficos marcam os dois anos;
+- os fornecedores de fertilizantes;
+- China × Estados Unidos.
+As outras perguntas ficam em "Outras perguntas".
+
+### D49 · 06/11/2026 · Atlas: identidade editorial (tema claro, tipografia, globo cartográfico)
+**Pedido:** transformar o atlas numa publicação econômica editorial, sóbria e agradável de explorar.
+- **Referências:** a sobriedade e o conforto de leitura da Anthropic e a hierarquia editorial do NYT, sem copiar páginas, marcas ou fontes proprietárias.
+- **Escopo:** só design e usabilidade. Dados, cálculos, funções e estado na URL não mudam.
+
+**Identidade:**
+- **Tema claro como principal.** Fundo `#F3F0E8`, superfície `#FAF8F3`, texto `#222721`, acento verde `#385344`, ocre `#A16D2F` e linhas `#D8D4C9`.
+- **Tema escuro mantido.** Segue o sistema; um botão no cabeçalho alterna entre automático, claro e escuro, e a escolha fica no navegador.
+- **Cores só por tokens CSS.** O globo e os gráficos leem os tokens e se redesenham ao trocar o tema.
+- **Contraste conferido.** Texto, apoio e acento ficam acima de 4,5:1 nos dois temas. O ocre fica abaixo disso no claro (3,9:1), então só pinta barras e linhas; o texto que usa o ocre é escurecido.
+- **Sem ornamento.** Saíram as caixas arredondadas, gradientes e sombras. Fundo preenchido só em seleção, resumo e agrupamento.
+
+**Tipografia:**
+- Newsreader (serifa, OFL) para títulos, descobertas e números de destaque.
+- IBM Plex Sans (OFL) para texto e controles, com números tabulares em valores e tabelas.
+- A IBM Plex Mono saiu.
+- A hierarquia vem de tamanho, peso e espaço.
+
+**Composição:**
+- **Cabeçalho:** marca "rotzx" em serifa, descrição curta, navegação (Início, Parceiros, Produtos, Comparar), busca, Fontes e método, tema.
+- **Entrada:**
+  - propósito do projeto;
+  - exploração principal (a China) com gráfico da participação 1997–2025, anotado em 2000 e no último ano;
+  - duas secundárias em larguras diferentes: fertilizantes, com os três maiores fornecedores calculados quando os dados de produtos chegam, e China × EUA, com as exportações a cada um;
+  - "Outras perguntas" em lista compacta e sempre visível.
+- **País:** abertura própria com bandeira, nome, ano, leitura curta e uma faixa de indicadores separados por linhas finas, sem caixa por número. Abas com títulos em serifa; Home e End também funcionam.
+- **Rankings:** posição, bandeira, nome, barra na própria linha e valor alinhado, com a escala explicada embaixo. Na "Mudança", a barra parte do centro. O país selecionado ganha fundo e marcador lateral.
+- **Comparação:**
+  - abre com o mapa recolhido no computador;
+  - cada parceiro com bandeira, nome e a cor da sua série (A verde, B ocre) em todos os elementos;
+  - no celular, cada medida vira um bloco, com o nome do país junto de cada valor.
+- **Gráficos:**
+  - fundo integrado e grade tracejada fina;
+  - nome da série no fim da linha (legenda só quando falta o último ano);
+  - rótulos curtos nas marcas do ano e do ano-base;
+  - anotação do maior valor da participação nas exportações.
+  - Sem animação ornamental; tabelas de dados e "sem registro" mantidos.
+- **Globo:**
+  - oceano liso e claro, sem a imagem Blue Marble nem relevo;
+  - terra neutra para "sem registro" e contornos finos;
+  - métricas em rampas de cor com as mesmas escalas fixas;
+  - país selecionado em tinta escura e mais alto;
+  - Brasil em cinza com contorno, por ser o ponto de vista, como diz a legenda.
+- **Lista sem WebGL:** uma nota de uma linha, sem caixa de alerta; países sem registro num grupo próprio.
+
+**Correção de exibição:** um fluxo sem registro no ano aparecia como "0% do total" no painel, na tabela "ano × ano" e na comparação. Agora aparece "sem registro", e a mudança em p.p. vira "—". O cálculo não mudou.

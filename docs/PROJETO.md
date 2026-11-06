@@ -2,7 +2,7 @@
 
 Estado em 05/11/2026 (v0.13 e o globo com as decisões até D47). Este documento descreve o projeto inteiro: o que ele faz,
 de onde vem cada dado, como as peças se encaixam e como operar. O porquê de cada escolha está em [`DECISOES.md`](DECISOES.md)
-(D1–D47). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
+(D1–D49). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
 
 - Repositório: https://github.com/lcgalera/rotzx
 - Site público: https://lcgalera.github.io/rotzx/
@@ -91,7 +91,7 @@ forecast/, analysis/, intelligence/ ──► registro/*.csv (previsões)  ─�
 | Votos na Assembleia Geral da ONU (Voeten, Strezhnev e Bailey, Harvard Dataverse) | globo: sinais da relação | CC0 | índice de Lijphart; sensível à pauta do ano (D42) |
 | Disputas na OMC (site da OMC) | globo: sinais e visão externa | site oficial | lido como texto; países da UE aparecem pela UE (D42) |
 | UCDP/PRIO Armed Conflict Dataset (Uppsala) | globo: conflitos armados | CC BY 4.0 | 25+ mortes em combate/ano; conta tropas de missões multinacionais como apoio (D43) |
-| NASA Blue Marble (via `three-globe@2.45.6`) | imagem do planeta | domínio público (pacote MIT) | tingida de verde-petróleo |
+| Newsreader e IBM Plex Sans (Google Fonts) | tipografia do atlas | SIL Open Font License | serifa nos títulos, sans no texto (D49) |
 | ISO 3166 (pycountry / iso-codes do Debian) | tabela de países | LGPL (dados ISO) | só para gerar `catalog/paises_mundo.csv` (D46) |
 | flag-icons 7.5.0 | bandeiras | MIT | bandeira atual, não a do ano (D47) |
 | Itamaraty — relações bilaterais | link no painel | site oficial | desafio anti-robô: só o índice, sem conferir página por país (D46) |
@@ -151,8 +151,20 @@ automática (D45). As notícias estão pausadas (seção 7.5).
   2025. Clicar num parceiro abre o país mantendo o produto.
 - **Comparar dois parceiros:** tabela no ano, participação na corrente no mesmo eixo e 5 maiores produtos lado a lado.
 - **Fontes e método:** fonte, cobertura, unidade, definições, critérios, limitações e licenças.
-- **URL:** `#pais=CHN&ano=2025&m=exp&prod=1201&fluxo=e&vs=USA&aba=produtos&ver=ranking`. Voltar, avançar e recarregar mantêm o estado, e
-  `#China` continua funcionando.
+- **Espaço de leitura (D48):** nas análises, o conteúdo ganha mais largura. "Ampliar análise" recolhe o mapa, e uma barra no topo da análise
+  mostra o caminho (ex.: Início › Fertilizantes › Importações › Rússia), o ano e o botão. No celular, a análise abre com o mapa recolhido.
+- **Dois níveis (D48):** valor, participação com o que ela representa, ano e fonte ficam visíveis. Código SH4, descrição oficial, fórmula,
+  denominador e limitações ficam em "Detalhes" e "Sobre este dado".
+- **Produto → país (D48):** um fornecedor ou destino aberto pelo explorador mostra o país visto por aquele produto, fluxo e ano, com volta à
+  exploração (filtros e posição de leitura) e acesso à relação completa. A busca do topo abre sempre o painel geral.
+- **Identidade editorial (D49):**
+  - tema claro principal, com o escuro pelo sistema ou pelo botão do cabeçalho; cores só por tokens CSS;
+  - Newsreader nos títulos e IBM Plex Sans no texto;
+  - globo cartográfico com oceano liso, terra neutra para "sem registro" e o país selecionado em tinta escura;
+  - entrada com uma exploração principal com gráfico e duas secundárias;
+  - faixa de indicadores no país, rankings com barra na linha e comparação em duas colunas com cores de série fixas.
+- **URL:** `#pais=RUS&prod=g-fertilizantes&fluxo=i&ano=2025` (país visto por um produto), `#ver=comparar&a=CHN&b=USA`, `&amplo=1`,
+  `&aba=produtos`, `#ver=ranking&m=mud&base=2000`. Voltar, avançar e recarregar mantêm o estado; `#China` e `vs=` continuam funcionando.
 
 ### 7.2 Definições (o denominador muda; a tela sempre diz qual)
 
@@ -280,4 +292,4 @@ sem WebGL, a lista de países assume).
 | D25–D27, D35 | nome rotzx e comunicação sem exagero |
 | D28–D34, D37 | radar de oportunidades (SIGET, avaliação, motor, histórico, contexto, leilões) |
 | D36 | Actions em Node 24 |
-| D38–D47 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico e atlas comercial |
+| D38–D49 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico, atlas comercial, refinamento da leitura e identidade editorial |

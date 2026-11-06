@@ -8,201 +8,362 @@
 <meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<script>try { const t = localStorage.getItem("rotzx-tema"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) { /* sem armazenamento: tema do sistema */ }</script>
 <style>
-  /* rotzx — atlas das relações comerciais do Brasil (D47). Tema escuro sóbrio, linhas finas, um acento verde. */
+  /* rotzx — atlas das relações comerciais do Brasil. Identidade editorial (D49): tema claro principal, linhas finas,
+     serifa nos títulos e nas descobertas, sans nos textos e controles, números tabulares. Cores só por tokens. */
   :root {
-    --bg: #090d12; --frame: #0c1219; --pane: #0e151d; --rule: rgba(255,255,255,.08); --rule-2: rgba(255,255,255,.16);
-    --ink: #e7ecea; --ink-2: #b7c0c2; --muted: #8a959b; --accent: #8fd3b6; --accent-2: #5fae8e; --warn: #e0b45c;
-    --exp: #8fd3b6; --imp: #9ccbea; --neg: #e2947f; --chip: rgba(255,255,255,.05);
-    --sel: rgba(240,248,244,.62); --stroke: rgba(205,236,226,.28); --base: rgba(143,211,182,.62);
+    --bg: #F3F0E8; --surface: #FAF8F3; --ink: #222721; --ink-2: #464C45; --muted: #676B62;
+    --rule: #D8D4C9; --rule-2: #BDB8AB; --accent: #385344; --accent-ink: #2C4436; --ochre: #A16D2F; --neg: #9A4A3A;
+    --sel-bg: #E3E9E1; --hover: #ECE9E0; --warn: #8A5A12; --on-accent: #FAF8F3;
+    --serif: "Newsreader", "Iowan Old Style", Georgia, serif; --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151916; --surface: #1C211D; --ink: #E9E6DE; --ink-2: #C3C2B8; --muted: #9C9D93;
+      --rule: #343A34; --rule-2: #4A514A; --accent: #8DBA9F; --accent-ink: #A9D0B8; --ochre: #D7A465; --neg: #E19A88;
+      --sel-bg: #26302A; --hover: #222823; --warn: #E0B45C; --on-accent: #151916; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #151916; --surface: #1C211D; --ink: #E9E6DE; --ink-2: #C3C2B8; --muted: #9C9D93;
+    --rule: #343A34; --rule-2: #4A514A; --accent: #8DBA9F; --accent-ink: #A9D0B8; --ochre: #D7A465; --neg: #E19A88;
+    --sel-bg: #26302A; --hover: #222823; --warn: #E0B45C; --on-accent: #151916; color-scheme: dark;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
-  body { background: var(--bg); color: var(--ink); font: 15px/1.5 "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { background: var(--bg); color: var(--ink); font: 15.5px/1.55 var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   button, input, select { font: inherit; color: inherit; }
-  a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .kicker { font: 500 11px/1.2 "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-  .num { font-variant-numeric: tabular-nums; }
+  .kicker { font: 600 11.5px/1.3 var(--sans); letter-spacing: .09em; text-transform: uppercase; color: var(--accent-ink); }
+  .num, td, .val, .v, output { font-variant-numeric: tabular-nums lining-nums; }
+  button { transition: background-color .15s, color .15s, border-color .15s; }
 
-  /* bandeiras: tamanho fixo (não desloca o layout ao carregar); sem bandeira, um retângulo discreto */
-  .flag { display: inline-block; width: 20px; height: 15px; flex: none; border-radius: 2px; object-fit: cover; vertical-align: -2px;
-          background: rgba(255,255,255,.06); box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
-  .flag.g { width: 36px; height: 27px; border-radius: 3px; vertical-align: -5px; }
-  .flag.vazia { background: repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 3px, rgba(255,255,255,.02) 3px 6px); }
+  /* bandeiras: tamanho fixo, borda fina; sem bandeira, um retângulo neutro */
+  .flag { display: inline-block; width: 20px; height: 15px; flex: none; border-radius: 1.5px; object-fit: cover; vertical-align: -2px;
+          background: var(--hover); box-shadow: 0 0 0 1px rgba(34,39,33,.16); }
+  .flag.g { width: 40px; height: 30px; border-radius: 2px; vertical-align: -5px; }
+  .flag.vazia { background: repeating-linear-gradient(135deg, var(--rule) 0 2px, transparent 2px 5px); }
 
-  /* barra de cima */
-  .barra { display: flex; align-items: center; gap: 20px; padding: 12px 28px; border-bottom: 1px solid var(--rule); }
-  .marca { font: 600 20px/1 "Source Serif 4", Georgia, serif; text-decoration: none; white-space: nowrap; }
-  .marca span { font: 400 14px/1 "IBM Plex Sans", sans-serif; color: var(--ink-2); margin-left: 10px; }
-  .barra .fontes-link { margin-left: auto; font-size: 13px; color: var(--ink-2); white-space: nowrap; background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  /* cabeçalho: marca, descrição, navegação essencial, busca, fontes, tema */
+  .barra { display: flex; align-items: center; gap: 8px 22px; padding: 12px 32px; border-bottom: 1px solid var(--ink); background: var(--bg); }
+  .marca { font: 600 27px/1 var(--serif); letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
+  .marca-desc { margin: 0; padding-left: 16px; border-left: 1px solid var(--rule-2); font: 400 15px/1.25 var(--serif); font-style: italic; color: var(--ink-2); white-space: nowrap; }
+  .nav { display: flex; gap: 2px; margin-left: auto; }
+  .nav button, .fontes-link { border: 0; background: none; padding: 8px 10px; cursor: pointer; font-size: 14px; color: var(--ink-2); border-radius: 3px; white-space: nowrap; }
+  .nav button:hover, .fontes-link:hover { color: var(--ink); background: var(--hover); }
+  .nav button[aria-current="page"], .fontes-link[aria-current="page"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--accent); border-radius: 0; }
+  .tema { display: inline-grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--rule-2); border-radius: 50%; background: transparent; cursor: pointer; color: var(--ink-2); font-size: 15px; flex: none; }
+  .tema:hover { color: var(--ink); border-color: var(--ink-2); }
 
   /* busca com sugestões (bandeira + nome) */
   .ac { position: relative; }
-  .ac input { width: 260px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--rule-2); background: rgba(255,255,255,.02); font-size: 14px; outline: none; }
+  .ac input { width: 240px; padding: 8px 12px; border-radius: 3px; border: 1px solid var(--rule-2); background: var(--surface); font-size: 14.5px; outline: none; }
   .ac input::placeholder { color: var(--muted); }
-  .ac input:focus { border-color: var(--accent-2); }
-  .ac ul { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; min-width: 260px; max-height: 320px; overflow-y: auto; margin: 0; padding: 4px;
-           list-style: none; background: #111a23; border: 1px solid var(--rule-2); border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
-  .ac li { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 4px; cursor: pointer; font-size: 14px; }
-  .ac li[aria-selected="true"], .ac li:hover { background: rgba(143,211,182,.12); }
+  .ac input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .ac ul { position: absolute; z-index: 30; top: calc(100% + 4px); left: 0; right: 0; min-width: 260px; max-height: 340px; overflow-y: auto; margin: 0; padding: 4px;
+           list-style: none; background: var(--surface); border: 1px solid var(--rule-2); border-radius: 3px; box-shadow: 0 8px 24px rgba(34,39,33,.12); }
+  .ac li { display: flex; align-items: center; gap: 10px; padding: 8px 9px; border-radius: 2px; cursor: pointer; font-size: 14.5px; }
+  .ac li[aria-selected="true"], .ac li:hover { background: var(--sel-bg); }
   .ac li small { margin-left: auto; color: var(--muted); font-size: 12px; }
 
-  /* quadro: mapa à esquerda, conteúdo à direita */
-  .quadro { margin: 16px 28px 28px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); height: max(640px, calc(100vh - 96px));
-            border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--frame); }
-  .lado-mapa { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--rule); }
-  .mapa-topo { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--rule); }
-  .modos { display: flex; padding: 3px; border: 1px solid var(--rule-2); border-radius: 7px; }
-  .modos button { border: 0; background: transparent; padding: 5px 12px; border-radius: 5px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
-  .modos button[aria-pressed="true"] { background: rgba(255,255,255,.09); color: var(--ink); }
-  .voltar { display: none; align-items: center; gap: 8px; margin-left: auto; padding: 6px 12px; border: 1px solid var(--rule-2); border-radius: 6px; background: transparent; cursor: pointer; font-size: 14px; }
+  /* quadro: mapa à esquerda, leitura à direita; sem moldura, só uma linha */
+  .quadro { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); height: max(640px, calc(100vh - 62px)); transition: grid-template-columns .2s ease; }
+  .lado-mapa { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--rule); background: var(--surface); }
+  .mapa-topo { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-bottom: 1px solid var(--rule); }
+  .modos { display: flex; border: 1px solid var(--rule-2); border-radius: 3px; overflow: hidden; }
+  .modos button { border: 0; background: transparent; padding: 6px 14px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
+  .modos button + button { border-left: 1px solid var(--rule-2); }
+  .modos button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .modos button:disabled { color: var(--muted); cursor: not-allowed; text-decoration: line-through; text-decoration-color: var(--rule-2); }
+  .voltar { display: none; align-items: center; gap: 8px; margin-left: auto; padding: 6px 4px; border: 0; background: transparent; cursor: pointer; font-size: 14px; color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 4px; }
+  .voltar:hover { color: var(--ink); }
   body.com-pais .voltar, body.com-vista .voltar { display: inline-flex; }
-  .area { position: relative; flex: 1; min-height: 0; background: radial-gradient(ellipse at 50% 46%, #122130 0%, var(--frame) 64%); }
+  .area { position: relative; flex: 1; min-height: 0; background: var(--surface); }
   #globo { position: absolute; inset: 0; }
-  .zoom { position: absolute; right: 14px; top: 14px; z-index: 3; display: grid; border: 1px solid var(--rule-2); border-radius: 7px; overflow: hidden; background: rgba(9,13,18,.6); }
-  .zoom button { width: 36px; height: 34px; border: 0; background: transparent; cursor: pointer; font-size: 18px; color: var(--ink-2); }
+  .zoom { position: absolute; right: 16px; top: 16px; z-index: 3; display: grid; border: 1px solid var(--rule-2); border-radius: 3px; overflow: hidden; background: var(--surface); }
+  .zoom button { width: 38px; height: 36px; border: 0; background: transparent; cursor: pointer; font-size: 18px; color: var(--ink-2); }
+  .zoom button:hover { background: var(--hover); color: var(--ink); }
   .zoom button + button { border-top: 1px solid var(--rule-2); }
-  .lista { position: absolute; inset: 0; z-index: 2; display: none; overflow-y: auto; padding: 14px 18px; background: var(--frame); }
+  .lista { position: absolute; inset: 0; z-index: 2; display: none; overflow-y: auto; padding: 16px 22px; background: var(--surface); }
   body.modo-lista .lista { display: block; }
   body.modo-lista .zoom { display: none; }
-  .aviso-3d { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--rule-2); border-radius: 6px; font-size: 13.5px; color: var(--ink-2); }
-  .tip { background: rgba(9,13,18,.95); border: 1px solid var(--rule-2); padding: 7px 10px; border-radius: 5px; font: 13px/1.4 "IBM Plex Sans", sans-serif; color: var(--ink); }
-  .tip b { font-weight: 500; } .tip span { display: block; color: var(--ink-2); font-size: 12.5px; }
+  .aviso-3d { margin: 0 0 10px; font-size: 13.5px; color: var(--ink-2); }
+  .aviso-3d::before { content: "Lista"; font: 600 11px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); margin-right: 8px; }
+  .tip { background: var(--surface); border: 1px solid var(--rule-2); padding: 8px 11px; border-radius: 3px; font: 13.5px/1.4 var(--sans); color: var(--ink); box-shadow: 0 4px 14px rgba(34,39,33,.12); }
+  .tip b { font-weight: 600; } .tip span { display: block; color: var(--ink-2); font-size: 12.5px; }
 
-  /* controles: métrica, ano, legenda — fora do 3D, funcionam com a lista também */
-  .controles { padding: 12px 18px 14px; border-top: 1px solid var(--rule); display: grid; gap: 9px; }
-  .metricas { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-  .metricas button { border: 1px solid var(--rule-2); background: transparent; padding: 5px 10px; border-radius: 5px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
-  .metricas button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .metricas .sep { color: var(--muted); font-size: 12px; margin: 0 4px 0 8px; }
-  .ano-linha { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; }
-  .ano-linha button { width: 34px; height: 32px; border: 1px solid var(--rule-2); border-radius: 5px; background: transparent; cursor: pointer; font-size: 12px; }
+  /* controles do mapa: métrica, ano, legenda — funcionais, discretos */
+  .controles { padding: 12px 20px 14px; border-top: 1px solid var(--rule); display: grid; gap: 10px; background: var(--surface); }
+  .metricas { display: flex; flex-wrap: wrap; gap: 4px 2px; align-items: center; }
+  .metricas button { border: 1px solid transparent; background: transparent; padding: 5px 10px; border-radius: 3px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
+  .metricas button:hover { background: var(--hover); color: var(--ink); }
+  .metricas button[aria-pressed="true"] { background: var(--sel-bg); color: var(--ink); border-color: var(--rule-2); font-weight: 600; }
+  .metricas .sep { color: var(--muted); font-size: 12px; margin: 0 4px 0 10px; padding-left: 10px; border-left: 1px solid var(--rule); }
+  .ano-linha { display: grid; grid-template-columns: 36px 1fr auto; gap: 14px; align-items: center; }
+  .ano-linha button { width: 36px; height: 34px; border: 1px solid var(--rule-2); border-radius: 50%; background: transparent; cursor: pointer; font-size: 11px; color: var(--ink-2); }
+  .ano-linha button:hover { border-color: var(--ink-2); color: var(--ink); }
   .ano-linha input[type=range] { width: 100%; accent-color: var(--accent); }
-  .ano-linha output { font: 500 24px/1 "Source Serif 4", Georgia, serif; min-width: 3.2em; text-align: right; }
-  .anos-chips { display: flex; gap: 6px; }
-  .anos-chips button { border: 1px solid var(--rule-2); background: transparent; border-radius: 5px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
-  .anos-chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-  .leg { font-size: 12px; color: var(--ink-2); display: grid; gap: 5px; }
-  .leg .grad { height: 7px; border-radius: 4px; }
-  .leg .ext { display: flex; justify-content: space-between; color: var(--muted); }
-  .leg .cats { display: flex; flex-wrap: wrap; gap: 12px; }
-  .leg i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .ano-linha output { font: 500 28px/1 var(--serif); min-width: 2.6em; text-align: right; }
+  .anos-chips, .chips { display: flex; gap: 0; flex-wrap: wrap; }
+  .anos-chips button, .chips button { padding: 5px 12px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 13.5px; color: var(--ink-2); margin: 0 -1px -1px 0; }
+  .anos-chips button:first-child, .chips button:first-child { border-radius: 3px 0 0 3px; }
+  .anos-chips button:last-child, .chips button:last-child { border-radius: 0 3px 3px 0; }
+  .anos-chips button:hover, .chips button:hover { background: var(--hover); color: var(--ink); }
+  .anos-chips button[aria-pressed="true"], .chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); position: relative; }
+  .chips { margin-top: 10px; }
+  .chips.soltos { gap: 6px; } .chips.soltos button { border-radius: 3px; margin: 0; }
+  .leg { font-size: 12.5px; color: var(--ink-2); display: grid; gap: 5px; }
+  .leg .grad { height: 8px; border-radius: 1px; max-width: 420px; }
+  .leg .ext { display: flex; justify-content: space-between; color: var(--muted); max-width: 420px; }
+  .leg .cats { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .leg i { display: inline-block; width: 11px; height: 11px; border-radius: 1px; margin-right: 6px; vertical-align: -1px; box-shadow: 0 0 0 1px var(--rule-2); }
   .leg .aviso { color: var(--warn); }
+  .leg .ref-br { color: var(--muted); }
 
-  /* coluna de texto */
-  .lado-texto { background: var(--pane); overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
-  .sec { padding: 22px 30px; border-bottom: 1px solid var(--rule); }
+  /* coluna de leitura */
+  .lado-texto { background: var(--bg); overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+  .sec { padding: 26px 40px; border-bottom: 1px solid var(--rule); }
   .sec:last-child { border-bottom: 0; }
-  .sec h2 { font: 500 34px/1.12 "Source Serif 4", Georgia, serif; margin: 8px 0 8px; letter-spacing: -.01em; }
-  .sec h3 { font: 500 20px/1.3 "Source Serif 4", Georgia, serif; margin: 0 0 6px; }
-  .lead { color: var(--ink-2); font-size: 15.5px; margin: 0; max-width: 60ch; }
-  .fonte { font-size: 12.5px; color: var(--muted); margin: 4px 0 12px; }
+  .sec h1, .sec h2 { font: 500 38px/1.08 var(--serif); margin: 10px 0 10px; letter-spacing: -.018em; text-wrap: balance; }
+  .sec h1 { font-size: 46px; letter-spacing: -.024em; max-width: 16ch; }
+  .sec h3 { font: 500 22px/1.25 var(--serif); margin: 0 0 8px; letter-spacing: -.008em; text-wrap: balance; }
+  .lead { color: var(--ink-2); font-size: 17px; line-height: 1.5; margin: 0; max-width: 60ch; }
+  .meta { margin: 14px 0 0; font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 0; }
+  .meta span + span::before { content: "·"; margin: 0 8px; }
+  .fonte { font-size: 12.5px; color: var(--muted); margin: 2px 0 14px; }
   .fonte a { color: inherit; }
-  .nota { font-size: 12.5px; color: var(--muted); margin: 10px 0 0; }
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 10px 0; }
-  .kpi { background: var(--pane); padding: 11px 13px; min-width: 0; }
-  .kpi span { display: block; font-size: 12px; color: var(--muted); }
-  .kpi b { display: block; margin-top: 2px; font: 500 20px/1.25 "Source Serif 4", Georgia, serif; }
-  .kpi small { display: block; font-size: 12px; color: var(--ink-2); margin-top: 2px; }
-  .perguntas { display: grid; gap: 8px; margin-top: 12px; }
-  .perguntas button { display: flex; align-items: center; gap: 10px; text-align: left; padding: 11px 14px; border: 1px solid var(--rule-2); border-radius: 7px; background: rgba(255,255,255,.015); cursor: pointer; font-size: 14.5px; }
-  .perguntas button:hover { border-color: var(--accent-2); background: rgba(143,211,182,.06); }
-  .perguntas button::after { content: "→"; margin-left: auto; color: var(--muted); }
-  .rank { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: r; }
-  .rank li { border-bottom: 1px solid var(--rule); }
-  .rank button { width: 100%; display: grid; grid-template-columns: 28px 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 2px; border: 0; background: transparent; cursor: pointer; text-align: left; font-size: 14px; position: relative; }
-  .rank button:hover .nome { color: var(--accent); }
-  .rank .pos { color: var(--muted); font-size: 12.5px; text-align: right; }
-  .rank .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .rank .val { text-align: right; white-space: nowrap; color: var(--ink-2); }
-  .rank .val small { display: block; color: var(--muted); font-size: 12px; }
-  .rank .barra-v { position: absolute; left: 60px; bottom: 3px; height: 2px; background: var(--accent-2); border-radius: 1px; opacity: .7; }
-  .rank .barra-v.neg { background: var(--neg); }
-  .botoes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-  .btn { padding: 8px 13px; border-radius: 6px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 13.5px; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; }
-  .btn:hover { border-color: var(--accent-2); }
-  .btn.pri { border-color: var(--accent-2); background: rgba(95,174,142,.14); }
-  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-  .chips button { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 13px; color: var(--ink-2); }
-  .chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-
-  /* painel do país */
-  .pais-cab { padding: 22px 30px 16px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; background: var(--pane); z-index: 5; }
-  .pais-cab h2 { display: flex; align-items: center; gap: 12px; font: 500 32px/1.1 "Source Serif 4", Georgia, serif; margin: 8px 0 6px; }
-  .pais-cab .ref { font-size: 13.5px; color: var(--ink-2); }
-  .tag { font: 500 10.5px/1.6 "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; padding: 0 6px; border: 1px solid var(--rule-2); border-radius: 3px; color: var(--muted); vertical-align: middle; }
-  .fechar { position: absolute; top: 18px; right: 22px; width: 34px; height: 34px; border-radius: 6px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; color: var(--ink-2); font-size: 16px; }
-  .resumo-txt { margin: 0; font-size: 16px; line-height: 1.55; max-width: 64ch; }
+  .nota { font-size: 13px; color: var(--muted); margin: 10px 0 0; max-width: 68ch; }
+  /* faixa de indicadores: números separados por linhas finas, sem caixa por número */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); margin: 14px 0 4px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .kpi { padding: 12px 16px 13px; min-width: 0; border-left: 1px solid var(--rule); }
+  .kpi:first-child { border-left: 0; padding-left: 0; }
+  .kpi span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+  .kpi b { display: block; margin-top: 4px; font: 500 24px/1.15 var(--serif); font-variant-numeric: tabular-nums lining-nums; letter-spacing: -.01em; }
+  .kpi small { display: block; font-size: 12.5px; color: var(--ink-2); margin-top: 3px; line-height: 1.35; }
+  .resumo-txt { margin: 0; font-size: 16.5px; line-height: 1.6; max-width: 64ch; }
   .resumo-txt + .resumo-txt { margin-top: 8px; }
-  .abas { display: flex; gap: 22px; padding: 0 30px; border-bottom: 1px solid var(--rule); position: sticky; z-index: 4; background: var(--pane); }
-  .abas button { border: 0; background: transparent; padding: 12px 0; cursor: pointer; color: var(--ink-2); font-size: 14.5px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-  .abas button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
-  .grafico { width: 100%; height: 240px; }
-  .grafico.baixo { height: 150px; }
-  details.dados { margin-top: 8px; font-size: 13px; }
-  details.dados summary { cursor: pointer; color: var(--ink-2); }
-  details.dados table { border-collapse: collapse; margin-top: 8px; width: 100%; font-variant-numeric: tabular-nums; }
-  details.dados th, details.dados td { text-align: right; padding: 3px 6px; border-bottom: 1px solid var(--rule); }
-  details.dados th:first-child, details.dados td:first-child { text-align: left; }
-  .barras { list-style: none; margin: 6px 0 0; padding: 0; }
-  .barras li { padding: 7px 0; border-bottom: 1px solid var(--rule); }
-  .barras .lin { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
-  .barras .lin span:first-child { min-width: 0; }
-  .barras .lin .v { white-space: nowrap; color: var(--ink-2); }
-  .barras .trilho { height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; margin-top: 5px; }
-  .barras .trilho i { display: block; height: 100%; border-radius: 3px; background: var(--exp); }
-  .barras.imp .trilho i { background: var(--imp); }
-  .barras small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
-  .barras button.link { border: 0; background: none; padding: 0; cursor: pointer; text-align: left; color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 3px; }
-  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  .lista-ctx { list-style: none; margin: 6px 0 0; padding: 0; }
-  .lista-ctx li { padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
-  .lista-ctx li span { display: block; font-size: 12.5px; color: var(--muted); }
-  .vazio { border: 1px dashed var(--rule-2); border-radius: 6px; padding: 11px 13px; color: var(--ink-2); font-size: 13.5px; }
-  details.ficha summary { cursor: pointer; font: 500 18px/1.3 "Source Serif 4", Georgia, serif; }
-  .comp-cab { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .comp-cab .ac input { width: 100%; }
-  table.comp { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin-top: 10px; }
-  table.comp th, table.comp td { padding: 8px 6px; border-bottom: 1px solid var(--rule); text-align: right; font-size: 14px; }
-  table.comp th:first-child, table.comp td:first-child { text-align: left; color: var(--ink-2); font-weight: 400; }
-  table.comp thead th { font-weight: 500; color: var(--ink); }
-  .fontes dt { font-weight: 600; margin-top: 14px; }
-  select { background: #111a23; border: 1px solid var(--rule-2); border-radius: 5px; padding: 3px 8px; color: var(--ink); }
-  .fontes dd { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; }
+  .resumo-txt b { font-weight: 600; }
 
-  @media (max-width: 980px) {
-    .barra { flex-wrap: wrap; gap: 10px 14px; padding: 10px 14px; }
-    .marca span { display: none; }
-    .ac input { width: 100%; }
-    .barra .ac { order: 3; width: 100%; }
-    .quadro { margin: 10px 12px 20px; grid-template-columns: minmax(0, 1fr); height: auto; }
-    .lado-mapa { border-right: 0; border-bottom: 1px solid var(--rule); }
-    .area { height: 46vh; min-height: 300px; flex: none; }
-    .lado-texto { overflow: visible; }
-    .sec { padding: 18px 16px; } .sec h2 { font-size: 28px; }
-    .pais-cab { padding: 18px 16px 12px; position: relative; } .pais-cab h2 { font-size: 26px; }
-    .abas { padding: 0 16px; gap: 16px; overflow-x: auto; position: static; }
-    .abas button { white-space: nowrap; }
-    .duas, .comp-cab { grid-template-columns: 1fr; }
-    .controles { padding: 10px 12px 12px; }
-    .metricas button { padding: 6px 9px; }
-    .mapa-topo { padding: 10px 12px; }
+  /* entrada: uma exploração principal, duas secundárias, outras perguntas */
+  .abertura { padding-top: 34px; padding-bottom: 30px; }
+  .destaques { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .destaque { padding: 24px 0 26px; min-width: 0; }
+  .destaque.principal { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 8px 28px; align-items: start; border-bottom: 1px solid var(--rule); padding-top: 4px; }
+  .destaque.lado { padding-right: 24px; }
+  .destaque.lado + .destaque.lado { padding: 24px 0 26px 24px; border-left: 1px solid var(--rule); }
+  .destaque h4 { margin: 6px 0 8px; font: 500 22px/1.22 var(--serif); letter-spacing: -.01em; text-wrap: balance; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .destaque.principal h4 { font-size: 31px; line-height: 1.12; letter-spacing: -.018em; }
+  .destaque p { margin: 0 0 14px; color: var(--ink-2); font-size: 15px; line-height: 1.55; }
+  .destaque .grafico { height: 190px; }
+  .destaque.principal .grafico { height: 250px; }
+  .mini-barras { list-style: none; margin: 4px 0 16px; padding: 0; }
+  .mini-barras li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  .mini-barras .trilho { grid-column: 2 / -1; height: 4px; background: var(--hover); }
+  .mini-barras .trilho i { display: block; height: 100%; background: var(--ochre); }
+  .outras-lista { list-style: none; margin: 4px 0 0; padding: 0; columns: 2 280px; column-gap: 32px; }
+  .outras-lista li { break-inside: avoid; border-top: 1px solid var(--rule); }
+  .outras-lista button { display: flex; width: 100%; gap: 10px; align-items: baseline; text-align: left; padding: 10px 0; border: 0; background: none; cursor: pointer; font-size: 15px; color: var(--ink); }
+  .outras-lista button::after { content: "→"; margin-left: auto; color: var(--muted); transition: transform .15s; }
+  .outras-lista button:hover { color: var(--accent-ink); } .outras-lista button:hover::after { color: var(--accent-ink); transform: translateX(2px); }
+  .titulo-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* rankings: linhas compactas, valores alinhados, barras discretas */
+  .rank { list-style: none; margin: 6px 0 0; padding: 0; }
+  .rank li { border-bottom: 1px solid var(--rule); }
+  .rank li.atual { background: var(--sel-bg); box-shadow: inset 3px 0 0 var(--accent); }
+  .rank button { width: 100%; display: grid; grid-template-columns: 30px 20px minmax(0, 1fr) minmax(48px, 22%) minmax(92px, auto); gap: 10px; align-items: center; padding: 9px 4px; border: 0; background: transparent; cursor: pointer; text-align: left; font-size: 14.5px; min-height: 44px; }
+  .rank button:hover { background: var(--hover); }
+  .rank button:hover .nome { text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 3px; }
+  .rank .pos { color: var(--muted); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; }
+  .rank .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank .val { text-align: right; white-space: nowrap; color: var(--ink); }
+  .rank .val small { display: block; color: var(--muted); font-size: 12px; }
+  .rank .tr { height: 6px; background: var(--hover); position: relative; }
+  .rank .tr i { position: absolute; top: 0; bottom: 0; left: 0; background: var(--accent); opacity: .85; }
+  .rank.imp .tr i { background: var(--ochre); }
+  .rank .tr.div::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--rule-2); }
+  .rank .tr.div i { left: 50%; } .rank .tr.div i.neg { left: auto; right: 50%; background: var(--neg); }
+  .rank .sem .val { color: var(--muted); }
+  .escala-nota { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+  .botoes { display: flex; gap: 8px 10px; flex-wrap: wrap; margin-top: 14px; }
+  .btn { padding: 8px 14px; border-radius: 3px; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; color: var(--ink); min-height: 38px; }
+  .btn:hover { border-color: var(--ink-2); background: var(--hover); }
+  .btn.pri { border-color: var(--accent); background: var(--accent); color: var(--on-accent); font-weight: 500; }
+  .btn.pri:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+
+  /* abertura do país */
+  .pais-cab { padding: 28px 40px 22px; border-bottom: 1px solid var(--rule); position: relative; }
+  .pais-cab h2 { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font: 500 44px/1.05 var(--serif); letter-spacing: -.022em; margin: 10px 56px 8px 0; }
+  .pais-cab .ref { font-size: 14px; color: var(--ink-2); margin-bottom: 14px; }
+  .pais-cab .ref b { color: var(--ink); font-weight: 600; }
+  .tag { font: 600 10.5px/1.7 var(--sans); letter-spacing: .07em; text-transform: uppercase; padding: 0 6px; border: 1px solid var(--rule-2); border-radius: 2px; color: var(--muted); vertical-align: middle; }
+  .fechar { position: absolute; top: 24px; right: 32px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule-2); background: transparent; cursor: pointer; color: var(--ink-2); font-size: 15px; }
+  .fechar:hover { color: var(--ink); border-color: var(--ink-2); }
+  .abas { display: flex; gap: 28px; padding: 0 40px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 4; background: var(--bg); }
+  .abas button { border: 0; background: transparent; padding: 14px 0 12px; cursor: pointer; color: var(--ink-2); font: 500 17px/1.2 var(--serif); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .abas button:hover { color: var(--ink); }
+  .abas button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .grafico { width: 100%; height: 250px; }
+  .grafico.baixo { height: 150px; }
+  details.dados { margin-top: 10px; font-size: 13px; }
+  details.dados summary, details.sobre summary, details.det summary, details.ficha summary { cursor: pointer; width: max-content; max-width: 100%; }
+  details.dados summary { color: var(--ink-2); }
+  details.dados table { border-collapse: collapse; margin-top: 8px; width: 100%; }
+  details.dados th, details.dados td { text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--rule); }
+  details.dados th { font-weight: 600; color: var(--ink-2); }
+  details.dados th:first-child, details.dados td:first-child { text-align: left; }
+  /* listas de produtos: nome curto, valor, participação, barra; SH4 em segundo plano */
+  .barras { list-style: none; margin: 6px 0 0; padding: 0; }
+  .barras li { padding: 9px 0 10px; border-bottom: 1px solid var(--rule); }
+  .barras .lin { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14.5px; }
+  .barras .lin span:first-child { min-width: 0; }
+  .barras .lin .v { white-space: nowrap; color: var(--ink); font-weight: 500; }
+  .barras .trilho { height: 5px; background: var(--hover); margin-top: 6px; }
+  .barras .trilho i { display: block; height: 100%; background: var(--accent); }
+  .barras.imp .trilho i { background: var(--ochre); }
+  .barras small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+  .barras button.link, .link { border: 0; background: none; padding: 0; cursor: pointer; text-align: left; color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 3px; font-size: inherit; }
+  .barras button.link:hover, .link:hover { text-decoration-color: var(--ink); }
+  .barras .parte { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+  .barras .parte b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .barras .pnome { min-width: 0; }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .lista-ctx { list-style: none; margin: 6px 0 0; padding: 0; }
+  .lista-ctx li { padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; }
+  .lista-ctx li span { display: block; font-size: 12.5px; color: var(--muted); }
+  .vazio { border-left: 2px solid var(--rule-2); padding: 4px 0 4px 12px; color: var(--ink-2); font-size: 14px; }
+  details.ficha summary { font: 500 20px/1.3 var(--serif); }
+  table.comp { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  table.comp th, table.comp td { padding: 9px 8px; border-bottom: 1px solid var(--rule); text-align: right; font-size: 14.5px; }
+  table.comp th:first-child, table.comp td:first-child { text-align: left; color: var(--ink-2); font-weight: 400; padding-left: 0; }
+  table.comp thead th { font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--ink); vertical-align: bottom; }
+  table.comp tr.atual td { color: var(--ink); font-weight: 600; background: var(--sel-bg); }
+  .fontes dt { font: 500 18px/1.3 var(--serif); margin-top: 18px; }
+  .fontes dt:first-child { margin-top: 0; }
+  .fontes dd { margin: 4px 0 0; color: var(--ink-2); font-size: 14.5px; max-width: 72ch; }
+  select { background: var(--surface); border: 1px solid var(--rule-2); border-radius: 3px; padding: 4px 8px; color: var(--ink); }
+
+  /* comparação: composição própria, cores de série estáveis (A verde, B ocre) */
+  .ser-a { --ser: var(--accent); } .ser-b { --ser: var(--ochre); }
+  .ponto { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ser); flex: none; vertical-align: 1px; }
+  .cmp-cab { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 18px; border-top: 1px solid var(--rule); }
+  .cmp-lado { padding: 16px 24px 4px 0; border-top: 3px solid var(--ser); margin-top: -1px; min-width: 0; }
+  .cmp-lado + .cmp-lado { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .cmp-lado .nomeg { display: flex; align-items: center; gap: 12px; font: 500 28px/1.1 var(--serif); letter-spacing: -.015em; margin: 6px 0 12px; min-height: 31px; }
+  .cmp-lado .nomeg.vazio-n { color: var(--muted); font-size: 20px; }
+  .cmp-lado .ac input { width: 100%; }
+  .cmp-lado .nota { margin: 0 0 4px; }
+  .campo-p { display: flex; gap: 8px; align-items: center; }
+  .campo-p input { flex: 1; width: auto !important; }
+  .aviso-cmp { color: var(--warn); font-size: 14px; margin: 8px 0 0; }
+  table.comp th .ponto, .cab-col .ponto { margin-right: 6px; }
+  .pais-m { display: none; }
+  .cab-col { display: flex; align-items: center; gap: 8px; font: 500 17px/1.3 var(--serif); padding-bottom: 6px; border-bottom: 2px solid var(--ser); margin-bottom: 2px; }
+
+  /* espaço de leitura (D48): na análise o conteúdo ganha mais largura; "Ampliar análise" recolhe o mapa */
+  body.analise .quadro { grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr); }
+  body.amplo .quadro { grid-template-columns: minmax(0, 1fr); }
+  body.amplo .lado-mapa { display: none; }
+  body.amplo .lado-texto { max-width: 1160px; width: 100%; justify-self: center; border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+  body.amplo .grafico { height: 320px; }
+  body.amplo .grafico.baixo { height: 170px; }
+  body.amplo .duas-amplo { display: grid; grid-template-columns: 1fr 1fr; }
+  body.amplo .duas-amplo > .sec + .sec { border-left: 1px solid var(--rule); }
+  .barra-analise { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 10px 40px; border-bottom: 1px solid var(--rule); background: var(--surface); }
+  .trilha { font-size: 13.5px; color: var(--ink-2); min-width: 0; flex: 1 1 260px; }
+  .trilha button.link { color: var(--ink-2); }
+  .trilha [aria-current] { color: var(--ink); font-weight: 500; }
+  .barra-analise .acoes { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .ano-sel { display: inline-flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--ink-2); }
+  details.sobre { margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+  details.sobre summary, details.det summary { color: var(--muted); }
+  details.sobre summary:hover, details.det summary:hover { color: var(--ink); }
+  details.sobre > div { margin-top: 6px; padding: 2px 0 2px 12px; border-left: 2px solid var(--rule-2); line-height: 1.55; max-width: 70ch; }
+  details.det { margin-top: 3px; font-size: 12px; }
+  details.det > div { margin-top: 4px; color: var(--muted); line-height: 1.45; }
+  .foco-prod { background: var(--surface); }
+  .carregando { color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 1180px) {
+    .marca-desc { display: none; }
+    .ac input { width: 200px; }
   }
-  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  @media (max-width: 980px) {
+    .barra { flex-wrap: wrap; gap: 8px 10px; padding: 10px 16px 0; border-bottom-width: 1px; }
+    .marca { font-size: 25px; margin-right: auto; }
+    .barra .ac { order: 4; width: 100%; }
+    .ac input { width: 100%; font-size: 16px; padding: 10px 12px; }
+    .nav { order: 5; width: calc(100% + 32px); margin: 0 -16px; padding: 0 10px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--rule); }
+    .nav button { padding: 11px 9px; font-size: 14.5px; }
+    .fontes-link { font-size: 13.5px; padding: 8px 6px; }
+    body.analise .quadro { grid-template-columns: minmax(0, 1fr); }
+    .quadro { grid-template-columns: minmax(0, 1fr); height: auto; }
+    .barra-analise { padding: 8px 16px; position: sticky; top: 0; z-index: 6; }
+    body.amplo .lado-texto { border: 0; }
+    body.amplo .duas-amplo { grid-template-columns: 1fr; }
+    body.amplo .duas-amplo > .sec + .sec { border-left: 0; }
+    body.amplo .grafico { height: 250px; }
+    .lado-mapa { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .area { height: 44vh; min-height: 290px; flex: none; }
+    .lado-texto { overflow: visible; }
+    .sec { padding: 22px 16px; }
+    .sec h1 { font-size: 36px; } .sec h2 { font-size: 31px; }
+    .pais-cab { padding: 22px 16px 18px; } .pais-cab h2 { font-size: 34px; margin-right: 48px; }
+    .fechar { top: 18px; right: 16px; }
+    .abas { padding: 0 16px; gap: 20px; overflow-x: auto; scrollbar-width: none; }
+    .abas button { white-space: nowrap; font-size: 16px; padding: 13px 0 11px; }
+    .duas { grid-template-columns: 1fr; gap: 22px; }
+    .controles { padding: 10px 16px 12px; }
+    .metricas { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+    .metricas button { padding: 9px 11px; white-space: nowrap; }
+    .mapa-topo { padding: 10px 16px; }
+    .destaques { grid-template-columns: 1fr; }
+    .destaque.principal { grid-template-columns: 1fr; }
+    .destaque.lado, .destaque.lado + .destaque.lado { padding: 22px 0; border-left: 0; }
+    .destaque.lado + .destaque.lado { border-top: 1px solid var(--rule); }
+    .destaque.principal h4 { font-size: 27px; }
+    .kpis { grid-template-columns: 1fr 1fr; border-bottom: 0; }
+    .kpi { border-left: 0; padding-left: 0; border-bottom: 1px solid var(--rule); }
+    .kpi:nth-child(even) { border-left: 1px solid var(--rule); padding-left: 14px; }
+    .rank button { grid-template-columns: 26px 20px minmax(0, 1fr) minmax(86px, auto); grid-template-rows: auto auto; row-gap: 5px; }
+    .rank .tr { grid-column: 3 / 4; grid-row: 2; }
+    .rank .val { grid-column: 4; grid-row: 1 / 3; }
+    .cmp-cab { grid-template-columns: 1fr; }
+    .cmp-lado, .cmp-lado + .cmp-lado { padding: 14px 0 6px; border-left: 0; }
+    .cmp-lado .nomeg { font-size: 25px; }
+    /* comparação no celular: cada medida vira um bloco; o valor fica colado ao nome do país */
+    table.comp.cmp thead { display: none; }
+    table.comp.cmp, table.comp.cmp tbody, table.comp.cmp tr { display: block; }
+    table.comp.cmp tr { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+    table.comp.cmp th, table.comp.cmp td { display: flex; justify-content: space-between; gap: 10px; border: 0; padding: 3px 0; text-align: right; }
+    table.comp.cmp th { color: var(--ink); font-weight: 600; padding-bottom: 5px; }
+    table.comp.cmp .pais-m { display: inline-flex; gap: 8px; align-items: center; color: var(--ink-2); text-align: left; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
 <header class="barra">
-  <a class="marca" href="./" title="Início do atlas">rotzx<span>Como o Brasil se conecta ao mundo</span></a>
+  <a class="marca" href="./" title="Início do atlas">rotzx</a>
+  <p class="marca-desc">Como o Brasil se conecta ao mundo</p>
+  <nav class="nav" aria-label="Seções do atlas">
+    <button type="button" data-nav="inicio">Início</button>
+    <button type="button" data-nav="ranking">Parceiros</button>
+    <button type="button" data-nav="produto">Produtos</button>
+    <button type="button" data-nav="comparar">Comparar</button>
+  </nav>
   <div class="ac" id="acTopo">
     <label class="sr" for="busca">Buscar país ou território</label>
     <input id="busca" type="search" placeholder="Buscar país ou território…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="buscaLista" aria-autocomplete="list">
     <ul id="buscaLista" role="listbox" hidden></ul>
   </div>
   <button class="fontes-link" type="button" id="abrirFontes">Fontes e método</button>
+  <button class="tema" type="button" id="tema" aria-label="Tema: automático. Trocar">◐</button>
 </header>
 
 <main class="quadro">
@@ -244,6 +405,34 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
+// ---------- tema e cores (D49): tudo vem dos tokens do CSS; globo e gráficos se redesenham quando o tema muda ----------
+const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function hexRgb(h) { h = h.replace("#", ""); if (h.length === 3) h = h.replace(/./g, "$&$&"); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+function mistura(a, b, t) { const x = hexRgb(a), y = hexRgb(b), k = Math.max(0, Math.min(1, t)); return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * k).toString(16).padStart(2, "0")).join(""); }
+let PAL = {};
+function lerPaleta() {
+  const escuro = tok("color-scheme") === "dark";
+  PAL = { escuro, ink: tok("--ink"), ink2: tok("--ink-2"), muted: tok("--muted"), rule: tok("--rule"), rule2: tok("--rule-2"), bg: tok("--bg"), surface: tok("--surface"),
+    exp: tok("--accent"), imp: tok("--ochre"), neg: tok("--neg"),
+    oceano: escuro ? "#18201E" : "#D3DCDA", terra: escuro ? "#2A302B" : "#EFEBE2", br: escuro ? "#56604F" : "#B9B2A2",
+    rampa: { exp: escuro ? ["#2F4636", "#B9E0C8"] : ["#D3E0CC", "#1E3A2A"], imp: escuro ? ["#4A3A26", "#F0C68E"] : ["#EEDBBB", "#74491A"],
+             neg: escuro ? ["#4A302A", "#F2AC98"] : ["#F0D9D0", "#86331F"], onu: escuro ? ["#2A3540", "#AFD0E4"] : ["#DDE5EA", "#284A60"] },
+    guerra: escuro ? "#E58C75" : "#93402F", conflito: escuro ? "#9C5E4B" : "#DDA592" };
+}
+const TEMAS = ["auto", "light", "dark"], ROT_TEMA = { auto: "automático", light: "claro", dark: "escuro" };
+function temaAtual() { try { return localStorage.getItem("rotzx-tema") || "auto"; } catch { return "auto"; } }
+function aplicarTema(t) {
+  if (t === "auto") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = t;
+  try { if (t === "auto") localStorage.removeItem("rotzx-tema"); else localStorage.setItem("rotzx-tema", t); } catch { /* só nesta visita */ }
+  const b = $("#tema"), I = { auto: '<path d="M12 3a9 9 0 1 0 0 18z" fill="currentColor"/><circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+    light: '<circle cx="12" cy="12" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+    dark: '<path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>' };
+  b.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">${I[t]}</svg>`;
+  b.setAttribute("aria-label", `Tema ${ROT_TEMA[t]}. Trocar o tema`); b.title = `Tema ${ROT_TEMA[t]} (clique para trocar)`;
+  lerPaleta();
+}
+aplicarTema(temaAtual());
+
 // ---------- formatos ----------
 const nf = (v, c) => v.toLocaleString("pt-BR", { minimumFractionDigits: c, maximumFractionDigits: c });
 function usd(v) {                     // escala adaptada à grandeza; null = sem dado (nunca "US$ 0,0 bi")
@@ -262,6 +451,8 @@ function pct(x, c = 1) {              // x em fração (0,25 = 25%); muito peque
   if (Math.abs(x) < 0.0005) return x > 0 ? "menos de 0,1%" : "−menos de 0,1%";
   return nf(x * 100, c) + "%";
 }
+const usdR = (v) => (v == null ? "sem registro" : usd(v));
+const parteR = (t, k) => (t?.[k] == null ? "sem registro" : pct(t[k === "e" ? "pe" : "pi"]));      // participação só quando o fluxo existe
 const pp = (d) => (d == null ? "sem dado" : (d >= 0 ? "+" : "−") + nf(Math.abs(d * 100), 1) + " p.p.");
 const ord = (n) => `${n}º`, ordF = (n) => `${n}ª`;   // "9º destino", "12ª origem"
 const juntarE = (l) => (l.length < 2 ? l.join("") : l.slice(0, -1).join(", ") + " e " + l[l.length - 1]);   // "a, b e c"
@@ -329,20 +520,19 @@ function maxGlobal(m) {
   for (const id of IDS) for (let a = ini; a <= fim; a++) { const t = trocas(id, a); if (t) mx = Math.max(mx, m === "part" ? t.pt : m === "exp" ? t.e || 0 : m === "imp" ? t.i || 0 : t.t); }
   return (MAX[m] = mx);
 }
-const SEM = "rgba(30,38,48,.55)";
-function corDe(id) {
-  const m = st.m, v = valor(id);
-  if (m === "conf") return v >= 2 ? "rgba(226,120,100,.9)" : v >= 1 ? "rgba(226,160,120,.6)" : "rgba(10,16,28,.25)";
-  if (v == null) return SEM;
+function corDe(id) {                  // mesmas escalas fixas de antes; só a forma de pintar mudou (rampa de cor em vez de transparência)
+  const m = st.m, v = valor(id), R = PAL.rampa;
+  if (m === "conf") return v >= 2 ? PAL.guerra : v >= 1 ? PAL.conflito : PAL.terra;
+  if (v == null) return PAL.terra;
   if (m === "exp" || m === "imp" || m === "corrente") {
     const t = Math.max(0, Math.min(1, (Math.log10(Math.max(v, 1)) - 6) / (Math.log10(maxGlobal(m)) - 6)));
-    return `rgba(${m === "imp" ? "156,203,234" : "143,211,182"},${(0.08 + 0.86 * t * t).toFixed(3)})`;
+    const r = m === "imp" ? R.imp : R.exp; return mistura(r[0], r[1], 0.03 + 0.97 * t * t);
   }
-  if (m === "part") { const t = Math.sqrt(v / maxGlobal("part")); return `rgba(143,211,182,${(0.08 + 0.86 * t).toFixed(3)})`; }
-  if (m === "mud") { const t = Math.min(1, Math.sqrt(Math.abs(v) / escalaMud())); return v >= 0 ? `rgba(143,211,182,${(0.1 + 0.85 * t).toFixed(3)})` : `rgba(226,148,127,${(0.1 + 0.85 * t).toFixed(3)})`; }
-  if (m === "prod") { const t = Math.sqrt(v); return `rgba(${st.fluxo === "i" ? "156,203,234" : "143,211,182"},${(0.12 + 0.84 * t).toFixed(3)})`; }
-  if (m === "onu") { const t = Math.max(0, Math.min(1, (v - 0.3) / 0.7)); return `rgba(170,215,240,${(0.08 + 0.84 * t * t).toFixed(3)})`; }
-  return SEM;
+  if (m === "part") { const t = Math.sqrt(v / maxGlobal("part")); return mistura(R.exp[0], R.exp[1], 0.03 + 0.97 * t); }
+  if (m === "mud") { const t = Math.min(1, Math.sqrt(Math.abs(v) / escalaMud())); const r = v >= 0 ? R.exp : R.neg; return mistura(r[0], r[1], 0.05 + 0.95 * t); }
+  if (m === "prod") { const t = Math.sqrt(v); const r = st.fluxo === "i" ? R.imp : R.exp; return mistura(r[0], r[1], 0.08 + 0.92 * t); }
+  if (m === "onu") { const t = Math.max(0, Math.min(1, (v - 0.3) / 0.7)); return mistura(R.onu[0], R.onu[1], 0.03 + 0.97 * t * t); }
+  return PAL.terra;
 }
 function escalaMud() { let mx = 0.001; for (const id of IDS) { const v = valor(id, "mud"); if (v != null) mx = Math.max(mx, Math.abs(v)); } return mx; }
 function fmtValor(v, m = st.m) {
@@ -382,8 +572,9 @@ function carregarProdutos() {
   return carregandoP;
 }
 
-// ---------- estado (na URL: #pais=CHN&ano=2025&m=exp&prod=1201&fluxo=e&vs=USA) ----------
-const st = { pais: null, ano: fim, m: "corrente", base: 2000, prod: null, fluxo: "e", vs: null, aba: "comercial", vista: "inicio", modo: "globo" };
+// ---------- estado (na URL: #pais=RUS&prod=g-fertilizantes&fluxo=i&ano=2025 · #ver=comparar&a=CHN&b=USA · &amplo=1) ----------
+// pais + prod = o país visto pelo produto que motivou o clique (D48); comparação em a e b; amplo = mapa recolhido
+const st = { pais: null, ano: fim, m: "corrente", base: 2000, prod: null, fluxo: "e", a: null, b: null, aba: "comercial", vista: "inicio", modo: "globo", amplo: null, aviso: "" };
 const porIso3 = Object.fromEntries(Object.entries(H.paises).map(([id, p]) => [p.iso3, id]));
 function urlDe(s) {
   const q = new URLSearchParams();
@@ -392,13 +583,14 @@ function urlDe(s) {
   q.set("ano", s.ano); q.set("m", s.m);
   if (s.m === "mud" || s.vista === "ranking") q.set("base", s.base);
   if (s.prod) { q.set("prod", s.prod); q.set("fluxo", s.fluxo); }
-  if (s.vs) q.set("vs", H.paises[s.vs].iso3);
-  if (s.pais && s.aba !== "comercial") q.set("aba", s.aba);
+  if (!s.pais && s.vista === "comparar") { if (s.a) q.set("a", H.paises[s.a].iso3); if (s.b) q.set("b", H.paises[s.b].iso3); }
+  if (s.pais && s.aba !== "comercial" && !s.prod) q.set("aba", s.aba);
+  if (s.amplo === true) q.set("amplo", "1"); else if (s.amplo === false) q.set("mapa", "1");
   return "#" + q.toString();
 }
 function lerURL() {
   const h = decodeURIComponent(location.hash.slice(1));
-  const s = { pais: null, ano: fim, m: "corrente", base: 2000, prod: null, fluxo: "e", vs: null, aba: "comercial", vista: "inicio" };
+  const s = { pais: null, ano: fim, m: "corrente", base: 2000, prod: null, fluxo: "e", a: null, b: null, aba: "comercial", vista: "inicio", amplo: null, aviso: "" };
   if (!h) return s;
   if (!h.includes("=")) {                                  // links antigos: #China, #Estados%20Unidos
     const id = Object.keys(H.paises).find((k) => H.paises[k].nome.toLowerCase() === h.toLowerCase()) || porIso3[h.toUpperCase()];
@@ -408,52 +600,82 @@ function lerURL() {
   const q = new URLSearchParams(h);
   const n = (k, d) => { const v = parseInt(q.get(k), 10); return Number.isFinite(v) ? v : d; };
   s.pais = porIso3[(q.get("pais") || "").toUpperCase()] || null;
-  s.vs = porIso3[(q.get("vs") || "").toUpperCase()] || null;
+  // comparação: a e b (vs = formato antigo, vira b). Código inválido ou repetido não quebra a página: vira um aviso
+  const cod = (k) => { const v = (q.get(k) || "").toUpperCase(); if (!v) return null; if (porIso3[v]) return porIso3[v]; s.aviso = `O código "${v}" não corresponde a um país ou território da base.`; return null; };
+  s.a = cod("a"); s.b = cod("b") || cod("vs");
+  if (s.a && s.a === s.b) { s.b = null; s.aviso = "Os dois campos tinham o mesmo parceiro: escolha outro para comparar."; }
+  s.amplo = q.get("amplo") === "1" ? true : q.get("mapa") === "1" ? false : null;
   s.m = MET[q.get("m")] ? q.get("m") : "corrente";
   s.ano = n("ano", fim); s.base = n("base", 2000);
   s.prod = q.get("prod") || null; s.fluxo = q.get("fluxo") === "i" ? "i" : "e";
   s.aba = ["comercial", "produtos", "contexto"].includes(q.get("aba")) ? q.get("aba") : "comercial";
-  s.vista = ["ranking", "produto", "comparar", "fontes", "lista"].includes(q.get("ver")) ? q.get("ver") : (s.vs ? "comparar" : s.prod ? "produto" : "inicio");
+  s.vista = ["ranking", "produto", "comparar", "fontes", "lista"].includes(q.get("ver")) ? q.get("ver") : (q.get("vs") || q.get("a") ? "comparar" : s.prod ? "produto" : "inicio");
+  if (s.pais && s.prod && !anosProd.includes(s.ano)) s.ano = anoProdPara(s.ano);   // produto por parceiro só nos anos com recorte
   const [c0, c1] = cobertura(s.m); s.ano = Math.min(c1, Math.max(c0, s.ano));
   s.base = Math.min(Math.max(ini, s.base), fim);
   return s;
 }
 function ir(mud, { push = true } = {}) {
   const antes = st.pais;
-  Object.assign(st, mud);
+  guardarRolagem();
+  Object.assign(st, { aviso: "" }, mud);
   if (st.m === "prod" && !st.prod) st.m = "corrente";
   const [c0, c1] = cobertura(st.m); st.ano = Math.min(c1, Math.max(c0, st.ano));
-  if (st.m === "prod" && !anosProd.includes(st.ano)) st.ano = anoProdPara(st.ano);
+  if ((st.m === "prod" || (st.pais && st.prod)) && !anosProd.includes(st.ano)) st.ano = anoProdPara(st.ano);
   const u = urlDe(st);
   if (u !== location.hash) history[push ? "pushState" : "replaceState"](null, "", u);
   render(antes !== st.pais);
 }
-addEventListener("popstate", () => { const antes = st.pais; Object.assign(st, lerURL()); render(antes !== st.pais); });
+addEventListener("popstate", () => { const antes = st.pais; guardarRolagem(); Object.assign(st, lerURL()); render(antes !== st.pais); });
+
+// posição de leitura por "lugar" (vista + país + produto + fluxo + ano + comparação): voltar a um lugar devolve a rolagem dele
+const rolagens = new Map((() => { try { return JSON.parse(sessionStorage.getItem("rotzx-rolagens") || "[]"); } catch { return []; } })());
+const chaveLugar = (s = st) => [s.pais, s.pais ? "" : s.vista, s.prod, s.fluxo, s.prod ? s.ano : "", s.a, s.b, s.pais ? s.aba : ""].join("|");
+const emColuna = () => matchMedia("(max-width: 980px)").matches;     // celular: a página inteira rola, não a coluna
+function guardarRolagem() {
+  rolagens.set(chaveLugar(), emColuna() ? scrollY : $("#conteudo").scrollTop);
+  try { sessionStorage.setItem("rotzx-rolagens", JSON.stringify([...rolagens].slice(-40))); } catch { /* sem armazenamento: só na memória */ }
+}
+const analise = () => !!st.pais || st.vista !== "inicio";
+// no celular, a análise já abre com o mapa recolhido; a comparação também, porque precisa de largura para os dois lados (D49)
+const amplo = () => analise() && (st.amplo ?? (emColuna() || (!st.pais && st.vista === "comparar")));
 
 // ---------- render geral ----------
+let lugarAnterior = null;
 function render(paisMudou = false) {
   document.body.classList.toggle("com-pais", !!st.pais);
   document.body.classList.toggle("com-vista", !st.pais && st.vista !== "inicio");
+  document.body.classList.toggle("analise", analise());
+  document.body.classList.toggle("amplo", amplo());
   document.title = st.pais ? `${nome(st.pais)} e o Brasil — rotzx` : "rotzx — Como o Brasil se conecta ao mundo";
+  $$("[data-nav]").forEach((b) => (!st.pais && st.vista === b.dataset.nav ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current")));
+  if (!st.pais && st.vista === "fontes") $("#abrirFontes").setAttribute("aria-current", "page"); else $("#abrirFontes").removeAttribute("aria-current");
   renderControles();
   if (st.m === "prod" && !P) carregarProdutos().then(() => render()).catch(() => {});
   const $c = $("#conteudo");
-  const rolagem = $c.scrollTop, focado = $c.contains(document.activeElement) ? document.activeElement.id : "";
+  const focado = $c.contains(document.activeElement) ? document.activeElement.id : "";
   if (st.pais) $c.innerHTML = painelPais(st.pais);
   else if (st.vista === "ranking") $c.innerHTML = vistaRanking();
   else if (st.vista === "produto") $c.innerHTML = vistaProduto();
   else if (st.vista === "comparar") $c.innerHTML = vistaComparar();
   else if (st.vista === "fontes") $c.innerHTML = vistaFontes();
   else $c.innerHTML = vistaInicio();
-  if (!paisMudou) $c.scrollTop = rolagem; else $c.scrollTop = 0;
+  $c.insertAdjacentHTML("afterbegin", barraAnalise());
+  const lugar = chaveLugar(), y = lugar === lugarAnterior ? null : (rolagens.get(lugar) ?? 0);
+  if (y != null) {
+    if (!emColuna()) $c.scrollTop = y;
+    else if (lugarAnterior !== null) scrollTo(0, y || (analise() ? $(".lado-texto").offsetTop - 8 : 0));   // celular: leva ao começo da análise
+  }
+  lugarAnterior = lugar;
   ligarConteudo($c);
   if (focado) $("#" + focado)?.focus({ preventScroll: true });   // redesenhar não pode tirar o foco de quem usa teclado
   renderLista();
-  if (globo) {
-    globo.polygonCapColor(corPol).polygonAltitude((p) => (p.id === st.pais ? 0.03 : p.id === st.vs ? 0.018 : 0.006));
-    if (paisMudou) enquadrar();
-  }
-  requestAnimationFrame(desenharGraficos);
+  if (globo) { pintarGlobo(); if (paisMudou) enquadrar(); }
+  // entrada: os fornecedores de fertilizantes chegam com os dados de produtos, carregados depois da primeira pintura
+  if (!st.pais && st.vista === "inicio" && !P) setTimeout(() => carregarProdutos().then(() => {
+    const f = $("#destFert"); if (f && !st.pais && st.vista === "inicio") { f.innerHTML = destFert(); ligarConteudo(f); }
+  }).catch(() => { const c = $("#destFert .carregando"); if (c) c.textContent = "Não foi possível carregar os fornecedores agora."; }), 400);
+  requestAnimationFrame(() => { desenharGraficos(); if (globo) globo.width($("#globo").clientWidth).height($("#globo").clientHeight); });
 }
 
 // ---------- controles (métrica, ano, legenda) ----------
@@ -475,15 +697,17 @@ function legenda() {
   const [c0, c1] = cobertura(st.m), m = st.m;
   const desc = m === "mud" ? `${MET.mud.desc}: ${st.base} → ${st.ano}` : m === "prod" ? `${esc(nomeProd(st.prod))}: participação de cada parceiro nas ${st.fluxo === "e" ? "exportações" : "importações"} brasileiras do produto em ${st.ano}` : MET[m].desc;
   let esc_ = "";
-  if (m === "exp" || m === "imp" || m === "corrente") esc_ = `<div class="grad" style="background:linear-gradient(90deg,${m === "imp" ? "rgba(156,203,234,.1),rgba(156,203,234,.94)" : "rgba(143,211,182,.1),rgba(143,211,182,.94)"})"></div>
+  const R = PAL.rampa, grad = (cores) => `<div class="grad" aria-hidden="true" style="background:linear-gradient(90deg,${cores.join(",")})"></div>`;
+  const rampa = (r, a0 = 0.03) => grad([mistura(r[0], r[1], a0), mistura(r[0], r[1], 0.5), r[1]]);
+  if (m === "exp" || m === "imp" || m === "corrente") esc_ = `${rampa(m === "imp" ? R.imp : R.exp)}
     <div class="ext"><span>US$ 1 mi ou menos</span><span>${usd(maxGlobal(m))}</span></div><div>Escala logarítmica fixa para todos os anos (valores correntes, sem correção pela inflação).</div>`;
-  else if (m === "part") esc_ = `<div class="grad" style="background:linear-gradient(90deg,rgba(143,211,182,.1),rgba(143,211,182,.94))"></div><div class="ext"><span>0%</span><span>${pct(maxGlobal("part"))}</span></div><div>Escala fixa para todos os anos.</div>`;
-  else if (m === "mud") esc_ = `<div class="grad" style="background:linear-gradient(90deg,rgba(226,148,127,.95),rgba(226,148,127,.1),rgba(143,211,182,.1),rgba(143,211,182,.95))"></div><div class="ext"><span>${pp(-escalaMud())} (perdeu)</span><span>0</span><span>${pp(escalaMud())} (ganhou)</span></div><div>Escala ajustada a este par de anos.</div>`;
-  else if (m === "prod") esc_ = P ? `<div class="grad" style="background:linear-gradient(90deg,rgba(143,211,182,.12),rgba(143,211,182,.96))"></div><div class="ext"><span>0%</span><span>100%</span></div><div>Só os 12 maiores parceiros de cada produto estão na base; os demais aparecem em cinza.</div>` : "Carregando dados de produtos…";
-  else if (m === "onu") esc_ = `<div class="grad" style="background:linear-gradient(90deg,rgba(170,215,240,.08),rgba(170,215,240,.92))"></div><div class="ext"><span>30 ou menos</span><span>100</span></div><div>Concordância de votos não equivale a aliança política.</div>`;
-  else esc_ = `<div class="cats"><span><i style="background:rgba(226,120,100,.9)"></i>guerra no território</span><span><i style="background:rgba(226,160,120,.6)"></i>conflito no território</span></div><div>Missões de paz e tropas fora do país aparecem no painel de cada país, não no mapa.</div>`;
+  else if (m === "part") esc_ = `${rampa(R.exp)}<div class="ext"><span>0%</span><span>${pct(maxGlobal("part"))}</span></div><div>Escala fixa para todos os anos.</div>`;
+  else if (m === "mud") esc_ = `${grad([R.neg[1], R.neg[0], R.exp[0], R.exp[1]])}<div class="ext"><span>${pp(-escalaMud())} (perdeu)</span><span>0</span><span>${pp(escalaMud())} (ganhou)</span></div><div>Escala ajustada a este par de anos.</div>`;
+  else if (m === "prod") esc_ = P ? `${rampa(st.fluxo === "i" ? R.imp : R.exp, 0.08)}<div class="ext"><span>0%</span><span>100%</span></div><div>Só os 12 maiores parceiros de cada produto estão na base; os demais aparecem como sem registro.</div>` : "Carregando dados de produtos…";
+  else if (m === "onu") esc_ = `${rampa(R.onu)}<div class="ext"><span>30 ou menos</span><span>100</span></div><div>Concordância de votos não equivale a aliança política.</div>`;
+  else esc_ = `<div class="cats"><span><i style="background:${PAL.guerra}"></i>guerra no território</span><span><i style="background:${PAL.conflito}"></i>conflito no território</span></div><div>Missões de paz e tropas fora do país aparecem no painel de cada país, não no mapa.</div>`;
   const fora = st.ano < c0 || st.ano > c1;
-  return `<div>${esc(desc)} · cobertura ${c0}–${c1}.</div>${fora ? `<div class="aviso">Sem dado nesta métrica em ${st.ano}.</div>` : esc_}<div><i style="background:${SEM}"></i>sem registro no ano</div>`;
+  return `<div>${esc(desc)} · cobertura ${c0}–${c1}.</div>${fora ? `<div class="aviso">Sem dado nesta métrica em ${st.ano}.</div>` : esc_}<div class="cats"><span><i style="background:${PAL.terra}"></i>sem registro no ano</span><span class="ref-br"><i style="background:${PAL.br}"></i>Brasil, ponto de referência</span></div>`;
 }
 function tocar() {
   if (tocando) { clearInterval(tocando); tocando = null; return renderControles(); }
@@ -500,6 +724,57 @@ $("#controles").addEventListener("click", (e) => {
 });
 $("#controles").addEventListener("input", (e) => { if (e.target.id === "ano") ir({ ano: +e.target.value }, { push: false }); });
 
+// ---------- componentes compartilhados (D48) ----------
+// Dois níveis: o que interpreta o número fica visível; código, descrição oficial, fórmula e cobertura ficam em "Sobre este dado".
+function sobreDado(corpo, rotulo = "Sobre este dado") {
+  return `<details class="sobre"><summary>${rotulo}</summary><div>${corpo}</div></details>`;
+}
+const fonteC = (txt) => `<p class="fonte">${txt}</p>`;
+const fluxoRot = (k) => (k === "e" ? "Exportações" : "Importações");
+const fluxoVerbo = (k) => (k === "e" ? "vendeu" : "comprou");
+function itemDetalhe(c) {          // detalhes de um produto ou grupo: código, descrição oficial, regra do grupo
+  const it = P?.itens?.[c];
+  if (it?.grupo) return `Grupo de posições SH4: ${esc(it.oficial.replace(/^Grupo: /, ""))}. O valor soma as posições inteiras, parceiro por parceiro.`;
+  return `SH4 ${esc(c)} · descrição oficial: ${esc(oficialProd(c) || "não informada")}`;
+}
+// item de produto: nome legível, valor, participação com o que ela representa; detalhes sob demanda
+function itemProduto(c, v, parte, rotuloParte, { extra = "", fluxo = "e", abrir = true } = {}) {
+  const nomeP = esc(nomeProd(c)), podeAbrir = abrir && P?.itens?.[c];
+  return `<li><div class="lin"><span class="pnome">${podeAbrir ? `<button type="button" class="link" data-prod-abrir="${c}" data-fluxo="${fluxo}">${nomeP}</button>` : nomeP}</span><span class="v num">${usd(v)}</span></div>
+    <div class="trilho" aria-hidden="true"><i style="width:${Math.min(100, parte * 100).toFixed(2)}%"></i></div>
+    <div class="parte"><b>${pct(parte)}</b> ${rotuloParte}</div>${extra ? `<div class="parte">${extra}</div>` : ""}
+    <details class="det"><summary>Detalhes<span class="sr"> de ${nomeP}</span></summary><div>${itemDetalhe(c)}</div></details></li>`;
+}
+// barra da análise: onde estou, ano e espaço de leitura (fica no fluxo da página, não sobre o conteúdo)
+function trilha() {
+  const ini_ = `<button type="button" class="link" data-ir='${JSON.stringify({ pais: null, vista: "inicio", prod: null, m: "corrente" })}'>Início</button>`;
+  const sep = '<span aria-hidden="true"> › </span>';
+  const prodL = st.prod && P?.itens?.[st.prod] ? `<button type="button" class="link" data-voltar-produto>${esc(P.itens[st.prod].nome)}</button>${sep}${fluxoRot(st.fluxo)}` : "";
+  if (st.pais && st.prod && P?.itens?.[st.prod]) return [ini_, prodL, `<span aria-current="page">${bandeira(st.pais)} ${esc(nome(st.pais))}</span>`].join(sep);
+  if (st.pais) return [ini_, `<span aria-current="page">${bandeira(st.pais)} ${esc(nome(st.pais))}</span>`].join(sep);
+  if (st.vista === "produto") return [ini_, st.prod && P?.itens?.[st.prod] ? `Produtos${sep}<span aria-current="page">${esc(P.itens[st.prod].nome)} · ${fluxoRot(st.fluxo).toLowerCase()}</span>` : '<span aria-current="page">Produtos</span>'].join(sep);
+  if (st.vista === "comparar") return [ini_, `<span aria-current="page">Comparar${st.a && st.b ? `: ${esc(nome(st.a))} × ${esc(nome(st.b))}` : ""}</span>`].join(sep);
+  if (st.vista === "ranking") return [ini_, `<span aria-current="page">Ranking: ${esc(MET[st.m]?.cab || "")}</span>`].join(sep);
+  if (st.vista === "fontes") return [ini_, '<span aria-current="page">Fontes e método</span>'].join(sep);
+  if (st.vista === "lista") return [ini_, '<span aria-current="page">Países e territórios</span>'].join(sep);
+  return "";
+}
+function seletorAno() {
+  const porProduto = (st.pais && st.prod) || st.m === "prod";
+  const [c0, c1] = porProduto ? [anosProd[0], anosProd[anosProd.length - 1]] : cobertura(st.m);
+  const anos = porProduto ? anosProd : Array.from({ length: c1 - c0 + 1 }, (_, k) => c1 - k);
+  return `<label class="ano-sel">Ano <select id="anoAnalise" aria-label="Ano de referência">${anos.map((x) => `<option ${x === st.ano ? "selected" : ""}>${x}</option>`).join("")}</select></label>`;
+}
+function barraAnalise() {
+  if (!analise()) return "";
+  const metrica = amplo() && !st.pais && st.vista === "ranking"
+    ? `<label class="ano-sel">Métrica <select id="metricaAnalise">${["exp", "imp", "corrente", "part", "mud", "onu", "conf"].map((k) => `<option value="${k}" ${k === st.m ? "selected" : ""}>${MET[k].rot}</option>`).join("")}</select></label>` : "";
+  return `<nav class="barra-analise" aria-label="Onde você está">
+    <div class="trilha">${trilha()}</div>
+    <div class="acoes">${metrica}${seletorAno()}
+      <button type="button" class="btn" id="alternarMapa" aria-pressed="${amplo()}">${amplo() ? "Mostrar mapa" : "Ampliar análise"}</button></div></nav>`;
+}
+
 // ---------- início: dar um motivo para explorar ----------
 function concentracao(k, a) {          // parte do maior e dos 5 maiores parceiros no total do Brasil (denominador: total do Brasil)
   const tot = k === "e" ? brE(a) : brI(a);
@@ -509,123 +784,180 @@ function concentracao(k, a) {          // parte do maior e dos 5 maiores parceir
 function vistaInicio() {
   const a = Math.min(st.ano, fim), e = brE(a), i = brI(a), ce = concentracao("e", a), ci = concentracao("i", a);
   const top = ranking("corrente", a).slice(0, 5);
-  const china00 = trocas("156", 2000), china = trocas("156", a);
-  return `<div class="sec"><div class="kicker">rotzx</div><h2>Como o Brasil se conecta ao mundo</h2>
-      <p class="lead">Explore nossos parceiros comerciais, descubra o que compramos e vendemos e acompanhe como essas relações mudaram desde ${ini}.</p></div>
-    <div class="sec"><h3>O comércio do Brasil em ${a}</h3><p class="fonte">Comex Stat (MDIC) · US$ FOB correntes · ano de ${a}</p>
+  const ch0 = trocas("156", 2000), ch = trocas("156", fim), us = trocas("840", fim);
+  const ir_ = (o) => JSON.stringify(o).replace(/'/g, "&#39;");
+  const acao = (txt, alvo, pri = true) => `<button type="button" class="btn${pri ? " pri" : ""}" data-ir='${ir_(alvo)}'>${txt} <span aria-hidden="true">→</span></button>`;
+  const outra = (txt, alvo) => `<li><button type="button" data-ir='${ir_(alvo)}'>${txt}</button></li>`;
+  const chSerie = Array.from({ length: fim - ini + 1 }, (_, j) => trocas("156", ini + j)?.pt ?? null);
+  return `<div class="sec abertura"><div class="kicker">Atlas do comércio exterior brasileiro</div><h1>Como o Brasil se conecta ao mundo</h1>
+      <p class="lead">De quem o Brasil depende para vender e para comprar, e como isso mudou desde ${ini}. Parceiros, produtos e concentração, sempre com a fonte e o ano de cada número.</p>
+      <p class="meta"><span>${IDS.length} países e territórios</span><span>${ini}–${fim}</span><span>Comex Stat (MDIC) e outras fontes abertas</span></p></div>
+    <div class="sec" style="padding-top:22px"><ul class="destaques">
+      ${ch0 && ch ? `<li class="destaque principal"><div><div class="kicker">Em destaque</div>
+          <h4>Como a China ganhou importância no comércio brasileiro?</h4>
+          <p>De ${pct(ch0.pt)} da corrente de comércio do Brasil em 2000 para ${pct(ch.pt)} em ${fim}. Veja a evolução ano a ano e o que mudou entre os dois anos.</p>
+          ${acao("Ver a China desde 2000", { pais: "156", prod: null, m: "corrente", base: 2000, ano: fim, aba: "comercial" })}</div>
+        <figure style="margin:0"><div class="grafico" id="gInicioChina" role="img" aria-label="${esc(`Participação da China na corrente de comércio do Brasil, ${ini}–${fim}: ${pct(ch0.pt)} em 2000 e ${pct(ch.pt)} em ${fim}`)}"></div>
+          <figcaption class="fonte">${bandeira("156")} China: % da corrente de comércio do Brasil (exportações + importações) · Comex Stat</figcaption>
+          ${tabelaSerie([["China: % da corrente do Brasil", chSerie]], pct)}</figure></li>` : ""}
+      <li class="destaque lado" id="destFert">${destFert()}</li>
+      ${ch && us ? `<li class="destaque lado"><div class="kicker">Comparação</div><h4>O que muda entre vender para China e Estados Unidos?</h4>
+          <p>Em ${fim}, o Brasil vendeu ${usd(ch.e)} para a China e ${usd(us.e)} para os Estados Unidos.</p>
+          <div class="grafico" id="gInicioCmp" role="img" aria-label="${esc(`Exportações do Brasil para a China e para os Estados Unidos, ${ini}–${fim}: em ${fim}, ${usd(ch.e)} e ${usd(us.e)}`)}"></div>
+          <p class="fonte">Exportações do Brasil para cada um · US$ correntes · Comex Stat</p>
+          ${acao("Comparar os dois", { vista: "comparar", pais: null, prod: null, m: "corrente", a: "156", b: "840", ano: fim }, false)}</li>` : ""}
+    </ul></div>
+    <div class="sec"><h3>Outras perguntas</h3><ul class="outras-lista outras">
+      ${outra("Quais são os maiores parceiros do Brasil?", { vista: "ranking", m: "corrente", pais: null, prod: null })}
+      ${outra("Para onde vão nossas exportações?", { vista: "ranking", m: "exp", pais: null, prod: null })}
+      ${outra("De onde vêm nossas importações?", { vista: "ranking", m: "imp", pais: null, prod: null })}
+      ${outra("Quais parceiros mais ganharam importância desde 2000?", { vista: "ranking", m: "mud", base: 2000, ano: fim, pais: null, prod: null })}
+      ${outra("Para onde ia a soja em 2000, e para onde vai agora?", { vista: "produto", prod: "1201", fluxo: "e", m: "prod", ano: 2000, pais: null })}
+      ${outra("O que o Brasil vende e compra? Explorar por produto", { vista: "produto", pais: null, prod: null, m: "corrente" })}
+    </ul></div>
+    <div class="sec"><h3>O comércio do Brasil em ${a}</h3>${fonteC(`Comex Stat · US$ correntes · ${a}`)}
       <div class="kpis"><div class="kpi"><span>Exportações</span><b class="num">${usd(e)}</b></div><div class="kpi"><span>Importações</span><b class="num">${usd(i)}</b></div>
         <div class="kpi"><span>Saldo</span><b class="num">${(e - i >= 0 ? "+" : "") + usd(e - i)}</b><small>${e - i >= 0 ? "superávit" : "déficit"}</small></div>
         <div class="kpi"><span>Corrente (exp. + imp.)</span><b class="num">${usd(e + i)}</b></div></div>
-      <p class="resumo-txt">${bandeira(ce.top[0])} <b>${esc(nome(ce.top[0]))}</b> recebeu ${pct(ce.p1)} das exportações brasileiras; os 5 maiores destinos somaram ${pct(ce.p5)}.
+      <p class="resumo-txt" style="margin-top:14px">${bandeira(ce.top[0])} <b>${esc(nome(ce.top[0]))}</b> recebeu ${pct(ce.p1)} das exportações brasileiras; os 5 maiores destinos somaram ${pct(ce.p5)}.
         ${bandeira(ci.top[0])} <b>${esc(nome(ci.top[0]))}</b> foi a origem de ${pct(ci.p1)} das importações; as 5 maiores origens, ${pct(ci.p5)}.
         O Brasil vendeu para ${ce.n} e comprou de ${ci.n} países e territórios.</p>
-      <p class="nota">Denominador: total exportado ou importado pelo Brasil no ano (inclui operações sem país definido, como provisão de navios).</p></div>
-    <div class="sec"><h3>Comece por uma pergunta</h3><div class="perguntas">
-      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "corrente", pais: null })}'>Quais são os maiores parceiros do Brasil?</button>
-      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "exp", pais: null })}'>Para onde vão nossas exportações?</button>
-      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "imp", pais: null })}'>De onde vêm nossas importações?</button>
-      <button type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "mud", base: 2000, ano: fim, pais: null })}'>Quais parceiros mais ganharam importância desde 2000?</button>
-      ${china00 && china ? `<button type="button" data-ir='${JSON.stringify({ pais: "156", base: 2000, ano: fim, aba: "comercial" })}'>${bandeira("156")} Como nossa relação com a China mudou desde 2000?</button>` : ""}
-      <button type="button" data-ir='${JSON.stringify({ vista: "produto", prod: "g-fertilizantes", fluxo: "i", m: "prod", ano: fim, pais: null })}'>De quem o Brasil compra fertilizantes?</button>
-      <button type="button" data-ir='${JSON.stringify({ vista: "produto", prod: "1201", fluxo: "e", m: "prod", ano: 2000, pais: null })}'>Para onde ia a soja em 2000 — e para onde vai agora?</button>
-      <button type="button" data-ir='${JSON.stringify({ vista: "comparar", pais: null, vs: "840", cmp: "156" })}'>${bandeira("156")} ${bandeira("840")} Comparar China e Estados Unidos</button>
-    </div></div>
-    <div class="sec"><h3>Maiores parceiros em ${a}</h3><p class="fonte">corrente de comércio (exportações + importações)</p>
+      ${sobreDado(`Participações calculadas sobre o total exportado ou importado pelo Brasil no ano, que inclui operações sem país definido (provisão de navios e aeronaves, por exemplo). Valores FOB em dólares correntes, sem correção pela inflação.`)}</div>
+    <div class="sec"><div class="titulo-sec"><h3>Maiores parceiros em ${a}</h3><p class="fonte" style="margin:0">corrente de comércio (exportações + importações)</p></div>
       ${listaRank(top, "corrente", a)}
-      <div class="botoes"><button class="btn" type="button" data-ir='${JSON.stringify({ vista: "ranking", m: "corrente", pais: null })}'>Ranking completo</button>
-        <button class="btn" type="button" data-ir='${JSON.stringify({ vista: "lista", modo: "lista", pais: null })}'>Todos os países e territórios</button>
-        <button class="btn" type="button" data-ir='${JSON.stringify({ vista: "produto", pais: null })}'>Explorar por produto</button></div></div>`;
+      <div class="botoes"><button class="btn" type="button" data-ir='${ir_({ vista: "ranking", m: "corrente", pais: null, prod: null })}'>Ranking completo</button>
+        <button class="btn" type="button" data-ir='${ir_({ vista: "produto", pais: null, prod: null, m: "corrente" })}'>Explorar por produto</button>
+        <button class="btn" type="button" data-ir='${ir_({ vista: "lista", modo: "lista", pais: null })}'>Todos os países e territórios</button></div></div>`;
 }
-function listaRank(r, m, a, { total = null } = {}) {
-  const max = Math.max(...r.map(([, v]) => Math.abs(v)), 1e-12);
-  return `<ol class="rank">${r.map(([id, v], k) => {
+// exploração secundária: fertilizantes (os números chegam com dados/produtos.js; antes disso, só a pergunta, sem número)
+function destFert() {
+  const ir_ = (o) => JSON.stringify(o).replace(/'/g, "&#39;");
+  const x = P?.itens?.["g-fertilizantes"]?.p?.[String(fim)]?.i;
+  const corpo = x
+    ? `<p>Em ${fim}, o Brasil importou ${usd(x.t)} em fertilizantes, de ${x.n} países e territórios. Os três maiores fornecedores:</p>
+      <ol class="mini-barras">${x.top.slice(0, 3).map(([id, v]) => `<li>${bandeira(id)}<span>${esc(nome(id))}</span><span class="num">${pct(v / x.t)}</span><span class="trilho" aria-hidden="true"><i style="width:${(v / x.t * 100).toFixed(1)}%"></i></span></li>`).join("")}</ol>
+      <p class="fonte">Parte de cada um nas importações brasileiras de fertilizantes em ${fim} (barra de 0 a 100%) · Comex Stat</p>`
+    : `<p>Quais países fornecem os adubos que o Brasil importa, quanto cada um responde e como isso mudou desde 2000.</p>${P ? "" : '<p class="carregando" role="status">Carregando os fornecedores…</p>'}`;
+  return `<div class="kicker">Dependência</div><h4>De onde vêm nossos fertilizantes?</h4>${corpo}
+    <button type="button" class="btn" data-ir='${ir_({ vista: "produto", prod: "g-fertilizantes", fluxo: "i", m: "prod", ano: fim, pais: null })}'>Ver os fornecedores <span aria-hidden="true">→</span></button>`;
+}
+function listaRank(r, m, a, { total = null, nota = true } = {}) {
+  const max = Math.max(...r.map(([, v]) => Math.abs(v)), 1e-12), div = m === "mud";
+  const imp = m === "imp" || (m === "prod" && st.fluxo === "i");
+  return `<ol class="rank${imp ? " imp" : ""}">${r.map(([id, v], k) => {
     const t = trocas(id, a);
     const extra = MET[m].tipo === "usd" && t ? `<small>${pct(MET[m].p(t))} do total</small>` : m === "mud" ? `<small>${pct(trocas(id, st.base)?.pt)} → ${pct(t?.pt)}</small>` : "";
-    return `<li><button type="button" data-pais="${id}"><span class="pos">${(total ? total[k] : k + 1)}º</span>${bandeira(id)}<span class="nome">${esc(nome(id))}${ehTerritorio(id) ? ' <span class="tag">território</span>' : ""}</span>
-      <span class="val num">${fmtValor(v, m)}${extra}</span><span class="barra-v${v < 0 ? " neg" : ""}" style="width:calc((100% - 160px) * ${(Math.abs(v) / max).toFixed(3)})"></span></button></li>`;
-  }).join("")}</ol>`;
+    const atual = id === st.pais || (!st.pais && st.vista === "comparar" && (id === st.a || id === st.b));
+    const w = ((Math.abs(v) / max) * (div ? 50 : 100)).toFixed(2);
+    return `<li${atual ? ' class="atual"' : ""}><button type="button" data-pais="${id}"${atual ? ' aria-current="true"' : ""}><span class="pos">${(total ? total[k] : k + 1)}º</span>${bandeira(id)}<span class="nome">${esc(nome(id))}${ehTerritorio(id) ? ' <span class="tag">território</span>' : ""}</span>
+      <span class="tr${div ? " div" : ""}" aria-hidden="true"><i${v < 0 ? ' class="neg"' : ""} style="width:${w}%"></i></span><span class="val num">${fmtValor(v, m)}${extra}</span></button></li>`;
+  }).join("")}</ol>${nota && r.length > 1 ? `<p class="escala-nota">${div ? "Barras a partir do centro: à direita, ganho de participação; à esquerda, perda (p.p.)." : "Barras proporcionais ao maior valor desta lista."}</p>` : ""}`;
 }
 
 // ---------- ranking ----------
 let rankTodos = false;
 function vistaRanking() {
-  const m = ["onu", "conf", "prod"].includes(st.m) ? st.m : st.m;
+  const m = st.m;
   const [c0, c1] = cobertura(m);
   if (st.ano < c0 || st.ano > c1) return `<div class="sec"><div class="kicker">Ranking</div><h2>${esc(MET[m].cab)}</h2><div class="vazio">Sem dado desta métrica em ${st.ano}: a cobertura é ${c0}–${c1}.</div></div>`;
   if (m === "prod") return vistaProduto();
   let r = ranking(m);
   const crescem = m === "mud" ? r.slice(0, 15) : null, caem = m === "mud" ? r.slice(-10).reverse() : null;
   const n = r.length;
-  const baseSel = m === "mud" ? `<label class="nota">Ano-base: <select id="baseSel">${Array.from({ length: st.ano - ini }, (_, k) => ini + k).map((a) => `<option ${a === st.base ? "selected" : ""}>${a}</option>`).join("")}</select></label>` : "";
+  const baseSel = m === "mud" ? `<label class="ano-sel">Ano-base <select id="baseSel">${Array.from({ length: st.ano - ini }, (_, k) => ini + k).map((a) => `<option ${a === st.base ? "selected" : ""}>${a}</option>`).join("")}</select></label>` : "";
+  const fonte_ = m === "onu" ? "Votos na ONU (Voeten et al.)" : m === "conf" ? "UCDP/PRIO" : "Comex Stat · US$ correntes";
   return `<div class="sec"><div class="kicker">Ranking · ${st.ano}</div><h2>${esc(MET[m].cab)}</h2>
-      <p class="lead">${esc(MET[m].desc)}${m === "mud" ? ` entre ${st.base} e ${st.ano}` : ""}.</p>
-      ${MET[m].den ? `<p class="nota">${esc(MET[m].den)}.</p>` : ""}${baseSel}
-      <p class="fonte">${m === "onu" ? "Votos na ONU: Voeten, Strezhnev e Bailey (Harvard Dataverse, CC0)" : m === "conf" ? "UCDP/PRIO Armed Conflict Dataset (CC BY 4.0)" : "Comex Stat (MDIC), US$ FOB correntes"} · ${n} países e territórios com dado</p></div>
+      <p class="lead">${esc(MET[m].desc)}${m === "mud" ? ` entre ${st.base} e ${st.ano}` : ""}.</p>${baseSel}
+      ${fonteC(`${fonte_} · ${st.ano} · ${n} países e territórios com dado`)}
+      ${sobreDado(`${MET[m].den ? esc(MET[m].den) + ". " : ""}${m === "onu" ? "Voeten, Strezhnev e Bailey (Harvard Dataverse, CC0), " + H.onu.inicio + "–" + H.onu.fim + "." : m === "conf" ? "UCDP/PRIO Armed Conflict Dataset (CC BY 4.0), " + H.conflitos.inicio + "–" + H.conflitos.fim + "." : `Comex Stat (MDIC), valores FOB em dólares correntes, ${ini}–${fim}. Países e territórios sem registro no ano ficam fora do ranking.`}`)}</div>
     <div class="sec">${m === "mud"
       ? `<h3>Mais ganharam participação</h3>${listaRank(crescem, m, st.ano)}<h3 style="margin-top:20px">Mais perderam participação</h3>${listaRank(caem, m, st.ano, { total: caem.map((x) => r.indexOf(x) + 1) })}`
       : listaRank(rankTodos ? r : r.slice(0, 20), m, st.ano)}
       ${m !== "mud" && n > 20 ? `<div class="botoes"><button class="btn" type="button" id="rankTodos">${rankTodos ? "Mostrar só os 20 primeiros" : `Mostrar todos (${n})`}</button></div>` : ""}</div>`;
 }
-
 // ---------- explorar por produto ----------
 function vistaProduto() {
   if (!P) { carregarProdutos().then(() => render()).catch(() => { $("#conteudo").innerHTML = `<div class="sec"><div class="vazio">Não foi possível carregar os dados de produtos.</div></div>`; }); return `<div class="sec"><div class="kicker">Explorar por produto</div><p class="lead">Carregando…</p></div>`; }
   const it = st.prod && P.itens[st.prod];
   const destaques = ["1201", "2709", "2601", "g-fertilizantes", "g-carnes", "g-veiculos", "8517", "3004"].filter((c) => P.itens[c]);
   const cab = `<div class="sec"><div class="kicker">Explorar por produto</div><h2>${it ? esc(it.nome) : "O que o Brasil vende e compra"}</h2>
-    ${it ? `<p class="nota">${it.grupo ? esc(it.oficial) : `SH4 ${esc(st.prod)} · nome oficial: ${esc(it.oficial)}`}</p>` : `<p class="lead">Escolha um produto para ver os principais destinos ou origens e como isso mudou.</p>`}
+    ${it ? (it.grupo ? `<p class="lead">Grupo de produtos.</p>` : "") : `<p class="lead">Escolha um produto para ver os principais destinos ou origens e como isso mudou.</p>`}
+    ${it ? sobreDado(itemDetalhe(st.prod)) : ""}
     <div class="ac" id="acProd" style="margin-top:12px"><label class="sr" for="buscaProd">Buscar produto</label>
       <input id="buscaProd" type="search" placeholder="Buscar produto (ex.: soja, petróleo, fertilizantes)…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="buscaProdLista" aria-autocomplete="list" style="width:100%">
       <ul id="buscaProdLista" role="listbox" hidden></ul></div>
     <div class="chips" aria-label="Produtos em destaque">${destaques.map((c) => `<button type="button" data-prod="${c}" aria-pressed="${st.prod === c}">${esc(P.itens[c].nome)}</button>`).join("")}</div>
-    <p class="nota">Classificação SH4 (Sistema Harmonizado, 4 dígitos), como no Comex Stat. ${Object.keys(P.itens).length} produtos e grupos: posições que passaram de US$ 50 milhões num ano em algum fluxo. Grupos somam posições inteiras, com a regra indicada.</p></div>`;
+    ${!it ? sobreDado(`Classificação SH4 (Sistema Harmonizado, 4 dígitos), como no Comex Stat. ${Object.keys(P.itens).length} produtos e grupos: posições que passaram de US$ 50 milhões num ano em algum fluxo. Grupos somam posições inteiras, com a regra indicada em cada um.`) : ""}</div>`;
   if (!it) return cab;
   const k = st.fluxo, serie = it[k], anoP = anosProd.includes(st.ano) ? st.ano : anoProdPara(st.ano);
   const x = it.p?.[String(anoP)]?.[k];
-  const tot = em(serie, anoP), totBr = k === "e" ? brE(anoP) : brI(anoP);
-  const outros = x ? x.t - x.top.reduce((s, [, v]) => s + v, 0) : 0;
+  const totBr = k === "e" ? brE(anoP) : brI(anoP);
+  const outros = x ? x.t - x.top.reduce((q, [, v]) => q + v, 0) : 0;
+  const rotParte = k === "e" ? "das vendas brasileiras desse produto" : "das compras brasileiras desse produto";
   return cab + `<div class="sec">
       <div class="chips" role="group" aria-label="Fluxo"><button type="button" data-fluxo="e" aria-pressed="${k === "e"}">Exportações (destinos)</button><button type="button" data-fluxo="i" aria-pressed="${k === "i"}">Importações (origens)</button></div>
-      <h3 style="margin-top:16px">${k === "e" ? "Para onde o Brasil vende" : "De onde o Brasil compra"} em ${anoP}</h3>
+      <h3 style="margin-top:16px">${k === "e" ? "Para onde o Brasil vende" : "De onde o Brasil compra"} · ${anoP}</h3>
       <div class="chips" role="group" aria-label="Ano com distribuição por parceiro">${anosProd.map((a) => `<button type="button" data-ano="${a}" aria-pressed="${anoP === a}">${a}</button>`).join("")}</div>
+      <p class="nota">A distribuição por parceiro existe em ${juntarE(anosProd.map(String))}; não é uma série anual.</p>
       ${x ? `<p class="resumo-txt" style="margin-top:12px">Em ${anoP}, o Brasil ${k === "e" ? "exportou" : "importou"} ${usd(x.t)} deste produto (${pct(x.t / totBr)} de tudo o que ${k === "e" ? "exportou" : "importou"}),
           ${k === "e" ? "para" : "de"} ${x.n} países e territórios. ${bandeira(x.top[0][0])} <b>${esc(nome(x.top[0][0]))}</b> ${k === "e" ? "recebeu" : "forneceu"} ${pct(x.top[0][1] / x.t)};
-          os 3 maiores somaram ${pct(x.top.slice(0, 3).reduce((s, [, v]) => s + v, 0) / x.t)}.</p>
-        <ul class="barras${k === "i" ? " imp" : ""}">${x.top.map(([id, v]) => `<li><div class="lin"><span>${bandeira(id)} <button type="button" class="link" data-pais="${id}">${esc(nome(id))}</button></span><span class="v num">${usd(v)} · ${pct(v / x.t)}</span></div>
-          <div class="trilho"><i style="width:${(v / x.t * 100).toFixed(2)}%"></i></div></li>`).join("")}
-          ${outros > 0 ? `<li><div class="lin"><span>Outros ${x.n - x.top.length} parceiros</span><span class="v num">${usd(outros)} · ${pct(outros / x.t)}</span></div></li>` : ""}</ul>
-        <p class="nota">Participação = valor do parceiro ÷ total ${k === "e" ? "exportado" : "importado"} pelo Brasil deste produto em ${anoP} (concentração de ${k === "e" ? "destinos" : "fornecedores"} do produto). A base guarda os 12 maiores parceiros de cada produto; o resto aparece somado em "outros".</p>`
+          os 3 maiores somaram ${pct(x.top.slice(0, 3).reduce((q, [, v]) => q + v, 0) / x.t)}.</p>
+        <ol class="barras parceiros-prod${k === "i" ? " imp" : ""}">${x.top.map(([id, v], j) => `<li><div class="lin"><span class="pnome">${bandeira(id)} <button type="button" class="link" data-pais-prod="${id}">${esc(nome(id))}</button></span><span class="v num">${usd(v)}</span></div>
+          <div class="trilho" aria-hidden="true"><i style="width:${(v / x.t * 100).toFixed(2)}%"></i></div><div class="parte"><b>${pct(v / x.t)}</b> ${rotParte} · ${j + 1}º</div></li>`).join("")}
+          ${outros > 0 ? `<li><div class="lin"><span>Outros ${x.n - x.top.length} parceiros</span><span class="v num">${usd(outros)}</span></div><div class="parte"><b>${pct(outros / x.t)}</b> ${rotParte}</div></li>` : ""}</ol>
+        ${sobreDado(`Participação = valor do parceiro ÷ total ${k === "e" ? "exportado" : "importado"} pelo Brasil deste produto em ${anoP} (concentração de ${k === "e" ? "destinos" : "fornecedores"} do produto). A base guarda os 12 maiores parceiros de cada produto; os demais aparecem somados em "outros". Comex Stat, US$ FOB correntes.`)}`
         : `<div class="vazio" style="margin-top:12px">Sem ${k === "e" ? "exportação" : "importação"} registrada deste produto em ${anoP}.</div>`}</div>
-    <div class="sec"><h3>${k === "e" ? "Exportações" : "Importações"} do produto, ${ini}–${fim}</h3><p class="fonte">Comex Stat · total do Brasil, todos os parceiros · US$ FOB correntes (alta em valor não mostra, sozinha, alta em volume)</p>
+    <div class="sec"><h3>${fluxoRot(k)} do produto, ${ini}–${fim}</h3>${fonteC(`Comex Stat · total do Brasil, todos os parceiros · US$ correntes`)}
       <div class="grafico" id="gProd" role="img" aria-label="${esc(`${it.nome}: ${k === "e" ? "exportações" : "importações"} do Brasil de ${ini} a ${fim}; ${ini}: ${usd(em(serie, ini))}; ${fim}: ${usd(em(serie, fim))}`)}"></div>
-      ${tabelaSerie([[it.nome, serie]])}</div>`;
+      ${tabelaSerie([[it.nome, serie]])}${sobreDado("Valores em dólares correntes: uma alta em valor não mostra, sozinha, alta em volume físico.")}</div>`;
 }
-
 // ---------- comparar dois parceiros ----------
-let cmpA = "156";
+function campoParceiro(lado, id) {
+  return `<div class="ac" id="acCmp${lado}"><label class="nota" for="cmp${lado}">${id ? "Trocar o" : "Escolher o"} ${lado === "A" ? "primeiro" : "segundo"} parceiro</label>
+    <div class="campo-p"><input id="cmp${lado}" type="search" value="${id ? esc(nome(id)) : ""}" placeholder="Escolha outro parceiro" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="cmp${lado}Lista" aria-autocomplete="list"></div>
+    <ul id="cmp${lado}Lista" role="listbox" hidden></ul></div>`;
+}
 function vistaComparar() {
-  const a = cmpA || "156", b = st.vs || "840", ano = Math.min(st.ano, fim);
+  const a = st.a, b = st.b, ano = Math.min(st.ano, fim);
+  const lado = (L, id) => `<div class="cmp-lado ser-${L.toLowerCase()}"><div class="kicker">${L === "A" ? "Primeiro parceiro" : "Segundo parceiro"}</div>
+      <div class="nomeg${id ? "" : " vazio-n"}">${id ? `${bandeira(id, { grande: true })}<span>${esc(nome(id))}</span>${ehTerritorio(id) ? '<span class="tag">território</span>' : ""}` : "a escolher"}</div>${campoParceiro(L, id)}</div>`;
+  const cab = `<div class="sec"><div class="kicker">Comparar dois parceiros${a && b ? ` · ${ano}` : ""}</div>
+      <h2>${a && b ? `${esc(nome(a))} × ${esc(nome(b))}` : "Escolha dois parceiros"}</h2>
+      ${st.aviso ? `<p class="aviso-cmp" role="status">${esc(st.aviso)}</p>` : ""}
+      <div class="cmp-cab">${lado("A", a)}${lado("B", b)}</div>
+      ${!(a && b) ? `<p class="lead" style="margin-top:12px">${!a && !b ? "Escolha os dois parceiros" : `Escolha ${a ? "o segundo" : "o primeiro"} parceiro`} para ver exportações, importações, evolução e produtos lado a lado, com os mesmos critérios.</p>` : ""}</div>`;
+  if (!(a && b)) return cab;
   const ta = trocas(a, ano), tb = trocas(b, ano);
-  const lin = (rot, f) => `<tr><th scope="row">${rot}</th><td>${f(ta)}</td><td>${f(tb)}</td></tr>`;
+  const pm = (id) => `<span class="pais-m"><span class="ponto"></span>${esc(nome(id))}</span>`;   // no celular, o nome vai junto do valor
+  const lin = (rot, f) => `<tr><th scope="row">${rot}</th><td class="ser-a">${pm(a)}<span>${f(ta, a)}</span></td><td class="ser-b">${pm(b)}<span>${f(tb, b)}</span></td></tr>`;
   const anoP = anoProdPara(ano);
-  const prods = (id, k) => { const x = C.paises[id]?.p?.[String(anoP)]?.[k]; return x ? `<ol class="barras${k === "i" ? " imp" : ""}" style="padding-left:0">${x.top.slice(0, 5).map(([c, v]) => `<li><div class="lin"><span title="${esc(oficialProd(c))}">${esc(nomeProd(c))}</span><span class="v num">${pct(v / x.t)}</span></div><div class="trilho"><i style="width:${(v / x.t * 100).toFixed(1)}%"></i></div></li>`).join("")}</ol>` : `<div class="vazio">Sem registro em ${anoP}.</div>`; };
-  return `<div class="sec"><div class="kicker">Comparar dois parceiros · ${ano}</div><h2>${bandeira(a, { grande: true })} ${esc(nome(a))} × ${bandeira(b, { grande: true })} ${esc(nome(b))}</h2>
-      <div class="comp-cab" style="margin-top:12px">
-        <div class="ac" id="acCmpA"><label class="nota" for="cmpA">Primeiro parceiro</label><input id="cmpA" type="search" value="${esc(nome(a))}" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="cmpALista" aria-autocomplete="list"><ul id="cmpALista" role="listbox" hidden></ul></div>
-        <div class="ac" id="acCmpB"><label class="nota" for="cmpB">Segundo parceiro</label><input id="cmpB" type="search" value="${esc(nome(b))}" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="cmpBLista" aria-autocomplete="list"><ul id="cmpBLista" role="listbox" hidden></ul></div></div></div>
-    <div class="sec"><h3>Em ${ano}</h3><p class="fonte">Comex Stat · US$ FOB correntes · mesmos critérios para os dois</p>
-      <table class="comp"><thead><tr><th scope="col"></th><th scope="col">${bandeira(a)} ${esc(nome(a))}</th><th scope="col">${bandeira(b)} ${esc(nome(b))}</th></tr></thead><tbody>
-        ${lin("Exportações do Brasil", (t) => usd(t?.e ?? null))}${lin("Importações do Brasil", (t) => usd(t?.i ?? null))}
-        ${lin("Saldo", (t) => (t ? (t.s >= 0 ? "+" : "") + usd(t.s) : "sem dado"))}${lin("Corrente", (t) => usd(t?.t ?? null))}
-        ${lin("Parte das exportações do Brasil", (t) => pct(t?.pe ?? null))}${lin("Parte das importações do Brasil", (t) => pct(t?.pi ?? null))}
-        ${lin("Posição na corrente", (t) => { const id = t === ta ? a : b; const p = posicao(id, "corrente", ano); return p ? ord(p[0]) : "—"; })}
-      </tbody></table></div>
-    <div class="sec"><h3>Participação na corrente de comércio do Brasil, ${ini}–${fim}</h3><p class="fonte">mesma escala para os dois · % da corrente total do Brasil</p>
+  const prods = (id, k) => {
+    const x = C.paises[id]?.p?.[String(anoP)]?.[k];
+    if (!x) return `<div class="vazio">Sem ${k === "e" ? "exportações" : "importações"} registradas em ${anoP}.</div>`;
+    return `<ol class="barras${k === "i" ? " imp" : ""}">${x.top.slice(0, 5).map(([c, v]) => itemProduto(c, v, v / x.t, k === "e" ? "das vendas do Brasil a esse parceiro" : "das compras do Brasil desse parceiro", { fluxo: k })).join("")}</ol>`;
+  };
+  const cabCol = (id) => `<div class="cab-col ser-${id === a ? "a" : "b"}"><span class="ponto"></span>${bandeira(id)} ${esc(nome(id))}</div>`;
+  return cab + `<div class="sec"><h3>Em ${ano}</h3>${fonteC(`Comex Stat · US$ correntes · mesmos critérios para os dois`)}
+      <table class="comp cmp"><thead><tr><th scope="col"><span class="sr">Medida</span></th><th scope="col" class="ser-a"><span class="ponto"></span>${bandeira(a)} ${esc(nome(a))}</th><th scope="col" class="ser-b"><span class="ponto"></span>${bandeira(b)} ${esc(nome(b))}</th></tr></thead><tbody>
+        ${lin("Exportações do Brasil", (t) => usdR(t?.e))}${lin("Parte das exportações do Brasil", (t) => parteR(t, "e"))}
+        ${lin("Importações do Brasil", (t) => usdR(t?.i))}${lin("Parte das importações do Brasil", (t) => parteR(t, "i"))}
+        ${lin("Saldo", (t) => (t ? (t.s >= 0 ? "+" : "") + usd(t.s) : "sem registro"))}${lin("Corrente (exp. + imp.)", (t) => usd(t?.t ?? null))}
+        ${lin("Posição como destino das exportações", (t, id) => { const q = posicao(id, "exp", ano); return q ? `${ord(q[0])} de ${q[1]}` : "—"; })}
+      </tbody></table>
+      ${sobreDado("Parte das exportações = exportações para o país ÷ total exportado pelo Brasil no ano; o mesmo para importações. Sem registro no Comex Stat não é zero.")}</div>
+    <div class="sec"><h3>Exportações do Brasil para cada um, ${ini}–${fim}</h3>${fonteC("Comex Stat · US$ correntes · mesmo eixo para os dois")}
+      <div class="grafico" id="gCmpExp" role="img" aria-label="${esc(`Exportações do Brasil para ${nome(a)} e ${nome(b)} de ${ini} a ${fim}: em ${fim}, ${usd(em(C.paises[a]?.e, fim))} e ${usd(em(C.paises[b]?.e, fim))}`)}"></div>
+      ${tabelaSerie([[nome(a), C.paises[a]?.e || Array(fim - ini + 1).fill(null)], [nome(b), C.paises[b]?.e || Array(fim - ini + 1).fill(null)]])}</div>
+    <div class="sec"><h3>O que o Brasil vende a cada um · ${anoP}</h3>
+      <div class="chips" role="group" aria-label="Ano da composição">${anosProd.map((x) => `<button type="button" data-ano="${x}" aria-pressed="${anoP === x}">${x}</button>`).join("")}</div>
+      <p class="nota">Composição por produto disponível em ${juntarE(anosProd.map(String))}; ${anoP !== ano ? `para ${ano}, mostra-se ${anoP}.` : "não é uma série anual."}</p>
+      <div class="duas"><div>${cabCol(a)}${prods(a, "e")}</div><div>${cabCol(b)}${prods(b, "e")}</div></div>
+      ${sobreDado("Participação de cada produto = valor do produto ÷ total que o Brasil vendeu ao país no ano (composição bilateral). Mostram-se os 5 maiores.")}</div>
+    <div class="sec"><h3>O que o Brasil compra de cada um · ${anoP}</h3>
+      <div class="duas"><div>${cabCol(a)}${prods(a, "i")}</div><div>${cabCol(b)}${prods(b, "i")}</div></div></div>
+    <div class="sec"><h3>Peso na corrente de comércio do Brasil, ${ini}–${fim}</h3>${fonteC("% da corrente total do Brasil · mesmo eixo para os dois")}
       <div class="grafico" id="gCmp" role="img" aria-label="${esc(`Participação de ${nome(a)} e ${nome(b)} na corrente de comércio do Brasil de ${ini} a ${fim}`)}"></div>
-      ${tabelaSerie([[nome(a), C.paises[a] ? C.paises[a].e.map((_, k) => trocas(a, ini + k)?.pt ?? null) : []], [nome(b), C.paises[b] ? C.paises[b].e.map((_, k) => trocas(b, ini + k)?.pt ?? null) : []]], pct)}</div>
-    <div class="sec"><h3>Principais produtos em ${anoP}</h3><p class="fonte">participação de cada produto no total ${"exportado"} para o país (5 maiores) · recortes disponíveis: ${anosProd.join(", ")}</p>
-      <div class="duas"><div><div class="kicker" style="margin-bottom:6px">${esc(nome(a))}: o Brasil vende</div>${prods(a, "e")}</div><div><div class="kicker" style="margin-bottom:6px">${esc(nome(b))}: o Brasil vende</div>${prods(b, "e")}</div></div>
-      <div class="duas" style="margin-top:14px"><div><div class="kicker" style="margin-bottom:6px">${esc(nome(a))}: o Brasil compra</div>${prods(a, "i")}</div><div><div class="kicker" style="margin-bottom:6px">${esc(nome(b))}: o Brasil compra</div>${prods(b, "i")}</div></div></div>`;
+      ${tabelaSerie([[nome(a), Array.from({ length: fim - ini + 1 }, (_, k) => trocas(a, ini + k)?.pt ?? null)], [nome(b), Array.from({ length: fim - ini + 1 }, (_, k) => trocas(b, ini + k)?.pt ?? null)]], pct)}</div>`;
 }
 
 // ---------- fontes e método ----------
@@ -642,7 +974,8 @@ function vistaFontes() {
       <dt>Indicadores econômicos — Banco Mundial (CC BY 4.0)</dt><dd>Valor mais recente de cada indicador, com o ano da observação e a data de atualização da fonte.</dd>
       <dt>Países e territórios</dt><dd>Tabela própria (<code>catalog/paises_mundo.csv</code>) que liga os códigos do Comex Stat, da ONU e da UCDP ao ISO 3166; ${IDS.length} países e territórios (territórios marcados como tal). Dubai soma nos Emirados Árabes Unidos e "Inglaterra" no Reino Unido, como no Comex.</dd>
       <dt>Bandeiras</dt><dd>flag-icons 7.5.0 (MIT, Panayiotis Lipiridis): bandeira atual de cada país ou território, não a do ano escolhido. Sem bandeira, um retângulo neutro.</dd>
-      <dt>Mapa e globo</dt><dd>Contornos Natural Earth 1:110m (domínio público, via world-atlas); imagem do planeta Blue Marble (NASA, domínio público); globe.gl (MIT); gráficos ECharts (Apache-2.0). Países pequenos não aparecem no mapa, mas estão na lista e na busca.</dd>
+      <dt>Mapa e globo</dt><dd>Contornos Natural Earth 1:110m (domínio público, via world-atlas); globe.gl (MIT); gráficos ECharts (Apache-2.0). Países pequenos não aparecem no mapa, mas estão na lista e na busca.</dd>
+      <dt>Tipografia</dt><dd>Newsreader (Production Type) e IBM Plex Sans (IBM), ambas sob a SIL Open Font License, via Google Fonts.</dd>
       <dt>Relações bilaterais — Itamaraty</dt><dd>Link para o índice oficial; o site bloqueia leitura automática, então nada dele é copiado ou resumido aqui.</dd>
     </dl></div>`;
 }
@@ -679,60 +1012,112 @@ function painelPais(id) {
   const cab = `<div class="pais-cab"><button class="fechar" type="button" data-fechar aria-label="Fechar e voltar à visão do mundo">✕</button>
       <div class="kicker">${id === BR ? "Ponto de referência da análise" : "Relação comercial com o Brasil"}</div>
       <h2>${bandeira(id, { grande: true })}<span>${esc(nome(id))}</span>${terr ? '<span class="tag">território</span>' : ""}</h2>
-      <div class="ref">Ano de referência: <b>${a}</b>${st.ano > fim ? ` (comércio só até ${fim})` : ""}${pos && id !== BR ? ` · <b>${ord(pos[0])}</b> de ${pos[1]} em ${MET[m === "mud" ? "corrente" : m].rot.toLowerCase()}` : ""}
+      <div class="ref">Ano de referência <b>${a}</b>${st.ano > fim ? ` (comércio só até ${fim})` : ""}${pos && id !== BR ? ` · <b>${ord(pos[0])}</b> de ${pos[1]} em ${MET[m === "mud" ? "corrente" : m].rot.toLowerCase()}` : ""}
         <span class="sr">. A bandeira é a atual, não a do ano.</span></div>
-      <div class="botoes">${id !== BR ? `<button class="btn" type="button" data-ir='${JSON.stringify({ vista: "comparar", vs: id, pais: null })}'>Comparar com outro parceiro</button>` : ""}
+      ${id !== BR && !st.prod ? abertura(id, a, t) : ""}
+      <div class="botoes">${id !== BR ? `<button class="btn" type="button" data-ir='${JSON.stringify({ vista: "comparar", a: id, b: null, pais: null, prod: null, m: "corrente" })}'>Comparar com outro parceiro</button>` : ""}
         <a class="btn" href="#">← Visão do mundo</a></div></div>`;
   if (id === BR) return cab + painelBrasil(a);
+  if (st.prod) return cab + painelProdutoPais(id);
   const abas = [["comercial", "Relação comercial"], ["produtos", "Produtos e concentração"], ["contexto", "Contexto diplomático"]];
-  return cab + `<div class="sec">${resumoPais(id, a).map((f) => `<p class="resumo-txt">${f}</p>`).join("")}
-      <p class="nota">Resumo calculado com regras fixas a partir do Comex Stat (US$ FOB correntes). Só descreve números; não avalia a relação.</p>
-      ${t ? `<div class="kpis"><div class="kpi"><span>Exportações do Brasil</span><b class="num">${usd(t.e)}</b><small>${pct(t.pe)} do total exportado</small></div>
-        <div class="kpi"><span>Importações do Brasil</span><b class="num">${usd(t.i)}</b><small>${pct(t.pi)} do total importado</small></div>
-        <div class="kpi"><span>Saldo</span><b class="num">${(t.s >= 0 ? "+" : "") + usd(t.s)}</b><small>${t.s > 0 ? "superávit do Brasil" : t.s < 0 ? "déficit do Brasil" : "equilíbrio"}</small></div>
-        <div class="kpi"><span>Corrente</span><b class="num">${usd(t.t)}</b><small>${pct(t.pt)} da corrente do Brasil</small></div></div>` : ""}</div>
+  return cab + `
     <div class="abas" role="tablist" aria-label="Partes do painel">${abas.map(([k, r]) => `<button type="button" role="tab" id="tab-${k}" aria-controls="aba-${k}" aria-selected="${st.aba === k}" tabindex="${st.aba === k ? 0 : -1}" data-aba="${k}">${r}</button>`).join("")}</div>
     <div role="tabpanel" id="aba-${st.aba}" aria-labelledby="tab-${st.aba}">${st.aba === "produtos" ? abaProdutos(id, a) : st.aba === "contexto" ? abaContexto(id, a) : abaComercial(id, a)}</div>`;
+}
+function abertura(id, a, t) {
+  return `${resumoPais(id, a).map((f) => `<p class="resumo-txt">${f}</p>`).join("")}
+      ${t ? `<div class="kpis"><div class="kpi"><span>Exportações do Brasil</span><b class="num">${usdR(t.e)}</b><small>${t.e == null ? "nenhuma exportação registrada no ano" : pct(t.pe) + " do total exportado"}</small></div>
+        <div class="kpi"><span>Importações do Brasil</span><b class="num">${usdR(t.i)}</b><small>${t.i == null ? "nenhuma importação registrada no ano" : pct(t.pi) + " do total importado"}</small></div>
+        <div class="kpi"><span>Saldo</span><b class="num">${(t.s >= 0 ? "+" : "") + usd(t.s)}</b><small>${t.s > 0 ? "superávit do Brasil" : t.s < 0 ? "déficit do Brasil" : "equilíbrio"}</small></div>
+        <div class="kpi"><span>Corrente</span><b class="num">${usd(t.t)}</b><small>${pct(t.pt)} da corrente do Brasil</small></div></div>` : ""}
+      ${sobreDado("Resumo calculado com regras fixas a partir do Comex Stat (valores FOB em dólares correntes). Só descreve números; não avalia a relação. Participação nas exportações = exportações para o país ÷ total exportado pelo Brasil no ano; o mesmo para importações.")}`;
+}
+// O país visto pelo produto que motivou o clique (ex.: Fertilizantes → Importações → Rússia). Só nos anos com distribuição por parceiro.
+function painelProdutoPais(id) {
+  if (!P) { carregarProdutos().then(() => render()).catch(() => {}); return `<div class="sec"><p class="lead">Carregando…</p></div>`; }
+  const it = P.itens[st.prod];
+  if (!it) return `<div class="sec"><div class="vazio">Produto "${esc(st.prod)}" não encontrado na base.</div><div class="botoes"><button class="btn" type="button" data-ver-completo>Ver a relação comercial completa</button></div></div>`;
+  const k = st.fluxo, a = anosProd.includes(st.ano) ? st.ano : anoProdPara(st.ano), nm = esc(nome(id)), np = esc(it.nome);
+  const dist = (ano) => it.p?.[String(ano)]?.[k];
+  const ponto = (ano) => { const x = dist(ano); if (!x) return { x: null }; const j = x.top.findIndex(([i]) => i === id); return { x, v: j >= 0 ? x.top[j][1] : null, pos: j >= 0 ? j + 1 : null }; };
+  const agora = ponto(a), bil = em(C.paises[id]?.[k], a);
+  const papel = k === "e" ? "destino" : "fornecedor", papelPl = k === "e" ? "destinos" : "fornecedores";
+  const rotParte = k === "e" ? `das vendas brasileiras de ${np.toLowerCase()}` : `das compras brasileiras de ${np.toLowerCase()}`;
+  let resumo, kpis = "";
+  if (!agora.x) resumo = `Não há ${k === "e" ? "exportação" : "importação"} brasileira registrada de ${np.toLowerCase()} em ${a}.`;
+  else if (agora.v == null) resumo = `Em ${a}, ${nm} não está entre os 12 maiores ${papelPl} de ${np.toLowerCase()} do Brasil (a base guarda só esses 12, então o valor exato não está disponível — não é zero). O total do Brasil foi ${usd(agora.x.t)}.`;
+  else {
+    const peso = bil ? agora.v / bil : null;
+    resumo = `Em ${a}: <b>${usd(agora.v)}</b> em ${np.toLowerCase()}, ou <b>${pct(agora.v / agora.x.t)}</b> ${rotParte} — ${ord(agora.pos)} ${papel} entre ${agora.x.n}.`
+      + (peso != null ? ` Esse produto respondeu por ${pct(peso)} de tudo o que o Brasil ${fluxoVerbo(k)} ${k === "e" ? "para esse parceiro" : "desse parceiro"} no ano.` : "");
+    kpis = `<div class="kpis"><div class="kpi"><span>${k === "e" ? "Exportações do Brasil" : "Importações do Brasil"}</span><b class="num">${usd(agora.v)}</b><small>${np} · ${a}</small></div>
+      <div class="kpi"><span>Parte no total brasileiro do produto</span><b class="num">${pct(agora.v / agora.x.t)}</b><small>${ord(agora.pos)} ${papel} de ${agora.x.n}</small></div>
+      ${peso != null ? `<div class="kpi"><span>Peso na relação bilateral</span><b class="num">${pct(peso)}</b><small>do que o Brasil ${fluxoVerbo(k)} ${k === "e" ? "para esse parceiro" : "desse parceiro"}</small></div>` : ""}</div>`;
+  }
+  const linhas = anosProd.map((ano) => { const q = ponto(ano);
+    return `<tr${ano === a ? ' aria-current="true" class="atual"' : ""}><td>${ano}</td><td>${!q.x ? "sem registro do produto" : q.v == null ? "fora dos 12 maiores" : usd(q.v)}</td><td>${q.v != null ? pct(q.v / q.x.t) : "—"}</td><td>${q.v != null ? `${ord(q.pos)} de ${q.x.n}` : "—"}</td></tr>`; }).join("");
+  return `<div class="sec foco-prod"><div class="kicker">Produto em foco · ${fluxoRot(k).toLowerCase()} vistas do Brasil · ${a}</div>
+      <h3>${np} · ${k === "e" ? "exportações do Brasil" : "importações do Brasil"} · ${bandeira(id)} ${nm}</h3>
+      <p class="nota">Você está vendo um produto${it.grupo ? " (grupo de produtos)" : ""}, não todo o comércio com esse parceiro.</p>
+      <p class="resumo-txt">${resumo}</p>${kpis}
+      <div class="botoes"><button class="btn pri" type="button" data-voltar-produto>← Voltar aos ${papelPl} de ${np.toLowerCase()}</button>
+        <button class="btn" type="button" data-ver-completo>Ver a relação comercial completa com ${nm}</button></div>
+      ${sobreDado(`${itemDetalhe(st.prod)}<br>Parte no total brasileiro = valor com ${nm} ÷ total ${k === "e" ? "exportado" : "importado"} pelo Brasil deste produto no ano. Peso na relação = valor do produto ÷ tudo o que o Brasil ${fluxoVerbo(k)} ${k === "e" ? "para" : "de"} ${nm} no ano. Comex Stat, US$ FOB correntes.`)}</div>
+    <div class="sec"><h3>Nos anos com distribuição por parceiro</h3>
+      <div class="chips" role="group" aria-label="Ano">${anosProd.map((x) => `<button type="button" data-ano="${x}" aria-pressed="${a === x}">${x}</button>`).join("")}</div>
+      <table class="comp" style="margin-top:10px"><thead><tr><th scope="col">Ano</th><th scope="col">Valor</th><th scope="col">Parte no total do produto</th><th scope="col">Posição</th></tr></thead><tbody>${linhas}</tbody></table>
+      <p class="nota">Só ${juntarE(anosProd.map(String))} têm a distribuição por parceiro: não há série anual por país para este produto. "Fora dos 12 maiores" não é zero.</p></div>
+    <div class="sec"><h3>${fluxoRot(k)} brasileiras do produto, ${ini}–${fim}</h3>${fonteC("Comex Stat · total do Brasil, todos os parceiros · US$ correntes")}
+      <div class="grafico" id="gProd" role="img" aria-label="${esc(`${it.nome}: ${k === "e" ? "exportações" : "importações"} totais do Brasil de ${ini} a ${fim}`)}"></div>${tabelaSerie([[it.nome, it[k]]])}</div>`;
 }
 function abaComercial(id, a) {
   const d = C.paises[id];
   if (!d) return `<div class="sec"><div class="vazio">Sem registro de comércio com o Brasil entre ${ini} e ${fim} no Comex Stat.</div></div>`;
   const pe = posicao(id, "exp", a), pi = posicao(id, "imp", a), pc = posicao(id, "corrente", a);
   const sh = (k) => d[k].map((v, j) => (v == null ? null : v / (k === "e" ? brE(ini + j) : brI(ini + j))));
-  return `<div class="sec"><h3>Posição em ${a}</h3><p class="fonte">rankings entre ${IDS.length} países e territórios · Comex Stat</p>
+  const b = st.base, t0 = b < a ? trocas(id, b) : null, t1 = trocas(id, a);
+  const tempo = t0 && t1 ? `<div class="sec"><h3>${b} × ${a}</h3>${fonteC(`Comex Stat · participações no total do Brasil em cada ano`)}
+      <table class="comp"><thead><tr><th scope="col"><span class="sr">Medida</span></th><th scope="col">${b}</th><th scope="col">${a}</th><th scope="col">Mudança</th></tr></thead><tbody>
+        <tr><th scope="row">Parte das exportações do Brasil</th><td>${parteR(t0, "e")}</td><td>${parteR(t1, "e")}</td><td>${t0.e == null || t1.e == null ? "—" : pp(t1.pe - t0.pe)}</td></tr>
+        <tr><th scope="row">Parte das importações do Brasil</th><td>${parteR(t0, "i")}</td><td>${parteR(t1, "i")}</td><td>${t0.i == null || t1.i == null ? "—" : pp(t1.pi - t0.pi)}</td></tr>
+        <tr><th scope="row">Parte da corrente de comércio</th><td>${pct(t0.pt)}</td><td>${pct(t1.pt)}</td><td>${pp(t1.pt - t0.pt)}</td></tr>
+        <tr><th scope="row">Posição na corrente</th><td>${(posicao(id, "corrente", b) || ["—"])[0]}º</td><td>${(posicao(id, "corrente", a) || ["—"])[0]}º</td><td></td></tr>
+      </tbody></table>
+      <label class="ano-sel" style="margin-top:10px">Comparar com o ano <select id="baseSel">${Array.from({ length: a - ini }, (_, k) => ini + k).map((x) => `<option ${x === b ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+      ${sobreDado("Mudança em pontos percentuais (p.p.): participação no ano − participação no ano de comparação. Valores em dólares correntes; os gráficos abaixo marcam os dois anos.")}</div>` : "";
+  return tempo + `<div class="sec"><h3>Posição em ${a}</h3><p class="fonte">rankings entre ${IDS.length} países e territórios · Comex Stat</p>
       <div class="kpis"><div class="kpi"><span>Como destino das exportações</span><b>${pe ? ord(pe[0]) : "—"}</b><small>${pe ? `de ${pe[1]} destinos` : "sem registro"}</small></div>
         <div class="kpi"><span>Como origem das importações</span><b>${pi ? ordF(pi[0]) : "—"}</b><small>${pi ? `de ${pi[1]} origens` : "sem registro"}</small></div>
         <div class="kpi"><span>Na corrente de comércio</span><b>${pc ? ord(pc[0]) : "—"}</b><small>${pc ? `de ${pc[1]} parceiros` : "sem registro"}</small></div></div></div>
-    <div class="sec"><h3>Exportações e importações, ${ini}–${fim}</h3><p class="fonte">Comex Stat · US$ FOB correntes · clique num ponto para mudar o ano · alta em valor não mostra, sozinha, alta em volume</p>
+    <div class="sec"><h3>Exportações e importações, ${ini}–${fim}</h3>${fonteC("Comex Stat · US$ correntes · clique num ponto para mudar o ano")}
       <div class="grafico" id="gValores" role="img" aria-label="${esc(`${nome(id)}: exportações do Brasil de ${usd(em(d.e, ini))} em ${ini} para ${usd(em(d.e, fim))} em ${fim}; importações de ${usd(em(d.i, ini))} para ${usd(em(d.i, fim))}`)}"></div>
-      ${tabelaSerie([["Exportações do Brasil", d.e], ["Importações do Brasil", d.i]])}</div>
-    <div class="sec"><h3>Peso no comércio do Brasil, ${ini}–${fim}</h3><p class="fonte">% das exportações totais e % das importações totais do Brasil em cada ano</p>
+      ${tabelaSerie([["Exportações do Brasil", d.e], ["Importações do Brasil", d.i]])}${sobreDado("Valores FOB em dólares correntes, sem correção pela inflação: alta em valor não mostra, sozinha, alta em volume físico. Ano sem registro no Comex Stat aparece vazio no gráfico, não como zero.")}</div>
+    <div class="sec"><h3>Peso no comércio do Brasil, ${ini}–${fim}</h3>${fonteC("% das exportações e % das importações totais do Brasil em cada ano")}
       <div class="grafico" id="gPartes" role="img" aria-label="${esc(`${nome(id)}: participação nas exportações brasileiras de ${pct(sh("e")[0])} em ${ini} para ${pct(sh("e")[fim - ini])} em ${fim}; nas importações, de ${pct(sh("i")[0])} para ${pct(sh("i")[fim - ini])}`)}"></div>
       ${tabelaSerie([["% das exportações do Brasil", sh("e")], ["% das importações do Brasil", sh("i")]], pct)}</div>`;
 }
 function abaProdutos(id, a) {
   const d = C.paises[id];
   if (!d?.p) return `<div class="sec"><div class="vazio">Sem composição por produto para este parceiro nos anos disponíveis (${anosProd.join(", ")}).</div></div>`;
-  const ap = anosProd.includes(st.ano) ? st.ano : anoProdPara(a);
+  const ap = anosProd.includes(st.ano) ? st.ano : anoProdPara(a), nm = esc(nome(id));
   const bloco = (k) => {
     const x = d.p[String(ap)]?.[k];
     if (!x) return `<div class="vazio">Sem ${k === "e" ? "exportações" : "importações"} registradas em ${ap}.</div>`;
-    const t5 = x.top.slice(0, 5).reduce((s, [, v]) => s + v, 0) / x.t;
-    return `<p class="resumo-txt" style="font-size:14.5px">${usd(x.t)} em ${x.n} produtos (SH4). Os 5 maiores somam <b>${pct(t5)}</b> desse total.</p>
-      <ul class="barras${k === "i" ? " imp" : ""}">${x.top.map(([c, v]) => {
-        const fornec = k === "i" && P?.itens?.[c]?.p?.[String(ap)]?.i ? (() => { const q = P.itens[c].p[String(ap)].i, h = q.top.find(([i]) => i === id); return h ? `${esc(nome(id))} forneceu ${pct(h[1] / q.t)} de tudo o que o Brasil importou deste produto` : ""; })() : "";
-        const dest = k === "e" && P?.itens?.[c]?.p?.[String(ap)]?.e ? (() => { const q = P.itens[c].p[String(ap)].e, h = q.top.find(([i]) => i === id); return h ? `${esc(nome(id))} recebeu ${pct(h[1] / q.t)} de tudo o que o Brasil exportou deste produto` : ""; })() : "";
-        return `<li><div class="lin"><span>${P?.itens?.[c] ? `<button type="button" class="link" data-prod-abrir="${c}" data-fluxo="${k}" title="${esc(oficialProd(c))}">${esc(nomeProd(c))}</button>` : `<span title="${esc(oficialProd(c))}">${esc(nomeProd(c))}</span>`}</span><span class="v num">${usd(v)} · ${pct(v / x.t)}</span></div>
-          <div class="trilho"><i style="width:${(v / x.t * 100).toFixed(2)}%"></i></div><small>SH4 ${c}${C.curtos?.[c] ? ` · oficial: ${esc(oficialProd(c).slice(0, 110))}${oficialProd(c).length > 110 ? "…" : ""}` : ""}${fornec || dest ? ` · ${fornec || dest}` : ""}</small></li>`;
-      }).join("")}</ul>`;
+    const t5 = x.top.slice(0, 5).reduce((q, [, v]) => q + v, 0) / x.t;
+    return `<p class="resumo-txt" style="font-size:14.5px">${usd(x.t)} em ${x.n} produtos. Os 5 maiores somam <b>${pct(t5)}</b> desse total.</p>
+      <ol class="barras${k === "i" ? " imp" : ""}">${x.top.map(([c, v]) => {
+        const q = P?.itens?.[c]?.p?.[String(ap)]?.[k], h = q?.top.find(([i]) => i === id);
+        const extra = h ? `<b>${pct(h[1] / q.t)}</b> ${k === "e" ? "das vendas" : "das compras"} brasileiras desse produto` : "";
+        return itemProduto(c, v, v / x.t, k === "e" ? "das vendas do Brasil a esse parceiro" : "das compras do Brasil desse parceiro", { extra, fluxo: k });
+      }).join("")}</ol>`;
   };
   if (!P) carregarProdutos().then(() => { if (st.pais === id && st.aba === "produtos") render(); }).catch(() => {});
-  return `<div class="sec"><h3>O que o Brasil vende e compra</h3>
-      <p class="fonte">Comex Stat · SH4 · a composição completa por produto existe só em ${anosProd.join(", ")} — não é uma série anual</p>
+  return `<div class="sec"><h3>O que o Brasil vende e compra · ${ap}</h3>
       <div class="chips" role="group" aria-label="Ano da composição">${anosProd.map((x) => `<button type="button" data-ano="${x}" aria-pressed="${ap === x}">${x}</button>`).join("")}</div>
-      <p class="nota">Participação de cada produto = valor do produto ÷ total trocado com este parceiro no ano (composição bilateral). ${P ? "Abaixo de cada produto, quando o parceiro está entre os 12 maiores, a parte dele no total do Brasil daquele produto (outro denominador)." : ""}</p></div>
-    <div class="sec"><h3>Exportações do Brasil para ${esc(nome(id))}, ${ap}</h3>${bloco("e")}</div>
-    <div class="sec"><h3>Importações do Brasil vindas de ${esc(nome(id))}, ${ap}</h3>${bloco("i")}</div>`;
+      <p class="nota">Composição por produto disponível em ${juntarE(anosProd.map(String))}; não é uma série anual.</p>
+      ${sobreDado(`Duas participações diferentes: <b>das vendas do Brasil a esse parceiro / das compras do Brasil desse parceiro</b> = valor do produto ÷ total trocado com o país no ano (composição bilateral). <b>Das vendas/compras brasileiras desse produto</b> = valor com o país ÷ total do Brasil daquele produto (aparece quando o país está entre os 12 maiores parceiros do produto). Comex Stat, US$ FOB correntes; classificação SH4.`)}</div>
+    <div class="duas-amplo"><div class="sec"><h3>O que o Brasil vende</h3>${bloco("e")}</div>
+    <div class="sec"><h3>O que o Brasil compra</h3>${bloco("i")}</div></div>`;
 }
 function abaContexto(id, a) {
   const u = H.onu.paises[id], k = H.conflitos.paises[id], w = H.omc[id], e = H.economia[id];
@@ -786,13 +1171,21 @@ function tabelaSerie(series, f = usd) {
 
 // ---------- ligações de eventos do conteúdo ----------
 function ligarConteudo($c) {
-  $$("[data-ir]", $c).forEach((b) => (b.onclick = () => { const d = JSON.parse(b.dataset.ir); if (d.cmp) { cmpA = d.cmp; delete d.cmp; } if (d.modo) { modo(d.modo); delete d.modo; } ir(d); }));
+  $$("[data-ir]", $c).forEach((b) => (b.onclick = () => { const d = JSON.parse(b.dataset.ir); if (d.modo) { modo(d.modo); delete d.modo; } ir(d); }));
   $$("[data-pais]", $c).forEach((b) => (b.onclick = () => abrirPais(b.dataset.pais)));
+  // fornecedor/destino de um produto: o país abre visto por esse produto, fluxo e ano (D48)
+  $$("[data-pais-prod]", $c).forEach((b) => (b.onclick = () => ir({ pais: b.dataset.paisProd, vista: "produto", aba: "comercial" })));
+  $$("[data-voltar-produto]", $c).forEach((b) => (b.onclick = () => ir({ pais: null, vista: "produto", m: "prod" })));
+  $$("[data-ver-completo]", $c).forEach((b) => (b.onclick = () => ir({ prod: null, m: "corrente", aba: "comercial", vista: "inicio" })));
+  const am = $("#alternarMapa", $c); if (am) am.onclick = () => { ir({ amplo: !amplo() }, { push: false }); requestAnimationFrame(() => $("#alternarMapa")?.focus({ preventScroll: true })); };
+  const sa = $("#anoAnalise", $c); if (sa) sa.onchange = () => ir({ ano: +sa.value }, { push: false });
+  const sm = $("#metricaAnalise", $c); if (sm) sm.onchange = () => ir({ m: sm.value }, { push: false });
   $$("[data-fechar]", $c).forEach((b) => (b.onclick = () => ir({ pais: null })));
   $$('a.btn[href="#"]', $c).forEach((x) => (x.onclick = (e) => { e.preventDefault(); ir({ pais: null, vista: "inicio" }); }));
   $$("[data-aba]", $c).forEach((b) => (b.onclick = () => ir({ aba: b.dataset.aba }, { push: false })));
   const tl = $(".abas", $c);
-  if (tl) tl.onkeydown = (e) => { if (!["ArrowRight", "ArrowLeft"].includes(e.key)) return; const bs = $$("[data-aba]", tl), i = bs.findIndex((b) => b.dataset.aba === st.aba); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; e.preventDefault(); ir({ aba: n.dataset.aba }, { push: false }); requestAnimationFrame(() => $(`#tab-${n.dataset.aba}`)?.focus({ preventScroll: true })); };
+  if (tl) tl.onkeydown = (e) => { if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(e.key)) return; const bs = $$("[data-aba]", tl), i = bs.findIndex((b) => b.dataset.aba === st.aba);
+    const n = e.key === "Home" ? bs[0] : e.key === "End" ? bs[bs.length - 1] : bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; e.preventDefault(); ir({ aba: n.dataset.aba }, { push: false }); requestAnimationFrame(() => $(`#tab-${n.dataset.aba}`)?.focus({ preventScroll: true })); };
   $$(".chips [data-ano]", $c).forEach((b) => (b.onclick = () => ir({ ano: +b.dataset.ano }, { push: false })));
   $$("[data-fluxo]", $c).forEach((b) => { if (!b.dataset.prodAbrir) b.onclick = () => ir({ fluxo: b.dataset.fluxo }, { push: false }); });
   $$("[data-prod]", $c).forEach((b) => (b.onclick = () => ir({ prod: b.dataset.prod, m: "prod", ano: anosProd.includes(st.ano) ? st.ano : fim })));
@@ -800,10 +1193,16 @@ function ligarConteudo($c) {
   const rt = $("#rankTodos", $c); if (rt) rt.onclick = () => { rankTodos = !rankTodos; render(); };
   const bs = $("#baseSel", $c); if (bs) bs.onchange = () => ir({ base: +bs.value }, { push: false });
   if ($("#buscaProd", $c) && P) autocompletar($("#buscaProd", $c), $("#buscaProdLista", $c), (q) => buscarProduto(q), (c) => ir({ prod: c, m: "prod", ano: anosProd.includes(st.ano) ? st.ano : fim }));
-  if ($("#cmpA", $c)) autocompletar($("#cmpA", $c), $("#cmpALista", $c), buscarPais, (id) => { cmpA = id; render(); });
-  if ($("#cmpB", $c)) autocompletar($("#cmpB", $c), $("#cmpBLista", $c), buscarPais, (id) => ir({ vs: id }));
+  // comparação: cada campo exclui o país escolhido no outro (não dá para comparar um país com ele mesmo)
+  if ($("#cmpA", $c)) autocompletar($("#cmpA", $c), $("#cmpALista", $c), (q) => buscarPais(q).filter((x) => x.v !== st.b), (id) => ir({ a: id }));
+  if ($("#cmpB", $c)) autocompletar($("#cmpB", $c), $("#cmpBLista", $c), (q) => buscarPais(q).filter((x) => x.v !== st.a), (id) => ir({ b: id }));
 }
-function abrirPais(id) { ir({ pais: id, aba: st.prod && st.vista === "produto" ? "produtos" : "comercial", ano: Math.min(st.ano, fim) }); }
+// abrir um país pela busca, ranking, lista ou globo: painel geral, sem herdar o filtro de produto
+function abrirPais(id) {
+  if (st.vista === "produto" && st.prod && !st.pais) return ir({ pais: id });          // no explorador (globo, lista), o produto continua sendo o contexto
+  abrirPaisGeral(id);
+}
+function abrirPaisGeral(id) { ir({ pais: id, prod: null, m: st.m === "prod" ? "corrente" : st.m, aba: "comercial", ano: Math.min(st.ano, fim) }); }
 
 // ---------- busca (bandeira + nome; teclado: ↑ ↓ Enter Esc) ----------
 const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
@@ -846,10 +1245,10 @@ function renderLista() {
   const m = MET[st.m]?.ctx || st.m === "prod" ? st.m : st.m;
   const r = ranking(m === "mud" ? "corrente" : m);
   const resto = IDS.filter((id) => !r.some(([x]) => x === id)).sort((a, b) => nome(a).localeCompare(nome(b)));
-  $("#lista").innerHTML = `${semGlobo ? `<p class="aviso-3d" role="status">O globo 3D não abriu neste navegador. Tudo continua aqui: busca, ano, métricas, rankings e detalhes.</p>` : ""}
+  $("#lista").innerHTML = `${semGlobo ? `<p class="aviso-3d" role="status">O globo 3D não abriu neste navegador; a lista mostra a mesma métrica e o mesmo ano.</p>` : ""}
     <p class="nota" style="margin-top:0">${r.length} países e territórios com dado em ${st.ano}, ordenados por ${esc(MET[m === "mud" ? "corrente" : m].rot.toLowerCase())}${resto.length ? `; ${resto.length} sem registro no ano, em ordem alfabética no fim` : ""}.</p>
     ${listaRank(r, m === "mud" ? "corrente" : m, st.ano)}
-    ${resto.length ? `<ol class="rank">${resto.map((id) => `<li><button type="button" data-pais="${id}"><span class="pos">—</span>${bandeira(id)}<span class="nome">${esc(nome(id))}${ehTerritorio(id) ? ' <span class="tag">território</span>' : ""}</span><span class="val">sem registro</span></button></li>`).join("")}</ol>` : ""}`;
+    ${resto.length ? `<h4 class="kicker" style="margin:20px 0 4px">Sem registro em ${st.ano}</h4><ol class="rank">${resto.map((id) => `<li class="sem${id === st.pais ? " atual" : ""}"><button type="button" data-pais="${id}"><span class="pos">—</span>${bandeira(id)}<span class="nome">${esc(nome(id))}${ehTerritorio(id) ? ' <span class="tag">território</span>' : ""}</span><span class="tr" aria-hidden="true" style="background:none"></span><span class="val">sem registro</span></button></li>`).join("")}</ol>` : ""}`;
   $$("[data-pais]", $("#lista")).forEach((b) => (b.onclick = () => abrirPais(b.dataset.pais)));
 }
 function modo(m) {
@@ -862,67 +1261,120 @@ function modo(m) {
 $$(".modos button").forEach((b) => (b.onclick = () => modo(b.dataset.modo)));
 $("#voltar").onclick = () => ir({ pais: null, vista: "inicio", vs: null, prod: st.m === "prod" ? null : st.prod, m: st.m === "prod" ? "corrente" : st.m });
 $("#abrirFontes").onclick = () => ir({ pais: null, vista: "fontes" });
+const NAV = { inicio: { vista: "inicio", m: "corrente" }, ranking: { vista: "ranking", m: "corrente" }, produto: { vista: "produto", m: "corrente" }, comparar: { vista: "comparar", m: "corrente" } };
+$$("[data-nav]").forEach((b) => (b.onclick = () => ir({ ...NAV[b.dataset.nav], pais: null, prod: null })));
+function retingir() { lerPaleta(); tingir(); pintarGlobo(); renderControles(); renderLista(); desenharGraficos(); }
+$("#tema").onclick = () => { aplicarTema(TEMAS[(TEMAS.indexOf(temaAtual()) + 1) % TEMAS.length]); retingir(); };
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", retingir);
 addEventListener("keydown", (e) => { if (e.key === "Escape" && st.pais && !e.target.closest(".ac")) ir({ pais: null }); });
 
 // ---------- gráficos (ECharts) ----------
+// Estilo comum (D49): fundo integrado à página, grade discreta, unidade no eixo, nome da série no fim da linha
+// (legenda só quando a última observação falta), cores fixas: exportações/série A no verde, importações/série B no ocre.
 let graficos = [];
-const eixoX = (a0, a1) => ({ type: "category", data: Array.from({ length: a1 - a0 + 1 }, (_, i) => String(a0 + i)), axisLine: { lineStyle: { color: "rgba(255,255,255,.15)" } }, axisLabel: { color: "#8a959b" } });
-const eixoY = (fmt) => ({ type: "value", splitLine: { lineStyle: { color: "rgba(255,255,255,.06)" } }, axisLabel: { color: "#8a959b", formatter: fmt } });
-const marca = () => ({ symbol: "none", silent: true, label: { show: false }, lineStyle: { color: "#e7ecea", type: "dashed", width: 1 }, data: [{ xAxis: String(st.ano) }] });
+const eixoX = (a0, a1) => ({ type: "category", data: Array.from({ length: a1 - a0 + 1 }, (_, i) => String(a0 + i)),
+  axisLine: { lineStyle: { color: PAL.rule2 } }, axisTick: { show: false }, axisLabel: { color: PAL.muted, fontSize: 11.5, hideOverlap: true } });
+const eixoY = (fmt) => ({ type: "value", splitNumber: 4, splitLine: { lineStyle: { color: PAL.rule, type: [3, 3] } }, axisLabel: { color: PAL.muted, fontSize: 11.5, formatter: fmt } });
+// marcas do ano escolhido e do ano-base, com rótulo curto no alto (não cobrem as séries)
+const marca = (base = false) => ({ symbol: "none", silent: true, lineStyle: { color: PAL.ink2, type: "dashed", width: 1 },
+  label: { show: true, position: "end", color: PAL.ink2, fontSize: 11, distance: 3 },
+  data: [{ xAxis: String(st.ano), label: { formatter: String(st.ano) } },
+    ...(base && st.base < st.ano ? [{ xAxis: String(st.base), lineStyle: { color: PAL.muted, type: "dotted" }, label: { formatter: String(st.base), color: PAL.muted } }] : [])] });
 const usdEixo = (v) => (v >= 1e9 ? nf(v / 1e9, 0) + " bi" : v >= 1e6 ? nf(v / 1e6, 0) + " mi" : nf(v, 0));
+const pctEixo = (v) => nf(v * 100, 0) + "%";
+// anotação curta de um fato calculado (ex.: o maior valor da série), com fundo da página para não brigar com a linha
+function pico(serie, a0) { let k = -1; (serie || []).forEach((v, j) => { if (v != null && (k < 0 || v > serie[k])) k = j; }); return k < 0 ? null : { ano: a0 + k, v: serie[k] }; }
+const anotar = (pts) => ({ symbol: "circle", symbolSize: 6, silent: true, itemStyle: { color: PAL.bg, borderColor: PAL.ink, borderWidth: 1.5 },
+  label: { show: true, color: PAL.ink, fontSize: 11.5, backgroundColor: PAL.bg, padding: [1, 4], distance: 7 },
+  data: pts.filter(Boolean).map((p) => ({ coord: [String(p.ano), p.v], label: { formatter: p.txt, position: p.pos || "top" } })) });
+function linha(name, data, cor, { curto = name, larg = 2, opac = 1, marcaL = null, pontos = null } = {}) {
+  return { name, type: "line", data, connectNulls: false, symbol: "circle", symbolSize: 4, showSymbol: true, itemStyle: { color: cor },
+    lineStyle: { width: larg, color: cor, opacity: opac }, emphasis: { disabled: true },
+    endLabel: { show: !!data?.length && data[data.length - 1] != null, formatter: curto, color: PAL.escuro ? cor : mistura(cor, PAL.ink, 0.3), fontSize: 12, fontWeight: 600, distance: 6 },   // texto: contraste ≥ 4,5:1
+    ...(marcaL ? { markLine: marcaL } : {}), ...(pontos ? { markPoint: pontos } : {}) };
+}
+const dica = (fmt) => ({ trigger: "axis", backgroundColor: PAL.surface, borderColor: PAL.rule2, textStyle: { color: PAL.ink, fontSize: 12.5 },
+  axisPointer: { lineStyle: { color: PAL.rule2 } }, valueFormatter: (v) => (v == null ? "sem registro" : fmt(v)) });
 function desenharGraficos() {
   graficos.forEach((g) => g.dispose()); graficos = [];
   if (typeof echarts === "undefined") return;
-  const novo = (sel, opt) => { const el = $(sel); if (!el) return; const g = echarts.init(el, null, { renderer: "svg" });
-    g.setOption({ textStyle: { color: "#b7c0c2", fontFamily: "IBM Plex Sans" }, grid: { left: 56, right: 14, top: 34, bottom: 26 }, animation: !reduzir, ...opt });
+  const novo = (sel, opt) => {
+    const el = $(sel); if (!el) return;
+    const g = echarts.init(el, null, { renderer: "svg" });
+    const grid = { left: 50, right: 16, top: 30, bottom: 24, ...(opt.grid || {}) };
+    const ls = (opt.series || []).filter((x) => x.type === "line" && x.endLabel);
+    if (ls.length && ls.every((x) => x.endLabel.show)) {          // rótulo no fim da linha: dispensa a legenda
+      delete opt.legend; grid.right = Math.max(grid.right, 14 + 7 * Math.max(...ls.map((x) => String(x.endLabel.formatter).length)));
+    } else ls.forEach((x) => (x.endLabel.show = false));
+    g.setOption({ textStyle: { color: PAL.ink2, fontFamily: "IBM Plex Sans, system-ui, sans-serif" }, animation: !reduzir, animationDuration: 300, ...opt, grid });
     g.on("click", (p) => { if (p.name && /^\d{4}$/.test(p.name)) ir({ ano: +p.name }, { push: false }); }); graficos.push(g); };
-  const leg = (nomes) => ({ data: nomes, textStyle: { color: "#b7c0c2" }, top: 0, right: 0 });
+  const leg = (nomes) => ({ data: nomes, textStyle: { color: PAL.ink2, fontSize: 12 }, top: 0, left: 0, icon: "roundRect", itemWidth: 12, itemHeight: 4 });
   const id = st.pais;
   if (id) {
     const d = id === BR ? C.brasil : C.paises[id];
-    if (d) novo("#gValores", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : usd(v)) }, legend: leg(["Exportações do Brasil", "Importações do Brasil"]),
-      xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
-      series: [{ name: "Exportações do Brasil", type: "line", data: d.e, connectNulls: false, symbolSize: 5, itemStyle: { color: "#8fd3b6" }, markLine: marca() },
-        { name: "Importações do Brasil", type: "line", data: d.i, connectNulls: false, symbolSize: 5, itemStyle: { color: "#9ccbea" } }] });
-    if (d && id !== BR) novo("#gPartes", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : pct(v)) }, legend: leg(["% das exportações do Brasil", "% das importações do Brasil"]),
-      xAxis: eixoX(ini, fim), yAxis: eixoY((v) => nf(v * 100, 0) + "%"),
-      series: [{ name: "% das exportações do Brasil", type: "line", data: d.e.map((v, j) => (v == null ? null : v / brE(ini + j))), symbolSize: 4, itemStyle: { color: "#8fd3b6" }, markLine: marca() },
-        { name: "% das importações do Brasil", type: "line", data: d.i.map((v, j) => (v == null ? null : v / brI(ini + j))), symbolSize: 4, itemStyle: { color: "#9ccbea" } }] });
+    if (d) novo("#gValores", { tooltip: dica(usd), legend: leg(["Exportações do Brasil", "Importações do Brasil"]), xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
+      series: [linha("Exportações do Brasil", d.e, PAL.exp, { curto: "Exportações", marcaL: marca(true) }), linha("Importações do Brasil", d.i, PAL.imp, { curto: "Importações" })] });
+    if (d && id !== BR) {
+      const se = d.e.map((v, j) => (v == null ? null : v / brE(ini + j))), si = d.i.map((v, j) => (v == null ? null : v / brI(ini + j)));
+      const pe = pico(se, ini);
+      novo("#gPartes", { tooltip: dica(pct), legend: leg(["% das exportações do Brasil", "% das importações do Brasil"]), xAxis: eixoX(ini, fim), yAxis: eixoY(pctEixo),
+        series: [linha("% das exportações do Brasil", se, PAL.exp, { curto: "Exportações", marcaL: marca(true), pontos: pe && pe.v > 0 ? anotar([{ ...pe, txt: `máx. ${pct(pe.v)} em ${pe.ano}` }]) : null }),
+          linha("% das importações do Brasil", si, PAL.imp, { curto: "Importações" })] });
+    }
     const u = H.onu.paises[id];
-    if (u) novo("#gOnu", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem votação" : `${Math.round(v * 100)} de 100`) }, legend: leg([nome(id), "Mediana dos países"]),
+    if (u) novo("#gOnu", { tooltip: dica((v) => `${Math.round(v * 100)} de 100`), legend: leg([nome(id), "Mediana dos países"]),
       xAxis: eixoX(H.onu.inicio, H.onu.fim), yAxis: { ...eixoY((v) => Math.round(v * 100)), min: 0, max: 1 },
-      series: [{ name: nome(id), type: "line", data: u, symbolSize: 3, itemStyle: { color: "#aad7f0" }, markLine: marca() },
-        { name: "Mediana dos países", type: "line", data: H.onu.mediana, symbol: "none", lineStyle: { type: "dotted", color: "#8a959b" }, itemStyle: { color: "#8a959b" } }] });
+      series: [linha(nome(id), u, PAL.rampa.onu[1], { curto: nome(id).length > 14 ? nome(id).slice(0, 13) + "…" : nome(id), larg: 1.6, marcaL: marca() }),
+        { ...linha("Mediana dos países", H.onu.mediana, PAL.muted, { curto: "Mediana", larg: 1.2 }), symbol: "none", lineStyle: { type: "dotted", color: PAL.muted, width: 1.2 } }] });
     const k = H.conflitos.paises[id];
     if (k) { const anos = Array.from({ length: H.conflitos.fim - H.conflitos.inicio + 1 }, (_, i) => H.conflitos.inicio + i), lin = (f) => anos.map((a) => { const x = k[String(a)]; return x ? f(x) : null; });
-      novo("#gConf", { grid: { left: 112, right: 14, top: 8, bottom: 26 }, tooltip: { trigger: "item", formatter: (p) => `${p.name}: ${p.seriesName}` }, xAxis: eixoX(H.conflitos.inicio, H.conflitos.fim),
-        yAxis: { type: "category", data: ["Com tropas", "Como lado", "No território"], axisLabel: { color: "#b7c0c2" }, axisLine: { show: false } },
-        series: [{ name: "conflito no território", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.t ? 2 : null)), itemStyle: { color: (p) => (k[p.name]?.t >= 2 ? "rgba(226,120,100,.95)" : "rgba(226,160,120,.65)") }, markLine: marca() },
-          { name: "lado principal", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.l ? 1 : null)), itemStyle: { color: "#aad7f0" } },
-          { name: "tropas de apoio (inclui missões de paz)", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.a ? 0 : null)), itemStyle: { color: "rgba(226,190,150,.6)" } }] }); }
-  } else if (st.vista === "produto" && P && st.prod && P.itens[st.prod]) {
-    const it = P.itens[st.prod];
-    novo("#gProd", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : usd(v)) }, legend: leg(["Exportações do Brasil", "Importações do Brasil"]),
-      xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
-      series: [{ name: "Exportações do Brasil", type: "line", data: it.e, symbolSize: 4, itemStyle: { color: "#8fd3b6" }, lineStyle: { width: st.fluxo === "e" ? 2.5 : 1, opacity: st.fluxo === "e" ? 1 : .5 }, markLine: marca() },
-        { name: "Importações do Brasil", type: "line", data: it.i, symbolSize: 4, itemStyle: { color: "#9ccbea" }, lineStyle: { width: st.fluxo === "i" ? 2.5 : 1, opacity: st.fluxo === "i" ? 1 : .5 } }] });
-  } else if (st.vista === "comparar") {
-    const a = cmpA, b = st.vs || "840", s = (x) => Array.from({ length: fim - ini + 1 }, (_, j) => trocas(x, ini + j)?.pt ?? null);
-    novo("#gCmp", { tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "sem registro" : pct(v)) }, legend: leg([nome(a), nome(b)]), xAxis: eixoX(ini, fim), yAxis: eixoY((v) => nf(v * 100, 0) + "%"),
-      series: [{ name: nome(a), type: "line", data: s(a), symbolSize: 4, itemStyle: { color: "#8fd3b6" }, markLine: marca() }, { name: nome(b), type: "line", data: s(b), symbolSize: 4, itemStyle: { color: "#e0b45c" } }] });
+      novo("#gConf", { grid: { left: 112, right: 14, top: 22, bottom: 26 }, tooltip: { trigger: "item", backgroundColor: PAL.surface, borderColor: PAL.rule2, textStyle: { color: PAL.ink }, formatter: (p) => `${p.name}: ${p.seriesName}` }, xAxis: eixoX(H.conflitos.inicio, H.conflitos.fim),
+        yAxis: { type: "category", data: ["Com tropas", "Como lado", "No território"], axisLabel: { color: PAL.ink2 }, axisLine: { show: false }, axisTick: { show: false } },
+        series: [{ name: "conflito no território", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.t ? 2 : null)), itemStyle: { color: (p) => (k[p.name]?.t >= 2 ? PAL.guerra : PAL.conflito) }, markLine: marca() },
+          { name: "lado principal", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.l ? 1 : null)), itemStyle: { color: PAL.rampa.onu[1] } },
+          { name: "tropas de apoio (inclui missões de paz)", type: "scatter", symbol: "rect", symbolSize: [5, 14], data: lin((x) => (x.a ? 0 : null)), itemStyle: { color: mistura(PAL.imp, PAL.bg, 0.35) } }] }); }
+  }
+  if (P && st.prod && P.itens[st.prod] && $("#gProd")) {
+    const it = P.itens[st.prod], e_ = st.fluxo === "e";
+    novo("#gProd", { tooltip: dica(usd), legend: leg(["Exportações do Brasil", "Importações do Brasil"]), xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
+      series: [linha("Exportações do Brasil", it.e, PAL.exp, { curto: "Exportações", larg: e_ ? 2.4 : 1.2, opac: e_ ? 1 : 0.55, marcaL: marca() }),
+        linha("Importações do Brasil", it.i, PAL.imp, { curto: "Importações", larg: e_ ? 1.2 : 2.4, opac: e_ ? 0.55 : 1 })] });
+  }
+  if (!id && st.vista === "comparar" && st.a && st.b) {
+    const a = st.a, b = st.b, part = (x) => Array.from({ length: fim - ini + 1 }, (_, j) => trocas(x, ini + j)?.pt ?? null);
+    const curto = (x) => (nome(x).length > 16 ? nome(x).slice(0, 15) + "…" : nome(x));
+    novo("#gCmpExp", { tooltip: dica(usd), legend: leg([nome(a), nome(b)]), xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
+      series: [linha(nome(a), C.paises[a]?.e || [], PAL.exp, { curto: curto(a), marcaL: marca() }), linha(nome(b), C.paises[b]?.e || [], PAL.imp, { curto: curto(b) })] });
+    novo("#gCmp", { tooltip: dica(pct), legend: leg([nome(a), nome(b)]), xAxis: eixoX(ini, fim), yAxis: eixoY(pctEixo),
+      series: [linha(nome(a), part(a), PAL.exp, { curto: curto(a), marcaL: marca() }), linha(nome(b), part(b), PAL.imp, { curto: curto(b) })] });
+  }
+  if (!id && st.vista === "inicio") {                         // entrada: as duas explorações com dado visível
+    const ch = Array.from({ length: fim - ini + 1 }, (_, j) => trocas("156", ini + j)?.pt ?? null);
+    const em_ = (a) => ({ ano: a, v: ch[a - ini] });
+    novo("#gInicioChina", { grid: { left: 38, right: 18, top: 28, bottom: 24 }, tooltip: dica(pct), xAxis: eixoX(ini, fim), yAxis: eixoY(pctEixo),
+      series: [{ ...linha("China: % da corrente do Brasil", ch, PAL.exp, { curto: "", larg: 2.2,
+        pontos: anotar([{ ...em_(2000), txt: `${pct(em_(2000).v)} em 2000` }, { ...em_(fim), txt: `${pct(em_(fim).v)} em ${fim}`, pos: "left" }]) }),
+        endLabel: { show: false }, areaStyle: { color: mistura(PAL.exp, PAL.bg, 0.9) } }] });
+    const cE = C.paises["156"]?.e, uE = C.paises["840"]?.e;
+    if (cE && uE) novo("#gInicioCmp", { grid: { left: 44, right: 16, top: 16, bottom: 22 }, tooltip: dica(usd), legend: leg(["China", "Estados Unidos"]), xAxis: eixoX(ini, fim), yAxis: eixoY(usdEixo),
+      series: [linha("China", cE, PAL.exp, { curto: "China", larg: 1.8 }), linha("Estados Unidos", uE, PAL.imp, { curto: "EUA", larg: 1.8 })] });
   }
 }
 addEventListener("resize", () => graficos.forEach((g) => g.resize()));
 
 // ---------- globo ----------
+// Aparência cartográfica (D49): oceano liso e claro, terra neutra para "sem registro", contornos finos,
+// país selecionado em tinta escura e mais alto, Brasil em cinza com contorno (é o ponto de vista, não um parceiro).
 let globo = null, poligonos = [], sobre = null;
-const TEXTURAS = "https://cdn.jsdelivr.net/npm/three-globe@2.45.6/example/img/";
 function corPol(f) {
-  if (f.id === st.pais) return "rgba(240,248,244,.62)";
-  if (f === sobre) return "rgba(231,236,234,.5)";
-  if (f.id === BR) return "rgba(143,211,182,.62)";
-  return corDe(f.id);
+  if (f.id === st.pais) return PAL.ink;
+  const c = f.id === BR ? PAL.br : corDe(f.id);
+  return f === sobre ? mistura(c, PAL.ink, 0.25) : c;
 }
+const contorno = (f) => (f.id === st.pais ? PAL.ink : f.id === BR ? PAL.ink2 : PAL.escuro ? "rgba(233,230,222,.24)" : "rgba(34,39,33,.28)");
+const ladoPol = (f) => (f.id === st.pais ? PAL.ink : "rgba(0,0,0,0)");
+const altPol = (f) => (f.id === st.pais ? 0.03 : (!st.pais && st.vista === "comparar" && (f.id === st.a || f.id === st.b)) ? 0.018 : 0.006);
+function pintarGlobo() { if (globo) globo.polygonCapColor(corPol).polygonStrokeColor(contorno).polygonSideColor(ladoPol).polygonAltitude(altPol); }
 function centro(f) {
   const g = f.geometry; if (!g) return null;
   const aneis = g.type === "Polygon" ? [g.coordinates[0]] : g.coordinates.map((p) => p[0]);
@@ -938,21 +1390,21 @@ function enquadrar() {
   globo.controls().autoRotate = !st.pais && !reduzir;
   if (alvo) globo.pointOfView(alvo, reduzir ? 0 : 1100);
 }
-function tingir() {
+function tingir() {                    // oceano em cor lisa, sem textura nem brilho
+  if (!globo) return;
   const mat = globo.globeMaterial();
-  mat.shininess = 0; mat.specular.set("#000000");
-  if ("bumpScale" in mat) mat.bumpScale = 6;
-  if (!mat.map) return setTimeout(tingir, 250);
-  mat.color = mat.specular.clone().set("#5a7b7e"); mat.needsUpdate = true;
+  mat.shininess = 0; if (mat.specular) mat.specular.set("#000000");
+  mat.color.set("#000000");
+  if (mat.emissive) { mat.emissive.set(PAL.oceano); mat.emissiveIntensity = 1; } else mat.color.set(PAL.oceano);
+  mat.needsUpdate = true;
 }
 function iniciarGlobo(atlas) {
   poligonos = topojson.feature(atlas, atlas.objects.countries).features.filter((f) => f.properties.name !== "Antarctica");
   const el = $("#globo");
   globo = Globe()(el)
-    .backgroundColor("rgba(0,0,0,0)").globeImageUrl(TEXTURAS + "earth-blue-marble.jpg").bumpImageUrl(TEXTURAS + "earth-topology.png")
-    .showGraticules(true).showAtmosphere(true).atmosphereColor("#7cc3b0").atmosphereAltitude(0.13)
-    .polygonsData(poligonos).polygonCapColor(corPol).polygonSideColor(() => "rgba(205,236,226,0.04)").polygonStrokeColor(() => "rgba(205,236,226,.28)")
-    .polygonAltitude((p) => (p.id === st.pais ? 0.03 : 0.006)).polygonsTransitionDuration(reduzir ? 0 : 250)
+    .backgroundColor("rgba(0,0,0,0)").showGraticules(true).showAtmosphere(false)
+    .polygonsData(poligonos).polygonCapColor(corPol).polygonSideColor(ladoPol).polygonStrokeColor(contorno)
+    .polygonAltitude(altPol).polygonsTransitionDuration(reduzir ? 0 : 200)
     .polygonLabel((f) => { const id = f.id; if (!H.paises[id]) return `<div class="tip"><b>${esc(f.properties.name)}</b><span>sem dados na base</span></div>`;
       const v = id === BR ? null : valor(id), p = id === BR ? null : posicao(id);
       return `<div class="tip">${bandeira(id)} <b>${esc(nome(id))}</b><span>${id === BR ? "ponto de referência da análise" : `${esc(MET[st.m].rot)} em ${st.ano}: ${esc(fmtValor(v))}${p ? ` · ${ord(p[0])} de ${p[1]}` : ""}`}</span></div>`; })
@@ -968,7 +1420,7 @@ $("#mais").onclick = () => { if (!globo) return; const v = globo.pointOfView(); 
 $("#menos").onclick = () => { if (!globo) return; const v = globo.pointOfView(); globo.pointOfView({ ...v, altitude: Math.min(4, v.altitude * 1.33) }, 300); };
 
 // ---------- partida ----------
-autocompletar($("#busca"), $("#buscaLista"), buscarPais, (id) => { $("#busca").value = ""; abrirPais(id); });
+autocompletar($("#busca"), $("#buscaLista"), buscarPais, (id) => { $("#busca").value = ""; abrirPaisGeral(id); });
 Object.assign(st, lerURL());
 if (location.hash && !location.hash.includes("=")) history.replaceState(null, "", urlDe(st));   // converte #China em #pais=CHN…
 render(true);
@@ -981,7 +1433,7 @@ render(true);
     iniciarGlobo(await r.json());
   } catch (e) {
     console.warn("Globo indisponível:", e.message);
-    semGlobo = true; $(".zoom").hidden = true; $('[data-modo="globo"]').disabled = true; modo("lista");
+    semGlobo = true; $(".zoom").hidden = true; const bg = $('[data-modo="globo"]'); bg.disabled = true; bg.title = "O globo 3D não abriu neste navegador"; modo("lista");
   }
 })();
 </script>
