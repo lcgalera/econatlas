@@ -393,3 +393,27 @@ As outras perguntas ficam em "Outras perguntas".
 - **Lista sem WebGL:** uma nota de uma linha, sem caixa de alerta; países sem registro num grupo próprio.
 
 **Correção de exibição:** um fluxo sem registro no ano aparecia como "0% do total" no painel, na tabela "ano × ano" e na comparação. Agora aparece "sem registro", e a mudança em p.p. vira "—". O cálculo não mudou.
+
+### D50 · 06/11/2026 · Atlas: mais espaço para a leitura, abertura que segue a pergunta, um controle de ano
+**Pedido:** acabamento pontual, mantendo a identidade da D49. Dados, cálculos e funções continuam os mesmos.
+
+**Espaço:**
+- **Proporção:** na entrada, mapa ou lista ficam com cerca de 35% da largura e a leitura com 65% (mínimo de 340 px para o mapa). Nas análises, 33% e 67%. "Ampliar análise" continua igual.
+- **Exploração principal:** o título ocupa a largura toda, com até 30 caracteres por linha (2 linhas em 1280, 1440 e 1920 px). Texto e gráfico ficam embaixo, em 5:7.
+- **Lista no painel do mapa:** a barra fica sob o nome e o valor fica à direita, em duas linhas. Nomes e números mantêm o tamanho.
+
+**Abertura que segue a pergunta:**
+- **País aberto diretamente** (busca, ranking ou mapa): continua a relação comercial completa, com a posição na métrica.
+- **País aberto a partir de um produto:** a abertura mostra o país, o produto ou grupo, o fluxo visto do Brasil, o ano, a posição nesse produto e fluxo, e a parte no total brasileiro desse produto.
+  - "Principal fornecedor" ou "principal destino" só aparece quando o país é o 1º.
+  - Fora dos 12 maiores, a abertura diz isso e lembra que não é zero.
+  - O ranking geral da corrente sai da abertura e continua em "Ver a relação comercial completa".
+- **Corpo da análise:** fica só com o que é diferente da abertura (valor, total do produto, peso na relação bilateral) e explica os dois denominadores.
+
+**Controles do produto:**
+- **Atalhos com rótulos curtos de navegação:** Soja em grão, Carnes, Veículos e peças, Telefones e redes, Medicamentos. O nome completo continua na dica do atalho, na análise e em "Detalhes"; códigos e filtros não mudam.
+- **Um controle de ano**, o "Ano do recorte" na barra da análise, só com 2000, 2010 e 2025.
+  - Saíram as faixas de ano do explorador e do painel produto → país.
+  - O mapa mostra o ano, mas não oferece uma segunda escolha.
+  - A série anual do Brasil diz que sua cobertura é completa, ao contrário da distribuição por parceiro.
+- **Ano pedido sem recorte** (por exemplo, um link com 2023): a página usa o recorte anterior e avisa ("Não há distribuição por parceiro em 2023 … Mostrando 2010"). A URL passa a mostrar o ano usado.
