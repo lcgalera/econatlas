@@ -85,7 +85,7 @@ def _public_db(conn, dest: Path, permitidas: set) -> Dict:
 
 
 def _static_assets(out: Path) -> None:
-    for name in ("styles.css", "texto.js", "app.js"):
+    for name in ("styles.css", "texto.js", "app.js", "icone.svg", "icone-180.png"):
         shutil.copy2(config.WEB_DIR / name, out / name)
     html = (config.WEB_DIR / "index.html").read_text(encoding="utf-8")
     html = html.replace('href="/static/', 'href="').replace('src="/static/', 'src="')
