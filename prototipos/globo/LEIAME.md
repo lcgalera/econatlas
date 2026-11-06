@@ -1,6 +1,6 @@
 # Como o Brasil se conecta ao mundo (D38–D47)
 
-**Desde 06/11/2026 (D47, D48):** atlas das relações comerciais do Brasil; D48 refinou o espaço de leitura, a informação em dois níveis, o percurso produto → país e a comparação. Ver `docs/PROJETO.md`, seção 7: o que a pessoa vê, definições dos
+**Desde 06/11/2026 (D47–D49):** atlas das relações comerciais do Brasil. D48 refinou o espaço de leitura, a informação em dois níveis, o percurso produto → país e a comparação. D49 deu a identidade editorial: tema claro, Newsreader e IBM Plex Sans, globo cartográfico sem a imagem de satélite. A descrição abaixo é histórica. Ver `docs/PROJETO.md`, seção 7: o que a pessoa vê, definições dos
 denominadores, esquema de `dados/historia.json` e `dados/produtos.json`, coleta e limitações. Teste no navegador: desktop 1440×900 e
 celular 390×844, com e sem WebGL. Bandeiras: flag-icons 7.5.0 (MIT) pela jsDelivr. O texto abaixo registra as versões anteriores.
 

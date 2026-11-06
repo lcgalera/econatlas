@@ -21,7 +21,7 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
 
 ## Leia antes de mudar qualquer coisa
 - docs/PROJETO.md (visão geral, fontes, arquitetura, esquemas dos dados do globo, automação, limitações)
-- docs/DECISOES.md (D1–D48: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
+- docs/DECISOES.md (D1–D49: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
 - README.md e prototipos/globo/LEIAME.md
 
 ## Regras que não podem ser quebradas
@@ -42,7 +42,8 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
 - Python 3.9, dependências fixas em requirements.txt; .venv/bin/python -m rotzx <comando>; testes: .venv/bin/python -m pytest -q
   (147 passam e 1 é pulado em 06/11/2026). Rode os testes antes de cada commit.
 - Interface sem build: HTML/JS com bibliotecas por CDN com versão exata (globe.gl@2.46.2, topojson-client@3.1.0,
-  world-atlas@2.0.2, three-globe@2.45.6 para as texturas). O globo é uma página só: prototipos/globo/index.html.
+  world-atlas@2.0.2, ECharts 5.5.0; fontes Newsreader e IBM Plex Sans). O globo é uma página só: prototipos/globo/index.html,
+  com tema claro principal e escuro opcional, cores por tokens CSS (D49).
 - Teste a interface num navegador sem tela (Playwright/Chromium com WebGL por software) em desktop e celular
   (1440×900 e 390×844), sem erros de página e sem rolagem horizontal.
 - Dados do globo: rotzx mundo-atualizar [--so-noticias | --so-relacoes | --sem-noticias]. Coletores em rotzx/mundo/.

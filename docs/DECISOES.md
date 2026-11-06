@@ -346,3 +346,50 @@ leitura e uma pergunta seguida até o fim, sem perder o contexto.
 - os fornecedores de fertilizantes;
 - China × Estados Unidos.
 As outras perguntas ficam em "Outras perguntas".
+
+### D49 · 06/11/2026 · Atlas: identidade editorial (tema claro, tipografia, globo cartográfico)
+**Pedido:** transformar o atlas numa publicação econômica editorial, sóbria e agradável de explorar.
+- **Referências:** a sobriedade e o conforto de leitura da Anthropic e a hierarquia editorial do NYT, sem copiar páginas, marcas ou fontes proprietárias.
+- **Escopo:** só design e usabilidade. Dados, cálculos, funções e estado na URL não mudam.
+
+**Identidade:**
+- **Tema claro como principal.** Fundo `#F3F0E8`, superfície `#FAF8F3`, texto `#222721`, acento verde `#385344`, ocre `#A16D2F` e linhas `#D8D4C9`.
+- **Tema escuro mantido.** Segue o sistema; um botão no cabeçalho alterna entre automático, claro e escuro, e a escolha fica no navegador.
+- **Cores só por tokens CSS.** O globo e os gráficos leem os tokens e se redesenham ao trocar o tema.
+- **Contraste conferido.** Texto, apoio e acento ficam acima de 4,5:1 nos dois temas. O ocre fica abaixo disso no claro (3,9:1), então só pinta barras e linhas; o texto que usa o ocre é escurecido.
+- **Sem ornamento.** Saíram as caixas arredondadas, gradientes e sombras. Fundo preenchido só em seleção, resumo e agrupamento.
+
+**Tipografia:**
+- Newsreader (serifa, OFL) para títulos, descobertas e números de destaque.
+- IBM Plex Sans (OFL) para texto e controles, com números tabulares em valores e tabelas.
+- A IBM Plex Mono saiu.
+- A hierarquia vem de tamanho, peso e espaço.
+
+**Composição:**
+- **Cabeçalho:** marca "rotzx" em serifa, descrição curta, navegação (Início, Parceiros, Produtos, Comparar), busca, Fontes e método, tema.
+- **Entrada:**
+  - propósito do projeto;
+  - exploração principal (a China) com gráfico da participação 1997–2025, anotado em 2000 e no último ano;
+  - duas secundárias em larguras diferentes: fertilizantes, com os três maiores fornecedores calculados quando os dados de produtos chegam, e China × EUA, com as exportações a cada um;
+  - "Outras perguntas" em lista compacta e sempre visível.
+- **País:** abertura própria com bandeira, nome, ano, leitura curta e uma faixa de indicadores separados por linhas finas, sem caixa por número. Abas com títulos em serifa; Home e End também funcionam.
+- **Rankings:** posição, bandeira, nome, barra na própria linha e valor alinhado, com a escala explicada embaixo. Na "Mudança", a barra parte do centro. O país selecionado ganha fundo e marcador lateral.
+- **Comparação:**
+  - abre com o mapa recolhido no computador;
+  - cada parceiro com bandeira, nome e a cor da sua série (A verde, B ocre) em todos os elementos;
+  - no celular, cada medida vira um bloco, com o nome do país junto de cada valor.
+- **Gráficos:**
+  - fundo integrado e grade tracejada fina;
+  - nome da série no fim da linha (legenda só quando falta o último ano);
+  - rótulos curtos nas marcas do ano e do ano-base;
+  - anotação do maior valor da participação nas exportações.
+  - Sem animação ornamental; tabelas de dados e "sem registro" mantidos.
+- **Globo:**
+  - oceano liso e claro, sem a imagem Blue Marble nem relevo;
+  - terra neutra para "sem registro" e contornos finos;
+  - métricas em rampas de cor com as mesmas escalas fixas;
+  - país selecionado em tinta escura e mais alto;
+  - Brasil em cinza com contorno, por ser o ponto de vista, como diz a legenda.
+- **Lista sem WebGL:** uma nota de uma linha, sem caixa de alerta; países sem registro num grupo próprio.
+
+**Correção de exibição:** um fluxo sem registro no ano aparecia como "0% do total" no painel, na tabela "ano × ano" e na comparação. Agora aparece "sem registro", e a mudança em p.p. vira "—". O cálculo não mudou.
