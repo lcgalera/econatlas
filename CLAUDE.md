@@ -17,7 +17,7 @@ Inteligência econômica com dados abertos e rastreáveis, em três frentes:
 3. Atlas "Como o Brasil se conecta ao mundo": `prototipos/globo/index.html` (frente em foco), relações e dependências comerciais do
    Brasil com todos os países e territórios desde 1997 (`rotzx/mundo/historia.py`, `catalog/paises_mundo.csv`). Notícias pausadas, sem coleta recorrente.
 
-Antes de mudar algo relevante, leia `docs/PROJETO.md` (visão completa) e `docs/DECISOES.md` (D1–D47).
+Antes de mudar algo relevante, leia `docs/PROJETO.md` (visão completa) e `docs/DECISOES.md` (D1–D48).
 Toda mudança relevante ganha uma decisão nova em `docs/DECISOES.md`.
 
 ## Regras que não podem ser quebradas

@@ -2,7 +2,7 @@
 
 Estado em 05/11/2026 (v0.13 e o globo com as decisões até D47). Este documento descreve o projeto inteiro: o que ele faz,
 de onde vem cada dado, como as peças se encaixam e como operar. O porquê de cada escolha está em [`DECISOES.md`](DECISOES.md)
-(D1–D47). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
+(D1–D48). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
 
 - Repositório: https://github.com/lcgalera/rotzx
 - Site público: https://lcgalera.github.io/rotzx/
@@ -151,8 +151,14 @@ automática (D45). As notícias estão pausadas (seção 7.5).
   2025. Clicar num parceiro abre o país mantendo o produto.
 - **Comparar dois parceiros:** tabela no ano, participação na corrente no mesmo eixo e 5 maiores produtos lado a lado.
 - **Fontes e método:** fonte, cobertura, unidade, definições, critérios, limitações e licenças.
-- **URL:** `#pais=CHN&ano=2025&m=exp&prod=1201&fluxo=e&vs=USA&aba=produtos&ver=ranking`. Voltar, avançar e recarregar mantêm o estado, e
-  `#China` continua funcionando.
+- **Espaço de leitura (D48):** nas análises, o conteúdo ganha mais largura. "Ampliar análise" recolhe o mapa, e uma barra no topo da análise
+  mostra o caminho (ex.: Início › Fertilizantes › Importações › Rússia), o ano e o botão. No celular, a análise abre com o mapa recolhido.
+- **Dois níveis (D48):** valor, participação com o que ela representa, ano e fonte ficam visíveis. Código SH4, descrição oficial, fórmula,
+  denominador e limitações ficam em "Detalhes" e "Sobre este dado".
+- **Produto → país (D48):** um fornecedor ou destino aberto pelo explorador mostra o país visto por aquele produto, fluxo e ano, com volta à
+  exploração (filtros e posição de leitura) e acesso à relação completa. A busca do topo abre sempre o painel geral.
+- **URL:** `#pais=RUS&prod=g-fertilizantes&fluxo=i&ano=2025` (país visto por um produto), `#ver=comparar&a=CHN&b=USA`, `&amplo=1`,
+  `&aba=produtos`, `#ver=ranking&m=mud&base=2000`. Voltar, avançar e recarregar mantêm o estado; `#China` e `vs=` continuam funcionando.
 
 ### 7.2 Definições (o denominador muda; a tela sempre diz qual)
 
@@ -280,4 +286,4 @@ sem WebGL, a lista de países assume).
 | D25–D27, D35 | nome rotzx e comunicação sem exagero |
 | D28–D34, D37 | radar de oportunidades (SIGET, avaliação, motor, histórico, contexto, leilões) |
 | D36 | Actions em Node 24 |
-| D38–D47 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico e atlas comercial |
+| D38–D48 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico, atlas comercial e refinamento da leitura |

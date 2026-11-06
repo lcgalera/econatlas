@@ -310,3 +310,39 @@ para vender e para comprar — e como isso mudou?". Diplomacia, conflitos e econ
 - Países pequenos ficam fora do mapa 1:110m, mas estão na lista e na busca.
 **Notícias:** continuam pausadas. A interface delas está no histórico do git (`prototipos/globo/index.html` no commit `d193691`), e os
 coletores em Python seguem no repositório.
+
+### D48 · 06/11/2026 · Atlas: espaço de leitura, informação em dois níveis e continuidade da investigação
+**Pedido:** refinar a experiência sem mudar o foco nem acrescentar funcionalidades. Mais espaço para as análises, menos detalhe técnico no meio da
+leitura e uma pergunta seguida até o fim, sem perder o contexto.
+**Espaço:**
+- Na entrada, mapa e conteúdo dividem a tela. Nas análises (país, produto, comparação, ranking), o conteúdo ganha mais largura.
+- "Ampliar análise" recolhe o mapa, e "Mostrar mapa" o devolve, sem perder nenhum filtro (`amplo=1` na URL). Gráficos e listas de produtos usam
+  o espaço liberado.
+- Uma barra de análise no fluxo da página mostra onde a pessoa está (ex.: Início › Fertilizantes › Importações › Rússia), o ano e o botão.
+  Num ranking com o mapa recolhido, ela mostra também a métrica.
+- No celular, a análise já abre com o mapa recolhido; a barra fica presa no topo.
+**Dois níveis:**
+- Sempre visíveis: nome legível, valor, participação com o que ela representa ("das compras brasileiras desse produto", "das vendas do Brasil a
+  esse parceiro"), ano e fonte resumida.
+- Sob demanda: "Detalhes" em cada produto (código SH4, descrição oficial, regra do grupo) e "Sobre este dado" em cada bloco (fórmula,
+  denominador, cobertura, limitações).
+- Avisos indispensáveis ficam visíveis: anos com distribuição por produto, "fora dos 12 maiores" não é zero, sem registro.
+**Produto → país:**
+- Clicar num fornecedor ou destino no explorador abre o país visto por aquele produto, fluxo e ano (`pais` + `prod` na URL). Mostra:
+  - o valor;
+  - a parte no total brasileiro do produto e a posição;
+  - o peso do produto na relação bilateral;
+  - os anos com distribuição por parceiro (2000, 2010, 2025, sem inventar série anual);
+  - "Voltar aos fornecedores/destinos", que restaura filtros e a posição de leitura (guardada na sessão do navegador);
+  - "Ver a relação comercial completa".
+- A busca do topo sempre abre o painel geral, sem herdar o produto.
+**Comparação:**
+- Os dois parceiros ficam na URL (`a`, `b`; o antigo `vs` vira `b`). "Comparar com outro parceiro" mantém o país atual e deixa o segundo campo
+  vazio, com instrução.
+- Cada campo não oferece o país do outro. País repetido ou código inválido na URL vira um aviso recuperável.
+- Destaque para as exportações (gráfico em US$, mesmo eixo) e para os produtos vendidos a cada um.
+**Entrada:** três explorações em destaque, cada uma com título, uma frase calculada dos dados e uma ação:
+- a China desde 2000: o painel ganha a tabela "2000 × 2025" em p.p. e os gráficos marcam os dois anos;
+- os fornecedores de fertilizantes;
+- China × Estados Unidos.
+As outras perguntas ficam em "Outras perguntas".

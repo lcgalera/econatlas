@@ -21,7 +21,7 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
 
 ## Leia antes de mudar qualquer coisa
 - docs/PROJETO.md (visão geral, fontes, arquitetura, esquemas dos dados do globo, automação, limitações)
-- docs/DECISOES.md (D1–D47: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
+- docs/DECISOES.md (D1–D48: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
 - README.md e prototipos/globo/LEIAME.md
 
 ## Regras que não podem ser quebradas
