@@ -10,6 +10,7 @@
   --rule-strong: #141413;
   --grid: #ecebe7;
   --accent: #1f5fbf;
+  --marca: #385344;
   --warn: #8a5a00;
   --crit: #b3261e;
   --series-1: #2a78d6;
@@ -34,6 +35,7 @@
     --rule-strong: #eeede9;
     --grid: #262624;
     --accent: #6ea3ee;
+    --marca: #8DBA9F;
     --warn: #e0a83a;
     --crit: #ef6b65;
     --series-1: #3987e5;
@@ -55,6 +57,7 @@
   --rule-strong: #eeede9;
   --grid: #262624;
   --accent: #6ea3ee;
+  --marca: #8DBA9F;
   --warn: #e0a83a;
   --crit: #ef6b65;
   --series-1: #3987e5;
@@ -81,10 +84,8 @@ code, .mono { font-family: var(--mono); font-size: .86em; }
 /* ---------- topo ---------- */
 .masthead { border-bottom: 1px solid var(--rule); background: var(--bg); position: sticky; top: 0; z-index: 10; }
 .masthead .wrap { display: flex; align-items: stretch; gap: 32px; min-height: 52px; }
-.wordmark {
-  font-family: var(--serif); font-weight: 700; font-size: 20px; letter-spacing: -.01em;
-  text-decoration: none; display: flex; align-items: center;
-}
+.wordmark { text-decoration: none; display: flex; align-items: center; color: var(--marca); }
+.wordmark .logo { display: block; height: 24px; width: auto; }
 .nav { display: flex; gap: 22px; flex: 1; overflow-x: auto; scrollbar-width: none; }
 .nav a {
   display: flex; align-items: center; white-space: nowrap; text-decoration: none;

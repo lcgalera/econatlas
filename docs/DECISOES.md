@@ -460,3 +460,15 @@ As outras perguntas ficam em "Outras perguntas".
   - vira desenho estático com movimento reduzido;
   - é anunciada uma vez como status.
 - **Assinatura no fim da entrada:** "Pátria amada, Brasil.", em serifa itálica, com o contorno do Brasil, um ponto ocre e a referência do retrato ("coletado em 06/11/2026, sem atualização em tempo real").
+
+### D52 · 06/11/2026 · Logo e ícone do rotzx
+**Pedido:** adotar a logo e o ícone novos ("Dois traços. Uma conexão.") onde o site precisa deles.
+- **Vetorização:** o símbolo e o nome foram vetorizados da arte enviada com potrace, mantendo a composição original. Não é um redesenho.
+- **Logo no cabeçalho:** a logo embutida em SVG substitui o texto "rotzx" no cabeçalho do atlas e no da página principal.
+  - A cor vem do tema: verde #385344 no claro, verde-claro #8DBA9F no escuro.
+  - Na página principal, que tem outra paleta, a cor vem de uma variável própria (`--marca`).
+  - Leitor de tela: o SVG é anunciado como "rotzx".
+- **Ícone do navegador e de tela inicial:** quadrado verde arredondado com o símbolo claro, em `icone.svg` e `icone-180.png` (180 px, para iPhone e Android).
+  - Fica em `prototipos/globo/` e em `web/`; o build público copia os dois.
+  - A cor da barra do navegador no celular é #385344.
+- A silhueta do Brasil continua no carregamento e na assinatura "Pátria amada, Brasil." (D51).
