@@ -220,6 +220,10 @@ título, veículo, data e link; país citado com acento e palavra inteira.
 Actions em Node 24 (D36). Python 3.9 no Actions e no Mac; não atualizar `setup-python` para v7 sem migrar o Python.
 O site só muda quando a rotina mensal roda; as manchetes do globo ficam frescas sem republicar, porque a página lê os dados do repositório.
 
+Se o deploy no Pages travar em "updating_pages" até o tempo limite (aconteceu três vezes em 06/11/2026, com o site e o pacote corretos),
+repetir o job não resolve: o Pages identifica a publicação pelo commit, e a do commit cancelado não volta. Publique a partir de um
+commit novo na `main` e confira a página ao vivo, porque a tela de configurações pode dizer "deployed" sem o conteúdo novo.
+
 ## 9. Linha de comando
 
 `.venv/bin/python -m rotzx <comando>`:
