@@ -54,13 +54,20 @@ COMEX_FORA = {"A Designar", "Bancos Centrais", "Internação na Zona Franca de M
 NOMES = {"KWT": "Kuwait", "NLD": "Países Baixos", "TWN": "Taiwan", "COG": "República do Congo", "COD": "Rep. Dem. do Congo",
          "CZE": "Tchéquia", "MKD": "Macedônia do Norte", "KNA": "São Cristóvão e Névis", "FLK": "Ilhas Malvinas (Falkland)",
          "GBR": "Reino Unido", "ARE": "Emirados Árabes Unidos", "SWZ": "Essuatíni", "CIV": "Costa do Marfim",
-         "PSE": "Palestina", "TLS": "Timor-Leste", "BIH": "Bósnia e Herzegovina"}
+         "PSE": "Palestina", "TLS": "Timor-Leste", "BIH": "Bósnia e Herzegovina",
+         "VGB": "Ilhas Virgens Britânicas", "VIR": "Ilhas Virgens Americanas", "HMD": "Ilhas Heard e McDonald"}
 # Códigos da UCDP (Gleditsch & Ward) e da ONU (COW) que o arquivo da ONU não liga a um ISO3 de hoje: país atual no mapa
 GW_ISO3 = {751: "IND",   # Hyderabad (1948) → território da Índia
            817: "VNM",   # Vietnã do Sul
            678: "YEM", 679: "YEM", 680: "YEM",   # Iêmen do Norte, Iêmen unificado, Iêmen do Sul
            265: "DEU", 255: "DEU", 260: "DEU",   # Alemanhas
            345: "SRB", 347: "XKX"}               # Iugoslávia/Sérvia; Kosovo (sem ISO oficial, fica fora do mapa)
+
+
+# "tipo": país (Estado soberano) ou território. Regra: quem tem código COW na base de votos da ONU é Estado; os Estados
+# abaixo não aparecem nela (observadores na ONU ou sem voto registrado) e são marcados à mão. O resto é território
+# (dependências, regiões administrativas especiais, áreas sem governo próprio) — a interface diz "países e territórios".
+ESTADOS_SEM_COW = {"PSE", "VAT", "XKX", "SSD"}
 
 
 def _norm(s: str) -> str:
@@ -77,7 +84,8 @@ def _nome_comum(comex_nome: str) -> str:
 def _iso_pycountry():
     import pycountry
     pt = gettext.translation("iso3166-1", pycountry.LOCALES_DIR, languages=["pt_BR"], fallback=True)
-    paises = {c.alpha_3: {"iso_num": c.numeric, "iso3": c.alpha_3, "nome_oficial": pt.gettext(c.name)} for c in pycountry.countries}
+    paises = {c.alpha_3: {"iso_num": c.numeric, "iso3": c.alpha_3, "iso2": c.alpha_2, "nome_oficial": pt.gettext(c.name)}
+              for c in pycountry.countries}
     indice = {}
     for c in pycountry.countries:
         for n in {c.name, getattr(c, "common_name", c.name), getattr(c, "official_name", c.name)}:
@@ -126,16 +134,20 @@ def gerar(comex_lista: List[dict], cow_iso3: Dict[int, str], gw_codigos: List[in
     linhas = []
     for a, p in sorted(por_iso.items(), key=lambda kv: kv[1]["iso_num"]):
         nome = NOMES.get(a) or p["nome"] or p["nome_oficial"]
-        linhas.append({"iso_num": p["iso_num"], "iso3": a, "nome": nome, "comex": "|".join(sorted(p["comex"])),
+        linhas.append({"iso_num": p["iso_num"], "iso3": a, "iso2": p["iso2"], "nome": nome, "tipo": "pais" if p["cow"] or a in ESTADOS_SEM_COW else "territorio",
+                       "comex": "|".join(sorted(p["comex"])),
                        "cow": "|".join(map(str, sorted(set(p["cow"])))), "gw": "|".join(map(str, sorted(set(p["gw"])))),
                        "no_mapa": int(p["iso_num"] in no_mapa)})
+    repetidos = {n for n in [r["nome"] for r in linhas] if [r["nome"] for r in linhas].count(n) > 1}
+    if repetidos:
+        raise ValueError(f"nomes repetidos na tabela de países (acrescente em NOMES): {sorted(repetidos)}")
     return linhas
 
 
 def gravar(linhas: List[dict], arquivo: Path = ARQUIVO) -> None:
     arquivo.parent.mkdir(parents=True, exist_ok=True)
     with open(arquivo, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["iso_num", "iso3", "nome", "comex", "cow", "gw", "no_mapa"])
+        w = csv.DictWriter(f, fieldnames=["iso_num", "iso3", "iso2", "nome", "tipo", "comex", "cow", "gw", "no_mapa"])
         w.writeheader()
         w.writerows(linhas)
 

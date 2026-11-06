@@ -83,3 +83,10 @@ def produtos_todos(ano: str, fluxo: str, pasta: Optional[Path] = None) -> Dict[s
     for x in _get(f, pasta):
         out.setdefault(x["noPaispt"], []).append((x["coSh4"], x["noSh4pt"].replace("\xa0", " "), float(x["vlFob"])))
     return out
+
+
+def produtos_serie(ano_ini: str, ano_fim: str, fluxo: str, pasta: Optional[Path] = None) -> Dict[tuple, float]:
+    """US$ FOB do Brasil por (produto SH4, ano), todos os parceiros somados, numa consulta só (D47)."""
+    f = _filtro(ano_ini, fluxo, "noSh4pt")
+    f["yearEnd"] = ano_fim
+    return {(x["coSh4"], int(x["coAno"])): float(x["vlFob"]) for x in _get(f, pasta)}

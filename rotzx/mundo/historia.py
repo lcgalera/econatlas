@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from . import bancomundial, codigos, comex, conflitos, omc, onu
+from . import bancomundial, codigos, comex, conflitos, omc, onu, produtos_nomes
 
 ANO_COMEX = 1997
 ANO_ONU = 1946
@@ -30,14 +30,19 @@ def _serie(valores: Dict[int, float], inicio: int, fim: int, casas: Optional[int
 
 
 # ---------- comércio ----------
-def comercio(tabela: List[dict], fim: int, pasta: Optional[Path] = None, ano_produtos_antes: int = 2000,
-             nomes_comex: Optional[List[dict]] = None) -> dict:
+ANOS_PRODUTOS = (2000, 2010)   # mais o último ano: recortes com a composição completa por produto (D47)
+TOP_PRODUTOS = 10
+
+
+def comercio(tabela: List[dict], fim: int, pasta: Optional[Path] = None, anos_produtos: Optional[List[int]] = None,
+             nomes_comex: Optional[List[dict]] = None, pares_saida: Optional[dict] = None) -> dict:
     """A API devolve o nome do país (noPaispt), não o código: a ponte é a tabela de países do Comex (/tables/countries)."""
     nomes_comex = nomes_comex if nomes_comex is not None else codigos._json(codigos.COMEX_PAISES)["data"]["list"]
     cod_de = {x["text"]: x["id"] for x in nomes_comex}
     iso_de = {c: r["iso_num"] for r in tabela for c in r["comex"]}
     por_codigo = {nome: iso_de[c] for nome, c in cod_de.items() if c in iso_de}
-    out = {"inicio": ANO_COMEX, "fim": fim, "paises": {}, "brasil": {}, "sh4": {}, "anos_produtos": [ano_produtos_antes, fim]}
+    anos_produtos = sorted(set(anos_produtos or [*ANOS_PRODUTOS, fim]))
+    out = {"inicio": ANO_COMEX, "fim": fim, "paises": {}, "brasil": {}, "sh4": {}, "anos_produtos": anos_produtos}
     totais = {}
     for fluxo, k in (("exportacao", "e"), ("importacao", "i")):
         serie = comex.serie(str(ANO_COMEX), str(fim), fluxo, pasta)   # {(nome do país, ano): US$ FOB}
@@ -53,24 +58,67 @@ def comercio(tabela: List[dict], fim: int, pasta: Optional[Path] = None, ano_pro
         d["e"] = _serie(d["e"], ANO_COMEX, fim)
         d["i"] = _serie(d["i"], ANO_COMEX, fim)
     out["brasil"] = {k: _serie(v, ANO_COMEX, fim) for k, v in totais.items()}
-    for ano in (ano_produtos_antes, fim):
+    # Composição por produto: a consulta traz TODOS os pares país × SH4 do ano, então o total bilateral (denominador das
+    # participações) e o número de posições são exatos; guardam-se os 10 maiores de cada lado.
+    for ano in anos_produtos:
         for fluxo, k in (("exportacao", "e"), ("importacao", "i")):
             pares = comex.produtos_todos(str(ano), fluxo, pasta)    # {nome do país: [(sh4, nome, fob)]}
-            por_iso: Dict[str, List[tuple]] = {}
+            por_iso: Dict[str, Dict[str, float]] = {}
             for cod, itens in pares.items():
                 iso = por_codigo.get(cod)
-                if iso:
-                    por_iso.setdefault(iso, []).extend(itens)
-            for iso, itens in por_iso.items():
-                soma: Dict[str, float] = {}
                 for sh4, nome, fob in itens:
-                    soma[sh4] = soma.get(sh4, 0) + fob
                     out["sh4"][sh4] = nome
-                total = sum(soma.values()) or 1.0
-                top = sorted(soma.items(), key=lambda kv: -kv[1])[:5]
+                    if iso:
+                        d = por_iso.setdefault(iso, {})
+                        d[sh4] = d.get(sh4, 0) + fob
+            if pares_saida is not None:
+                pares_saida[(ano, k)] = por_iso
+            for iso, soma in por_iso.items():
+                top = sorted(soma.items(), key=lambda kv: -kv[1])[:TOP_PRODUTOS]
                 out["paises"].setdefault(iso, {}).setdefault("p", {}).setdefault(str(ano), {})[k] = \
-                    [[sh4, round(v), round(v / total, 4)] for sh4, v in top]
+                    {"t": round(sum(soma.values())), "n": len(soma), "top": [[sh4, round(v)] for sh4, v in top]}
+    out["curtos"] = {c: produtos_nomes.curto(c, n) for c, n in out["sh4"].items() if c in produtos_nomes.CURTOS or c in produtos_nomes.SEM_DESCRICAO}
     return out
+
+
+# ---------- produtos (D47): séries anuais por SH4 e distribuição por parceiro nos anos com recorte completo ----------
+MIN_PRODUTO = 50e6   # posições que passaram de US$ 50 milhões num ano em algum dos fluxos (o resto fica de fora do explorador)
+TOP_PARCEIROS = 12
+
+
+def produtos(fim: int, pares: dict, nomes: Dict[str, str], pasta: Optional[Path] = None) -> dict:
+    """Arquivo do explorador por produto. Séries do Brasil por SH4 (todos os parceiros) desde 1997 e, nos anos de `pares`,
+    os maiores parceiros de cada produto com o total do produto no ano (denominador das participações)."""
+    serie = {k: comex.produtos_serie(str(ANO_COMEX), str(fim), fluxo, pasta) for fluxo, k in (("exportacao", "e"), ("importacao", "i"))}
+    por_sh4: Dict[str, Dict[str, Dict[int, float]]] = {}
+    for k, d in serie.items():
+        for (sh4, ano), v in d.items():
+            por_sh4.setdefault(sh4, {"e": {}, "i": {}})[k][ano] = v
+    manter = {c for c, d in por_sh4.items() if max(list(d["e"].values()) + list(d["i"].values()) or [0]) >= MIN_PRODUTO}
+    itens = {}
+    for c in sorted(manter):
+        itens[c] = {"nome": produtos_nomes.curto(c, nomes.get(c, "")), "oficial": nomes.get(c, ""),
+                    "e": _serie(por_sh4[c]["e"], ANO_COMEX, fim), "i": _serie(por_sh4[c]["i"], ANO_COMEX, fim), "p": {}}
+    for gid, g in produtos_nomes.GRUPOS.items():
+        soma = {k: {} for k in ("e", "i")}
+        for c in g["sh4"]:
+            for k in ("e", "i"):
+                for ano, v in por_sh4.get(c, {}).get(k, {}).items():
+                    soma[k][ano] = soma[k].get(ano, 0) + v
+        itens[gid] = {"nome": g["nome"], "oficial": "Grupo: " + g["regra"], "grupo": g["sh4"],
+                      "e": _serie(soma["e"], ANO_COMEX, fim), "i": _serie(soma["i"], ANO_COMEX, fim), "p": {}}
+    for (ano, k), por_iso in pares.items():
+        por_produto: Dict[str, Dict[str, float]] = {}
+        for iso, d in por_iso.items():
+            for c, v in d.items():
+                alvos = [c] if c in itens else []
+                alvos += [gid for gid, g in produtos_nomes.GRUPOS.items() if c in g["sh4"]]
+                for a in alvos:
+                    por_produto.setdefault(a, {})[iso] = por_produto.setdefault(a, {}).get(iso, 0) + v
+        for a, d in por_produto.items():
+            top = sorted(d.items(), key=lambda kv: -kv[1])[:TOP_PARCEIROS]
+            itens[a]["p"].setdefault(str(ano), {})[k] = {"t": round(sum(d.values())), "n": len(d), "top": [[iso, round(v)] for iso, v in top]}
+    return {"inicio": ANO_COMEX, "fim": fim, "anos_parceiros": sorted({a for a, _ in pares}), "min_produto": MIN_PRODUTO, "itens": itens}
 
 
 # ---------- ONU ----------
@@ -141,10 +189,11 @@ def montar(saida: Path, brutos: Path, ano_fim_comex: Optional[str] = None, log=p
     tabela = codigos.carregar()
     fim = int(ano_fim_comex or datetime.now().year - 1)
     agora = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    out = {"gerado_em": agora, "falhas": {}, "paises": {r["iso_num"]: {"nome": r["nome"], "iso3": r["iso3"], "no_mapa": r["no_mapa"]}
-                                                     for r in tabela}}
+    out = {"gerado_em": agora, "falhas": {}, "paises": {r["iso_num"]: {"nome": r["nome"], "iso3": r["iso3"], "iso2": r.get("iso2", ""),
+                                                                    "tipo": r.get("tipo", ""), "no_mapa": r["no_mapa"]} for r in tabela}}
+    pares: dict = {}
     etapas = [
-        ("comercio", lambda: comercio(tabela, fim, brutos / "comex")),
+        ("comercio", lambda: comercio(tabela, fim, brutos / "comex", pares_saida=pares)),
         ("onu", lambda: votos(tabela, sorted((brutos / "onu").glob("*_AgreementScores.csv"))[-1])),
         ("conflitos", lambda: conflitos_por_ano(tabela, conflitos.ler(sorted((brutos / "ucdp").glob("*.zip"))[-1].read_bytes()))),
         ("omc", lambda: disputas(tabela)),
@@ -157,9 +206,23 @@ def montar(saida: Path, brutos: Path, ano_fim_comex: Optional[str] = None, log=p
         except (OSError, ValueError, KeyError, IndexError) as e:
             out["falhas"][nome] = f"{type(e).__name__}: {e}"[:200]
             log(f"  falhou: {out['falhas'][nome]}")
-    txt = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
-    saida.mkdir(parents=True, exist_ok=True)
-    (saida / "historia.json").write_text(txt, encoding="utf-8")
-    (saida / "historia.js").write_text(f"window.HISTORIA = {txt};\n", encoding="utf-8")
-    log(f"historia.json: {len(txt) / 1e6:.2f} MB")
+    _gravar(saida, "historia", "HISTORIA", out, log)
+    if pares and "comercio" in out:
+        log("produtos: coletando")
+        try:
+            pr = produtos(fim, pares, out["comercio"]["sh4"], brutos / "comex")
+            pr["gerado_em"] = agora
+            _gravar(saida, "produtos", "PRODUTOS", pr, log)
+        except (OSError, ValueError, KeyError) as e:
+            out["falhas"]["produtos"] = f"{type(e).__name__}: {e}"[:200]
+            log(f"  falhou: {out['falhas']['produtos']}")
+            _gravar(saida, "historia", "HISTORIA", out, log)
     return out
+
+
+def _gravar(saida: Path, nome: str, var: str, dados: dict, log=print) -> None:
+    txt = json.dumps(dados, ensure_ascii=False, separators=(",", ":"))
+    saida.mkdir(parents=True, exist_ok=True)
+    (saida / f"{nome}.json").write_text(txt, encoding="utf-8")
+    (saida / f"{nome}.js").write_text(f"window.{var} = {txt};\n", encoding="utf-8")
+    log(f"{nome}.json: {len(txt) / 1e6:.2f} MB")
