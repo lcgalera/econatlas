@@ -6,7 +6,7 @@ Ele resume o projeto, as regras e o estado em 05/11/2026; a documentação compl
 ---
 
 ```text
-Você vai trabalhar no rotzx (repositório lcgalera/rotzx, site https://lcgalera.github.io/rotzx/).
+Você vai trabalhar no rotzx (repositório lcgalera/rotzx, site https://lcgalera.github.io/rotzx/, que desde a D53 é só o atlas).
 Escreva e responda em português do Brasil. O nome do produto é "rotzx", sempre em minúsculas.
 
 ## O que é
@@ -15,13 +15,13 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
    materiais elétricos (IBGE 3.27) registradas antes de os dados saírem, com placar público (registro/*.csv, só acréscimos).
 2. Radar de oportunidades em transmissão de energia (B2B): projetos do SIGET/ANEEL com evidência por regra (R1–R5),
    score explicado, histórico semanal (historico/*.csv), leilões e contexto econômico.
-3. Atlas "Como o Brasil se conecta ao mundo" (https://lcgalera.github.io/rotzx/globo/): de quem o Brasil depende para vender e
+3. Atlas "Como o Brasil se conecta ao mundo" (https://lcgalera.github.io/rotzx/, o site público inteiro desde a D53): de quem o Brasil depende para vender e
    comprar, e como isso mudou desde 1997 — parceiros, produtos (SH4), concentração e comparação, com o contexto diplomático
    (ONU, OMC, conflitos) em segundo plano. É a frente em foco; as notícias estão pausadas.
 
 ## Leia antes de mudar qualquer coisa
 - docs/PROJETO.md (visão geral, fontes, arquitetura, esquemas dos dados do globo, automação, limitações)
-- docs/DECISOES.md (D1–D52: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
+- docs/DECISOES.md (D1–D53: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
 - README.md e prototipos/globo/LEIAME.md
 
 ## Regras que não podem ser quebradas

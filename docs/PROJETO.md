@@ -2,11 +2,10 @@
 
 Estado em 05/11/2026 (v0.13 e o globo com as decisões até D47). Este documento descreve o projeto inteiro: o que ele faz,
 de onde vem cada dado, como as peças se encaixam e como operar. O porquê de cada escolha está em [`DECISOES.md`](DECISOES.md)
-(D1–D52). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
+(D1–D53). Para continuar o projeto com um assistente de IA, use [`PROMPT.md`](PROMPT.md).
 
 - Repositório: https://github.com/lcgalera/rotzx
-- Site público: https://lcgalera.github.io/rotzx/
-- O mundo visto do Brasil (globo): https://lcgalera.github.io/rotzx/globo/
+- Site público: https://lcgalera.github.io/rotzx/ (só o atlas "Como o Brasil se conecta ao mundo", D53; `/globo/` redireciona para a raiz)
 
 ---
 
@@ -244,7 +243,7 @@ commit novo na `main` e confira a página ao vivo, porque a tela de configuraç�
 | `atualizar [séries]` | baixa as séries do catálogo (vintages com SHA-256) |
 | `prever` / `prever-setor [--pessoal]` | registra as previsões do IPCA / setoriais |
 | `backtest`, `calibrar-setorial`, `analisar-setor` | backtest do IPCA, cobertura das faixas setoriais, indicadores antecedentes |
-| `publicar [--saida pasta]` | gera o site público com a varredura anti-vazamento |
+| `publicar [--saida pasta] [--completo]` | gera o site público (só o atlas na raiz; `--completo` = site antigo com os radares) com a varredura anti-vazamento |
 | `registro-exportar` / `registro-importar` / `registro-verificar [--contra REF]` | registro público em CSV |
 | `importar-macrodados arquivo.csv` | só no Mac, uso pessoal |
 | `qualidade` | verificações de consistência |
@@ -307,4 +306,4 @@ sem WebGL, a lista de países assume).
 | D25–D27, D35 | nome rotzx e comunicação sem exagero |
 | D28–D34, D37 | radar de oportunidades (SIGET, avaliação, motor, histórico, contexto, leilões) |
 | D36 | Actions em Node 24 |
-| D38–D52 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico, atlas comercial, refinamento da leitura, identidade editorial, acabamento, versão estável e logo |
+| D38–D53 | o globo: fontes, publicação, relações, conflitos, manchetes (pausadas), retrato histórico, atlas comercial, refinamento da leitura, identidade editorial, acabamento, versão estável, logo e atlas como site público |

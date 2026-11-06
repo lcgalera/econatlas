@@ -1,10 +1,13 @@
 """Build público: site estático (HTML + JSON) só com séries de uso público.
 
-    .venv/bin/python -m rotzx publicar            # gera ./site
-    .venv/bin/python -m rotzx publicar --saida X  # gera em X
+    .venv/bin/python -m rotzx publicar              # gera ./site: só o atlas, na raiz (D53)
+    .venv/bin/python -m rotzx publicar --completo   # site antigo completo (radares, previsões, atlas em /globo/)
+    .venv/bin/python -m rotzx publicar --saida X    # gera em X
 
 O resultado pode ser hospedado como está (GitHub Pages, Cloudflare Pages): não depende
-do servidor FastAPI. A interface é a mesma de web/, em modo estático (window.ROTZX_STATIC).
+do servidor FastAPI. Desde a D53, o site público é só o atlas "Como o Brasil se conecta ao mundo" na raiz;
+/globo/ redireciona para a raiz mantendo o que vem depois do # (país, ano, filtros). O modo completo usa a
+interface de web/ em modo estático (window.ROTZX_STATIC) e continua disponível para voltar atrás.
 
 Regras (D20):
 - entram só séries com uso == "publico" no catálogo; tudo que é pessoal (Macrodados) fica de fora
@@ -99,12 +102,41 @@ def _static_assets(out: Path) -> None:
         shutil.copytree(globo, out / "globo", ignore=shutil.ignore_patterns("LEIAME.md", "__pycache__"))
 
 
-def build(out: Optional[Path] = None, conn=None, catalog: Optional[Dict] = None) -> Dict:
+GLOBO = config.ROOT / "prototipos" / "globo"   # atlas (D41, D47–D52): só dados abertos
+REDIRECIONA_GLOBO = """<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>rotzx — Como o Brasil se conecta ao mundo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="../">
+<script>location.replace("../" + location.hash);</script>
+<meta http-equiv="refresh" content="0; url=../"></head>
+<body style="font-family:system-ui,sans-serif;background:#F3F0E8;color:#222721;padding:24px">
+<p>O atlas “Como o Brasil se conecta ao mundo” agora fica em <a href="../">lcgalera.github.io/rotzx/</a>.</p></body></html>
+"""
+
+
+def _so_atlas(out: Path) -> None:
+    """Site público só com o atlas, na raiz; /globo/ redireciona levando o hash (links antigos continuam valendo)."""
+    for p in GLOBO.iterdir():
+        if p.name in ("LEIAME.md", "__pycache__"):
+            continue
+        (shutil.copytree if p.is_dir() else shutil.copy2)(p, out / p.name)
+    (out / "globo").mkdir()
+    (out / "globo" / "index.html").write_text(REDIRECIONA_GLOBO, encoding="utf-8")
+    (out / ".nojekyll").write_text("")  # GitHub Pages: servir arquivos como estão
+
+
+def build(out: Optional[Path] = None, conn=None, catalog: Optional[Dict] = None, completo: bool = False) -> Dict:
     from .analysis import leading
     from .forecast import setorial
     out = Path(out or config.PUBLIC_SITE_DIR)
     conn = conn or storage.connect()
     full = catalog if catalog is not None else cat.load_catalog()
+    if not completo:                               # D53: o site público é só o atlas
+        _prepare_dir(out)
+        _so_atlas(out)
+        meta = {"gerado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"), "versao_codigo": __version__,
+                "site": "atlas", "aviso": "Somente dados abertos."}
+        verificar(out, full, conn)
+        return meta
     pub_cat = {k: m for k, m in full.items() if m.uso == "publico"}
     permitidas = set(pub_cat)
     _prepare_dir(out)

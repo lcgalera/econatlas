@@ -472,3 +472,16 @@ As outras perguntas ficam em "Outras perguntas".
   - Fica em `prototipos/globo/` e em `web/`; o build público copia os dois.
   - A cor da barra do navegador no celular é #385344.
 - A silhueta do Brasil continua no carregamento e na assinatura "Pátria amada, Brasil." (D51).
+
+### D53 · 06/11/2026 · O site público passa a ser só o atlas, na raiz
+**Pedido:** tirar a página inicial e deixar ativo só o atlas, em https://lcgalera.github.io/rotzx/.
+
+**O que muda no site:**
+- `rotzx publicar` gera o atlas "Como o Brasil se conecta ao mundo" na raiz.
+- Radar Setorial, Radar Brasil, MacroForecast e o placar de previsões saem do site público.
+- `/globo/` vira uma página que redireciona para a raiz levando o que vem depois do `#`. Links antigos como `/globo/#pais=CHN&ano=2010` continuam abrindo o mesmo estado; sem JavaScript, um aviso com link leva à raiz.
+- A varredura anti-vazamento continua rodando sobre o site novo.
+
+**O que continua igual no repositório:** a interface `web/`, os dados, o registro de previsões (só acréscimos), a rotina mensal e o servidor local.
+
+**Como voltar atrás:** `rotzx publicar --completo` gera o site antigo, com os radares na raiz e o atlas em `/globo/`. Os testes de vazamento do modo completo continuam valendo.

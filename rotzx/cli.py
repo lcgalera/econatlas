@@ -194,6 +194,7 @@ def main(argv=None):
 
     pb = sub.add_parser("publicar", help="gera o site público estático (só dados abertos) em ./site")
     pb.add_argument("--saida", default=None, help="pasta de saída (padrão: ./site)")
+    pb.add_argument("--completo", action="store_true", help="site antigo completo (radares e previsões; atlas em /globo/)")
 
     an = sub.add_parser("analisar-setor", help="testa indicadores antecedentes por setor (fora da amostra)")
     an.add_argument("setores", nargs="*", help="eletrico, maquinas, maquinas_abimaq (padrão: todos)")
@@ -252,9 +253,12 @@ def main(argv=None):
         import_macrodados(args.arquivos, args.modulo, args.tema)
     elif args.cmd == "publicar":
         from . import public_build
-        m = public_build.build(Path(args.saida) if args.saida else None)
-        print(f"site público gerado: {m['series']} séries, análises {m['setores_analise']}, "
-              f"previsões setoriais {m['setores_previsao']}; verificação anti-vazamento ok")
+        m = public_build.build(Path(args.saida) if args.saida else None, completo=args.completo)
+        if args.completo:
+            print(f"site público completo gerado: {m['series']} séries, análises {m['setores_analise']}, "
+                  f"previsões setoriais {m['setores_previsao']}; verificação anti-vazamento ok")
+        else:
+            print("site público gerado: atlas na raiz, /globo/ redireciona; verificação anti-vazamento ok")
     elif args.cmd == "analisar-setor":
         for r in analyze_sector(args.setores or None):
             print(f"{r['setor']}: {r['n_testes']} testes, {len(r['candidatos'])} candidatos")
