@@ -15,13 +15,13 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
    materiais elétricos (IBGE 3.27) registradas antes de os dados saírem, com placar público (registro/*.csv, só acréscimos).
 2. Radar de oportunidades em transmissão de energia (B2B): projetos do SIGET/ANEEL com evidência por regra (R1–R5),
    score explicado, histórico semanal (historico/*.csv), leilões e contexto econômico.
-3. "O mundo visto do Brasil" (https://lcgalera.github.io/rotzx/globo/): portfólio histórico em que cada país mostra a
-   relação com o Brasil de 1946 a 2025 — comércio (Comex Stat), votos na ONU, conflitos armados (UCDP), disputas na OMC
-   e economia (Banco Mundial) —, com seletor de ano no globo. É a frente em foco agora; as notícias estão pausadas.
+3. Atlas "Como o Brasil se conecta ao mundo" (https://lcgalera.github.io/rotzx/globo/): de quem o Brasil depende para vender e
+   comprar, e como isso mudou desde 1997 — parceiros, produtos (SH4), concentração e comparação, com o contexto diplomático
+   (ONU, OMC, conflitos) em segundo plano. É a frente em foco; as notícias estão pausadas.
 
 ## Leia antes de mudar qualquer coisa
 - docs/PROJETO.md (visão geral, fontes, arquitetura, esquemas dos dados do globo, automação, limitações)
-- docs/DECISOES.md (D1–D46: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
+- docs/DECISOES.md (D1–D47: cada escolha e o motivo; registre uma decisão nova para cada mudança relevante)
 - README.md e prototipos/globo/LEIAME.md
 
 ## Regras que não podem ser quebradas
@@ -40,7 +40,7 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
 
 ## Como trabalhar
 - Python 3.9, dependências fixas em requirements.txt; .venv/bin/python -m rotzx <comando>; testes: .venv/bin/python -m pytest -q
-  (146 passam e 1 é pulado em 05/11/2026). Rode os testes antes de cada commit.
+  (147 passam e 1 é pulado em 06/11/2026). Rode os testes antes de cada commit.
 - Interface sem build: HTML/JS com bibliotecas por CDN com versão exata (globe.gl@2.46.2, topojson-client@3.1.0,
   world-atlas@2.0.2, three-globe@2.45.6 para as texturas). O globo é uma página só: prototipos/globo/index.html.
 - Teste a interface num navegador sem tela (Playwright/Chromium com WebGL por software) em desktop e celular
@@ -56,15 +56,16 @@ Projeto pessoal de inteligência econômica com dados abertos e rastreáveis, co
   domínio; documente na tabela de fontes (docs/PROJETO.md) e numa decisão nova.
 - Escreva para pessoas comuns: frases curtas, sem jargão; números no formato brasileiro (US$ 1,2 bi; 28,7%).
 
-## Estado e próximos passos (05/11/2026)
-- O globo é um portfólio histórico (D45, D46): todos os países × Brasil de 1946 a 2025, com seletor de ano e ▶, indicadores
-  (comércio, saldo, votos na ONU, conflitos) pintando o globo, ranking do ano e painel por país com gráficos (ECharts 5.5.0).
-  Dados em prototipos/globo/dados/historia.json (rotzx mundo-atualizar --historico) e catalog/paises_mundo.csv (rotzx mundo-codigos).
-  Sem coleta recorrente. Notícias pausadas e escondidas (NOTICIAS = false), com código e testes guardados para voltar.
-- Ideias na fila: "Por que importa para o Brasil" (texto curto com fonte de cada número e interpretação marcada); blocos e
-  alianças de fonte oficial; volta das notícias como frente principal.
-- Radar: setorial_v2 (faixas estreitas, 61–69% para meta de 80%); primeiras avaliações do IPCA (nov/2026) e da
-  indústria (dez/2026); validação com compradores antes da interface do radar de oportunidades.
+## Estado e próximos passos (06/11/2026)
+- Atlas publicado (D47): início com perguntas que executam ações, métricas no mapa com escalas fixas, painel do país em três
+  partes com resumo por regras fixas, explorar por produto, comparar dois parceiros, bandeiras (flag-icons 7.5.0), estado na URL,
+  lista funcional sem WebGL. Dados: prototipos/globo/dados/historia.json e produtos.json (rotzx mundo-atualizar --historico),
+  catalog/paises_mundo.csv (rotzx mundo-codigos).
+- Limitações: composição por produto só em 2000, 2010 e 2025; explorador com os 12 maiores parceiros por produto; valores em
+  dólares correntes; fronteiras atuais para países extintos.
+- Próximos passos possíveis: mais anos de composição por produto (a consulta do Comex é uma por ano e fluxo); séries em valores
+  reais ou volume (kg) para separar preço de quantidade; mapa 2D leve como alternativa visual ao globo.
+- Radar: setorial_v2; primeiras avaliações do IPCA (nov/2026) e da indústria (dez/2026).
 
 Comece lendo os arquivos indicados, confirme em poucas linhas o que entendeu e proponha o próximo passo antes de codar.
 ```

@@ -372,6 +372,9 @@ def test_tabela_de_paises_versionada_coerente():
     assert por["COG"]["comex"] != por["COD"]["comex"] and por["COD"]["nome"] == "Rep. Dem. do Congo"   # o "Congo" do Comex é a COG
     assert set(por["DEU"]["gw"]) == {260} and set(por["YEM"]["gw"]) >= {678, 680}
     assert sum(r["no_mapa"] for r in t) >= 170
+    assert len({r["nome"] for r in t}) == len(t)                                   # sem nomes repetidos
+    assert por["BRA"]["iso2"] == "BR" and por["VGB"]["nome"] != por["VIR"]["nome"]
+    assert por["BRA"]["tipo"] == "pais" and por["BMU"]["tipo"] == "territorio" and por["HKG"]["tipo"] == "territorio"
     # os 21 países com painel completo batem com a tabela
     for p in PAISES:
         assert por[p["iso3"]]["iso_num"] == p["iso_num"] and p["comex"] in por[p["iso3"]]["comex"], p["nome"]
@@ -410,12 +413,31 @@ def test_historia_comercio_soma_codigos_e_ano_sem_dado_fica_null(monkeypatch):
         "Estados Unidos": [("1201", "Soja", 6.0), ("2601", "Minério", 4.0)]} if fluxo == "exportacao" else {})
     nomes = [{"id": "249", "text": "Estados Unidos"}, {"id": "244", "text": "Emirados Árabes Unidos"}, {"id": "237", "text": "Dubai"},
              {"id": "994", "text": "A Designar"}]
-    historia.ANO_COMEX = 1997
-    c = historia.comercio(TAB, 1998, nomes_comex=nomes, ano_produtos_antes=1997)
+    pares = {}
+    c = historia.comercio(TAB, 1998, nomes_comex=nomes, anos_produtos=[1998], pares_saida=pares)
     assert c["paises"]["840"]["e"] == [10.0, None] and c["paises"]["840"]["i"] == [None, 4.0]
     assert c["paises"]["784"]["e"] == [None, 5.0]                    # Dubai soma nos Emirados
     assert c["brasil"]["e"] == [11.0, 5.0]                           # o total do Brasil inclui o que não é país
-    assert c["paises"]["840"]["p"]["1998"]["e"][0] == ["1201", 6, 0.6] and c["sh4"]["1201"] == "Soja"
+    # composição: total bilateral (denominador) e número de posições exatos, mais os maiores
+    assert c["paises"]["840"]["p"]["1998"]["e"] == {"t": 10, "n": 2, "top": [["1201", 6], ["2601", 4]]}
+    assert c["sh4"]["1201"] == "Soja" and c["curtos"]["1201"] == "Soja em grão (mesmo triturada)"
+    assert pares[(1998, "e")] == {"840": {"1201": 6.0, "2601": 4.0}}
+
+
+def test_produtos_series_parceiros_e_grupos_somados_sobre_a_distribuicao_completa(monkeypatch):
+    from rotzx.mundo import historia
+    serie = {"exportacao": {("1201", 1997): 60e6, ("3102", 1998): 1e6, ("3104", 1998): 2e6},
+             "importacao": {("3104", 1997): 70e6, ("3102", 1998): 5e6}}
+    monkeypatch.setattr(historia.comex, "produtos_serie", lambda a, b, fluxo, pasta=None: serie[fluxo])
+    pares = {(1998, "i"): {"643": {"3104": 30.0, "3102": 5.0}, "124": {"3104": 20.0}}}
+    pr = historia.produtos(1998, pares, {"1201": "Soja", "3104": "Adubos potássicos", "3102": "Adubos azotados"})
+    it = pr["itens"]
+    assert set(it) >= {"1201", "3104", "g-fertilizantes"} and "3102" not in it        # 3102 abaixo de US$ 50 mi: fora
+    assert it["1201"]["e"] == [60e6, None] and it["1201"]["nome"] == "Soja em grão (mesmo triturada)"
+    assert it["3104"]["p"]["1998"]["i"] == {"t": 50, "n": 2, "top": [["643", 30], ["124", 20]]}
+    g = it["g-fertilizantes"]
+    assert g["e"] == [None, 3e6] and g["i"] == [70e6, 5e6]                             # séries somadas por ano
+    assert g["p"]["1998"]["i"] == {"t": 55, "n": 2, "top": [["643", 35], ["124", 20]]}  # inclui o 3102 (fora da lista)
 
 
 def test_historia_votos_mediana_por_ano(tmp_path):

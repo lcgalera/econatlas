@@ -1,4 +1,12 @@
-# O mundo visto do Brasil (D38–D46)
+# Como o Brasil se conecta ao mundo (D38–D47)
+
+**Desde 06/11/2026 (D47):** atlas das relações comerciais do Brasil. Ver `docs/PROJETO.md`, seção 7: o que a pessoa vê, definições dos
+denominadores, esquema de `dados/historia.json` e `dados/produtos.json`, coleta e limitações. Teste no navegador: desktop 1440×900 e
+celular 390×844, com e sem WebGL. Bandeiras: flag-icons 7.5.0 (MIT) pela jsDelivr. O texto abaixo registra as versões anteriores.
+
+---
+
+## Versão de 05/11/2026 (D46)
 
 **Desde 05/11/2026 (D45, D46):** portfólio histórico. Todos os países × Brasil de 1946 a 2025 (comércio, votos na ONU, conflitos, OMC,
 economia), com indicador, barra de ano e ▶ embaixo do globo, ranking do ano à direita e painel por país com gráficos (ECharts 5.5.0 pela

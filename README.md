@@ -5,7 +5,7 @@ para a produção da indústria de máquinas e materiais elétricos nos próximo
 e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câmbio, atividade, renda, crédito) dá o contexto.
 
 - **Site público:** https://lcgalera.github.io/rotzx/ (comece por "Leitura do mês: indústria de materiais elétricos")
-- **O mundo visto do Brasil:** https://lcgalera.github.io/rotzx/globo/ (globo interativo: a relação de todos os países com o Brasil de 1946 a 2025, com seletor de ano; `prototipos/globo/`)
+- **Como o Brasil se conecta ao mundo:** https://lcgalera.github.io/rotzx/globo/ (atlas dos parceiros e produtos do comércio brasileiro desde 1997, com seletor de ano, comparação e explorador por produto; `prototipos/globo/`)
 - **Registro de previsões:** [`registro/`](registro/), que só recebe acréscimos (veja "Como auditar o registro")
 - **Documentação completa:** [`docs/PROJETO.md`](docs/PROJETO.md) · **prompt para continuar com uma IA:** [`docs/PROMPT.md`](docs/PROMPT.md)
 
@@ -16,7 +16,7 @@ e um placar público de acertos e erros. O Radar Brasil (inflação, juros, câm
 | Radar Setorial | Página "Indústria de materiais elétricos: o que os juros indicam" em linguagem simples. Análise de indicadores antecedentes fora da amostra (Clark-West com correção de Holm). Previsões da indústria de máquinas e materiais elétricos (IBGE, PIM-PF, seção 3.27; não mede investimento em transmissão nem compras de concessionárias) a 3 e 6 meses, com especificação fixa `setorial_v1` e placar automático |
 | MacroForecast | Previsões mensais do IPCA (ingênuo, sazonal ingênuo, SARIMA e Focus), backtest desde 2016 e faixa de 80% empírica, com cobertura medida antes e depois |
 | Radar Brasil | 18 séries públicas do BCB, do IBGE e do Focus, com nomes e unidades conferidos nas fontes oficiais |
-| O mundo visto do Brasil | Portfólio histórico: todos os países × Brasil, 1946–2025 — comércio (Comex Stat), votos na ONU, conflitos armados (UCDP), disputas na OMC e economia (Banco Mundial) —, com seletor de ano no globo e gráficos por país. Notícias pausadas (D38–D46) |
+| Atlas comercial (globo) | De quem o Brasil depende para vender e comprar: parceiros, produtos (SH4), concentração e mudanças desde 1997 (Comex Stat), com contexto diplomático (ONU, OMC, conflitos) e econômico; explorar por produto, comparar parceiros, bandeiras, estado na URL. Notícias pausadas (D38–D47) |
 | Brasil x Mundo | Adiado (baixa diferenciação) |
 
 ## Dados abertos × uso pessoal
